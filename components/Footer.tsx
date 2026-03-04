@@ -85,16 +85,6 @@ const Footer: React.FC = () => {
               </p>
            </div>
 
-           {/* Creator Badge */}
-           <div>
-              <div className="flex items-center gap-3 bg-[#F5F5F5] pr-4 rounded-full p-2 pl-4 hover:bg-[#E5E5E5] transition-colors group cursor-default">
-                 <div className="flex flex-col text-left">
-                    <span className="text-[10px] font-medium text-[#0C0C0C]/60 uppercase tracking-wide leading-none mb-1">Concept and design by</span>
-                    <span className="text-xs font-bold text-[#0C0C0C] leading-none">Outsource Studios</span>
-                 </div>
-              </div>
-           </div>
-
         </div>
 
       </div>
