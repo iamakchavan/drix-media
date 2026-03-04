@@ -3,27 +3,33 @@ import React, { useState } from 'react';
 const services = [
   {
     id: '01',
-    title: 'Branding',
-    image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop',
-    description: "We create impactful brand identities that differentiate your business and connect with your audience."
+    title: 'Creative Production',
+    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop',
+    description: "Films, photography, content creation that captures attention and tells your story."
   },
   {
     id: '02',
-    title: 'Development',
-    image: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2000&auto=format&fit=crop',
-    description: "From front-end interactions to robust backend functionality, we build robust solutions that scale with your business."
+    title: 'Branding & Identity',
+    image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop',
+    description: "Positioning, visual identity, messaging, and brand systems that differentiate you."
   },
   {
     id: '03',
-    title: 'Websites',
-    image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop',
-    description: "We design and build custom websites that blend performance and aesthetics, giving you the ability to captivate your audience and drive engagement."
+    title: 'Content Strategy & Marketing',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop',
+    description: "Content that connects with your audience and drives them to action."
   },
   {
     id: '04',
-    title: 'Design support',
-    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2000&auto=format&fit=crop',
-    description: "Our team is here to help with everything ranging from small updates to full-scale redesigns, tailored to meet your evolving needs."
+    title: 'Digital & Web Design',
+    image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop',
+    description: "Websites and digital experiences built for performance and usability."
+  },
+  {
+    id: '05',
+    title: 'Campaigns & Performance',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop',
+    description: "Integrated campaigns across channels designed to deliver measurable results."
   }
 ];
 
@@ -116,7 +122,7 @@ const ServicesSection: React.FC = () => {
                                         
                                         {/* Title */}
                                         <h3 
-                                            className={`text-5xl md:text-7xl lg:text-[6.5rem] font-medium tracking-[-0.07em] leading-[1.1] transition-all duration-300 
+                                            className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.05em] leading-[1.1] transition-all duration-300 
                                             ${isActive ? 'text-white' : 'text-white/15 group-hover:text-white/30'}`}
                                         >
                                             {service.title}

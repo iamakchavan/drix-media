@@ -27,32 +27,17 @@ const EyeSection: React.FC = () => {
             
             {/* Headline */}
             <h2 className="text-5xl md:text-7xl lg:text-[6rem] xl:text-[8rem] font-bold tracking-tighter text-white mb-24 md:mb-32 leading-[0.85] text-left">
-                Let’s bring your vision to life
+                Ready to Build Something That Works?
             </h2>
 
             {/* Bottom Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-32 items-end w-full">
                 
-                {/* Left Column: Info & Profile */}
+                {/* Left Column: Info */}
                 <div className="flex flex-col max-w-lg">
                     <p className="text-white/60 text-lg md:text-xl leading-relaxed font-medium mb-12">
-                        John is here to ensure your experience with us is smooth and successful. Reach out anytime — he’s here to make sure you feel confident and supported throughout your journey with us.
+                        Book a free strategy call and let's talk about where your brand can go.
                     </p>
-
-                    {/* Profile */}
-                    <div className="flex items-center gap-5">
-                        <div className="w-[60px] h-[60px] rounded-full overflow-hidden border border-white/10 shrink-0">
-                            <img 
-                                src="https://framerusercontent.com/images/GAsErf6ato67bzinhN1YVD4.jpg" 
-                                alt="John Taylor" 
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div className="flex flex-col justify-center">
-                            <span className="text-white font-bold text-lg leading-tight">John Taylor</span>
-                            <span className="text-white/60 text-sm font-medium">Client Success Manager</span>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Right Column: Form */}

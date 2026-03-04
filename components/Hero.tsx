@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Centered Hero Text */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 mt-16 md:mt-0">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-10 lg:px-12">
           <motion.h1
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -50,7 +50,7 @@ const Hero: React.FC = () => {
               mass: 1,
               delay: 0.2
             }}
-            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white text-center leading-[1.1] max-w-5xl mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-white text-center leading-[1.05] max-w-6xl mb-6 md:mb-8"
           >
             We Turn Ideas Into Impact
           </motion.h1>
@@ -65,7 +65,7 @@ const Hero: React.FC = () => {
               mass: 1,
               delay: 0.3
             }}
-            className="text-lg md:text-xl lg:text-2xl text-white/80 text-center font-medium max-w-3xl mb-10 leading-relaxed"
+            className="text-base md:text-lg lg:text-xl text-white/85 text-center font-medium max-w-2xl lg:max-w-3xl mb-10 md:mb-12 leading-relaxed px-4"
           >
             Drix Media is a creative agency that builds brands people remember. From strategy to execution, we handle the full journey of bringing your vision to life.
           </motion.p>
@@ -82,7 +82,7 @@ const Hero: React.FC = () => {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-black px-8 py-4 rounded-full font-bold text-base md:text-lg transition-colors duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:bg-gray-100"
+            className="bg-white text-black px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:bg-gray-100"
             onClick={() => {
               // Smooth scroll to contact section or open contact modal
               window.location.href = 'mailto:hello@drixmedia.com';

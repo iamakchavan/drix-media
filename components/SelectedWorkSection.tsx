@@ -105,8 +105,7 @@ const SelectedWorkSection: React.FC = () => {
 
                 {/* Main Title */}
                 <h2 className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tighter text-black leading-[0.95] z-10">
-                    Proven results,<br />
-                    stunning designs
+                    Selected Work
                 </h2>
 
                 {/* 2K24 Floating Badge */}

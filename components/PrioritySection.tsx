@@ -31,13 +31,10 @@ const PrioritySection: React.FC = () => {
   return (
     <section id="benefits" className="w-full bg-white py-24 px-4 md:px-8">
       {/* Header */}
-      <div className="max-w-4xl mx-auto text-center mb-20">
+      <div className="max-w-5xl mx-auto text-center mb-20">
         <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-6">
-          Your goals, our priority
+          Most Brands Face the Same Challenge
         </h2>
-        <p className="text-[#0C0C0C]/60 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
-          From concept to launch, we're committed to your success with rapid response times and personalized attention to detail.
-        </p>
       </div>
 
       {/* Grid */}
@@ -58,9 +55,9 @@ const PrioritySection: React.FC = () => {
             </div>
 
             <div className="mt-auto relative z-20">
-                <h3 className="text-xl font-bold text-black mb-3 tracking-tight">24/7 priority care</h3>
+                <h3 className="text-xl font-bold text-black mb-3 tracking-tight">Something's Missing</h3>
                 <p className="text-[#0C0C0C]/60 text-sm leading-relaxed">
-                    Receive priority treatment for urgent tasks, with an <span className="text-[#0C0C0C] font-normal">average response time of 24 hours</span> for high-priority clients.
+                    Your product is solid. Your team is talented. But something is missing. <span className="text-[#0C0C0C] font-normal">Maybe your branding feels generic or your content is not connecting.</span>
                 </p>
             </div>
         </div>
@@ -73,9 +70,9 @@ const PrioritySection: React.FC = () => {
              </div>
 
              <div className="mb-6 z-10">
-                <h3 className="text-xl font-bold text-black mb-2 tracking-tight">Tailored tweaks<br/>for perfection</h3>
+                <h3 className="text-xl font-bold text-black mb-2 tracking-tight">Disconnected<br/>Services</h3>
                 <p className="text-[#0C0C0C]/60 text-sm leading-relaxed mb-5">
-                    Request custom revisions at any time. We provide <span className="text-black font-normal">up to 5 minor revisions</span> post-launch to keep things looking fresh.
+                    Your campaigns are not converting. Or you are working with five different agencies and <span className="text-black font-normal">nothing feels cohesive.</span>
                 </p>
                 {/* Avatars */}
                 <div className="flex -space-x-2 pl-1">
@@ -95,18 +92,18 @@ const PrioritySection: React.FC = () => {
              {/* Inner Card */}
              <div className="bg-white rounded-2xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] mt-auto flex-1 flex flex-col justify-between">
                 <div>
-                    <h4 className="text-[18px] font-medium text-black tracking-tight mb-4">Post-Launch requests</h4>
+                    <h4 className="text-[18px] font-medium text-black tracking-tight mb-4">Disconnected Services</h4>
                     <ul className="space-y-3">
-                        <CheckItem text="Align text margins properly" checked />
-                        <CheckItem text="Increase mobile menu font size" checked />
-                        <CheckItem text="Replace images" checked />
-                        <CheckItem text="Fix button color: #F9452D" />
-                        <CheckItem text="Speed up page loading" />
+                        <CheckItem text="Disconnected services create disconnected brands" checked />
+                        <CheckItem text="Multiple agencies, no cohesion" checked />
+                        <CheckItem text="Strategy doesn't match execution" checked />
+                        <CheckItem text="Brand message gets diluted" />
+                        <CheckItem text="Wasted time and resources" />
                     </ul>
                 </div>
                 <div className="pt-4 border-t border-gray-100 flex items-center gap-2 text-[13px] font-medium text-black">
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="black"><path d="M9,0a9,9,0,1,0,9,9A9,9,0,0,0,9,0ZM9,16.51A7.51,7.51,0,1,1,16.51,9,7.52,7.52,0,0,1,9,16.51ZM4.8,7.49,3.74,8.55l3.85,3.86L14.26,5.74,13.2,4.68,7.59,10.29Z"/></svg>
-                    Valid for 3 months after launch
+                    This is the core problem
                 </div>
              </div>
         </div>
@@ -119,7 +116,7 @@ const PrioritySection: React.FC = () => {
              </div>
 
              <div className="relative z-10 text-center w-full mt-8 flex flex-col items-center">
-                 <span className="text-[13px] text-white font-medium mb-6 block tracking-tight">Download brand kit</span>
+                 <span className="text-[13px] text-white font-medium mb-6 block tracking-tight">Integrated Services</span>
                  <div className="flex justify-center gap-6 text-white mb-16 opacity-100">
                      <IconFolder />
                      <IconPen />
@@ -135,9 +132,9 @@ const PrioritySection: React.FC = () => {
              </div>
 
              <div className="relative z-10 text-center mb-2">
-                 <h3 className="text-xl font-bold text-white mb-3 tracking-tight">Brand kit at your fingertips</h3>
+                 <h3 className="text-xl font-bold text-white mb-3 tracking-tight">Our Solution</h3>
                  <p className="text-white/60 text-sm leading-relaxed px-2">
-                    Receive a full branding toolkit, from logos to color schemes and typography, <span className="text-white font-normal">download all assets</span> or share them with your team.
+                    We bring everything under one roof. <span className="text-white font-normal">Strategy, design, content, campaigns, and execution</span> working together as one system.
                  </p>
              </div>
         </div>
@@ -174,17 +171,17 @@ const PrioritySection: React.FC = () => {
                                 </div>
                                 <div className="flex-1 min-w-0 pt-0.5">
                                     <div className="flex justify-between items-baseline mb-0.5">
-                                        <span className="text-[12px] font-semibold text-[#0B0B0C]">Designer</span>
+                                        <span className="text-[12px] font-semibold text-[#0B0B0C]">Your Team</span>
                                         <span className="text-[11px] font-medium text-[#111112]">Today 09:17</span>
                                     </div>
-                                    <p className="text-[13px] text-black/60 leading-tight">Logo update complete, ready for your review!</p>
+                                    <p className="text-[13px] text-black/60 leading-tight">One integrated team building one unified brand!</p>
                                 </div>
                             </div>
 
                              {/* Bottom Branding */}
                             <div className="absolute bottom-20 left-0 right-0 text-center text-white/90 z-20">
                                 <div className="font-bebas text-[30px] leading-[0.85em] tracking-[-0.04em] mb-4">DRIX MEDIA<sup className="text-[12px]">®</sup></div>
-                                <div className="text-[14px] font-medium tracking-tight leading-[1.4] opacity-100">Real-Time<br/>Support</div>
+                                <div className="text-[14px] font-medium tracking-tight leading-[1.4] opacity-100">One Team<br/>One Brand</div>
                             </div>
                       </div>
                  </div>

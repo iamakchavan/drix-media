@@ -3,23 +3,28 @@ import React from 'react';
 const steps = [
   {
     number: "01",
-    title: "Discovery & Strategy",
-    description: "Choose the plan that best fits your needs. From a solid foundation to a fully optimized solution"
+    title: "Discovery",
+    description: "We start by understanding your business, audience, and goals. Not just what you want to say, but what your customers need to hear."
   },
   {
     number: "02",
-    title: "Design & Prototyping",
-    description: "Our designers bring your vision to life with wireframes and prototypes, focusing on an engaging user experience."
+    title: "Strategy",
+    description: "We define your positioning, messaging, and creative direction. Everything we build starts here."
   },
   {
     number: "03",
-    title: "Development & Integration",
-    description: "Choose the plan that best fits your needs. From a solid foundation to a fully optimized solution."
+    title: "Creation",
+    description: "Our team brings the strategy to life through design, content, and production. Integrated work that feels like one unified voice."
   },
   {
     number: "04",
-    title: "Launch & Support",
-    description: "After testing and final approvals, we launch the site and provide ongoing support."
+    title: "Execution",
+    description: "We launch, monitor, optimize, and scale. You get regular updates and clear reporting on performance."
+  },
+  {
+    number: "05",
+    title: "Growth",
+    description: "We do not stop at launch. We refine, test, and improve based on real data to keep driving results."
   }
 ];
 
@@ -32,7 +37,7 @@ const ProcessSection: React.FC = () => {
         <div className="lg:col-span-5 flex flex-col items-start pt-4">
           <h2 className="text-5xl md:text-[5rem] leading-[0.9] font-bold tracking-tighter mb-8">Our process</h2>
           <p className="text-[#0C0C0C]/60 text-base md:text-lg leading-relaxed mb-12 max-w-sm">
-            Our four-step process keeps you informed and involved at every stage, ensuring the final result meets your goals and resonates with your audience.
+            Our five-step process keeps you informed and involved at every stage, ensuring the final result meets your goals and resonates with your audience.
           </p>
           
           <a href="#" className="flex items-center gap-4 group">
