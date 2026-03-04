@@ -1,42 +1,24 @@
 import React from 'react';
-import Hero from './components/Hero';
-import TrustBar from './components/TrustBar';
-import ServicesSection from './components/ServicesSection';
-import PrioritySection from './components/PrioritySection';
-import WhyDrixSection from './components/WhyDrixSection';
-import QuoteSection from './components/QuoteSection';
-import PartnersSection from './components/PartnersSection';
-import PricingSection from './components/PricingSection';
-import Footer from './components/Footer';
-import ProcessSection from './components/ProcessSection';
-import TestimonialsSection from './components/TestimonialsSection';
-import FAQSection from './components/FAQSection';
-import EyeSection from './components/EyeSection';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
+import Blog from './pages/Blog';
 
 const App: React.FC = () => {
   return (
-    <main className="w-full min-h-screen bg-black">
-      <Hero />
-      
-      {/* 
-        Wrapper for all subsequent content. 
-        bg-white: Acts as a base layer for the main content sections.
-        Individual sections with different backgrounds (like ServicesSection) will layer on top of this.
-      */}
-      <div className="relative z-10 bg-white">
-        <TrustBar />
-        <PrioritySection />
-        <WhyDrixSection />
-        <ServicesSection />
-        <QuoteSection />
-        <PricingSection />
-        <ProcessSection />
-        <TestimonialsSection />
-        <FAQSection />
-        <EyeSection />
-        <Footer />
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/blog" element={<Blog />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

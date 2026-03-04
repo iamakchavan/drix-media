@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +10,7 @@ const Navbar: React.FC = () => {
     if (isOpen) {
       // Calculate scrollbar width
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
+
       // Apply styles to prevent shift
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = 'hidden';
@@ -70,59 +71,60 @@ const Navbar: React.FC = () => {
   };
 
   const itemVariants: Variants = {
-    closed: { 
-        opacity: 0, 
-        y: -20,
-        transition: { duration: 0.2 } 
+    closed: {
+      opacity: 0,
+      y: -20,
+      transition: { duration: 0.2 }
     },
-    open: { 
-        opacity: 1, 
-        y: 0,
-        transition: { 
-            type: "spring", 
-            stiffness: 300, 
-            damping: 30 
-        } 
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30
+      }
     }
   };
 
-  const menuItems = ['Home', 'About', 'Projects', 'Blog', 'Contact'];
+  const menuItems = ['Home', 'About', 'Services', 'Careers', 'Projects', 'Blog', 'Contact'];
 
   return (
     <>
       {/* Main Navbar (Always Visible, z-50) */}
       <nav className="w-full flex justify-between items-start pt-4 md:pt-6 z-50 relative">
         {/* Logo - visible when closed */}
-        <div className={`text-xl md:text-3xl font-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500 ease-in-out ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+        <Link to="/" className={`text-xl md:text-3xl font-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500 ease-in-out ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
           DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup>
-        </div>
+        </Link>
 
         {/* Center Links (Desktop) - Hide when open */}
-        <div className={`hidden md:flex items-start justify-center gap-20 lg:gap-32 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <a href="#" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
-              About
-          </a>
-          <div className="relative flex flex-col items-center group cursor-pointer">
-              <a href="#" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase z-10">
-                  Projects
-              </a>
-          </div>
-          <a href="#" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
-              Contact
-          </a>
+        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          <Link to="/about" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+            About
+          </Link>
+          <Link to="/services" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+            Services
+          </Link>
+          <Link to="/blog" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+            Journal
+          </Link>
+          <Link to="/contact" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+            Contact
+          </Link>
         </div>
 
         {/* Menu Trigger - Hide when open */}
-        <button 
-            onClick={() => setIsOpen(true)}
-            className={`flex items-center gap-3 group cursor-pointer mix-blend-difference z-[50] transition-all duration-300 ${isOpen ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
+        <button
+          onClick={() => setIsOpen(true)}
+          className={`flex items-center gap-3 group cursor-pointer mix-blend-difference z-[50] transition-all duration-300 ${isOpen ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
         >
           <div className="flex flex-col gap-1.5 items-end pt-1">
             <span className="block w-8 h-[2px] bg-white group-hover:bg-brand-cyan transition-colors duration-300"></span>
             <span className="block w-5 h-[2px] bg-white group-hover:w-8 group-hover:bg-brand-cyan transition-all duration-300"></span>
           </div>
           <span className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white group-hover:text-brand-cyan transition-colors duration-300 leading-none">
-              Menu
+            Menu
           </span>
         </button>
       </nav>
@@ -132,15 +134,15 @@ const Navbar: React.FC = () => {
         {isOpen && (
           <>
             {/* Backdrop with Blur */}
-            <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                onClick={() => setIsOpen(false)}
-                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[998]"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[998]"
             />
-            
+
             <motion.div
               initial="closed"
               animate="open"
@@ -148,81 +150,83 @@ const Navbar: React.FC = () => {
               variants={menuVariants}
               className="fixed top-0 left-0 w-full bg-[#F9452D] z-[999] flex flex-col text-white shadow-2xl overflow-hidden"
             >
-               <div className="flex flex-col w-full max-w-[1600px] mx-auto px-6 md:px-10 py-8 md:py-10">
-                  
-                  {/* Header Row: Logo + Close Button */}
-                  <div className="flex justify-between items-start">
-                      {/* Logo */}
-                      <motion.div 
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ delay: 0.2, duration: 0.3 }}
-                        className="text-xl md:text-3xl font-black tracking-tighter uppercase"
-                      >
-                          DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup>
-                      </motion.div>
+              <div className="flex flex-col w-full max-w-[1600px] mx-auto px-6 md:px-10 py-8 md:py-10">
 
-                      {/* Close Button */}
-                      <motion.button 
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{ delay: 0.2, duration: 0.3 }}
-                          onClick={() => setIsOpen(false)}
-                          className="flex items-center gap-3 md:gap-5 group cursor-pointer hover:opacity-80 transition-opacity"
-                      >
-                          {/* X Icon */}
-                          <div className="relative w-8 h-8 md:w-12 md:h-5 flex items-center justify-center">
-                              <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-                              <span className="absolute block w-full h-[2px] bg-white -rotate-12 md:-rotate-6 origin-center"></span>
-                              <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center"></span>
-                          </div>
-                          {/* MENU Text */}
-                          <span className="text-4xl md:text-6xl font-bebas font-normal uppercase tracking-tight leading-[0.8]">
-                              MENU
-                          </span>
-                      </motion.button>
+                {/* Header Row: Logo + Close Button */}
+                <div className="flex justify-between items-start">
+                  {/* Logo */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                    className="text-xl md:text-3xl font-black tracking-tighter uppercase"
+                  >
+                    <Link to="/" onClick={() => setIsOpen(false)}>DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup></Link>
+                  </motion.div>
+
+                  {/* Close Button */}
+                  <motion.button
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ delay: 0.2, duration: 0.3 }}
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 md:gap-5 group cursor-pointer hover:opacity-80 transition-opacity"
+                  >
+                    {/* X Icon */}
+                    <div className="relative w-8 h-8 md:w-12 md:h-5 flex items-center justify-center">
+                      <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                      <span className="absolute block w-full h-[2px] bg-white -rotate-12 md:-rotate-6 origin-center"></span>
+                      <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center"></span>
+                    </div>
+                    {/* MENU Text */}
+                    <span className="text-4xl md:text-6xl font-bebas font-normal uppercase tracking-tight leading-[0.8]">
+                      MENU
+                    </span>
+                  </motion.button>
+                </div>
+
+                {/* Content Grid */}
+                <motion.div
+                  variants={containerVariants}
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  className="flex flex-col md:flex-row justify-between items-end mt-12 md:mt-24 pb-8"
+                >
+
+                  {/* Left Side: Contact Info */}
+                  <motion.div
+                    variants={itemVariants}
+                    className="flex flex-col gap-3 w-full md:w-auto mb-8 md:mb-0 order-2 md:order-1"
+                  >
+                    <a href="tel:5108956500" className="text-base md:text-lg font-medium hover:text-black transition-colors opacity-90 block">(510) 895-6500</a>
+                    <a href="mailto:hello@drixmedia.com" className="text-2xl md:text-4xl font-bold tracking-tight hover:text-black transition-colors leading-none block">
+                      hello@drixmedia.com
+                    </a>
+                  </motion.div>
+
+                  {/* Right Side: Navigation Links */}
+                  <div className="flex flex-col items-end gap-1 md:gap-2 w-full md:w-auto text-right order-1 md:order-2 mb-10 md:mb-0">
+                    {menuItems.map((item) => {
+                      const path = item.toLowerCase() === 'home' ? '/' : `/${item.toLowerCase()}`;
+                      return (
+                        <motion.div key={item} variants={itemVariants} className="block origin-right">
+                          <Link
+                            to={path}
+                            onClick={() => setIsOpen(false)}
+                            className="text-3xl md:text-5xl font-bold tracking-tight hover:text-black transition-colors duration-200 leading-tight block"
+                          >
+                            {item}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
                   </div>
 
-                  {/* Content Grid */}
-                  <motion.div 
-                    variants={containerVariants}
-                    initial="closed"
-                    animate="open"
-                    exit="closed"
-                    className="flex flex-col md:flex-row justify-between items-end mt-12 md:mt-24 pb-8"
-                  >
-                      
-                      {/* Left Side: Contact Info */}
-                      <motion.div 
-                          variants={itemVariants}
-                          className="flex flex-col gap-3 w-full md:w-auto mb-8 md:mb-0 order-2 md:order-1"
-                      >
-                           <a href="tel:5108956500" className="text-base md:text-lg font-medium hover:text-black transition-colors opacity-90 block">(510) 895-6500</a>
-                           <a href="mailto:hello@drixmedia.com" className="text-2xl md:text-4xl font-bold tracking-tight hover:text-black transition-colors leading-none block">
-                               hello@drixmedia.com
-                           </a>
-                      </motion.div>
-
-                      {/* Right Side: Navigation Links */}
-                      <div className="flex flex-col items-end gap-1 md:gap-2 w-full md:w-auto text-right order-1 md:order-2 mb-10 md:mb-0">
-                          {menuItems.map((item) => (
-                              <motion.a 
-                                  key={item}
-                                  href="#"
-                                  variants={itemVariants}
-                                  className="text-3xl md:text-5xl font-bold tracking-tight hover:text-black transition-colors duration-200 leading-tight block origin-right"
-                                  whileHover={{ scale: 1.05, x: -10 }}
-                                  whileTap={{ scale: 0.95 }}
-                              >
-                                  {item}
-                              </motion.a>
-                          ))}
-                      </div>
-
-                  </motion.div>
-               </div>
+                </motion.div>
+              </div>
             </motion.div>
           </>
         )}
