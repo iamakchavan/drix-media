@@ -1,57 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DRIX MEDIA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #000;
-        color: white;
-      }
-      .font-stretch-condensed {
-        font-stretch: condensed;
-      }
-      .font-bebas {
-        font-family: 'Bebas Neue', sans-serif;
-      }
-    </style>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              bebas: ['Bebas Neue', 'sans-serif'],
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DRIX MEDIA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Mona Sans';
+      src: url('https://github.com/github/mona-sans/raw/main/fonts/variable/Mona-Sans.woff2') format('woff2');
+      font-weight: 200 900;
+      font-stretch: 75% 125%;
+      font-display: swap;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      color: white;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-heading,
+    .font-bebas {
+      font-family: 'Mona Sans', sans-serif !important;
+      font-variation-settings: "wdth" 75;
+      letter-spacing: -0.02em;
+    }
+
+    .font-stretch-condensed {
+      font-stretch: condensed;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            heading: ['Mona Sans', 'Poppins', 'sans-serif'],
+            bebas: ['Mona Sans', 'Poppins', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              lime: '#AFFF00',
+              green: '#094B28',
+              'lime-dark': '#588B00',
+              'lime-contrast': '#476D07',
             },
-            colors: {
-              brand: {
-                yellow: '#FDE047', // A bright yellow
-                cyan: '#67E8F9',   // A bright cyan
-              }
+            'green-yellow': {
+              50: '#FAFFE4',
+              100: '#F2FFC4',
+              200: '#E4FF90',
+              300: '#CEFF50',
+              400: '#AFFF00',
+              500: '#98E600',
+              600: '#75B800',
+              700: '#588B00',
+              800: '#476D07',
+              900: '#3C5C0B',
+              950: '#1D3400',
             },
-            letterSpacing: {
-              tighter: '-0.05em',
-              tightest: '-0.08em',
-            },
-            animation: {
-              marquee: 'marquee 40s linear infinite',
-            },
-            keyframes: {
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-100%)' },
-              }
+            'kaitoke': {
+              50: '#EEFFF4',
+              100: '#D7FFE9',
+              200: '#B2FFD3',
+              300: '#77FEB2',
+              400: '#35F388',
+              500: '#0BDC67',
+              600: '#02B752',
+              700: '#068F43',
+              800: '#0B7038',
+              900: '#094B28',
+              950: '#003419',
+            }
+          },
+          letterSpacing: {
+            tighter: '-0.05em',
+            tightest: '-0.08em',
+          },
+          animation: {
+            marquee: 'marquee 40s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
             }
           }
         }
       }
-    </script>
+    }
+  </script>
   <script type="importmap">
 {
   "imports": {
@@ -63,45 +111,50 @@
   }
 }
 </script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
-    <script>
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
-        mouseMultiplier: 1,
-        smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
-      })
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    })
 
-      function raf(time) {
-        lenis.raf(time)
-        requestAnimationFrame(raf)
-      }
-
+    function raf(time) {
+      lenis.raf(time)
       requestAnimationFrame(raf)
-    </script>
-    <style>
-      html.lenis {
-        height: auto;
-      }
-      .lenis.lenis-smooth {
-        scroll-behavior: auto;
-      }
-      .lenis.lenis-smooth [data-lenis-prevent] {
-        overscroll-behavior: contain;
-      }
-      .lenis.lenis-stopped {
-        overflow: hidden;
-      }
-    </style>
+    }
+
+    requestAnimationFrame(raf)
+  </script>
+  <style>
+    html.lenis {
+      height: auto;
+    }
+
+    .lenis.lenis-smooth {
+      scroll-behavior: auto;
+    }
+
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+  </style>
   <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

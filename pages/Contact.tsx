@@ -61,7 +61,7 @@ const ContactHero = () => (
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
                 <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Inquire</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#F9452D] to-transparent"></div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
     </div>
@@ -114,7 +114,7 @@ const ContactFormSection = () => {
                     <div className="flex flex-col justify-between py-2">
                         <div>
                             <p className="text-xl font-bold text-black mb-2">(+91) 98765 43210</p>
-                            <a href="mailto:hello@drixmedia.com" className="text-3xl md:text-5xl lg:text-6xl font-black text-black hover:text-[#F9452D] transition-colors leading-[1.1] break-all">
+                            <a href="mailto:hello@drixmedia.com" className="text-3xl md:text-5xl lg:text-6xl font-black text-black hover:text-[#AFFF00] transition-colors leading-[1.1] break-all">
                                 hello@drixmedia.com
                             </a>
                         </div>
@@ -141,7 +141,7 @@ const ContactFormSection = () => {
                                 { name: 'Instagram', href: '#' }
                             ].map(social => (
                                 <a key={social.name} href={social.href} className="flex items-center gap-3 group text-xl font-bold text-black">
-                                    <span className="text-[#F9452D] transform translate-y-[-2px] group-hover:translate-x-1 group-hover:translate-y-[-4px] transition-transform duration-300">
+                                    <span className="text-[#AFFF00] transform translate-y-[-2px] group-hover:translate-x-1 group-hover:translate-y-[-4px] transition-transform duration-300">
                                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                                             <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
@@ -250,7 +250,7 @@ const ContactFormSection = () => {
                                         type="submit"
                                         className="mt-12 flex items-center gap-4 group hover:opacity-70 transition-opacity"
                                     >
-                                        <div className="w-8 h-8 flex items-center justify-center text-[#F9452D]">
+                                        <div className="w-8 h-8 flex items-center justify-center text-[#AFFF00]">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
@@ -285,7 +285,7 @@ const WhatHappensNext = () => (
 
             {/* Left: Sticky Branding */}
             <div className="lg:col-span-4 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">The Journey</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase mb-8">The Journey</p>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
                     What <br /><span className="text-black/15">Next</span>
                 </h2>
@@ -301,12 +301,12 @@ const WhatHappensNext = () => (
                     {nextSteps.map((step, i) => (
                         <div key={i} className="flex flex-col group">
                             <div className="flex items-center gap-4 mb-6">
-                                <span className="text-4xl font-black text-black/5 group-hover:text-[#F9452D]/10 transition-colors duration-500">
+                                <span className="text-4xl font-black text-black/5 group-hover:text-[#AFFF00]/10 transition-colors duration-500">
                                     {step.number}
                                 </span>
-                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#F9452D]/20 transition-colors"></div>
+                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#AFFF00]/20 transition-colors"></div>
                             </div>
-                            <h3 className="text-2xl font-bold text-black mb-3 tracking-tight group-hover:text-[#F9452D] transition-colors duration-300">
+                            <h3 className="text-2xl font-bold text-black mb-3 tracking-tight group-hover:text-[#AFFF00] transition-colors duration-300">
                                 {step.title}
                             </h3>
                             <p className="text-black/50 text-lg leading-relaxed font-medium">
@@ -317,7 +317,7 @@ const WhatHappensNext = () => (
                 </div>
 
                 {/* Visual Accent */}
-                <div className="mt-24 p-[0.5px] bg-gradient-to-r from-[#F9452D] to-transparent opacity-10"></div>
+                <div className="mt-24 p-[0.5px] bg-gradient-to-r from-[#AFFF00] to-transparent opacity-10"></div>
             </div>
 
         </div>
@@ -344,9 +344,9 @@ const FAQItem = ({ q, a }: { q: string; a: string;[key: string]: any }) => {
                 onClick={() => setOpen(!open)}
                 className="w-full flex items-start justify-between gap-6 py-7 text-left group"
             >
-                <span className="text-lg md:text-xl font-bold text-black tracking-tight group-hover:text-[#F9452D] transition-colors duration-200 leading-snug">{q}</span>
-                <div className={`shrink-0 w-8 h-8 rounded-full border border-[#E5E5E5] flex items-center justify-center mt-0.5 transition-all duration-300 ${open ? 'bg-[#F9452D] border-[#F9452D] rotate-45' : 'bg-white'}`}>
-                    <svg width="12" height="12" viewBox="0 0 256 256" fill={open ? 'white' : '#0C0C0C'}>
+                <span className="text-lg md:text-xl font-bold text-black tracking-tight group-hover:text-[#476D07] transition-colors duration-200 leading-snug">{q}</span>
+                <div className={`shrink-0 w-8 h-8 rounded-full border border-[#E5E5E5] flex items-center justify-center mt-0.5 transition-all duration-300 ${open ? 'bg-[#AFFF00] border-[#AFFF00] rotate-45 text-black' : 'bg-white'}`}>
+                    <svg width="12" height="12" viewBox="0 0 256 256" fill={open ? 'black' : '#0C0C0C'}>
                         <path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z" />
                     </svg>
                 </div>
@@ -413,11 +413,11 @@ const SocialProof = () => (
                         {/* Subtle grid */}
                         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                         {/* Red corner */}
-                        <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#F9452D]"></div>
+                        <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#AFFF00]"></div>
 
                         <div className="relative z-10">
                             {/* Quote mark */}
-                            <div className="mb-8 text-[#F9452D]">
+                            <div className="mb-8 text-[#AFFF00]">
                                 <svg width="36" height="36" viewBox="0 0 256 256" fill="currentColor">
                                     <path d="M100,60H44A12,12,0,0,0,32,72v56a12,12,0,0,0,12,12h45.51C83.74,169.53,62.88,189.67,36.26,198.81a8,8,0,1,0,5.19,15.13c33.36-11.45,60.67-37.47,69.58-77.57A12.54,12.54,0,0,0,112,128V72A12,12,0,0,0,100,60Zm112,0H156a12,12,0,0,0-12,12v56a12,12,0,0,0,12,12h45.51c-5.77,29.53-26.63,49.67-53.25,58.81a8,8,0,1,0,5.19,15.13c33.36-11.45,60.67-37.47,69.58-77.57A12.54,12.54,0,0,0,224,128V72A12,12,0,0,0,212,60Z" />
                                 </svg>
@@ -426,7 +426,7 @@ const SocialProof = () => (
                                 "{t.quote}"
                             </p>
                             <div className="flex items-center gap-4 border-t border-white/10 pt-8">
-                                <div className="w-10 h-10 rounded-full bg-[#F9452D] flex items-center justify-center text-white font-bold text-base shrink-0 shadow-[0_0_20px_rgba(249,69,45,0.4)]">
+                                <div className="w-10 h-10 rounded-full bg-[#AFFF00] flex items-center justify-center text-black font-bold text-base shrink-0 shadow-[0_0_20px_rgba(175,255,0,0.4)]">
                                     {t.author[0]}
                                 </div>
                                 <div>
@@ -509,16 +509,16 @@ const SocialMediaSection = () => (
                         href={s.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="relative flex items-center justify-between gap-4 py-6 border-t border-[#E5E5E5] group hover:text-[#F9452D] transition-colors duration-200"
+                        className="relative flex items-center justify-between gap-4 py-6 border-t border-[#E5E5E5] group hover:text-[#AFFF00] transition-colors duration-200"
                     >
-                        <div className="absolute top-[-1px] right-0 w-2 h-2 border-r-[2px] border-b-[2px] border-[#F9452D] transform -rotate-90"></div>
+                        <div className="absolute top-[-1px] right-0 w-2 h-2 border-r-[2px] border-b-[2px] border-[#AFFF00] transform -rotate-90"></div>
                         <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#0C0C0C] group-hover:bg-[#F9452D] group-hover:text-white transition-all duration-300 shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#0C0C0C] group-hover:bg-[#AFFF00] group-hover:text-black transition-all duration-300 shrink-0">
                                 {s.icon}
                             </div>
-                            <span className="text-xl font-bold text-black group-hover:text-[#F9452D] tracking-tight transition-colors duration-200">{s.name}</span>
+                            <span className="text-xl font-bold text-black group-hover:text-[#AFFF00] tracking-tight transition-colors duration-200">{s.name}</span>
                         </div>
-                        <div className="w-5 h-5 text-[#F9452D] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0">
+                        <div className="w-5 h-5 text-[#AFFF00] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0">
                             <svg viewBox="0 0 256 256" fill="currentColor" className="w-full h-full">
                                 <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z" />
                             </svg>
@@ -534,13 +534,13 @@ const SocialMediaSection = () => (
 // ─── CTA ─────────────────────────────────────────────────────────────────────
 
 const CTASection = () => (
-    <section className="w-full bg-black text-white p-6 md:p-12 pb-24 mx-auto max-w-full">
-        <div className="w-full bg-[#F9452D] py-32 px-6 text-center text-white flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight">
+    <section className="w-full bg-black text-black p-6 md:p-12 pb-24 mx-auto max-w-full">
+        <div className="w-full bg-[#AFFF00] py-32 px-6 text-center text-black flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight text-black">
                 Ready to Get Started?
             </h2>
-            <p className="text-xl md:text-2xl font-medium mb-12 opacity-90 max-w-2xl relative z-10 tracking-tight">
+            <p className="text-xl md:text-2xl font-medium mb-12 text-black/70 max-w-2xl relative z-10 tracking-tight">
                 Book your strategy call and let's build something great.
             </p>
             <a

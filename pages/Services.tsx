@@ -62,7 +62,7 @@ const ServicesHero = () => (
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
                 <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Explore</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#F9452D] to-transparent"></div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
     </div>
@@ -76,7 +76,7 @@ const ServicesOverview = () => (
 
             {/* Left: Sticky Headline */}
             <div className="lg:col-span-5 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">Integrated Strategy</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase mb-8">Integrated Strategy</p>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
                     One Team.<br /><span className="text-black/15 text-5xl md:text-7xl">One Vision.</span>
                 </h2>
@@ -104,11 +104,11 @@ const ServicesOverview = () => (
 
                 {/* Integrated Highlight Block */}
                 <div className="mt-8 p-10 md:p-14 bg-[#FAFAFA] border border-gray-100 relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-full h-[3px] bg-[#F9452D]"></div>
+                    <div className="absolute top-0 left-0 w-full h-[3px] bg-[#AFFF00]"></div>
                     <p className="text-2xl md:text-3xl font-black text-black leading-tight tracking-tight">
                         One team. One vision. Better results.
                     </p>
-                    <div className="mt-8 flex items-center gap-4 text-black/20 group-hover:text-[#F9452D] transition-colors duration-500">
+                    <div className="mt-8 flex items-center gap-4 text-black/20 group-hover:text-[#AFFF00] transition-colors duration-500">
                         <div className="w-12 h-[1px] bg-current"></div>
                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/40">The Drix Media Engine</span>
                     </div>
@@ -136,13 +136,13 @@ interface ServiceDetailProps {
 const ServiceDetail: React.FC<ServiceDetailProps> = ({
     number, title, whatWeDo, deliverables, whyItMatters, howWeDiffer, image, dark, accent
 }) => {
-    const bg = accent ? 'bg-[#F9452D]' : dark ? 'bg-black' : 'bg-[#FAFAFA]';
-    const textColor = (dark || accent) ? 'text-white' : 'text-[#0C0C0C]';
-    const subColor = (dark || accent) ? 'text-white/60' : 'text-[#0C0C0C]/50';
-    const numberBg = accent ? 'bg-black text-white' : dark ? 'bg-[#F9452D] text-white' : 'bg-black text-white';
-    const labelColor = (dark || accent) ? 'text-white/40' : 'text-black/30';
-    const borderColor = (dark || accent) ? 'border-white/10' : 'border-black/5';
-    const dotColor = accent ? 'bg-white' : 'bg-[#F9452D]';
+    const bg = accent ? 'bg-[#AFFF00]' : dark ? 'bg-black' : 'bg-[#FAFAFA]';
+    const textColor = accent ? 'text-black' : dark ? 'text-white' : 'text-[#0C0C0C]';
+    const subColor = accent ? 'text-black/60' : dark ? 'text-white/60' : 'text-[#0C0C0C]/50';
+    const numberBg = accent ? 'bg-black text-white' : dark ? 'bg-[#AFFF00] text-black' : 'bg-black text-white';
+    const labelColor = accent ? 'text-black/40' : dark ? 'text-white/40' : 'text-black/30';
+    const borderColor = accent ? 'border-black/10' : dark ? 'border-white/10' : 'border-black/5';
+    const dotColor = accent ? 'bg-white' : 'bg-[#AFFF00]';
 
     return (
         <section className={`w-full ${bg} py-32 md:py-48 px-6 md:px-12 first:pt-48`}>
@@ -358,7 +358,7 @@ const WhyIntegrated = () => (
                             0{i + 1}
                         </div>
                         {/* Red corner accent */}
-                        <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#F9452D]"></div>
+                        <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#AFFF00]"></div>
 
                         <div className="mt-4">
                             <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 tracking-tight">{card.title}</h3>
@@ -376,7 +376,7 @@ const WhyIntegrated = () => (
                     style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '40px 40px' }}
                 ></div>
                 {/* Glow */}
-                <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[#F9452D]/20 blur-3xl pointer-events-none"></div>
+                <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[#AFFF00]/20 blur-3xl pointer-events-none"></div>
 
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
@@ -391,7 +391,7 @@ const WhyIntegrated = () => (
                     <div className="flex flex-col gap-6">
                         {['One contract, one invoice', 'Integrated performance tracking', 'Consistent voice across every touchpoint', 'We handle all internal coordination'].map((item, i) => (
                             <div key={i} className="flex items-center gap-4 border-t border-white/10 pt-6">
-                                <div className="w-5 h-5 rounded-full bg-[#F9452D] flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(249,69,45,0.4)]">
+                                <div className="w-5 h-5 rounded-full bg-[#AFFF00] flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(249,69,45,0.4)]">
                                     <svg width="10" height="8" viewBox="0 0 8 6" fill="black"><path d="M2.5 6L0 3.5L0.71 2.79L2.5 4.58L7.29 0L8 0.71L2.5 6Z" /></svg>
                                 </div>
                                 <span className="text-white font-medium text-lg">{item}</span>
@@ -431,7 +431,7 @@ const ComparisonTable = () => {
                         <p className="text-sm font-bold tracking-[0.12em] uppercase text-black/50">Traditional Agency Model</p>
                     </div>
                     <div className="bg-black px-6 md:px-10 py-5 border border-black">
-                        <p className="text-sm font-bold tracking-[0.12em] uppercase text-[#F9452D]">Drix Media Integrated Model</p>
+                        <p className="text-sm font-bold tracking-[0.12em] uppercase text-[#AFFF00]">Drix Media Integrated Model</p>
                     </div>
                 </div>
 
@@ -443,7 +443,7 @@ const ComparisonTable = () => {
                             <span className="text-[#0C0C0C]/70 text-base">{left}</span>
                         </div>
                         <div className="flex items-center gap-4 px-6 md:px-10 py-6 border border-black border-t-0 bg-black/3 group">
-                            <div className="w-2 h-2 rounded-full bg-[#F9452D] shrink-0 shadow-[0_0_8px_rgba(249,69,45,0.5)]"></div>
+                            <div className="w-2 h-2 rounded-full bg-[#AFFF00] shrink-0 shadow-[0_0_8px_rgba(249,69,45,0.5)]"></div>
                             <span className="text-[#0C0C0C] font-medium text-base">{right}</span>
                         </div>
                     </div>
@@ -456,13 +456,13 @@ const ComparisonTable = () => {
 // ─── CTA Section ─────────────────────────────────────────────────────────────
 
 const CTASection = () => (
-    <section className="w-full bg-black text-white p-6 md:p-12 pb-24 mx-auto max-w-full">
-        <div className="w-full bg-[#F9452D] py-32 px-6 text-center text-white flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight">
+    <section className="w-full bg-black text-black p-6 md:p-12 pb-24 mx-auto max-w-full">
+        <div className="w-full bg-[#AFFF00] py-32 px-6 text-center text-black flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight text-black">
                 Ready to See How Integrated Services Work?
             </h2>
-            <p className="text-xl md:text-2xl font-medium mb-12 opacity-90 max-w-2xl relative z-10 tracking-tight">
+            <p className="text-xl md:text-2xl font-medium mb-12 text-black/70 max-w-2xl relative z-10 tracking-tight">
                 Let's talk about your goals and how we can help you get there.
             </p>
             <Link

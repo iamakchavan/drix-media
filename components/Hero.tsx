@@ -1,96 +1,59 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Navbar from './Navbar';
-import NoiseOverlay from './NoiseOverlay';
 
 const Hero: React.FC = () => {
   return (
-    // Changed from sticky to relative to remove the scroll-over effect and associated animations
-    <div className="relative w-full h-screen bg-black overflow-hidden z-0">
+    <div className="relative w-full h-screen bg-black overflow-hidden z-0 font-sans">
+      {/* Absolute Background Image */}
+      <div className="absolute inset-0 z-0 pointer-events-none select-none">
+        <img
+          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"
+          alt="Drix Media Strategic Workspace"
+          className="w-full h-full object-cover opacity-40 grayscale brightness-[0.35]"
+        />
+        {/* Simple dark overlay for maximum contrast */}
+        <div className="absolute inset-0 bg-black/40 z-[1] pointer-events-none" />
+      </div>
 
-      <div className="relative w-full h-full origin-center">
-        {/* Background Image Layer */}
+      {/* Navbar Container */}
+      <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-10 py-8">
+        <Navbar />
+      </div>
+
+      {/* Ultra Clean Centered Content */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-6 pointer-events-none">
         <motion.div
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 z-0"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-4xl text-center pointer-events-auto"
         >
-          <div data-framer-background-image-wrapper="true" style={{ position: 'absolute', borderRadius: 'inherit', inset: '0px' }}>
-            <img
-              decoding="auto"
-              sizes="100vw"
-              srcSet="https://framerusercontent.com/images/MRuoFuMbnw5FFImDwyAVxU4sYs.jpg?scale-down-to=512&width=2500&height=1500 512w,https://framerusercontent.com/images/MRuoFuMbnw5FFImDwyAVxU4sYs.jpg?scale-down-to=1024&width=2500&height=1500 1024w,https://framerusercontent.com/images/MRuoFuMbnw5FFImDwyAVxU4sYs.jpg?scale-down-to=2048&width=2500&height=1500 2048w,https://framerusercontent.com/images/MRuoFuMbnw5FFImDwyAVxU4sYs.jpg?width=2500&height=1500 2500w"
-              src="https://framerusercontent.com/images/MRuoFuMbnw5FFImDwyAVxU4sYs.jpg?width=2500&height=1500"
-              alt="Artistic portrait"
-              style={{ display: 'block', width: '100%', height: '100%', borderRadius: 'inherit', objectPosition: 'center center', objectFit: 'cover' }}
-            />
+          <span className="text-[10px] font-black tracking-[0.4em] text-[#AFFF00] uppercase mb-10 block opacity-80 select-text">
+            Creative Strategy & Execution
+          </span>
+
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] mb-8 select-text">
+            Stories, strategy, <br />
+            <span className="text-[#AFFF00] italic font-medium select-text">and everything</span> in between.
+          </h1>
+
+          <p className="text-sm md:text-base text-white/40 font-medium max-w-xl mx-auto mb-12 leading-relaxed tracking-wide select-text">
+            Drix Media is a creative agency that builds brands people remember. <br className="hidden md:block" />
+            From strategy to execution, we handle the full journey.
+          </p>
+
+          <div className="flex flex-col items-center justify-center">
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-white text-black px-10 py-4 rounded-full font-bold text-sm transition-all duration-300 hover:bg-[#AFFF00] shadow-[0_15px_40px_rgba(0,0,0,0.2)]"
+              onClick={() => window.location.href = '#contact'}
+            >
+              Book a Strategy Call
+            </motion.button>
           </div>
-          {/* Subtle Overlay for Text Contrast */}
-          <div className="absolute inset-0 bg-black/10 z-[1]" />
         </motion.div>
-
-        {/* Noise Texture */}
-        <NoiseOverlay />
-
-        {/* Navbar - Positioned absolutely within the sticky container */}
-        <div className="absolute top-0 left-0 w-full z-20 px-6 md:px-10 py-6">
-          <Navbar />
-        </div>
-
-        {/* Centered Hero Text */}
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-10 lg:px-12">
-          <motion.h1
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              type: "spring",
-              stiffness: 70,
-              damping: 25,
-              mass: 1,
-              delay: 0.2
-            }}
-            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter text-white text-center leading-[1.05] max-w-6xl mb-6 md:mb-8"
-          >
-            We Turn Ideas Into Impact
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              type: "spring",
-              stiffness: 70,
-              damping: 25,
-              mass: 1,
-              delay: 0.3
-            }}
-            className="text-base md:text-lg lg:text-xl text-white/85 text-center font-medium max-w-2xl lg:max-w-3xl mb-10 md:mb-12 leading-relaxed px-4"
-          >
-            Drix Media is a creative agency that builds brands people remember. From strategy to execution, we handle the full journey of bringing your vision to life.
-          </motion.p>
-
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 70,
-              damping: 25,
-              mass: 1,
-              delay: 0.4
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-white text-black px-8 md:px-10 py-4 md:py-5 rounded-full font-bold text-base md:text-lg transition-all duration-300 shadow-[0_0_40px_rgba(255,255,255,0.15)] hover:shadow-[0_0_60px_rgba(255,255,255,0.3)] hover:bg-gray-100"
-            onClick={() => {
-              // Smooth scroll to contact section or open contact modal
-              window.location.href = 'mailto:hello@drixmedia.com';
-            }}
-          >
-            Book a Strategy Call
-          </motion.button>
-        </div>
       </div>
     </div>
   );

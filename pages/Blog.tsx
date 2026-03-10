@@ -128,7 +128,7 @@ const BlogHero = () => (
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
                 <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Read More</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#F9452D] to-transparent"></div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
     </div>
@@ -170,7 +170,7 @@ const FeaturedPost = () => (
 
                 {/* Content Section - Takes 5 Cols */}
                 <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4 lg:pt-10">
-                    <p className="text-[#F9452D] text-[12px] font-black uppercase tracking-[0.5em] mb-10 opacity-80">
+                    <p className="text-[#476D07] text-[12px] font-black uppercase tracking-[0.5em] mb-10 opacity-80">
                         {blogPosts[0].category}
                     </p>
                     <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-black tracking-tighter text-black mb-10 leading-[0.85]">
@@ -189,10 +189,10 @@ const FeaturedPost = () => (
                     </div>
 
                     <Link to={`/blog/${blogPosts[0].id}`} className="group inline-flex items-center gap-6">
-                        <span className="text-2xl font-black text-black group-hover:text-[#F9452D] transition-colors duration-300">
+                        <span className="text-2xl font-black text-black group-hover:text-[#476D07] transition-colors duration-300">
                             Read the article
                         </span>
-                        <div className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-[#F9452D] group-hover:border-[#F9452D] group-hover:text-white transition-all duration-500 transform group-hover:translate-x-2">
+                        <div className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-[#AFFF00] group-hover:border-[#AFFF00] group-hover:text-black transition-all duration-500 transform group-hover:translate-x-2">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
@@ -226,7 +226,7 @@ const ArticlesGrid = () => {
                 {/* Header Row */}
                 <div className="flex flex-col lg:flex-row justify-between items-end gap-16 mb-24">
                     <div className="max-w-2xl">
-                        <p className="text-[11px] font-black tracking-[0.5em] text-[#F9452D] uppercase mb-10">Archive</p>
+                        <p className="text-[11px] font-black tracking-[0.5em] text-[#476D07] uppercase mb-10">Archive</p>
                         <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-black">
                             Selected <br /><span className="text-black/10">Readings</span>
                         </h2>
@@ -244,7 +244,7 @@ const ArticlesGrid = () => {
                                 {activeCategory === cat && (
                                     <motion.div
                                         layoutId="journalCatLine"
-                                        className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#F9452D]"
+                                        className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#588B00]"
                                     />
                                 )}
                             </button>
@@ -280,7 +280,7 @@ const ArticlesGrid = () => {
                                 </div>
 
                                 <div className="flex flex-col flex-grow">
-                                    <h3 className="text-3xl font-black text-black mb-5 tracking-tighter leading-tight group-hover:text-[#F9452D] transition-colors duration-400">
+                                    <h3 className="text-3xl font-black text-black mb-5 tracking-tighter leading-tight group-hover:text-[#476D07] transition-colors duration-400">
                                         {post.title}
                                     </h3>
                                     <p className="text-black/45 text-lg font-medium mb-10 line-clamp-2 leading-relaxed h-[3.5rem]">
@@ -322,10 +322,10 @@ const Newsletter = () => (
         className="w-full bg-white py-48 px-6 md:px-12 text-black font-sans relative overflow-hidden"
     >
         {/* Background Accent */}
-        <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-[#F9452D]/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-[#AFFF00]/5 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="max-w-[1400px] mx-auto text-center flex flex-col items-center relative z-10">
-            <p className="text-[12px] font-black tracking-[0.6em] text-[#F9452D] uppercase mb-10">Connections</p>
+            <p className="text-[12px] font-black tracking-[0.6em] text-[#476D07] uppercase mb-10">Connections</p>
             <h2 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-16 max-w-5xl">
                 Knowledge <br /><span className="text-black/5">Unlocked.</span>
             </h2>
@@ -339,12 +339,12 @@ const Newsletter = () => (
                     placeholder="your@email.com"
                     className="flex-grow bg-transparent border-none rounded-full px-10 py-6 text-xl font-bold placeholder:text-black/15 focus:ring-0 outline-none transition-all"
                 />
-                <button className="bg-black text-white px-14 py-6 rounded-full font-black text-xl hover:bg-[#F9452D] transition-all duration-500 shadow-2xl flex items-center justify-center gap-4">
+                <button className="bg-black text-white px-14 py-6 rounded-full font-black text-xl hover:bg-[#AFFF00] hover:text-black transition-all duration-500 shadow-2xl flex items-center justify-center gap-4">
                     Subscribe
                 </button>
             </form>
             <div className="mt-12 flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#F9452D]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#AFFF00]"></div>
                 <p className="text-black/20 text-xs font-black uppercase tracking-[0.3em]">No Spam. Pure Perspectives.</p>
             </div>
         </div>

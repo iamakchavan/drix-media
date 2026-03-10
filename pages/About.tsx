@@ -61,7 +61,7 @@ const AboutHero = () => (
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
                 <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Scroll</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#F9452D] to-transparent"></div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
     </div>
@@ -82,7 +82,7 @@ const OurStory = () => (
             {/* Left: Sticky Headline & Minimal Timeline Label */}
             <div className="lg:col-span-4 lg:sticky lg:top-40">
                 <div className="flex flex-col">
-                    <p className="text-[11px] font-bold tracking-[0.3em] text-[#F9452D] uppercase mb-8">The Origins</p>
+                    <p className="text-[11px] font-bold tracking-[0.3em] text-[#476D07] uppercase mb-8">The Origins</p>
                     <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-black leading-[0.9] mb-12">
                         How <br />We <br /><span className="text-black/15">Started</span>
                     </h2>
@@ -98,7 +98,7 @@ const OurStory = () => (
                             <span className="text-sm font-bold text-black/80">First Partnerships</span>
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-xs font-bold text-[#F9452D] mb-1">Present</span>
+                            <span className="text-xs font-bold text-[#476D07] mb-1">Present</span>
                             <span className="text-sm font-bold text-black">Integrated System</span>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ const OurStory = () => (
                 <div className="flex flex-col gap-12">
                     {/* Impactful Lead */}
                     <p className="text-3xl md:text-5xl font-bold text-black tracking-tight leading-[1.1] max-w-4xl">
-                        Drix Media was born out of a pivot from <span className="text-black/30 underline decoration-[#F9452D] decoration-2 underline-offset-8">chaos to clarity</span>.
+                        Drix Media was born out of a pivot from <span className="text-black/30 underline decoration-[#588B00] decoration-2 underline-offset-8">chaos to clarity</span>.
                     </p>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-lg text-black/60 leading-relaxed font-medium">
@@ -136,7 +136,7 @@ const OurStory = () => (
                     {/* Minimal Highlight Box */}
                     <div className="mt-8 p-10 md:p-14 bg-[#FAFAFA] border border-gray-100 relative overflow-hidden group">
                         {/* Subtle red line accent */}
-                        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#F9452D] to-transparent"></div>
+                        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#AFFF00] to-transparent"></div>
 
                         <blockquote className="relative z-10 flex flex-col gap-6">
                             <p className="text-2xl md:text-3xl font-bold text-black leading-tight italic">
@@ -175,7 +175,7 @@ const OurValues = () => (
             <div className="flex flex-col mb-32">
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
                     <div className="max-w-3xl">
-                        <p className="text-[11px] font-black tracking-[0.5em] text-[#F9452D] uppercase mb-10 text-left">The Blueprint</p>
+                        <p className="text-[11px] font-black tracking-[0.5em] text-[#476D07] uppercase mb-10 text-left">The Blueprint</p>
                         <h2 className="text-6xl md:text-[6rem] font-black tracking-tighter text-black leading-[0.85] text-left">
                             Our Core <br /><span className="text-black/5">Principles</span>
                         </h2>
@@ -197,14 +197,14 @@ const OurValues = () => (
                         className="flex flex-col group"
                     >
                         {/* Top Accent & Number */}
-                        <div className="flex items-center gap-8 mb-12 text-black/5 transition-colors group-hover:text-[#F9452D]/10">
-                            <span className="text-8xl font-black leading-none tracking-tighter transition-colors group-hover:text-[#F9452D]">0{i + 1}</span>
+                        <div className="flex items-center gap-8 mb-12 text-black/5 transition-colors group-hover:text-[#AFFF00]/10">
+                            <span className="text-8xl font-black leading-none tracking-tighter transition-colors group-hover:text-[#AFFF00]">0{i + 1}</span>
                             <div className="h-[2px] flex-grow bg-current transform origin-left transition-transform duration-700 group-hover:scale-x-110"></div>
                         </div>
 
                         {/* Content */}
                         <div className="flex flex-col">
-                            <h3 className="text-4xl font-black text-black mb-10 tracking-tighter leading-tight group-hover:text-[#F9452D] transition-colors duration-400">
+                            <h3 className="text-4xl font-black text-black mb-10 tracking-tighter leading-tight group-hover:text-[#476D07] transition-colors duration-400">
                                 {v.title}
                             </h3>
                             <p className="text-black/45 text-xl leading-relaxed font-medium mb-12 h-[6rem] line-clamp-3">
@@ -212,7 +212,7 @@ const OurValues = () => (
                             </p>
 
                             {/* Solid Branding Line */}
-                            <div className="w-16 h-2 bg-black/5 group-hover:bg-[#F9452D] group-hover:w-full transition-all duration-700 ease-[0.16, 1, 0.3, 1]"></div>
+                            <div className="w-16 h-2 bg-black/5 group-hover:bg-[#AFFF00] group-hover:w-full transition-all duration-700 ease-[0.16, 1, 0.3, 1]"></div>
                         </div>
                     </motion.div>
                 ))}
@@ -241,7 +241,7 @@ const WhatMakesUsDifferent = () => (
 
             {/* Left: Sticky Branding */}
             <div className="lg:col-span-4 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">The Edge</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#476D07] uppercase mb-8">The Edge</p>
                 <h2 className="text-6xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-12">
                     Why <br />We <br /><span className="text-black/15">Differ</span>
                 </h2>
@@ -265,7 +265,7 @@ const WhatMakesUsDifferent = () => (
                         className="group border-b border-black/5 last:border-0 py-16 first:pt-0"
                     >
                         <div className="flex flex-col gap-8">
-                            <span className="text-sm font-black tracking-widest text-[#F9452D] opacity-30 group-hover:opacity-100 transition-opacity duration-500">
+                            <span className="text-sm font-black tracking-widest text-[#476D07] opacity-40 group-hover:opacity-100 transition-opacity duration-500">
                                 AREA 0{i + 1}
                             </span>
                             <div className="flex flex-col gap-6">
@@ -289,13 +289,13 @@ const WhatMakesUsDifferent = () => (
 const OurPersonalityAndCulture = () => (
     <section className="w-full bg-black py-40 px-6 md:px-12 relative overflow-hidden">
         {/* Subtle glow in background */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#F9452D]/5 blur-[120px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#AFFF00]/5 blur-[120px] rounded-full pointer-events-none"></div>
 
         <div className="max-w-[1600px] mx-auto relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
                 {/* Left: Personality */}
                 <div className="lg:col-span-5">
-                    <p className="text-[11px] font-bold tracking-[0.2em] text-[#F9452D] uppercase mb-8">Personality</p>
+                    <p className="text-[11px] font-bold tracking-[0.2em] text-[#AFFF00] uppercase mb-8">Personality</p>
                     <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white mb-16 leading-[0.9]">
                         How We <br /><span className="text-white/20 text-4xl md:text-6xl">Show Up</span>
                     </h2>
@@ -309,8 +309,8 @@ const OurPersonalityAndCulture = () => (
                             { title: 'Obsessive', desc: 'If it does not meet our standard, it does not go out.' },
                         ].map((item, i) => (
                             <li key={i} className="flex gap-6 group">
-                                <div className="shrink-0 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center mt-1 group-hover:border-[#F9452D] transition-colors">
-                                    <div className="w-2 h-2 bg-white rounded-full group-hover:bg-[#F9452D] transition-colors"></div>
+                                <div className="shrink-0 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center mt-1 group-hover:border-[#AFFF00] transition-colors">
+                                    <div className="w-2 h-2 bg-white rounded-full group-hover:bg-[#AFFF00] transition-colors"></div>
                                 </div>
                                 <div>
                                     <span className="block text-xl font-bold text-white mb-1">{item.title}</span>
@@ -334,7 +334,7 @@ const OurPersonalityAndCulture = () => (
                             { title: 'Work That Matters', desc: 'Life is too short to build things we do not care about.' },
                         ].map((item, i) => (
                             <div key={i} className="flex flex-col gap-4">
-                                <div className="text-[#F9452D]">
+                                <div className="text-[#AFFF00]">
                                     <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
                                         <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm45.66-93.66a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,164.69l50.34-50.35A8,8,0,0,1,173.66,122.34Z" />
                                     </svg>
@@ -347,7 +347,7 @@ const OurPersonalityAndCulture = () => (
 
                     <div className="mt-20 pt-12 border-t border-white/10 flex flex-col md:flex-row items-center gap-8 justify-between">
                         <p className="text-white/30 text-sm font-medium italic">"A small team with a massive hunger for quality."</p>
-                        <a href="/careers" className="text-white font-bold group flex items-center gap-3 hover:text-[#F9452D] transition-colors">
+                        <a href="/careers" className="text-white font-bold group flex items-center gap-3 hover:text-[#AFFF00] transition-colors">
                             Join the team
                             <svg className="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" /></svg>
                         </a>
@@ -386,8 +386,8 @@ const WhoWeWorkWith = () => (
                         <h3 className="text-3xl font-bold text-black mb-6 tracking-tight leading-tight max-w-[280px]">{c.title}</h3>
                         <p className="text-black/60 text-lg leading-relaxed max-w-sm">{c.desc}</p>
 
-                        <div className="mt-12 w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#F9452D] group-hover:border-[#F9452D] transition-all duration-300">
-                            <svg className="group-hover:text-white transition-colors" width="14" height="14" viewBox="0 0 256 256" fill="currentColor">
+                        <div className="mt-12 w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#AFFF00] group-hover:border-[#AFFF00] transition-all duration-300">
+                            <svg className="group-hover:text-black transition-colors" width="14" height="14" viewBox="0 0 256 256" fill="currentColor">
                                 <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
                             </svg>
                         </div>
@@ -400,17 +400,17 @@ const WhoWeWorkWith = () => (
 
 // CTA Section
 const CTASection = () => (
-    <section className="w-full bg-black text-white p-6 md:p-12 pb-32 mx-auto max-w-full">
-        <div className="w-full bg-[#F9452D] py-40 px-6 text-center text-white flex flex-col items-center rounded-[40px] overflow-hidden shadow-2xl relative">
+    <section className="w-full bg-black text-black p-6 md:p-12 pb-32 mx-auto max-w-full">
+        <div className="w-full bg-[#AFFF00] py-40 px-6 text-center text-black flex flex-col items-center rounded-[40px] overflow-hidden shadow-2xl relative">
             {/* Background pattern */}
-            <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+            <div className="absolute inset-0 opacity-15" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
 
             <div className="relative z-10 max-w-5xl">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-white/60 uppercase mb-10">Get Started</p>
-                <h2 className="text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tighter mb-12 leading-[0.9]">
-                    Let's Build <br /><span className="text-white/40">Something Great</span>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-black/60 uppercase mb-10 text-center">Get Started</p>
+                <h2 className="text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tighter mb-12 leading-[0.9] text-black">
+                    Let's Build <br /><span className="text-black/30">Something Great</span>
                 </h2>
-                <p className="text-2xl md:text-3xl font-medium mb-16 opacity-90 max-w-3xl mx-auto tracking-tight leading-relaxed">
+                <p className="text-2xl md:text-3xl font-medium mb-16 text-black/70 max-w-3xl mx-auto tracking-tight leading-relaxed">
                     Book a free strategy call and tell us where you want your brand to go.
                 </p>
 
@@ -424,7 +424,7 @@ const CTASection = () => (
                     </Link>
                     <a
                         href="mailto:hello@drixmedia.com"
-                        className="px-12 py-6 font-bold text-xl border border-white/30 hover:bg-white/10 transition-all"
+                        className="px-12 py-6 font-bold text-xl border border-black/10 hover:bg-black/5 transition-all text-black"
                         style={{ borderRadius: '100px' }}
                     >
                         hello@drixmedia.com

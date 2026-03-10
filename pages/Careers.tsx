@@ -62,7 +62,7 @@ const CareersHero = () => (
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
                 <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Open Roles</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#F9452D] to-transparent"></div>
+                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
     </div>
@@ -123,7 +123,7 @@ const WhyWorkHere = () => (
                     const bg = r.dark ? 'bg-black' : 'bg-white border border-gray-200 hover:border-gray-300 transition-colors duration-300';
                     const titleColor = r.dark ? 'text-white' : 'text-black';
                     const descColor = r.dark ? 'text-white/70' : 'text-[#0C0C0C]/70';
-                    const badgeBg = r.dark ? 'bg-[#F9452D] text-white shadow-[0_0_30px_rgba(249,69,45,0.4)]' : 'bg-black text-white';
+                    const badgeBg = r.dark ? 'bg-[#AFFF00] text-black shadow-[0_0_30px_rgba(175,255,0,0.4)]' : 'bg-black text-white';
                     const gridStyle = r.dark
                         ? { backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '30px 30px' }
                         : {};
@@ -146,7 +146,7 @@ const WhyWorkHere = () => (
                                 {r.number}
                             </div>
                             {/* Red corner accent */}
-                            <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#F9452D]"></div>
+                            <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#588B00]"></div>
 
                             <div className="mt-4 relative z-10">
                                 <h3 className={`text-2xl md:text-3xl font-bold ${titleColor} mb-4 tracking-tight`}>{r.title}</h3>
@@ -176,7 +176,7 @@ const OurCulture = () => (
 
             {/* Left: Sticky Header */}
             <div className="lg:col-span-4 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">Life at Drix</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase mb-8">Life at Drix</p>
                 <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.9] mb-8">
                     Our <br /><span className="text-white/20">Culture</span>
                 </h2>
@@ -192,10 +192,10 @@ const OurCulture = () => (
                     {cultureItems.map((item, i) => (
                         <div key={i} className="group relative">
                             <div className="flex items-center gap-4 mb-6">
-                                <div className="w-2 h-2 bg-[#F9452D] rounded-full shadow-[0_0_12px_rgba(249,69,45,0.6)]"></div>
-                                <div className="h-[1px] flex-grow bg-white/10 group-hover:bg-[#F9452D]/30 transition-colors duration-500"></div>
+                                <div className="w-2 h-2 bg-[#AFFF00] rounded-full shadow-[0_0_12px_rgba(249,69,45,0.6)]"></div>
+                                <div className="h-[1px] flex-grow bg-white/10 group-hover:bg-[#AFFF00]/30 transition-colors duration-500"></div>
                             </div>
-                            <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight text-white group-hover:text-[#F9452D] transition-colors duration-300">
+                            <h3 className="text-xl md:text-2xl font-bold mb-3 tracking-tight text-white group-hover:text-[#AFFF00] transition-colors duration-300">
                                 {item.title}
                             </h3>
                             <p className="text-white/40 text-base leading-relaxed font-medium">
@@ -283,7 +283,7 @@ const BenefitsSection = () => (
 
             {/* Left: Sticky Branding */}
             <div className="lg:col-span-5 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">The Drix Life</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#476D07] uppercase mb-8">The Drix Life</p>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
                     Benefits <br />& <span className="text-black/15">Perks</span>
                 </h2>
@@ -298,13 +298,13 @@ const BenefitsSection = () => (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                     {benefits.map((b, i) => (
                         <div key={i} className="flex flex-col group">
-                            <div className="flex items-center gap-4 mb-8 text-black/20 group-hover:text-[#F9452D] transition-colors duration-500">
-                                <div className="p-3 border border-black/5 bg-[#FAFAFA] rounded-xl group-hover:bg-[#F9452D]/5 group-hover:border-[#F9452D]/10 transition-all duration-500">
+                            <div className="flex items-center gap-4 mb-8 text-black/20 group-hover:text-[#AFFF00] transition-colors duration-500">
+                                <div className="p-3 border border-black/5 bg-[#FAFAFA] rounded-xl group-hover:bg-[#AFFF00]/5 group-hover:border-[#AFFF00]/10 transition-all duration-500">
                                     {b.icon}
                                 </div>
-                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#F9452D]/20 transition-colors"></div>
+                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#AFFF00]/20 transition-colors"></div>
                             </div>
-                            <h3 className="text-2xl font-bold text-black mb-4 tracking-tight group-hover:text-[#F9452D] transition-colors duration-300">
+                            <h3 className="text-2xl font-bold text-black mb-4 tracking-tight group-hover:text-[#476D07] transition-colors duration-300">
                                 {b.title}
                             </h3>
                             <p className="text-black/50 text-lg leading-relaxed font-medium">
@@ -315,7 +315,7 @@ const BenefitsSection = () => (
                 </div>
 
                 {/* Visual Accent */}
-                <div className="mt-24 p-1  bg-gradient-to-r from-[#F9452D] to-transparent opacity-10"></div>
+                <div className="mt-24 p-[0.5px] bg-gradient-to-r from-[#588B00] to-transparent opacity-20"></div>
             </div>
 
         </div>
@@ -341,7 +341,7 @@ const OpenPositions = () => (
                 <div className="bg-black text-white p-12 md:p-16 relative overflow-hidden">
                     <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
                     <div className="relative z-10 max-w-2xl">
-                        <div className="w-12 h-12 rounded-full bg-[#F9452D] flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(249,69,45,0.4)]">
+                        <div className="w-12 h-12 rounded-full bg-[#AFFF00] flex items-center justify-center mb-8 shadow-[0_0_30px_rgba(249,69,45,0.4)]">
                             <svg width="22" height="22" viewBox="0 0 256 256" fill="white">
                                 <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm16-40a8,8,0,0,1-8,8,16,16,0,0,1-16-16V128a8,8,0,0,1,0-16,16,16,0,0,1,16,16v40A8,8,0,0,1,144,176ZM112,84a16,16,0,1,1,16,16A16,16,0,0,1,112,84Z" />
                             </svg>
@@ -354,9 +354,9 @@ const OpenPositions = () => (
                         </p>
                         <a
                             href="mailto:careers@drixmedia.com"
-                            className="inline-flex items-center gap-4 group text-white hover:text-[#F9452D] transition-colors"
+                            className="inline-flex items-center gap-4 group text-white hover:text-[#AFFF00] transition-colors"
                         >
-                            <div className="w-5 h-5 text-[#F9452D] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                            <div className="w-5 h-5 text-[#AFFF00] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
                                 <svg viewBox="0 0 256 256" fill="currentColor" className="w-full h-full">
                                     <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z" />
                                 </svg>
@@ -370,7 +370,7 @@ const OpenPositions = () => (
                 <div className="flex flex-col gap-0">
                     {openRoles.map((role, i) => (
                         <div key={i} className="relative flex flex-col md:flex-row md:items-center justify-between gap-6 py-10 border-t border-[#E5E5E5] group">
-                            <div className="absolute top-[-1px] right-0 w-2.5 h-2.5 border-r-[2px] border-b-[2px] border-[#F9452D] transform -rotate-90"></div>
+                            <div className="absolute top-[-1px] right-0 w-2.5 h-2.5 border-r-[2px] border-b-[2px] border-[#588B00] transform -rotate-90"></div>
                             <div>
                                 <h3 className="text-2xl md:text-3xl font-bold text-black tracking-tight mb-2">{role.title}</h3>
                                 <p className="text-[#0C0C0C]/60 text-sm font-medium mb-1">{role.type}</p>
@@ -378,7 +378,7 @@ const OpenPositions = () => (
                             </div>
                             <a
                                 href="mailto:careers@drixmedia.com"
-                                className="shrink-0 bg-black text-white px-8 py-4 font-bold text-base hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#F9452D]"
+                                className="shrink-0 bg-black text-white px-8 py-4 font-bold text-base hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#AFFF00] hover:text-black"
                                 style={{ borderRadius: '100px' }}
                             >
                                 Apply
@@ -407,7 +407,7 @@ const ApplicationProcess = () => (
 
             {/* Left: Sticky Branding */}
             <div className="lg:col-span-4 lg:sticky lg:top-40 h-fit">
-                <p className="text-[11px] font-bold tracking-[0.4em] text-[#F9452D] uppercase mb-8">The Process</p>
+                <p className="text-[11px] font-bold tracking-[0.4em] text-[#476D07] uppercase mb-8">The Process</p>
                 <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
                     How It <br /><span className="text-black/15">Works</span>
                 </h2>
@@ -419,7 +419,7 @@ const ApplicationProcess = () => (
                     href="mailto:careers@drixmedia.com"
                     className="inline-flex items-center gap-4 group"
                 >
-                    <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[#F9452D] group-hover:bg-[#F9452D] group-hover:text-white transition-all duration-500">
+                    <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center group-hover:border-[#AFFF00] group-hover:bg-[#AFFF00] group-hover:text-black transition-all duration-500">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-5 h-5">
                             <path d="M4 4V13C4 16.866 7.13401 20 11 20H20" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" />
                             <path d="M16 16L20 20L16 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" strokeLinejoin="bevel" />
@@ -435,12 +435,12 @@ const ApplicationProcess = () => (
                     {processSteps.map((step, i) => (
                         <div key={i} className="flex flex-col group">
                             <div className="flex items-center gap-4 mb-6">
-                                <span className="text-4xl font-black text-black/5 group-hover:text-[#F9452D]/10 transition-colors duration-500">
+                                <span className="text-4xl font-black text-black/5 group-hover:text-[#AFFF00]/10 transition-colors duration-500">
                                     {step.number}
                                 </span>
-                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#F9452D]/20 transition-colors"></div>
+                                <div className="h-[1px] flex-grow bg-black/5 group-hover:bg-[#AFFF00]/20 transition-colors"></div>
                             </div>
-                            <h3 className="text-2xl font-bold text-black mb-3 tracking-tight group-hover:text-[#F9452D] transition-colors duration-300">
+                            <h3 className="text-2xl font-bold text-black mb-3 tracking-tight group-hover:text-[#476D07] transition-colors duration-300">
                                 {step.title}
                             </h3>
                             <p className="text-black/50 text-lg leading-relaxed font-medium">
@@ -451,7 +451,7 @@ const ApplicationProcess = () => (
                 </div>
 
                 {/* Visual Accent */}
-                <div className="mt-24 p-[0.5px] bg-gradient-to-r from-[#F9452D] to-transparent opacity-10"></div>
+                <div className="mt-24 p-[0.5px] bg-gradient-to-r from-[#AFFF00] to-transparent opacity-10"></div>
             </div>
         </div>
     </section>
@@ -481,7 +481,7 @@ const WhatWeLookFor = () => (
                     const bg = t.dark ? 'bg-black' : 'bg-white border border-gray-200 hover:border-gray-300 transition-colors duration-300';
                     const titleColor = t.dark ? 'text-white' : 'text-black';
                     const descColor = t.dark ? 'text-white/70' : 'text-[#0C0C0C]/70';
-                    const badgeBg = t.dark ? 'bg-[#F9452D] text-white shadow-[0_0_30px_rgba(249,69,45,0.4)]' : 'bg-black text-white';
+                    const badgeBg = t.dark ? 'bg-[#AFFF00] text-black shadow-[0_0_30px_rgba(175,255,0,0.4)]' : 'bg-black text-white';
 
                     return (
                         <div
@@ -494,7 +494,7 @@ const WhatWeLookFor = () => (
                             <div className={`absolute top-8 right-8 w-12 h-12 rounded-full ${badgeBg} flex items-center justify-center text-lg font-bold`}>
                                 {t.number}
                             </div>
-                            <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#F9452D]"></div>
+                            <div className="absolute top-0 left-0 w-3 h-3 border-l-[2px] border-t-[2px] border-[#588B00]"></div>
 
                             <div className="mt-4 relative z-10">
                                 <h3 className={`text-2xl md:text-3xl font-bold ${titleColor} mb-4 tracking-tight`}>{t.title}</h3>
@@ -511,13 +511,13 @@ const WhatWeLookFor = () => (
 // ─── CTA Section ─────────────────────────────────────────────────────────────
 
 const CTASection = () => (
-    <section className="w-full bg-black text-white p-6 md:p-12 pb-24 mx-auto max-w-full">
-        <div className="w-full bg-[#F9452D] py-32 px-6 text-center text-white flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight">
+    <section className="w-full bg-black text-black p-6 md:p-12 pb-24 mx-auto max-w-full">
+        <div className="w-full bg-[#AFFF00] py-32 px-6 text-center text-black flex flex-col items-center rounded-3xl overflow-hidden shadow-2xl relative">
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+            <h2 className="text-5xl md:text-7xl lg:text-[5rem] font-bold tracking-tighter mb-8 max-w-4xl relative z-10 leading-tight text-black">
                 Ready to Join Drix Media?
             </h2>
-            <p className="text-xl md:text-2xl font-medium mb-12 opacity-90 max-w-2xl relative z-10 tracking-tight">
+            <p className="text-xl md:text-2xl font-medium mb-12 text-black/70 max-w-2xl relative z-10 tracking-tight">
                 Send us your application and let's talk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 relative z-10">
@@ -530,7 +530,7 @@ const CTASection = () => (
                 </a>
                 <a
                     href="mailto:careers@drixmedia.com"
-                    className="bg-white/20 backdrop-blur text-white border border-white/30 px-10 py-5 font-bold text-lg md:text-xl transition-all duration-300 hover:bg-white/30 hover:-translate-y-1"
+                    className="bg-black/10 backdrop-blur text-black border border-black/20 px-10 py-5 font-bold text-lg md:text-xl transition-all duration-300 hover:bg-black/20 hover:-translate-y-1"
                     style={{ borderRadius: '100px' }}
                 >
                     careers@drixmedia.com

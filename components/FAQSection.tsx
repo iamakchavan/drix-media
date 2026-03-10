@@ -24,11 +24,11 @@ const faqs = [
   }
 ];
 
-const FAQItem = ({ question, answer }: { question: string, answer: string }) => {
+const FAQItem: React.FC<{ question: string, answer: string }> = ({ question, answer }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div 
+    <div
       className="border-b border-[#E5E5E5] last:border-b-0 py-8 cursor-pointer group"
       onClick={() => setIsOpen(!isOpen)}
     >
@@ -36,11 +36,11 @@ const FAQItem = ({ question, answer }: { question: string, answer: string }) => 
         <h3 className="text-lg md:text-xl font-medium text-[#0C0C0C] leading-tight select-none pr-8">
           {question}
         </h3>
-        <div className={`text-[#F9452D] transform transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-45' : 'rotate-0'}`}>
-           {/* Plus Icon */}
-           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-              <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path>
-           </svg>
+        <div className={`text-[#476D07] transform transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-45' : 'rotate-0'}`}>
+          {/* Plus Icon */}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
+            <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path>
+          </svg>
         </div>
       </div>
       <AnimatePresence>
@@ -74,22 +74,22 @@ const FAQSection: React.FC = () => {
           <p className="text-[#0C0C0C]/60 text-base md:text-lg leading-relaxed mb-12 max-w-sm">
             We’ve heard it all. Here’s everything you need to know before working with us.
           </p>
-          
+
           <a href="./contact" className="flex items-center gap-4 group">
-             <div className="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center text-[#F9452D] transition-all duration-300 group-hover:bg-[#F9452D] group-hover:text-white group-hover:border-[#F9452D]">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-5 h-5">
-                   <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z"></path>
-                </svg>
-             </div>
-             <span className="font-medium text-lg text-black">Ask a question</span>
+            <div className="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center text-[#476D07] transition-all duration-300 group-hover:bg-[#AFFF00] group-hover:text-black group-hover:border-[#AFFF00]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-5 h-5">
+                <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z"></path>
+              </svg>
+            </div>
+            <span className="font-medium text-lg text-black">Ask a question</span>
           </a>
         </div>
 
         {/* Right Column - FAQ List */}
         <div className="lg:col-span-7 flex flex-col w-full border-t border-[#E5E5E5]">
-            {faqs.map((faq, i) => (
-                <FAQItem key={i} question={faq.question} answer={faq.answer} />
-            ))}
+          {faqs.map((faq, i) => (
+            <FAQItem key={i} question={faq.question} answer={faq.answer} />
+          ))}
         </div>
       </div>
     </section>

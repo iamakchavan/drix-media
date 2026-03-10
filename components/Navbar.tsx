@@ -99,17 +99,17 @@ const Navbar: React.FC = () => {
         </Link>
 
         {/* Center Links (Desktop) - Hide when open */}
-        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <Link to="/about" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 mix-blend-difference ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
+          <Link to="/about" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             About
           </Link>
-          <Link to="/services" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+          <Link to="/services" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Services
           </Link>
-          <Link to="/blog" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+          <Link to="/blog" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Journal
           </Link>
-          <Link to="/contact" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-cyan transition-colors uppercase">
+          <Link to="/contact" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Contact
           </Link>
         </div>
@@ -120,10 +120,10 @@ const Navbar: React.FC = () => {
           className={`flex items-center gap-3 group cursor-pointer mix-blend-difference z-[50] transition-all duration-300 ${isOpen ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
         >
           <div className="flex flex-col gap-1.5 items-end pt-1">
-            <span className="block w-8 h-[2px] bg-white group-hover:bg-brand-cyan transition-colors duration-300"></span>
-            <span className="block w-5 h-[2px] bg-white group-hover:w-8 group-hover:bg-brand-cyan transition-all duration-300"></span>
+            <span className="block w-8 h-[2px] bg-white group-hover:bg-brand-lime transition-colors duration-300"></span>
+            <span className="block w-5 h-[2px] bg-white group-hover:w-8 group-hover:bg-brand-lime transition-all duration-300"></span>
           </div>
-          <span className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white group-hover:text-brand-cyan transition-colors duration-300 leading-none">
+          <span className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white group-hover:text-brand-lime transition-colors duration-300 leading-none">
             Menu
           </span>
         </button>
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
               animate="open"
               exit="closed"
               variants={menuVariants}
-              className="fixed top-0 left-0 w-full bg-[#F9452D] z-[999] flex flex-col text-white shadow-2xl overflow-hidden"
+              className="fixed top-0 left-0 w-full bg-[#AFFF00] z-[999] flex flex-col text-black shadow-2xl overflow-hidden"
             >
               <div className="flex flex-col w-full max-w-[1600px] mx-auto px-6 md:px-10 py-8 md:py-10">
 
@@ -172,13 +172,13 @@ const Navbar: React.FC = () => {
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 md:gap-5 group cursor-pointer hover:opacity-80 transition-opacity"
+                    className="flex items-center gap-3 md:gap-5 group cursor-pointer hover:opacity-60 transition-opacity"
                   >
                     {/* X Icon */}
                     <div className="relative w-8 h-8 md:w-12 md:h-5 flex items-center justify-center">
-                      <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-                      <span className="absolute block w-full h-[2px] bg-white -rotate-12 md:-rotate-6 origin-center"></span>
-                      <span className="absolute block w-full h-[2px] bg-white rotate-12 md:rotate-6 origin-center"></span>
+                      <span className="absolute block w-full h-[2px] bg-black rotate-12 md:rotate-6 origin-center scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                      <span className="absolute block w-full h-[2px] bg-black -rotate-12 md:-rotate-6 origin-center"></span>
+                      <span className="absolute block w-full h-[2px] bg-black rotate-12 md:rotate-6 origin-center"></span>
                     </div>
                     {/* MENU Text */}
                     <span className="text-4xl md:text-6xl font-bebas font-normal uppercase tracking-tight leading-[0.8]">
@@ -201,8 +201,8 @@ const Navbar: React.FC = () => {
                     variants={itemVariants}
                     className="flex flex-col gap-3 w-full md:w-auto mb-8 md:mb-0 order-2 md:order-1"
                   >
-                    <a href="tel:5108956500" className="text-base md:text-lg font-medium hover:text-black transition-colors opacity-90 block">(510) 895-6500</a>
-                    <a href="mailto:hello@drixmedia.com" className="text-2xl md:text-4xl font-bold tracking-tight hover:text-black transition-colors leading-none block">
+                    <a href="tel:5108956500" className="text-base md:text-lg font-medium hover:text-black/60 transition-colors opacity-90 block">(510) 895-6500</a>
+                    <a href="mailto:hello@drixmedia.com" className="text-2xl md:text-4xl font-bold tracking-tight hover:text-black/60 transition-colors leading-none block">
                       hello@drixmedia.com
                     </a>
                   </motion.div>
@@ -216,7 +216,7 @@ const Navbar: React.FC = () => {
                           <Link
                             to={path}
                             onClick={() => setIsOpen(false)}
-                            className="text-3xl md:text-5xl font-bold tracking-tight hover:text-black transition-colors duration-200 leading-tight block"
+                            className="text-3xl md:text-5xl font-bold tracking-tight hover:text-black/60 transition-colors duration-200 leading-tight block"
                           >
                             {item}
                           </Link>
