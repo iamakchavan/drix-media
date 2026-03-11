@@ -161,7 +161,7 @@ const PricingSection: React.FC = () => {
 
             {/* Button */}
             <a href="#" className={`
-                    w-full h-[64px] rounded-full flex items-center justify-center gap-3 font-semibold text-[16px] transition-transform hover:scale-[1.02] mb-10 shadow-sm
+                    w-full h-[64px] flex items-center justify-center gap-3 font-semibold text-[16px] transition-transform hover:scale-[1.02] mb-10 shadow-sm
                     ${plan.isHighlight ? 'bg-[#AFFF00] text-black shadow-lg' : 'bg-white text-[#0C0C0C]'}
                 `}>
               {/* Icon */}

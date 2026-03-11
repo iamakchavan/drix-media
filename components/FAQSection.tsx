@@ -24,37 +24,55 @@ const faqs = [
   }
 ];
 
-const FAQItem: React.FC<{ question: string, answer: string }> = ({ question, answer }) => {
+const FAQItem: React.FC<{ question: string; answer: string; index: number }> = ({ question, answer, index }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div
-      className="border-b border-[#E5E5E5] last:border-b-0 py-8 cursor-pointer group"
+    <div 
+      className="group flex flex-col border-b border-black/10 cursor-pointer overflow-hidden transition-colors duration-500 hover:bg-[#FAFAFA]"
       onClick={() => setIsOpen(!isOpen)}
     >
-      <div className="flex justify-between items-start gap-4">
-        <h3 className="text-lg md:text-xl font-medium text-[#0C0C0C] leading-tight select-none pr-8">
-          {question}
-        </h3>
-        <div className={`text-[#476D07] transform transition-transform duration-300 shrink-0 ${isOpen ? 'rotate-45' : 'rotate-0'}`}>
-          {/* Plus Icon */}
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-            <path d="M228,128a12,12,0,0,1-12,12H140v76a12,12,0,0,1-24,0V140H40a12,12,0,0,1,0-24h76V40a12,12,0,0,1,24,0v76h76A12,12,0,0,1,228,128Z"></path>
-          </svg>
+      {/* Row Header */}
+      <div className="flex justify-between items-start md:items-center py-6 md:py-10 px-6 md:px-12">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 lg:gap-24 w-full pr-8">
+          <span className="text-black/30 font-bold tracking-[0.2em] text-[13px] md:text-sm transition-colors duration-500 group-hover:text-black/50">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] font-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black group-hover:text-black/70'}`}>
+            {question}
+          </h3>
+        </div>
+        
+        {/* Toggle Icon */}
+        <div className="relative shrink-0 flex items-center justify-center w-8 h-8 md:w-12 md:h-12 mt-1 md:mt-0 overflow-hidden">
+           <motion.div 
+             animate={{ rotate: isOpen ? 45 : 0 }}
+             transition={{ duration: 0.5, ease: [0.19, 1, 0.22, 1] }}
+             className={`absolute inset-0 flex items-center justify-center transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black/30 group-hover:text-black'}`}
+           >
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-8 md:h-8">
+               <line x1="12" y1="5" x2="12" y2="19"></line>
+               <line x1="5" y1="12" x2="19" y2="12"></line>
+             </svg>
+           </motion.div>
         </div>
       </div>
-      <AnimatePresence>
+
+      {/* Expandable Content */}
+      <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
             className="overflow-hidden"
           >
-            <p className="text-[#0C0C0C]/60 text-base leading-relaxed pt-4 pr-12">
-              {answer}
-            </p>
+            <div className="px-6 md:px-12 pb-10 md:pb-12 pt-2 ml-0 md:ml-20 lg:ml-32">
+              <p className="text-base md:text-xl text-black/60 leading-relaxed font-medium max-w-3xl">
+                {answer}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -62,35 +80,100 @@ const FAQItem: React.FC<{ question: string, answer: string }> = ({ question, ans
   );
 };
 
+const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string }) => {
+  return (
+    <motion.a
+      href={href}
+      initial="initial"
+      whileHover="hover"
+      variants={{
+        initial: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" },
+        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+      }}
+      className="group relative w-max flex items-center justify-center bg-transparent border border-black/20 h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+    >
+      <motion.div 
+        variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
+        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+        className="absolute inset-0 bg-black w-full h-full"
+      />
+      
+      <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
+        <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
+          <span>{text}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </div>
+        
+        <motion.div
+          variants={{
+            initial: { y: "0%" },
+            hover: { y: "-100%", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+          }}
+          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
+        >
+          <span>{text}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </motion.div>
+        
+        <motion.div
+          variants={{
+            initial: { y: "100%" },
+            hover: { y: "0%", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+          }}
+          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-white whitespace-nowrap"
+        >
+          <span>{text}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </motion.div>
+      </div>
+    </motion.a>
+  );
+};
+
 const FAQSection: React.FC = () => {
   return (
-    <section className="w-full bg-white py-24 px-6 md:px-12 font-sans border-t border-[#E5E5E5]">
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-        {/* Left Column */}
-        <div className="lg:col-span-5 flex flex-col items-start pt-4">
-          <h2 className="text-5xl md:text-[5rem] leading-[0.9] font-bold tracking-tighter mb-8 text-[#0C0C0C]">
-            FAQ
-          </h2>
-          <p className="text-[#0C0C0C]/60 text-base md:text-lg leading-relaxed mb-12 max-w-sm">
-            We’ve heard it all. Here’s everything you need to know before working with us.
-          </p>
+    <section className="w-full bg-white text-black font-sans selection:bg-black selection:text-[#AFFF00] pt-24 md:pt-40">
+      <div className="max-w-[1600px] mx-auto w-full flex flex-col items-start border-t border-black/10">
+        
+        {/* Superior Split Layout */}
+        <div className="flex flex-col lg:flex-row w-full relative">
+            
+            {/* Left Column: Sticky Header */}
+            <div className="w-full lg:w-[35%] py-16 px-6 md:px-12 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start">
+               {/* Label */}
+               <div className="flex items-center gap-3 mb-10 md:mb-16">
+                    <span className="w-2 h-2 bg-black shadow-[0_0_10px_rgba(0,0,0,0.2)]"></span>
+                    <span className="text-black text-[11px] md:text-[12px] font-bold tracking-[0.2em] uppercase">
+                       Knowledge Base
+                    </span>
+               </div>
+               
+               {/* Title */}
+               <h2 className="text-6xl md:text-8xl lg:text-[7rem] leading-[0.9] font-medium tracking-tight mb-8 md:mb-12">
+                 FAQ
+               </h2>
+               
+               {/* Subtitle */}
+               <p className="text-black/50 text-lg md:text-xl font-medium leading-relaxed max-w-xs mb-12">
+                 We’ve heard it all. Here’s everything you need to know before working with us.
+               </p>
 
-          <a href="./contact" className="flex items-center gap-4 group">
-            <div className="w-12 h-12 rounded-full border border-[#E5E5E5] flex items-center justify-center text-[#476D07] transition-all duration-300 group-hover:bg-[#AFFF00] group-hover:text-black group-hover:border-[#AFFF00]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-5 h-5">
-                <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z"></path>
-              </svg>
+               {/* Ask Question Button */}
+               <ScrambleButtonSecondary text="Ask a question" href="/contact" />
             </div>
-            <span className="font-medium text-lg text-black">Ask a question</span>
-          </a>
+
+            {/* Right Column: Expansive Accordion */}
+            <div className="w-full lg:w-[65%] flex flex-col border-l border-black/10">
+               {faqs.map((faq, index) => (
+                 <FAQItem key={index} index={index} question={faq.question} answer={faq.answer} />
+               ))}
+               
+               {/* Spacer padding block at the bottom for scrolling gracefully */}
+               <div className="h-32"></div>
+            </div>
+
         </div>
 
-        {/* Right Column - FAQ List */}
-        <div className="lg:col-span-7 flex flex-col w-full border-t border-[#E5E5E5]">
-          {faqs.map((faq, i) => (
-            <FAQItem key={i} question={faq.question} answer={faq.answer} />
-          ))}
-        </div>
       </div>
     </section>
   );

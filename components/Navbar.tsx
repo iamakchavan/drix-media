@@ -27,28 +27,26 @@ const Navbar: React.FC = () => {
     };
   }, [isOpen]);
 
-  // Refined Apple-style spring animations
+  // Ultra-premium Apple/Framer easing
+  const premiumEasing = [0.19, 1, 0.22, 1];
+
   const menuVariants: Variants = {
     closed: {
-      y: "-120%",
-      borderBottomRightRadius: "100%",
-      borderBottomLeftRadius: "100%",
+      y: "-100%",
+      opacity: 0,
+      filter: "blur(20px)",
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-        mass: 1
+        duration: 0.6,
+        ease: premiumEasing
       }
     },
     open: {
       y: "0%",
-      borderBottomRightRadius: "3rem", // Match the design rounded corners
-      borderBottomLeftRadius: "3rem",
+      opacity: 1,
+      filter: "blur(0px)",
       transition: {
-        type: "spring",
-        stiffness: 250, // Slightly softer for the open state
-        damping: 30,
-        mass: 1
+        duration: 1.2,
+        ease: premiumEasing
       }
     }
   };
@@ -63,8 +61,8 @@ const Navbar: React.FC = () => {
     },
     open: {
       transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
+        staggerChildren: 0.08,
+        delayChildren: 0.3,
         when: "beforeChildren"
       }
     }
@@ -73,16 +71,19 @@ const Navbar: React.FC = () => {
   const itemVariants: Variants = {
     closed: {
       opacity: 0,
-      y: -20,
-      transition: { duration: 0.2 }
+      y: 40,
+      rotateX: -20,
+      filter: "blur(10px)",
+      transition: { duration: 0.4, ease: premiumEasing }
     },
     open: {
       opacity: 1,
       y: 0,
+      rotateX: 0,
+      filter: "blur(0px)",
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 30
+        duration: 0.8,
+        ease: premiumEasing
       }
     }
   };
@@ -148,42 +149,39 @@ const Navbar: React.FC = () => {
               animate="open"
               exit="closed"
               variants={menuVariants}
-              className="fixed top-0 left-0 w-full bg-[#AFFF00] z-[999] flex flex-col text-black shadow-2xl overflow-hidden"
+              className="fixed top-0 left-0 w-full h-[65vh] bg-[#000000] z-[999] flex flex-col text-white shadow-2xl overflow-hidden border-b border-white/10"
             >
-              <div className="flex flex-col w-full max-w-[1600px] mx-auto px-6 md:px-10 py-8 md:py-10">
+              <div className="flex flex-col w-full max-w-[120rem] mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12 h-full justify-between">
 
                 {/* Header Row: Logo + Close Button */}
-                <div className="flex justify-between items-start">
+                <div className="flex justify-between items-start w-full flex-none">
                   {/* Logo */}
                   <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ delay: 0.2, duration: 0.3 }}
-                    className="text-xl md:text-3xl font-black tracking-tighter uppercase"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="text-xl md:text-3xl font-black tracking-tighter uppercase mix-blend-difference"
                   >
-                    <Link to="/" onClick={() => setIsOpen(false)}>DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup></Link>
+                    <Link to="/" onClick={() => setIsOpen(false)} className="hover:text-white/70 transition-colors">DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup></Link>
                   </motion.div>
 
                   {/* Close Button */}
                   <motion.button
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    transition={{ delay: 0.2, duration: 0.3 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 md:gap-5 group cursor-pointer hover:opacity-60 transition-opacity"
+                    className="flex items-center gap-3 group cursor-pointer hover:text-white/70 transition-colors"
                   >
-                    {/* X Icon */}
-                    <div className="relative w-8 h-8 md:w-12 md:h-5 flex items-center justify-center">
-                      <span className="absolute block w-full h-[2px] bg-black rotate-12 md:rotate-6 origin-center scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-                      <span className="absolute block w-full h-[2px] bg-black -rotate-12 md:-rotate-6 origin-center"></span>
-                      <span className="absolute block w-full h-[2px] bg-black rotate-12 md:rotate-6 origin-center"></span>
-                    </div>
-                    {/* MENU Text */}
-                    <span className="text-4xl md:text-6xl font-bebas font-normal uppercase tracking-tight leading-[0.8]">
-                      MENU
+                    <span className="text-xl md:text-2xl font-bold uppercase tracking-tight mt-[1px]">
+                      CLOSE
                     </span>
+                    <div className="relative w-6 h-6 flex items-center justify-center pt-1 md:pt-0">
+                      <span className="absolute block w-6 h-[2px] bg-white transform rotate-45 transition-transform duration-500 origin-center group-hover:rotate-180"></span>
+                      <span className="absolute block w-6 h-[2px] bg-white transform -rotate-45 transition-transform duration-500 origin-center group-hover:-rotate-180"></span>
+                    </div>
                   </motion.button>
                 </div>
 
@@ -193,32 +191,35 @@ const Navbar: React.FC = () => {
                   initial="closed"
                   animate="open"
                   exit="closed"
-                  className="flex flex-col md:flex-row justify-between items-end mt-12 md:mt-24 pb-8"
+                  className="flex flex-col md:flex-row justify-between items-end flex-grow w-full pb-8 pt-12 md:pt-0"
                 >
 
                   {/* Left Side: Contact Info */}
                   <motion.div
                     variants={itemVariants}
-                    className="flex flex-col gap-3 w-full md:w-auto mb-8 md:mb-0 order-2 md:order-1"
+                    className="flex flex-col gap-2 md:gap-4 w-full md:w-1/2 mb-4 md:mb-0 order-2 md:order-1 text-left"
                   >
-                    <a href="tel:5108956500" className="text-base md:text-lg font-medium hover:text-black/60 transition-colors opacity-90 block">(510) 895-6500</a>
-                    <a href="mailto:hello@drixmedia.com" className="text-2xl md:text-4xl font-bold tracking-tight hover:text-black/60 transition-colors leading-none block">
+                    <span className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-1 md:mb-2 font-medium">Get in Touch</span>
+                    <a href="mailto:hello@drixmedia.com" className="text-xl md:text-3xl font-medium tracking-tight hover:text-[#AFFF00] transition-colors">
                       hello@drixmedia.com
+                    </a>
+                    <a href="tel:5108956500" className="text-lg md:text-xl font-medium text-white/50 hover:text-[#AFFF00] transition-colors">
+                      (510) 895-6500
                     </a>
                   </motion.div>
 
                   {/* Right Side: Navigation Links */}
-                  <div className="flex flex-col items-end gap-1 md:gap-2 w-full md:w-auto text-right order-1 md:order-2 mb-10 md:mb-0">
+                  <div className="flex flex-col items-end gap-2 md:gap-4 w-full md:w-1/2 text-right order-1 md:order-2 mb-10 md:mb-0 group/menu">
                     {menuItems.map((item) => {
                       const path = item.toLowerCase() === 'home' ? '/' : `/${item.toLowerCase()}`;
                       return (
-                        <motion.div key={item} variants={itemVariants} className="block origin-right">
+                        <motion.div key={item} variants={itemVariants} className="block relative">
                           <Link
                             to={path}
                             onClick={() => setIsOpen(false)}
-                            className="text-3xl md:text-5xl font-bold tracking-tight hover:text-black/60 transition-colors duration-200 leading-tight block"
+                            className="text-3xl md:text-4xl lg:text-5xl font-medium hover:font-semibold tracking-tight text-white transition-all duration-300 block relative group-hover/menu:opacity-30 group-hover/menu:blur-[2px] hover:!opacity-100 hover:!blur-none hover:!text-[#AFFF00]"
                           >
-                            {item}
+                            <span className="relative z-10">{item}</span>
                           </Link>
                         </motion.div>
                       );
