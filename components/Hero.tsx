@@ -136,10 +136,10 @@ const Hero: React.FC = () => {
 
       <motion.div 
         style={{ opacity: yOpacity }}
-        className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto pt-32 pb-8 h-screen"
+        className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto pt-[12vh] md:pt-[18vh] pb-12 min-h-[100svh]"
       >
         {/* Main Content Area - Aligned to Reference Design */}
-        <div className="flex-grow flex flex-col justify-center relative w-full pt-16 md:pt-28 pb-12 z-10">
+        <div className="flex-grow flex flex-col justify-center relative w-full pt-10 md:pt-16 pb-12 z-10">
           
           <div className="flex flex-col w-full relative z-10">
             {/* Massive Heading, Left Aligned, Clean 2-Line Structure */}
@@ -190,7 +190,7 @@ const Hero: React.FC = () => {
                 transition: { duration: 1.6, delay: 0.6, ease: premiumEasing } 
               }
             }}
-            className="w-full flex justify-start md:justify-end mt-16 md:mt-24 relative"
+            className="w-full flex justify-start md:justify-end mt-10 md:mt-12 relative"
           >
              <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
                 
