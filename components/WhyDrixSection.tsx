@@ -105,17 +105,17 @@ const WhyDrixSection: React.FC = () => {
   return (
     <section ref={targetRef} className="relative h-[250vh] bg-white text-black selection:bg-black selection:text-[#AFFF00]">
       {/* Container that sticks to the viewport while you scroll through height */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-20 md:pt-24 pb-6 md:pb-8">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-16 md:pt-20 pb-4 md:pb-6">
         
         {/* UPPER SECTION: The Title and Controls */}
         <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
             
-            <div className="flex flex-col items-start gap-6 lg:gap-8">
-              <h2 className="text-5xl md:text-6xl lg:text-[6.5rem] xl:text-[7rem] font-medium tracking-tight leading-[0.9] text-black">
+            <div className="flex flex-col items-start gap-4 lg:gap-6">
+              <h2 className="text-[10vh] md:text-[12vh] lg:text-[14vh] font-medium tracking-tight leading-[0.9] text-black">
                 Why Brands<br className="hidden md:block"/>
-                <span className="inline-flex items-center mt-1 md:mt-2">
+                <span className="inline-flex items-center mt-1">
                   Choose Drix
-                  <svg className="ml-3 md:ml-4 w-10 h-10 md:w-[60px] md:h-[60px] text-black transform translate-y-1 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="ml-3 md:ml-4 w-[6vh] h-[6vh] text-black transform translate-y-1 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="10 15 15 20 20 15"/>
                     <path d="M4 4h7a4 4 0 0 1 4 4v12"/>
                   </svg>
@@ -145,20 +145,20 @@ const WhyDrixSection: React.FC = () => {
             {features.map((feature, idx) => (
               <div 
                 key={idx} 
-                className="w-[85vw] sm:w-[400px] md:w-[450px] lg:w-[480px] flex-shrink-0 bg-[#FAFAFA] rounded-none p-8 md:p-10 flex flex-col justify-between h-[45vh] min-h-[300px] max-h-[420px] border border-black/10 transition-colors duration-500 hover:bg-white group"
+                className="w-[85vw] sm:w-[400px] md:w-[450px] lg:w-[480px] flex-shrink-0 bg-[#FAFAFA] rounded-none p-6 md:p-8 flex flex-col justify-between h-[45vh] min-h-[260px] border border-black/10 transition-colors duration-500 hover:bg-white group"
               >
                 {/* Top: Title */}
-                <h3 className="text-2xl md:text-[2rem] font-medium tracking-tight text-black leading-[1.1] pr-8 mb-4">
+                <h3 className="text-[3vh] md:text-[3.5vh] font-medium tracking-tight text-black leading-[1.1] pr-4 mb-2">
                   {feature.title}
                 </h3>
 
                 {/* Bottom: Line, Desc, Icon */}
                 <div className="flex flex-col items-start mt-auto">
-                  <div className="w-6 h-[2px] bg-black/10 mb-4 md:mb-6 shrink-0"></div>
-                  <p className="text-[13px] md:text-[14px] text-black/50 leading-relaxed font-medium mb-6 md:mb-8 line-clamp-3 md:line-clamp-4 shrink-0">
+                  <div className="w-6 h-[2px] bg-black/10 mb-3 md:mb-4 shrink-0"></div>
+                  <p className="text-[1.8vh] md:text-[2vh] text-black/50 leading-relaxed font-medium mb-4 md:mb-6 line-clamp-3 shrink-0">
                     {feature.description}
                   </p>
-                  <div className="w-10 h-10 rounded-lg bg-[#f0f0f0] flex items-center justify-center text-black/70 group-hover:bg-[#AFFF00] group-hover:text-black transition-colors shrink-0">
+                  <div className="w-[5vh] h-[5vh] min-w-[32px] min-h-[32px] rounded-lg bg-[#f0f0f0] flex items-center justify-center text-black/70 group-hover:bg-[#AFFF00] group-hover:text-black transition-colors shrink-0">
                     {feature.icon}
                   </div>
                 </div>
