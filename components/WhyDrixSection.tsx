@@ -105,29 +105,29 @@ const WhyDrixSection: React.FC = () => {
   return (
     <section ref={targetRef} className="relative h-[250vh] bg-white text-black selection:bg-black selection:text-[#AFFF00]">
       {/* Container that sticks to the viewport while you scroll through height */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-20 md:pt-32 pb-12">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-20 md:pt-24 pb-6 md:pb-8">
         
         {/* UPPER SECTION: The Title and Controls */}
-        <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-8 md:mb-12 flex flex-col">
+        <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
             
-            <div className="flex flex-col items-start gap-8 lg:gap-12">
-              <h2 className="text-5xl md:text-7xl lg:text-[7.5rem] font-medium tracking-tight leading-[0.95] text-black">
+            <div className="flex flex-col items-start gap-6 lg:gap-8">
+              <h2 className="text-5xl md:text-6xl lg:text-[6.5rem] xl:text-[7rem] font-medium tracking-tight leading-[0.9] text-black">
                 Why Brands<br className="hidden md:block"/>
-                <span className="inline-flex items-center mt-2">
+                <span className="inline-flex items-center mt-1 md:mt-2">
                   Choose Drix
-                  <svg className="ml-3 md:ml-4 w-12 h-12 md:w-[72px] md:h-[72px] text-black transform translate-y-1 md:translate-y-2 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="ml-3 md:ml-4 w-10 h-10 md:w-[60px] md:h-[60px] text-black transform translate-y-1 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="10 15 15 20 20 15"/>
                     <path d="M4 4h7a4 4 0 0 1 4 4v12"/>
                   </svg>
                 </span>
               </h2>
               
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-16 w-full max-w-4xl pt-4">
-                  <div className="w-max shrink-0">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 w-full max-w-4xl pt-2">
+                  <div className="w-max shrink-0 scale-90 md:scale-100 origin-left">
                      <ScrambleButtonSecondary href="#about" text="About Us" />
                   </div>
                   
-                  <p className="text-black/40 text-[11px] md:text-sm font-bold tracking-[0.2em] uppercase leading-[1.6]">
+                  <p className="text-black/40 text-[10px] md:text-[12px] font-bold tracking-[0.2em] uppercase leading-[1.6]">
                      Design, Develop And Run Any Media Strategy You Need.
                   </p>
               </div>
@@ -136,7 +136,7 @@ const WhyDrixSection: React.FC = () => {
         </div>
 
         {/* LOWER SECTION: The horizontally scrolling track containing the cards */}
-        <div className="w-full flex items-center overflow-visible mt-auto pt-4 md:pt-10">
+        <div className="w-full h-full flex items-center overflow-visible mt-auto pt-6 min-h-[300px]">
           <motion.div 
               style={{ x }} 
               className="flex gap-6 md:gap-8 w-max pl-6 md:pl-[35vw] lg:pl-[42vw] xl:pl-[46vw]"
@@ -145,20 +145,20 @@ const WhyDrixSection: React.FC = () => {
             {features.map((feature, idx) => (
               <div 
                 key={idx} 
-                className="w-[85vw] sm:w-[400px] md:w-[450px] lg:w-[480px] flex-shrink-0 bg-[#FAFAFA] rounded-none p-10 md:p-12 flex flex-col justify-between h-[400px] md:h-[420px] lg:h-[460px] border border-black/10 transition-colors duration-500 hover:bg-white group"
+                className="w-[85vw] sm:w-[400px] md:w-[450px] lg:w-[480px] flex-shrink-0 bg-[#FAFAFA] rounded-none p-8 md:p-10 flex flex-col justify-between h-[45vh] min-h-[300px] max-h-[420px] border border-black/10 transition-colors duration-500 hover:bg-white group"
               >
                 {/* Top: Title */}
-                <h3 className="text-2xl md:text-[2rem] font-medium tracking-tight text-black leading-[1.2] pr-8">
+                <h3 className="text-2xl md:text-[2rem] font-medium tracking-tight text-black leading-[1.1] pr-8 mb-4">
                   {feature.title}
                 </h3>
 
                 {/* Bottom: Line, Desc, Icon */}
                 <div className="flex flex-col items-start mt-auto">
-                  <div className="w-8 h-[2px] bg-black/10 mb-8"></div>
-                  <p className="text-[13px] md:text-[15px] text-black/50 leading-relaxed font-medium mb-12">
+                  <div className="w-6 h-[2px] bg-black/10 mb-4 md:mb-6 shrink-0"></div>
+                  <p className="text-[13px] md:text-[14px] text-black/50 leading-relaxed font-medium mb-6 md:mb-8 line-clamp-3 md:line-clamp-4 shrink-0">
                     {feature.description}
                   </p>
-                  <div className="w-12 h-12 rounded-lg bg-[#f0f0f0] flex items-center justify-center text-black/70 group-hover:bg-[#AFFF00] group-hover:text-black transition-colors">
+                  <div className="w-10 h-10 rounded-lg bg-[#f0f0f0] flex items-center justify-center text-black/70 group-hover:bg-[#AFFF00] group-hover:text-black transition-colors shrink-0">
                     {feature.icon}
                   </div>
                 </div>
