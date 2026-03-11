@@ -6,36 +6,28 @@ const features = [
     title: "Integrated Approach",
     description: "We do not hand you off between departments. Your strategist, designer, and content creator work together from day one. The result? A brand that feels consistent everywhere it shows up.",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-        <path d="M245.83,121.63a15.53,15.53,0,0,0-9.52-7.33,73.51,73.51,0,0,0-22.17-2.22c4-19.85,1-35.55-2.06-44.86a16.15,16.15,0,0,0-18.79-10.88,85.53,85.53,0,0,0-28.55,12.12,94.58,94.58,0,0,0-27.11-33.25,16.05,16.05,0,0,0-19.26,0A94.48,94.48,0,0,0,91.26,68.46,85.53,85.53,0,0,0,62.71,56.34,16.15,16.15,0,0,0,43.92,67.22c-3,9.31-6,25-2.06,44.86a73.51,73.51,0,0,0-22.17,2.22,15.53,15.53,0,0,0-9.52,7.33,16,16,0,0,0-1.6,12.27c3.39,12.57,13.8,36.48,45.33,55.32S113.13,208,128,208s42.67,0,74.2-18.78c31.53-18.84,41.94-42.75,45.33-55.32A16,16,0,0,0,245.83,121.63ZM59.14,72.14a.2.2,0,0,1,.23-.15A70.43,70.43,0,0,1,85.18,83.66,118.65,118.65,0,0,0,80,119.17c0,18.74,3.77,34,9.11,46.28A123.59,123.59,0,0,1,69.57,140C51.55,108.62,55.33,84,59.14,72.14Zm3,103.35C35.47,159.57,26.82,140.05,24,129.7a59.82,59.82,0,0,1,22.5-1.17,129.08,129.08,0,0,0,9.15,19.41,142.28,142.28,0,0,0,34,39.56A114.92,114.92,0,0,1,62.1,175.49ZM128,190.4c-9.33-6.94-32-28.23-32-71.23C96,76.7,118.38,55.24,128,48c9.62,7.26,32,28.72,32,71.19C160,162.17,137.33,183.46,128,190.4Zm66.49-2.91a142.28,142.28,0,0,0,34-39.56,129.08,129.08,0,0,0,9.15-19.41A59.82,59.82,0,0,1,260.08,129.7c-2.86,10.35-11.51,29.87-38.18,45.79A114.92,114.92,0,0,1,194.46,187.49Zm-8-47.52c5.34-12.26,9.11-27.54,9.11-46.28a118.65,118.65,0,0,0-5.18-35.51,70.43,70.43,0,0,1,25.81-11.67.2.2,0,0,1,.23.15C200.67,84,204.45,108.62,186.43,140Z"></path>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_23)"><path d="M501 236.583H430.832C424.041 147.906 353.094 76.9592 264.417 70.1678V0H236.583V70.1678C147.906 76.9592 76.9592 147.906 70.1678 236.583H0V264.417H70.1678C76.9592 353.094 147.906 424.041 236.583 430.832V501H264.417V430.832C353.094 424.041 424.041 353.094 430.832 264.417H501V236.583ZM402.915 236.583H396.625C323.729 236.583 264.417 177.27 264.417 104.375V98.0847C337.73 104.737 396.291 163.27 402.915 236.583ZM331.467 250.5C295.534 266.588 266.588 295.534 250.5 331.467C234.412 295.534 205.466 266.588 169.533 250.5C205.466 234.412 234.412 205.466 250.5 169.533C266.588 205.466 295.534 234.412 331.467 250.5ZM236.583 98.0847V104.375C236.583 177.27 177.27 236.583 104.375 236.583H98.0847C104.737 163.27 163.27 104.709 236.583 98.0847ZM98.0847 264.417H104.375C177.27 264.417 236.583 323.729 236.583 396.625V402.915C163.27 396.263 104.709 337.73 98.0847 264.417ZM264.417 402.915V396.625C264.417 323.729 323.729 264.417 396.625 264.417H402.915C396.263 337.73 337.73 396.291 264.417 402.915Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_23"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "Business-First Thinking",
     description: "We are not here to make pretty things. We are here to drive results. Every creative decision connects to a business goal. Every campaign is built to perform.",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-        <path d="M240,120h-8V88a16,16,0,0,0-16-16H176V64a16,16,0,0,0-16-16H96A16,16,0,0,0,80,64v8H40A16,16,0,0,0,24,88v32H16a8,8,0,0,0,0,16h8v32a16,16,0,0,0,16,16H80v8a16,16,0,0,0,16,16h64a16,16,0,0,0,16-16v-8h40a16,16,0,0,0,16-16V136h8a8,8,0,0,0,0-16ZM96,64h64v8H96ZM40,88H216v32H192v-8a16,16,0,0,0-16-16H80a16,16,0,0,0-16,16v8H40Zm40,32h96v32H80Zm80,72H96v-8h64ZM216,168H176v-8a16,16,0,0,0-16-16H96a16,16,0,0,0-16,16v8H40V136H64v8a16,16,0,0,0,16,16h96a16,16,0,0,0,16-16v-8h24Z"></path>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_18)"><path d="M208.75 236.583C158.873 236.583 118.292 196.002 118.292 146.125H90.4583C90.4583 182.392 106.88 214.873 132.654 236.583H0V264.417H132.654C106.88 286.127 90.4583 318.608 90.4583 354.875H118.292C118.292 304.998 158.873 264.417 208.75 264.417V236.583Z" fill="currentColor"></path><path d="M264.417 292.25H236.583C236.583 342.127 196.002 382.708 146.125 382.708V410.542C182.392 410.542 214.873 394.12 236.583 368.346V501H264.417V368.346C286.127 394.12 318.608 410.542 354.875 410.542V382.708C304.998 382.708 264.417 342.127 264.417 292.25Z" fill="currentColor"></path><path d="M236.583 208.75H264.417C264.417 158.873 304.998 118.292 354.875 118.292V90.4583C318.608 90.4583 286.127 106.88 264.417 132.654V0H236.583V132.626C214.873 106.852 182.392 90.4305 146.125 90.4305V118.264C196.002 118.264 236.583 158.845 236.583 208.722V208.75Z" fill="currentColor"></path><path d="M501 236.583H368.374C394.148 214.873 410.542 182.392 410.542 146.125H382.708C382.708 196.002 342.127 236.583 292.25 236.583V264.417C342.127 264.417 382.708 304.998 382.708 354.875H410.542C410.542 318.608 394.12 286.127 368.346 264.417H501V236.583Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_18"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "End-to-End Execution",
     description: "From brand strategy to final campaign delivery, we handle it all. You get one team, one process, one point of contact.",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-        <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Zm88,0a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h24V72a8,8,0,0,1,16,0v32A8,8,0,0,1,128,112Z"></path>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_7)"><path d="M389.667 0H361.833C361.833 61.4003 311.9 111.333 250.5 111.333H13.9166V139.167H55.6666V180.945H97.4166V139.167H250.5C311.9 139.167 361.833 189.1 361.833 250.5H389.667C389.667 189.1 439.6 139.167 501 139.167V111.333C439.6 111.333 389.667 61.4003 389.667 0ZM375.75 189.879C362.084 161.767 339.233 138.916 311.121 125.25C339.233 111.584 362.084 88.7327 375.75 60.621C389.416 88.7327 412.267 111.584 440.379 125.25C412.267 138.916 389.416 161.767 375.75 189.879Z" fill="currentColor"></path><path d="M55.6666 180.945H13.9166V222.695H55.6666V180.945Z" fill="currentColor"></path><path d="M139.167 180.945H97.4166V222.695H139.167V180.945Z" fill="currentColor"></path><path d="M487.083 389.667V361.833H250.5C189.1 361.833 139.167 311.9 139.167 250.5H111.333C111.333 311.9 61.4003 361.833 0 361.833V389.667C61.4003 389.667 111.333 439.6 111.333 501H139.167C139.167 439.6 189.1 389.667 250.5 389.667H403.583V431.444H445.333V389.667H487.083ZM125.25 440.379C111.584 412.267 88.7327 389.416 60.621 375.75C88.7327 362.084 111.584 339.233 125.25 311.121C138.916 339.233 161.767 362.084 189.879 375.75C161.767 389.416 138.916 412.267 125.25 440.379Z" fill="currentColor"></path><path d="M487.083 431.444H445.333V473.194H487.083V431.444Z" fill="currentColor"></path><path d="M403.583 431.444H361.833V473.194H403.583V431.444Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_7"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "No Guessing, Just Data",
     description: "We track what works. We optimize what does not. Every project comes with clear metrics so you know exactly what you are getting.",
     icon: (
-      <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor">
-        <path d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z"></path>
-      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_16)"><path d="M410.542 118.403V76.0963C432.252 101.87 464.733 118.292 501 118.292V90.4583C451.123 90.4583 410.542 49.8773 410.542 0H382.708C382.708 49.8773 342.127 90.4583 292.25 90.4583V118.292C328.517 118.292 360.998 101.87 382.708 76.0963V118.403C382.708 314.016 223.557 473.167 27.9447 473.167H27.8612V0H0V473.167H27.8333V501H500.972V473.167H171.147C311.371 416.359 410.542 278.751 410.542 118.403Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_16"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   }
 ];
@@ -105,19 +97,19 @@ const WhyDrixSection: React.FC = () => {
   return (
     <section ref={targetRef} className="relative h-[250vh] bg-white text-black selection:bg-black selection:text-[#AFFF00]">
       {/* Container that sticks to the viewport while you scroll through height */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden pt-16 md:pt-20 pb-4 md:pb-6">
+      <div className="sticky top-0 h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-16 md:pt-20 pb-10 md:pb-6">
         
         {/* UPPER SECTION: The Title and Controls */}
         <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
             
             <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="text-[10vh] md:text-[12vh] lg:text-[14vh] font-medium tracking-tight leading-[0.9] text-black">
+              <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] font-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
                 Why Brands<br className="hidden md:block"/>
                 <span className="inline-flex items-center mt-1">
                   Choose Drix
-                  <svg className="ml-3 md:ml-4 w-[6vh] h-[6vh] text-black transform translate-y-1 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="10 15 15 20 20 15"/>
-                    <path d="M4 4h7a4 4 0 0 1 4 4v12"/>
+                  <svg className="ml-2 md:ml-4 w-10 md:w-[6vh] h-10 md:h-[6vh] text-black transform translate-y-[18px] md:translate-y-[3vh] opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="miter">
+                    <polyline points="10 16 16 22 22 16"/>
+                    <path d="M0 4h16v18"/>
                   </svg>
                 </span>
               </h2>
@@ -139,34 +131,88 @@ const WhyDrixSection: React.FC = () => {
         <div className="w-full h-full flex items-center overflow-visible mt-auto pt-6 min-h-[300px]">
           <motion.div 
               style={{ x }} 
-              className="flex gap-6 md:gap-8 w-max pl-6 md:pl-[35vw] lg:pl-[42vw] xl:pl-[46vw]"
+              className="flex gap-6 md:gap-8 w-max pl-[85vw] md:pl-[50vw] lg:pl-[65vw] xl:pl-[75vw]"
           >
             {/* Scrolling Cards */}
             {features.map((feature, idx) => (
-              <div 
+              <motion.div 
                 key={idx} 
-                className="w-[85vw] sm:w-[400px] md:w-[450px] lg:w-[480px] flex-shrink-0 bg-[#FAFAFA] rounded-none p-6 md:p-8 flex flex-col justify-between h-[45vh] min-h-[260px] border border-black/10 transition-colors duration-500 hover:bg-white group"
+                initial="inactive"
+                whileInView="active"
+                viewport={{ margin: "0px -40% 0px -40%", amount: 0.5 }}
+                variants={{
+                  inactive: { backgroundColor: "#FAFAFA", borderColor: "rgba(0,0,0,0.05)" },
+                  active: { backgroundColor: "#0A0A0A", borderColor: "#AFFF00" }
+                }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="relative w-[75vw] sm:w-[320px] md:w-[360px] lg:w-[400px] aspect-square flex-shrink-0 rounded-none flex flex-col items-center justify-center border overflow-hidden cursor-default"
               >
-                {/* Top: Title */}
-                <h3 className="text-[3vh] md:text-[3.5vh] font-medium tracking-tight text-black leading-[1.1] pr-4 mb-2">
-                  {feature.title}
-                </h3>
+                {/* Top Left Number */}
+                <motion.span 
+                  variants={{
+                    inactive: { color: "rgba(0,0,0,0.4)" },
+                    active: { color: "#AFFF00" }
+                  }}
+                  transition={{ duration: 0.6 }}
+                  className="absolute top-6 left-6 text-[11px] font-bold tracking-[0.2em]"
+                >
+                  0{idx + 1}
+                </motion.span>
 
-                {/* Bottom: Line, Desc, Icon */}
-                <div className="flex flex-col items-start mt-auto">
-                  <div className="w-6 h-[2px] bg-black/10 mb-3 md:mb-4 shrink-0"></div>
-                  <p className="text-[1.8vh] md:text-[2vh] text-black/50 leading-relaxed font-medium mb-4 md:mb-6 line-clamp-3 shrink-0">
-                    {feature.description}
-                  </p>
-                  <div className="w-[5vh] h-[5vh] min-w-[32px] min-h-[32px] rounded-lg bg-[#f0f0f0] flex items-center justify-center text-black/70 group-hover:bg-[#AFFF00] group-hover:text-black transition-colors shrink-0">
-                    {feature.icon}
-                  </div>
+                {/* Centered Content Wrapper (Crossfade) */}
+                <div className="absolute inset-0 flex items-center justify-center w-full h-full px-6 md:px-10">
+                  
+                  {/* Default State: Icon & Title */}
+                  <motion.div 
+                    variants={{
+                      inactive: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+                      active: { opacity: 0, y: -20, scale: 0.95, filter: "blur(4px)" },
+                    }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="absolute flex flex-col items-center justify-center gap-5 md:gap-8 w-full"
+                  >
+                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-black/50 shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-[1.5]">
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-medium tracking-tight text-black text-center leading-[1.2]">
+                      {feature.title}
+                    </h3>
+                  </motion.div>
+
+                  {/* Active State: Description (Now large and purely center stage) */}
+                  <motion.div
+                    variants={{
+                      inactive: { opacity: 0, y: 20, scale: 0.95, filter: "blur(4px)" },
+                      active: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+                    }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+                    className="absolute w-full px-4 md:px-6"
+                  >
+                    <p className="text-[15px] md:text-[1.1rem] lg:text-[1.2rem] text-white/90 leading-[1.6] md:leading-[1.7] font-medium text-center">
+                      {feature.description}
+                    </p>
+                  </motion.div>
                 </div>
-              </div>
+
+                {/* Bottom Center Arrow (Disappears when Active) */}
+                <motion.div 
+                  variants={{
+                    inactive: { opacity: 1, y: 0 },
+                    active: { opacity: 0, y: 15 }
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-black/30"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </motion.div>
+              </motion.div>
             ))}
 
             {/* Decorative padding block at the end */}
-            <div className="w-[10vw]"></div>
+            <div className="w-[5vw] md:w-[15vw] lg:w-[25vw] xl:w-[40vw] shrink-0"></div>
 
           </motion.div>
         </div>
