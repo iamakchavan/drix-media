@@ -38,7 +38,7 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
           <span className="text-black/30 font-bold tracking-[0.2em] text-[13px] md:text-sm transition-colors duration-500 group-hover:text-black/50">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] font-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black group-hover:text-black/70'}`}>
+          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] mona-sans-condensed-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black group-hover:text-black/70'}`}>
             {question}
           </h3>
         </div>
@@ -69,7 +69,7 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
             className="overflow-hidden"
           >
             <div className="px-6 md:px-12 pb-10 md:pb-12 pt-2 ml-0 md:ml-20 lg:ml-32">
-              <p className="text-base md:text-xl text-black/60 leading-relaxed font-medium max-w-3xl">
+              <p className="text-base md:text-xl text-black/60 leading-relaxed poppins-medium max-w-3xl">
                 {answer}
               </p>
             </div>
@@ -132,7 +132,7 @@ const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string })
 
 const FAQSection: React.FC = () => {
   return (
-    <section className="w-full bg-white text-black font-sans selection:bg-black selection:text-[#AFFF00] pt-24 md:pt-40">
+    <section className="w-full bg-white text-black poppins-regular selection:bg-black selection:text-[#AFFF00] pt-24 md:pt-40">
       <div className="max-w-[1600px] mx-auto w-full flex flex-col items-start border-t border-black/10">
         
         {/* Superior Split Layout */}
@@ -149,12 +149,12 @@ const FAQSection: React.FC = () => {
                </div>
                
                {/* Title */}
-               <h2 className="text-6xl md:text-8xl lg:text-[7rem] leading-[0.9] font-medium tracking-tight mb-8 md:mb-12">
+               <h2 className="text-6xl md:text-8xl lg:text-[7rem] leading-[0.9] mona-sans-condensed-medium tracking-tight mb-8 md:mb-12">
                  FAQ
                </h2>
                
                {/* Subtitle */}
-               <p className="text-black/50 text-lg md:text-xl font-medium leading-relaxed max-w-xs mb-12">
+               <p className="text-black/50 text-lg md:text-xl poppins-medium leading-relaxed max-w-xs mb-12">
                  We’ve heard it all. Here’s everything you need to know before working with us.
                </p>
 

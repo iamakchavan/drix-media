@@ -83,23 +83,23 @@ const ProcessSection: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full bg-[#050505] text-white font-sans selection:bg-[#AFFF00] selection:text-black">
+    <section className="w-full bg-[#050505] text-white poppins-regular selection:bg-[#AFFF00] selection:text-black">
       
       {/* Header Block */}
       <div className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto flex flex-col md:flex-row gap-12 justify-between items-start md:items-end border-b border-white/10">
         <div className="flex flex-col gap-6">
-          <p className="text-[#AFFF00] text-[11px] md:text-[12px] font-bold tracking-[0.2em] uppercase flex items-center gap-3">
+          <p className="text-[#AFFF00] text-[11px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase flex items-center gap-3">
              <span className="w-2 h-2 bg-[#AFFF00] shadow-[0_0_10px_rgba(175,255,0,0.5)]"></span>
              Methodology
           </p>
-          <h2 className="text-6xl md:text-8xl lg:text-[8rem] font-medium tracking-tight leading-[0.9] text-white">
+               <h2 className="text-6xl md:text-8xl lg:text-[8rem] mona-sans-condensed-medium tracking-tight leading-[0.9] text-white">
             Our<br />
             <span className="text-white/30">Process</span>
           </h2>
         </div>
         
         <div className="flex flex-col gap-8 w-full max-w-sm mb-4">
-          <p className="text-white/50 text-[14px] md:text-[16px] leading-relaxed font-medium">
+          <p className="text-white/50 text-[14px] md:text-[16px] leading-relaxed poppins-medium">
             Five steps to bridge the gap between strategy and execution.
           </p>
           <div className="w-max">
@@ -162,7 +162,7 @@ const ProcessSection: React.FC = () => {
                     >
                        <div className="flex items-center gap-6 mb-8">
                           <div className={`w-3 h-3 rounded-full transition-all duration-700 ${activeIndex === i ? 'bg-[#AFFF00] scale-[1.5] shadow-[0_0_20px_rgba(175,255,0,0.6)]' : 'bg-white/20'}`} />
-                          <h4 className={`text-xl md:text-3xl font-bold transition-colors duration-700 tracking-widest uppercase ${activeIndex === i ? 'text-[#AFFF00]' : 'text-white/40'}`}>
+                          <h4 className={`text-xl md:text-3xl poppins-bold transition-colors duration-700 tracking-widest uppercase ${activeIndex === i ? 'text-[#AFFF00]' : 'text-white/40'}`}>
                             Phase {step.number}
                           </h4>
                        </div>

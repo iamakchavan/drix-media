@@ -38,7 +38,7 @@ const AboutHero = () => (
                     initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.2 }}
-                    className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-white text-center leading-[0.95] max-w-6xl mb-8"
+                    className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl mona-sans-condensed-black tracking-tighter text-white text-center leading-[0.95] max-w-6xl mb-8"
                 >
                     We Build <span className="text-white/40">Brands</span> <br />That Matter
                 </motion.h1>
@@ -47,7 +47,7 @@ const AboutHero = () => (
                     initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.4 }}
-                    className="text-lg md:text-xl lg:text-2xl text-white/70 text-center font-medium max-w-2xl lg:max-w-3xl leading-relaxed px-4"
+                    className="text-lg md:text-xl lg:text-2xl text-white/70 text-center poppins-medium max-w-2xl lg:max-w-3xl leading-relaxed px-4"
                 >
                     A creative production agency built on strategy, executed with precision, and grown through consistency.
                 </motion.p>
@@ -60,7 +60,7 @@ const AboutHero = () => (
                 transition={{ delay: 1.5, duration: 1 }}
                 className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
             >
-                <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Scroll</span>
+                <span className="text-[10px] poppins-bold tracking-[0.2em] text-white/30 uppercase">Scroll</span>
                 <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
             </motion.div>
         </div>
@@ -75,15 +75,15 @@ const OurStory = () => (
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full bg-white py-40 px-6 md:px-12 text-[#0C0C0C] font-sans relative"
+        className="w-full bg-white py-40 px-6 md:px-12 text-[#0C0C0C] poppins-regular relative"
     >
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
 
             {/* Left: Sticky Headline & Minimal Timeline Label */}
             <div className="lg:col-span-4 lg:sticky lg:top-40">
                 <div className="flex flex-col">
-                    <p className="text-[11px] font-bold tracking-[0.3em] text-[#476D07] uppercase mb-8">The Origins</p>
-                    <h2 className="text-6xl md:text-7xl font-black tracking-tighter text-black leading-[0.9] mb-12">
+                    <p className="text-[11px] poppins-bold tracking-[0.3em] text-[#476D07] uppercase mb-8">The Origins</p>
+                    <h2 className="text-6xl md:text-7xl mona-sans-condensed-black tracking-tighter text-black leading-[0.9] mb-12">
                         How <br />We <br /><span className="text-black/15">Started</span>
                     </h2>
 

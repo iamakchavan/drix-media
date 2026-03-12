@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
    return (
-      <footer id="footer" className="w-full bg-[#f6f6f6] text-black pt-16 md:pt-20 font-sans overflow-x-hidden flex flex-col relative selection:bg-black selection:text-[#AFFF00]">
+      <footer id="footer" className="w-full bg-[#f6f6f6] text-black pt-16 md:pt-20 poppins-regular overflow-x-hidden flex flex-col relative selection:bg-black selection:text-[#AFFF00]">
 
          <div className="max-w-[1600px] mx-auto w-full px-6 md:px-12 flex-grow flex flex-col justify-between relative z-10">
             
@@ -13,8 +13,8 @@ const Footer: React.FC = () => {
                 {/* 1. Logo & Contact info */}
                 <div className="w-full md:w-1/3 flex flex-col gap-8">
                     <div className="flex items-start select-none text-black hover:text-[#094B28] transition-colors duration-500 cursor-default w-fit group pt-2">
-                        <span className="font-bebas text-[36px] md:text-[42px] tracking-[-0.04em] leading-none mb-4">DRIX MEDIA</span>
-                        <span className="font-bebas text-[12px] ml-1 mt-[2px] leading-none tracking-[-0.04em]">®</span>
+                        <span className="mona-sans-condensed-bold text-[36px] md:text-[42px] tracking-[-0.04em] leading-none mb-4">DRIX MEDIA</span>
+                        <span className="mona-sans-condensed-bold text-[12px] ml-1 mt-[2px] leading-none tracking-[-0.04em]">®</span>
                     </div>
                     <div className="flex flex-col gap-2">
                          <span className="text-xs font-bold text-black/30 tracking-widest uppercase mb-1">Get in touch</span>
@@ -35,18 +35,18 @@ const Footer: React.FC = () => {
                                 href={link === 'Home' ? '/' : `./${link.toLowerCase().replace(/ /g, '-')}`} 
                                 className="relative flex items-center overflow-hidden w-fit group text-black/90 h-6 md:h-7"
                             >
-                                <div className="opacity-0 pointer-events-none text-base md:text-lg font-semibold">
+                                <div className="opacity-0 pointer-events-none text-base md:text-lg poppins-semibold">
                                     {link}
                                 </div>
                                 <motion.div 
-                                    className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg font-semibold"
+                                    className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold"
                                     variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
                                     transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                                 >
                                     {link}
                                 </motion.div>
                                 <motion.div 
-                                    className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg font-semibold text-[#094B28]"
+                                    className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold text-[#094B28]"
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
                                     transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                                 >
@@ -73,12 +73,12 @@ const Footer: React.FC = () => {
                                 rel="noopener noreferrer" 
                                 className="relative flex items-center overflow-hidden w-fit group text-black/90 h-6 md:h-7"
                             >
-                                <div className="flex items-center gap-2 opacity-0 pointer-events-none text-base md:text-lg font-semibold">
+                                <div className="flex items-center gap-2 opacity-0 pointer-events-none text-base md:text-lg poppins-semibold">
                                     <span>{link}</span>
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                 </div>
                                 <motion.div 
-                                    className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg font-semibold"
+                                    className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold"
                                     variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
                                     transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                                 >
@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-black/30 transition-colors mb-[1px] group-hover:text-[#094B28]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                 </motion.div>
                                 <motion.div 
-                                    className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg font-semibold text-[#094B28]"
+                                    className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold text-[#094B28]"
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
                                     transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                                 >
@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
                             initial: { opacity: 0, y: 100 },
                             animate: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.19, 1, 0.22, 1] } }
                         }}
-                        className="font-bebas tracking-[-0.02em] pointer-events-auto cursor-pointer select-none text-[#094B28] flex flex-col items-center uppercase relative w-fit"
+                        className="mona-sans-condensed-bold tracking-[-0.02em] pointer-events-auto cursor-pointer select-none text-[#094B28] flex flex-col items-center uppercase relative w-fit"
                     >
                         {/* Hover Overlay Text to crossfade color beautifully without layout shifts */}
                         <div className="absolute inset-0 flex flex-col items-center w-full h-full text-[#AFFF00] z-20 pointer-events-none mix-blend-difference opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>

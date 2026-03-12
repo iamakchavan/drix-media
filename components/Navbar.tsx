@@ -95,22 +95,22 @@ const Navbar: React.FC = () => {
       {/* Main Navbar (Always Visible, z-50) */}
       <nav className="w-full flex justify-between items-start pt-4 md:pt-6 z-50 relative">
         {/* Logo - visible when closed */}
-        <Link to="/" className={`text-xl md:text-3xl font-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500 ease-in-out ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+        <Link to="/" className={`text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500 ease-in-out ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
           DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup>
         </Link>
 
         {/* Center Links (Desktop) - Hide when open */}
         <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 mix-blend-difference ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <Link to="/about" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/about" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             About
           </Link>
-          <Link to="/services" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/services" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Services
           </Link>
-          <Link to="/blog" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/blog" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Journal
           </Link>
-          <Link to="/contact" className="text-[11px] font-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/contact" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
             Contact
           </Link>
         </div>
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             <span className="block w-8 h-[2px] bg-white group-hover:bg-brand-lime transition-colors duration-300"></span>
             <span className="block w-5 h-[2px] bg-white group-hover:w-8 group-hover:bg-brand-lime transition-all duration-300"></span>
           </div>
-          <span className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white group-hover:text-brand-lime transition-colors duration-300 leading-none">
+          <span className="text-3xl md:text-5xl mona-sans-condensed-black uppercase tracking-tighter text-white group-hover:text-brand-lime transition-colors duration-300 leading-none">
             Menu
           </span>
         </button>
@@ -161,7 +161,7 @@ const Navbar: React.FC = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
-                    className="text-xl md:text-3xl font-black tracking-tighter uppercase mix-blend-difference"
+                    className="text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase mix-blend-difference"
                   >
                     <Link to="/" onClick={() => setIsOpen(false)} className="hover:text-white/70 transition-colors">DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup></Link>
                   </motion.div>
@@ -175,7 +175,7 @@ const Navbar: React.FC = () => {
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 group cursor-pointer hover:text-white/70 transition-colors"
                   >
-                    <span className="text-xl md:text-2xl font-bold uppercase tracking-tight mt-[1px]">
+                    <span className="text-xl md:text-2xl poppins-bold uppercase tracking-tight mt-[1px]">
                       CLOSE
                     </span>
                     <div className="relative w-6 h-6 flex items-center justify-center pt-1 md:pt-0">
@@ -199,11 +199,11 @@ const Navbar: React.FC = () => {
                     variants={itemVariants}
                     className="flex flex-col gap-2 md:gap-4 w-full md:w-1/2 mb-4 md:mb-0 order-2 md:order-1 text-left"
                   >
-                    <span className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-1 md:mb-2 font-medium">Get in Touch</span>
-                    <a href="mailto:hello@drixmedia.com" className="text-xl md:text-3xl font-medium tracking-tight hover:text-[#AFFF00] transition-colors">
+                    <span className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-1 md:mb-2 poppins-medium">Get in Touch</span>
+                    <a href="mailto:hello@drixmedia.com" className="text-xl md:text-3xl poppins-medium tracking-tight hover:text-[#AFFF00] transition-colors">
                       hello@drixmedia.com
                     </a>
-                    <a href="tel:5108956500" className="text-lg md:text-xl font-medium text-white/50 hover:text-[#AFFF00] transition-colors">
+                    <a href="tel:5108956500" className="text-lg md:text-xl poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors">
                       (510) 895-6500
                     </a>
                   </motion.div>
@@ -217,7 +217,7 @@ const Navbar: React.FC = () => {
                           <Link
                             to={path}
                             onClick={() => setIsOpen(false)}
-                            className="text-3xl md:text-4xl lg:text-5xl font-medium hover:font-semibold tracking-tight text-white transition-all duration-300 block relative group-hover/menu:opacity-30 group-hover/menu:blur-[2px] hover:!opacity-100 hover:!blur-none hover:!text-[#AFFF00]"
+                            className="text-3xl md:text-4xl lg:text-5xl poppins-medium hover:poppins-semibold tracking-tight text-white transition-all duration-300 block relative group-hover/menu:opacity-30 group-hover/menu:blur-[2px] hover:!opacity-100 hover:!blur-none hover:!text-[#AFFF00]"
                           >
                             <span className="relative z-10">{item}</span>
                           </Link>

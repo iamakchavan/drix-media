@@ -70,11 +70,11 @@ const PricingSection: React.FC = () => {
   ];
 
   return (
-    <section id="pricing" className="w-full bg-[#F5F5F5] py-24 px-4 md:px-8 text-[#0C0C0C] font-sans">
+    <section id="pricing" className="w-full bg-[#F5F5F5] py-24 px-4 md:px-8 text-[#0C0C0C] poppins-regular">
       {/* Header */}
       <div className="max-w-4xl mx-auto text-center mb-16">
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">Flexible pricing</h2>
-        <p className="text-[#0C0C0C]/60 text-base md:text-lg max-w-lg mx-auto leading-relaxed">
+        <h2 className="text-4xl md:text-6xl mona-sans-condensed-bold tracking-tighter mb-6">Flexible pricing</h2>
+        <p className="text-[#0C0C0C]/60 text-base md:text-lg max-w-lg mx-auto leading-relaxed poppins-medium">
           Choose the plan that best fits your needs.<br className="hidden md:block" />
           From a solid foundation to a fully optimized solution
         </p>
@@ -83,7 +83,7 @@ const PricingSection: React.FC = () => {
       {/* Toggle */}
       <div className="flex items-center justify-center gap-4 mb-20 select-none">
         <span
-          className={`text-sm font-medium transition-colors duration-300 ${billingCycle === 'monthly' ? 'text-[#0C0C0C]/60' : 'text-[#0C0C0C]/60'} cursor-pointer hover:text-black`}
+          className={`text-sm poppins-medium transition-colors duration-300 ${billingCycle === 'monthly' ? 'text-[#0C0C0C]/60' : 'text-[#0C0C0C]/60'} cursor-pointer hover:text-black`}
           onClick={() => setBillingCycle('monthly')}
         >
           Monthly
@@ -97,13 +97,13 @@ const PricingSection: React.FC = () => {
         </button>
 
         <span
-          className={`text-sm font-medium transition-colors duration-300 ${billingCycle === 'annual' ? 'text-[#0C0C0C]' : 'text-[#0C0C0C]'} cursor-pointer hover:text-black`}
+          className={`text-sm poppins-medium transition-colors duration-300 ${billingCycle === 'annual' ? 'text-[#0C0C0C]' : 'text-[#0C0C0C]'} cursor-pointer hover:text-black`}
           onClick={() => setBillingCycle('annual')}
         >
           Annual
         </span>
 
-        <div className="bg-[#AFFF00]/10 text-[#476D07] text-xs font-bold px-3 py-1.5 rounded-full ml-1">
+        <div className="bg-[#AFFF00]/10 text-[#476D07] text-xs poppins-bold px-3 py-1.5 rounded-full ml-1">
           Save 30%
         </div>
       </div>
@@ -127,9 +127,9 @@ const PricingSection: React.FC = () => {
 
             {/* Header Row: Name + Badge */}
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-[#0C0C0C] text-[17px] font-medium tracking-tight">{plan.name}</h3>
+              <h3 className="text-[#0C0C0C] text-[17px] poppins-medium tracking-tight">{plan.name}</h3>
               {plan.badge && (
-                <div className={`${plan.badge.bg} ${plan.badge.textCol} px-3 py-1 rounded-full flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wide`}>
+                <div className={`${plan.badge.bg} ${plan.badge.textCol} px-3 py-1 rounded-full flex items-center gap-1.5 text-[11px] poppins-bold uppercase tracking-wide`}>
                   {plan.badge.icon === "fire" && (
                     <svg width="10" height="10" viewBox="0 0 256 256" fill="currentColor"><path d="M216,144a88,88,0,0,1-176,0c0-27.92,11-56.47,32.66-84.85a8,8,0,0,1,11.93-.89l24.12,23.41,22-60.41a8,8,0,0,1,12.63-3.41C165.21,36,216,84.55,216,144Z"></path></svg>
                   )}
@@ -144,24 +144,24 @@ const PricingSection: React.FC = () => {
             {/* Price */}
             <div className="flex items-baseline gap-2 mb-2">
               {plan.oldPrice && (
-                <span className="text-[#0C0C0C]/30 text-2xl font-bold line-through decoration-1">
+                <span className="text-[#0C0C0C]/30 text-2xl poppins-bold line-through decoration-1">
                   $<AnimatedCounter value={getPrice(plan.oldPrice)} />
                 </span>
               )}
-              <span className="text-[56px] font-bold tracking-tighter text-[#0B0B0C] leading-none flex items-baseline">
+              <span className="text-[56px] poppins-bold tracking-tighter text-[#0B0B0C] leading-none flex items-baseline">
                 $<AnimatedCounter value={getPrice(plan.price)} />
               </span>
-              <span className="text-[#0B0B0C]/40 font-medium text-[17px]">/month</span>
+              <span className="text-[#0B0B0C]/40 poppins-medium text-[17px]">/month</span>
             </div>
 
             {/* Description */}
-            <p className="text-[#0C0C0C]/60 text-[15px] leading-relaxed mb-10 min-h-[60px] font-normal max-w-[280px]">
+            <p className="text-[#0C0C0C]/60 text-[15px] leading-relaxed mb-10 min-h-[60px] poppins-regular max-w-[280px]">
               {plan.description}
             </p>
 
             {/* Button */}
             <a href="#" className={`
-                    w-full h-[64px] flex items-center justify-center gap-3 font-semibold text-[16px] transition-transform hover:scale-[1.02] mb-10 shadow-sm
+                    w-full h-[64px] flex items-center justify-center gap-3 poppins-semibold text-[16px] transition-transform hover:scale-[1.02] mb-10 shadow-sm
                     ${plan.isHighlight ? 'bg-[#AFFF00] text-black shadow-lg' : 'bg-white text-[#0C0C0C]'}
                 `}>
               {/* Icon */}
@@ -175,7 +175,7 @@ const PricingSection: React.FC = () => {
 
             {/* What's Included */}
             <div className="mb-4">
-              <span className="text-[#0C0C0C] font-medium text-sm">What's Included:</span>
+              <span className="text-[#0C0C0C] poppins-semibold text-sm">What's Included:</span>
             </div>
 
             {/* Features */}
@@ -184,7 +184,7 @@ const PricingSection: React.FC = () => {
                 <div key={i} className="flex items-start gap-3">
                   {/* L-Shape Bullet (Top-Left Bracket Style) */}
                   <div className="w-2.5 h-2.5 border-t-[2px] border-l-[2px] border-[#588B00] mt-1.5 shrink-0"></div>
-                  <span className="text-[#0C0C0C]/60 font-medium text-[15px] leading-snug">{feature}</span>
+                  <span className="text-[#0C0C0C]/60 poppins-medium text-[15px] leading-snug">{feature}</span>
                 </div>
               ))}
             </div>

@@ -103,7 +103,7 @@ const WhyDrixSection: React.FC = () => {
         <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
             
             <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] font-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
+              <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] mona-sans-condensed-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
                 Why Brands<br className="hidden md:block"/>
                 <span className="inline-flex items-center mt-1">
                   Choose Drix
@@ -119,7 +119,7 @@ const WhyDrixSection: React.FC = () => {
                      <ScrambleButtonSecondary href="#about" text="About Us" />
                   </div>
                   
-                  <p className="text-black/40 text-[10px] md:text-[12px] font-bold tracking-[0.2em] uppercase leading-[1.6]">
+                  <p className="text-black/40 text-[10px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase leading-[1.6]">
                      Design, Develop And Run Any Media Strategy You Need.
                   </p>
               </div>
@@ -174,7 +174,7 @@ const WhyDrixSection: React.FC = () => {
                     <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-black/50 shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-[1.5]">
                       {feature.icon}
                     </div>
-                    <h3 className="text-xl md:text-2xl font-medium tracking-tight text-black text-center leading-[1.2]">
+                    <h3 className="text-xl md:text-2xl poppins-medium tracking-tight text-black text-center leading-[1.2]">
                       {feature.title}
                     </h3>
                   </motion.div>

@@ -62,7 +62,7 @@ const EyeSection: React.FC = () => {
     const backgroundY = useTransform(scrollYProgress, [0, 1], ["min(-10%, -50px)", "0%"]);
 
     return (
-        <section ref={sectionRef} className="relative w-full bg-[#050505] overflow-hidden flex flex-col justify-center py-20 md:py-32 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
+        <section ref={sectionRef} className="relative w-full bg-[#050505] overflow-hidden flex flex-col justify-center py-20 md:py-32 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black poppins-regular">
             
             {/* Cinematic Parallax Background Image */}
             <motion.div 
@@ -97,7 +97,7 @@ const EyeSection: React.FC = () => {
                             </span>
                         </div>
                         
-                        <h2 className="text-5xl md:text-6xl lg:text-[6.5rem] font-medium tracking-tight text-white leading-[0.95] text-left mb-8 md:mb-10">
+                        <h2 className="text-5xl md:text-6xl lg:text-[6.5rem] mona-sans-condensed-medium tracking-tight text-white leading-[0.95] text-left mb-8 md:mb-10">
                             Ready to build<br/>
                             <span className="text-white/30 hidden md:inline">something </span>
                             <span className="text-white/30 md:hidden">someth- <br/> ing </span>
@@ -105,7 +105,7 @@ const EyeSection: React.FC = () => {
                         </h2>
 
                         <div className="flex flex-col max-w-sm w-full border-l border-[#AFFF00]/50 pl-6 md:pl-8">
-                            <p className="text-white/50 text-[15px] leading-relaxed font-medium">
+                            <p className="text-white/50 text-[15px] leading-relaxed poppins-medium">
                                 Book a free strategy call and let's talk about where your brand can go.
                             </p>
                         </div>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from './Navbar';
 
@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col font-sans selection:bg-[#AFFF00] selection:text-black">
+    <div ref={containerRef} className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col poppins-regular selection:bg-[#AFFF00] selection:text-black">
       
       {/* Premium Dark Aurora Pattern Background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#030303]">
@@ -147,7 +147,7 @@ const Hero: React.FC = () => {
               variants={staggerVariants}
               initial="hidden"
               animate="show"
-              className="text-[9.5vw] sm:text-[9vw] md:text-[6.5vw] lg:text-[5.75vw] xl:text-[5.5vw] leading-[1.05] md:leading-[1] font-bold text-white tracking-tighter w-full flex flex-col items-start"
+              className="text-[9.5vw] sm:text-[9vw] md:text-[6.5vw] lg:text-[5.75vw] xl:text-[5.5vw] leading-[1.05] md:leading-[1] mona-sans-condensed-bold text-white tracking-tighter w-full flex flex-col items-start"
             >
               <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
                 <span className="flex">
