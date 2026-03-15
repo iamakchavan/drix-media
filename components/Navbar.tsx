@@ -5,120 +5,102 @@ import { Link } from 'react-router-dom';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Lock body scroll when menu is open and compensate for scrollbar width
   useEffect(() => {
     if (isOpen) {
-      // Calculate scrollbar width
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-      // Apply styles to prevent shift
       document.body.style.paddingRight = `${scrollbarWidth}px`;
       document.body.style.overflow = 'hidden';
     } else {
-      // Reset styles
       document.body.style.paddingRight = '0px';
       document.body.style.overflow = 'unset';
     }
-
-    // Cleanup ensures we don't leave the body locked if component unmounts
     return () => {
       document.body.style.paddingRight = '0px';
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
 
-  // Ultra-premium Apple/Framer easing
-  const premiumEasing = [0.19, 1, 0.22, 1];
+  const ease = [0.76, 0, 0.24, 1]; // Apple-level cubic-bezier
 
-  const menuVariants: Variants = {
-    closed: {
-      y: "-100%",
-      opacity: 0,
-      filter: "blur(20px)",
-      transition: {
-        duration: 0.6,
-        ease: premiumEasing
-      }
-    },
-    open: {
-      y: "0%",
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: {
-        duration: 1.2,
-        ease: premiumEasing
-      }
-    }
+  // Overlay panels — staggered vertical blinds
+  const panelVariants: Variants = {
+    closed: (i: number) => ({
+      scaleY: 0,
+      transition: { duration: 0.5, ease, delay: i * 0.05 }
+    }),
+    open: (i: number) => ({
+      scaleY: 1,
+      transition: { duration: 0.7, ease, delay: i * 0.06 }
+    })
   };
 
-  const containerVariants: Variants = {
-    closed: {
-      transition: {
-        staggerChildren: 0.05,
-        staggerDirection: -1,
-        when: "afterChildren"
-      }
-    },
-    open: {
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.3,
-        when: "beforeChildren"
-      }
-    }
+  const contentFade: Variants = {
+    closed: { opacity: 0, transition: { duration: 0.3, ease } },
+    open: { opacity: 1, transition: { duration: 0.6, ease, delay: 0.4 } }
   };
 
-  const itemVariants: Variants = {
+  const linkVariants: Variants = {
     closed: {
+      y: 80,
       opacity: 0,
-      y: 40,
-      rotateX: -20,
-      filter: "blur(10px)",
-      transition: { duration: 0.4, ease: premiumEasing }
+      transition: { duration: 0.4, ease }
     },
-    open: {
-      opacity: 1,
+    open: (i: number) => ({
       y: 0,
-      rotateX: 0,
-      filter: "blur(0px)",
-      transition: {
-        duration: 0.8,
-        ease: premiumEasing
-      }
-    }
+      opacity: 1,
+      transition: { duration: 0.8, ease, delay: 0.35 + i * 0.06 }
+    })
   };
 
-  const menuItems = ['Home', 'About', 'Services', 'Careers', 'Projects', 'Blog', 'Contact'];
+  const infoVariants: Variants = {
+    closed: { y: 30, opacity: 0, transition: { duration: 0.3, ease } },
+    open: (i: number) => ({
+      y: 0, opacity: 1,
+      transition: { duration: 0.7, ease, delay: 0.6 + i * 0.08 }
+    })
+  };
+
+  const menuItems = [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Projects', path: '/projects' },
+    { label: 'Blog', path: '/blog' },
+    { label: 'Contact', path: '/contact' },
+  ];
 
   return (
     <>
-      {/* Main Navbar (Always Visible, z-50) */}
+      {/* Main Navbar */}
       <nav className="w-full flex justify-between items-start pt-4 md:pt-6 z-50 relative">
-        {/* Logo - visible when closed */}
-        <Link to="/" className={`text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500 ease-in-out ${isOpen ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+        {/* Logo */}
+        <Link 
+          to="/" 
+          className="text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase text-white mix-blend-difference z-[60] transition-all duration-500"
+        >
           DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup>
         </Link>
 
-        {/* Center Links (Desktop) - Hide when open */}
-        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-300 mix-blend-difference ${isOpen ? 'opacity-0 -translate-y-4' : 'opacity-100 translate-y-0'}`}>
-          <Link to="/about" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+        {/* Center Links (Desktop) */}
+        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-500 ${isOpen ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+          <Link to="/about" className="text-[11px] poppins-bold tracking-[0.15em] text-white mix-blend-difference hover:text-brand-lime transition-colors uppercase">
             About
           </Link>
-          <Link to="/services" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/services" className="text-[11px] poppins-bold tracking-[0.15em] text-white mix-blend-difference hover:text-brand-lime transition-colors uppercase">
             Services
           </Link>
-          <Link to="/blog" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/blog" className="text-[11px] poppins-bold tracking-[0.15em] text-white mix-blend-difference hover:text-brand-lime transition-colors uppercase">
             Journal
           </Link>
-          <Link to="/contact" className="text-[11px] poppins-bold tracking-[0.15em] text-white hover:text-brand-lime transition-colors uppercase">
+          <Link to="/contact" className="text-[11px] poppins-bold tracking-[0.15em] text-white mix-blend-difference hover:text-brand-lime transition-colors uppercase">
             Contact
           </Link>
         </div>
 
-        {/* Menu Trigger - Hide when open */}
+        {/* Menu Trigger */}
         <button
           onClick={() => setIsOpen(true)}
-          className={`flex items-center gap-3 group cursor-pointer mix-blend-difference z-[50] transition-all duration-300 ${isOpen ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
+          className={`flex items-center gap-3 group cursor-pointer mix-blend-difference z-[60] transition-all duration-500 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
         >
           <div className="flex flex-col gap-1.5 items-end pt-1">
             <span className="block w-8 h-[2px] bg-white group-hover:bg-brand-lime transition-colors duration-300"></span>
@@ -130,103 +112,133 @@ const Navbar: React.FC = () => {
         </button>
       </nav>
 
-      {/* Half Screen Menu Overlay */}
+      {/* Fullscreen Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop with Blur */}
+            {/* Background Panels — cinematic reveal */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              onClick={() => setIsOpen(false)}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[998]"
-            />
+              className="fixed inset-0 z-[998] pointer-events-none"
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              {[0, 1, 2, 3, 4].map((i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  variants={panelVariants}
+                  className="absolute top-0 h-full bg-[#AFFF00]"
+                  style={{
+                    left: `${i * 20}%`,
+                    width: '20.1%',
+                    transformOrigin: 'top',
+                  }}
+                />
+              ))}
+            </motion.div>
 
+            {/* Menu Content */}
             <motion.div
               initial="closed"
               animate="open"
               exit="closed"
-              variants={menuVariants}
-              className="fixed top-0 left-0 w-full h-[65vh] bg-[#000000] z-[999] flex flex-col text-white shadow-2xl overflow-hidden border-b border-white/10"
+              variants={contentFade}
+              className="fixed inset-0 z-[999] flex flex-col text-white poppins-regular selection:bg-[#AFFF00] selection:text-black bg-[#050505]"
             >
-              <div className="flex flex-col w-full max-w-[120rem] mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12 h-full justify-between">
+              <div className="flex flex-col w-full max-w-[120rem] mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12 h-full">
 
-                {/* Header Row: Logo + Close Button */}
+                {/* Header — Logo + Close */}
                 <div className="flex justify-between items-start w-full flex-none">
-                  {/* Logo */}
                   <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase mix-blend-difference"
+                    variants={contentFade}
+                    className="text-xl md:text-3xl mona-sans-condensed-black tracking-tighter uppercase"
                   >
-                    <Link to="/" onClick={() => setIsOpen(false)} className="hover:text-white/70 transition-colors">DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup></Link>
+                    <Link to="/" onClick={() => setIsOpen(false)} className="hover:text-[#AFFF00] transition-colors duration-300">
+                      DRIX MEDIA<sup className="text-xs md:text-sm align-top top-0 ml-0.5">®</sup>
+                    </Link>
                   </motion.div>
 
-                  {/* Close Button */}
                   <motion.button
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
+                    variants={contentFade}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 group cursor-pointer hover:text-white/70 transition-colors"
+                    className="flex items-center gap-3 group cursor-pointer"
                   >
-                    <span className="text-xl md:text-2xl poppins-bold uppercase tracking-tight mt-[1px]">
-                      CLOSE
+                    <span className="text-xl md:text-2xl poppins-bold uppercase tracking-tight text-white/60 group-hover:text-white transition-colors duration-300">
+                      Close
                     </span>
-                    <div className="relative w-6 h-6 flex items-center justify-center pt-1 md:pt-0">
-                      <span className="absolute block w-6 h-[2px] bg-white transform rotate-45 transition-transform duration-500 origin-center group-hover:rotate-180"></span>
-                      <span className="absolute block w-6 h-[2px] bg-white transform -rotate-45 transition-transform duration-500 origin-center group-hover:-rotate-180"></span>
+                    <div className="relative w-7 h-7 flex items-center justify-center">
+                      <span className="absolute block w-6 h-[2px] bg-white/60 group-hover:bg-white transform rotate-45 transition-all duration-500 origin-center group-hover:rotate-[225deg]"></span>
+                      <span className="absolute block w-6 h-[2px] bg-white/60 group-hover:bg-white transform -rotate-45 transition-all duration-500 origin-center group-hover:-rotate-[225deg]"></span>
                     </div>
                   </motion.button>
                 </div>
 
-                {/* Content Grid */}
-                <motion.div
-                  variants={containerVariants}
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
-                  className="flex flex-col md:flex-row justify-between items-end flex-grow w-full pb-8 pt-12 md:pt-0"
-                >
+                {/* Main Content Area */}
+                <div className="flex flex-col md:flex-row flex-grow items-end justify-between pb-8 md:pb-12 pt-8 md:pt-0">
 
-                  {/* Left Side: Contact Info */}
-                  <motion.div
-                    variants={itemVariants}
-                    className="flex flex-col gap-2 md:gap-4 w-full md:w-1/2 mb-4 md:mb-0 order-2 md:order-1 text-left"
-                  >
-                    <span className="text-white/50 text-xs md:text-sm tracking-widest uppercase mb-1 md:mb-2 poppins-medium">Get in Touch</span>
-                    <a href="mailto:hello@drixmedia.com" className="text-xl md:text-3xl poppins-medium tracking-tight hover:text-[#AFFF00] transition-colors">
-                      hello@drixmedia.com
-                    </a>
-                    <a href="tel:5108956500" className="text-lg md:text-xl poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors">
-                      (510) 895-6500
-                    </a>
-                  </motion.div>
-
-                  {/* Right Side: Navigation Links */}
-                  <div className="flex flex-col items-end gap-2 md:gap-4 w-full md:w-1/2 text-right order-1 md:order-2 mb-10 md:mb-0 group/menu">
-                    {menuItems.map((item) => {
-                      const path = item.toLowerCase() === 'home' ? '/' : `/${item.toLowerCase()}`;
-                      return (
-                        <motion.div key={item} variants={itemVariants} className="block relative">
-                          <Link
-                            to={path}
-                            onClick={() => setIsOpen(false)}
-                            className="text-3xl md:text-4xl lg:text-5xl poppins-medium hover:poppins-semibold tracking-tight text-white transition-all duration-300 block relative group-hover/menu:opacity-30 group-hover/menu:blur-[2px] hover:!opacity-100 hover:!blur-none hover:!text-[#AFFF00]"
-                          >
-                            <span className="relative z-10">{item}</span>
-                          </Link>
-                        </motion.div>
-                      );
-                    })}
+                  {/* Left — Bottom info */}
+                  <div className="flex flex-col gap-8 w-full md:w-5/12 order-2 md:order-1">
+                    <motion.div custom={0} variants={infoVariants} className="flex flex-col gap-1">
+                      <span className="text-[10px] poppins-bold tracking-[0.25em] uppercase text-white/25 mb-2">Get in Touch</span>
+                      <a href="mailto:hello@drixmedia.com" className="text-lg md:text-xl poppins-medium tracking-tight text-white/70 hover:text-[#AFFF00] transition-colors duration-300">
+                        hello@drixmedia.com
+                      </a>
+                      <a href="tel:5108956500" className="text-base poppins-medium text-white/35 hover:text-[#AFFF00] transition-colors duration-300">
+                        (510) 895-6500
+                      </a>
+                    </motion.div>
+                    
+                    <motion.div custom={1} variants={infoVariants} className="flex gap-6">
+                      {['Twitter', 'Instagram', 'Dribbble'].map((s) => (
+                        <a key={s} href="#" className="text-[11px] poppins-bold tracking-[0.15em] uppercase text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
+                          {s}
+                        </a>
+                      ))}
+                    </motion.div>
                   </div>
 
+                  {/* Right — Navigation Links */}
+                  <div className="flex flex-col items-end w-full md:w-7/12 order-1 md:order-2 mb-12 md:mb-0">
+                    {menuItems.map((item, i) => (
+                      <motion.div
+                        key={item.label}
+                        custom={i}
+                        variants={linkVariants}
+                        className="overflow-hidden"
+                      >
+                        <Link
+                          to={item.path}
+                          onClick={() => setIsOpen(false)}
+                          className="group flex items-baseline gap-4 py-1 md:py-1.5"
+                        >
+                          <span className="text-[11px] poppins-bold tracking-[0.2em] text-white/0 group-hover:text-[#AFFF00] transition-all duration-500 translate-x-4 group-hover:translate-x-0 uppercase tabular-nums">
+                            {String(i + 1).padStart(2, '0')}
+                          </span>
+                          <span className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] mona-sans-condensed-bold tracking-tight leading-[1.1] text-white/90 group-hover:text-[#AFFF00] transition-all duration-500 uppercase">
+                            {item.label}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                </div>
+
+                {/* Bottom bar */}
+                <motion.div
+                  custom={2}
+                  variants={infoVariants}
+                  className="flex-none flex justify-between items-end border-t border-white/[0.06] pt-5"
+                >
+                  <span className="text-[10px] poppins-medium tracking-[0.15em] uppercase text-white/20">
+                    © 2024 Drix Media
+                  </span>
+                  <span className="text-[10px] poppins-medium tracking-[0.15em] uppercase text-white/20">
+                    All rights reserved
+                  </span>
                 </motion.div>
+
               </div>
             </motion.div>
           </>

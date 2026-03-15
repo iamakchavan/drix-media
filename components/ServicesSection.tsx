@@ -118,18 +118,18 @@ const ServicesSection: React.FC = () => {
                                         className="group flex items-start cursor-pointer transition-all duration-300 select-none"
                                         onMouseEnter={() => setActiveService(index)}
                                     >
-                                        <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 w-full relative">
+                                        <div className="flex items-start justify-between gap-4 w-full">
 
                                             {/* Title */}
                                             <h3
-                                                className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.05em] leading-[1.1] transition-all duration-300 
+                                                className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.05em] leading-[1.1] transition-all duration-300 flex-1 min-w-0
                                             ${isActive ? 'text-white' : 'text-white/15 group-hover:text-white/30'}`}
                                             >
                                                 {service.title}
                                             </h3>
 
-                                            {/* Number: { 01 } */}
-                                            <div className="flex items-baseline font-bold tracking-[-0.05em] text-lg md:text-xl md:ml-4 align-top -mt-2 md:mt-0 absolute md:static top-0 right-0">
+                                            {/* Number: { 01 } — always right-aligned */}
+                                            <div className="flex items-baseline font-bold tracking-[-0.05em] text-lg md:text-xl flex-shrink-0 pt-2 md:pt-3">
                                                 <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/20'}`}>{'{'}</span>
                                                 <span className={`mx-2 transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/40'}`}>{service.id}</span>
                                                 <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/20'}`}>{'}'}</span>

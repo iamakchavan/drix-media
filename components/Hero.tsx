@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Hls from 'hls.js';
 import Navbar from './Navbar';
 
 const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
@@ -23,7 +24,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
         <div className="opacity-0 pointer-events-none flex items-center gap-2 text-[13px] tracking-[0.25em] uppercase font-semibold whitespace-nowrap">
           <span>{text}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </div>
         <motion.div
           variants={{
@@ -33,7 +34,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-semibold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
@@ -44,7 +45,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -59,6 +60,47 @@ const Hero: React.FC = () => {
   });
 
   const yOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // HLS Video Background — smooth crossfade loop
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const src = 'https://stream.mux.com/Kec29dVyJgiPdtWaQtPuEiiGHkJIYQAVUJcNiIHUYeo.m3u8';
+
+    let isFading = false;
+
+    const handleTimeUpdate = () => {
+      if (!video.duration || isFading) return;
+      // When within 1s of the end, fade out → seek to start → fade in
+      if (video.currentTime >= video.duration - 1) {
+        isFading = true;
+        video.style.opacity = '0';
+        setTimeout(() => {
+          video.currentTime = 0;
+          video.play().catch(() => {});
+          setTimeout(() => {
+            video.style.opacity = '1';
+            isFading = false;
+          }, 100);
+        }, 800); // Match the CSS transition duration
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({ enableWorker: true, lowLatencyMode: false });
+      hls.loadSource(src);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+      return () => { video.removeEventListener('timeupdate', handleTimeUpdate); hls.destroy(); };
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = src;
+      video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}); });
+    }
+    return () => { video.removeEventListener('timeupdate', handleTimeUpdate); };
+  }, []);
 
   // Ultra-premium Apple/Framer easing (custom cubic-bezier)
   const premiumEasing = [0.19, 1, 0.22, 1];
@@ -93,8 +135,21 @@ const Hero: React.FC = () => {
   return (
     <div ref={containerRef} className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col poppins-regular selection:bg-[#AFFF00] selection:text-black">
       
-      {/* Premium Dark Aurora Pattern Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-[#030303]">
+      {/* HLS Video Background Layer */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          ref={videoRef}
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ transition: 'opacity 0.8s ease' }}
+        />
+        {/* Dark overlay to keep text readable */}
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
+
+      {/* Aurora Pattern Overlay — on top of video for depth */}
+      <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
         
         {/* Animated Deep Aurora Orbs */}
         <motion.div 

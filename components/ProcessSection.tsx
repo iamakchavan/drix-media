@@ -5,27 +5,52 @@ const steps = [
   {
     number: "01",
     title: "Discovery",
-    description: "Understanding your audience needs."
+    description: "Understanding your audience needs.",
+    detail: "We dive deep into your market, audience, and competitors. Through stakeholder interviews and data audits, we identify every opportunity your brand can leverage.",
+    tags: ["Market Research", "User Interviews", "Competitive Audit"],
+    duration: "2–3 weeks",
+    deliverable: "Brand Audit Report",
+    metric: { value: "40+", label: "data points analyzed" }
   },
   {
     number: "02",
     title: "Strategy",
-    description: "Defining positioning and direction."
+    description: "Defining positioning and direction.",
+    detail: "We turn research into a crystal-clear plan. Your brand gets a positioning framework, messaging architecture, and a channel strategy that connects every touchpoint.",
+    tags: ["Brand Positioning", "Content Strategy", "Channel Planning"],
+    duration: "1–2 weeks",
+    deliverable: "Strategy Playbook",
+    metric: { value: "3x", label: "faster alignment" }
   },
   {
     number: "03",
     title: "Creation",
-    description: "Bringing identity to life via design."
+    description: "Bringing identity to life via design.",
+    detail: "From visual identity to interactive prototypes, we craft every pixel with purpose. Design systems, UI components, and brand assets — all built for scale.",
+    tags: ["Visual Identity", "UI/UX Design", "Prototyping"],
+    duration: "3–5 weeks",
+    deliverable: "Design System & Prototypes",
+    metric: { value: "98%", label: "approval rate" }
   },
   {
     number: "04",
     title: "Execution",
-    description: "Launching and scaling performance."
+    description: "Launching and scaling performance.",
+    detail: "Clean code, rigorous QA, and a launch plan that leaves nothing to chance. We ship production-ready products that perform from day one.",
+    tags: ["Development", "QA Testing", "Launch Ops"],
+    duration: "4–8 weeks",
+    deliverable: "Production-Ready Build",
+    metric: { value: "0", label: "launch-day bugs" }
   },
   {
     number: "05",
     title: "Growth",
-    description: "Continuous refinement via data."
+    description: "Continuous refinement via data.",
+    detail: "Post-launch is where the real work begins. We monitor, iterate, and optimize — turning analytics into actionable improvements every sprint.",
+    tags: ["Analytics", "A/B Testing", "Optimization"],
+    duration: "Ongoing",
+    deliverable: "Monthly Growth Reports",
+    metric: { value: "2.4x", label: "avg. ROI uplift" }
   }
 ];
 
@@ -50,7 +75,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
         <div className="opacity-0 pointer-events-none flex items-center gap-2 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
           <span>{text}</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </div>
         
         <motion.div
@@ -61,7 +86,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
@@ -72,7 +97,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -114,7 +139,11 @@ const ProcessSection: React.FC = () => {
           {/* L: Sticky Viewport (Locks to screen) */}
           <div className="w-full md:w-1/2 sticky top-0 h-[45vh] md:h-screen flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-white/10 bg-[#050505] z-10 overflow-hidden">
              
-             {/* Dynamic Odometer Number */}
+             {/* Dynamic Odometer Number — Responsive Stroke */}
+             <style>{`
+               .process-number { -webkit-text-stroke: 1.5px rgba(175, 255, 0, 0.9); }
+               @media (min-width: 768px) { .process-number { -webkit-text-stroke: 3px rgba(175, 255, 0, 0.9); } }
+             `}</style>
              <div className="relative h-[160px] md:h-[300px] w-full flex items-center justify-center">
                  <AnimatePresence>
                      <motion.div
@@ -123,8 +152,7 @@ const ProcessSection: React.FC = () => {
                        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                        exit={{ y: -80, opacity: 0, filter: 'blur(10px)' }}
                        transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
-                       className="absolute text-[12rem] md:text-[22rem] font-bold text-transparent leading-none"
-                       style={{ WebkitTextStroke: '3px rgba(175, 255, 0, 0.9)' }}
+                       className="process-number absolute text-[12rem] md:text-[22rem] font-bold text-transparent leading-none"
                      >
                         {steps[activeIndex].number}
                      </motion.div>
@@ -149,27 +177,61 @@ const ProcessSection: React.FC = () => {
 
           </div>
 
-          {/* R: Scrolling Content Triggers */}
-          <div className="w-full md:w-1/2 flex flex-col px-6 md:px-20 pb-[30vh] md:pb-[50vh] bg-[#050505]">
-              {/* Padding to ensure proper intersection observer firing space */}
+          {/* R: Scrolling Content — Clean Editorial Layout */}
+          <div className="w-full md:w-1/2 flex flex-col px-6 md:px-12 lg:px-16 pb-[30vh] md:pb-[50vh] bg-[#050505]">
               <div className="pt-[15vh] md:pt-[25vh]">
                  {steps.map((step, i) => (
                     <motion.div
                        key={i}
-                       viewport={{ amount: 0.6 }} // Triggers when element is 60% into view 
+                       viewport={{ amount: 0.6 }}
                        onViewportEnter={() => setActiveIndex(i)}
-                       className={`min-h-[50vh] md:min-h-[70vh] flex flex-col justify-center transition-all duration-700 ease-[0.19,1,0.22,1] ${activeIndex === i ? 'opacity-100 scale-100' : 'opacity-20 scale-95'}`}
+                       className={`min-h-[55vh] md:min-h-[75vh] flex flex-col justify-center transition-all duration-700 ease-[0.19,1,0.22,1] ${activeIndex === i ? 'opacity-100' : 'opacity-15'}`}
                     >
-                       <div className="flex items-center gap-6 mb-8">
-                          <div className={`w-3 h-3 rounded-full transition-all duration-700 ${activeIndex === i ? 'bg-[#AFFF00] scale-[1.5] shadow-[0_0_20px_rgba(175,255,0,0.6)]' : 'bg-white/20'}`} />
-                          <h4 className={`text-xl md:text-3xl poppins-bold transition-colors duration-700 tracking-widest uppercase ${activeIndex === i ? 'text-[#AFFF00]' : 'text-white/40'}`}>
+                       {/* Phase Label */}
+                       <div className="flex items-center gap-4 mb-8">
+                          <div className={`w-2 h-2 transition-all duration-700 ${activeIndex === i ? 'bg-[#AFFF00] shadow-[0_0_12px_rgba(175,255,0,0.5)]' : 'bg-white/20'}`} />
+                          <span className={`text-[11px] poppins-bold tracking-[0.25em] uppercase transition-colors duration-700 ${activeIndex === i ? 'text-[#AFFF00]' : 'text-white/30'}`}>
                             Phase {step.number}
-                          </h4>
+                          </span>
+                          <span className="flex-1 h-px bg-white/10" />
+                          <span className={`text-[11px] poppins-medium tracking-wider uppercase transition-colors duration-700 ${activeIndex === i ? 'text-white/35' : 'text-white/15'}`}>
+                            {step.duration}
+                          </span>
                        </div>
-                       
-                       <p className={`text-3xl md:text-5xl leading-[1.3] tracking-tight font-medium transition-colors duration-700 ${activeIndex === i ? 'text-white' : 'text-white/30'}`}>
-                         {step.description}
+
+                       {/* Title */}
+                       <h3 className={`text-4xl md:text-6xl lg:text-7xl mona-sans-condensed-bold tracking-tight leading-[0.95] uppercase mb-6 transition-colors duration-700 ${activeIndex === i ? 'text-white' : 'text-white/25'}`}>
+                         {step.title}
+                       </h3>
+
+                       {/* Description */}
+                       <p className={`text-lg md:text-xl leading-[1.6] poppins-medium max-w-lg mb-10 transition-colors duration-700 ${activeIndex === i ? 'text-white/50' : 'text-white/15'}`}>
+                         {step.detail}
                        </p>
+
+                       {/* Stat Strip */}
+                       <div className={`flex gap-px transition-all duration-700 ${activeIndex === i ? 'opacity-100' : 'opacity-30'}`}>
+                         <div className={`flex-1 py-4 px-5 border-l-2 transition-colors duration-700 ${activeIndex === i ? 'border-[#AFFF00]/40 bg-white/[0.02]' : 'border-white/5'}`}>
+                           <span className={`block text-[10px] poppins-bold tracking-[0.2em] uppercase mb-2 transition-colors duration-700 ${activeIndex === i ? 'text-white/30' : 'text-white/15'}`}>Deliverable</span>
+                           <span className={`block text-sm poppins-semibold transition-colors duration-700 ${activeIndex === i ? 'text-white/80' : 'text-white/25'}`}>{step.deliverable}</span>
+                         </div>
+                         <div className={`w-px transition-colors duration-700 ${activeIndex === i ? 'bg-white/10' : 'bg-white/5'}`} />
+                         <div className={`flex-1 py-4 px-5 border-l-2 transition-colors duration-700 ${activeIndex === i ? 'border-[#AFFF00]/40 bg-white/[0.02]' : 'border-white/5'}`}>
+                           <span className={`block text-[10px] poppins-bold tracking-[0.2em] uppercase mb-2 transition-colors duration-700 ${activeIndex === i ? 'text-white/30' : 'text-white/15'}`}>Impact</span>
+                           <div className="flex items-baseline gap-1.5">
+                             <span className={`text-2xl poppins-bold tracking-tight transition-colors duration-700 ${activeIndex === i ? 'text-[#AFFF00]' : 'text-white/25'}`}>{step.metric.value}</span>
+                             <span className={`text-[11px] poppins-medium transition-colors duration-700 ${activeIndex === i ? 'text-white/35' : 'text-white/15'}`}>{step.metric.label}</span>
+                           </div>
+                         </div>
+                       </div>
+
+                       {/* Progress indicator */}
+                       <div className="mt-12 flex items-center gap-3">
+                         {steps.map((_, j) => (
+                           <div key={j} className={`h-[2px] flex-1 transition-all duration-700 ${j <= activeIndex ? 'bg-[#AFFF00]/50' : 'bg-white/8'}`} />
+                         ))}
+                       </div>
+
                     </motion.div>
                  ))}
               </div>

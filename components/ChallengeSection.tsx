@@ -23,7 +23,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
         <div className="opacity-0 pointer-events-none flex items-center gap-2 text-[13px] tracking-[0.25em] uppercase font-semibold whitespace-nowrap">
           <span>{text}</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </div>
         
         <motion.div
@@ -34,7 +34,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-sm tracking-[0.25em] uppercase font-semibold text-[#AFFF00] whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
@@ -45,7 +45,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-sm tracking-[0.25em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-0 transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -120,6 +120,16 @@ const ChallengeSection: React.FC = () => {
                         variants={wordsVariants}
                         className="flex flex-col group pr-4 md:pr-0"
                     >
+                        {/* Visual — Missing piece */}
+                        <div className="mb-8 md:mb-10 h-[80px] flex items-end">
+                          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="text-white/50 group-hover:text-white/70 transition-colors duration-700">
+                            <rect x="4" y="4" width="30" height="30" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                            <rect x="4" y="42" width="30" height="30" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                            <rect x="42" y="42" width="30" height="30" rx="2" stroke="currentColor" strokeWidth="1.5"/>
+                            <rect x="42" y="4" width="30" height="30" rx="2" stroke="#AFFF00" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.9"/>
+                            <circle cx="57" cy="19" r="4" stroke="#AFFF00" strokeWidth="1" opacity="0.8"/>
+                          </svg>
+                        </div>
                         <h3 className="text-sm md:text-base poppins-semibold mb-8 text-white tracking-widest uppercase">01 / The Reality</h3>
                         <p className="text-2xl md:text-3xl lg:text-4xl text-white/40 leading-[1.3] mona-sans-medium transition-colors duration-700 ease-[0.19,1,0.22,1] group-hover:text-white">
                             Your product is solid. <br/>Your team is talented. <br/><span className="text-[#AFFF00] mt-4 inline-block tracking-tight">But something is missing.</span>
@@ -131,6 +141,18 @@ const ChallengeSection: React.FC = () => {
                         variants={wordsVariants}
                         className="flex flex-col group pr-4 md:pr-0"
                     >
+                        {/* Visual — Scattered signals */}
+                        <div className="mb-8 md:mb-10 h-[80px] flex items-end">
+                          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="text-white/50 group-hover:text-white/70 transition-colors duration-700">
+                            <path d="M8 60L20 35L32 50L44 20L56 45L68 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M8 68L20 55L32 62L44 42L56 58L68 30" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeDasharray="3 3" opacity="0.7"/>
+                            <circle cx="44" cy="20" r="3" stroke="#AFFF00" strokeWidth="1" opacity="0.9"/>
+                            <circle cx="68" cy="15" r="3" stroke="#AFFF00" strokeWidth="1" opacity="0.9"/>
+                            <line x1="72" y1="60" x2="72" y2="72" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                            <line x1="60" y1="65" x2="60" y2="72" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                            <line x1="48" y1="62" x2="48" y2="72" stroke="currentColor" strokeWidth="1" opacity="0.6"/>
+                          </svg>
+                        </div>
                         <h3 className="text-sm md:text-base poppins-semibold mb-8 text-white tracking-widest uppercase">02 / The Symptoms</h3>
                         <p className="text-2xl md:text-3xl lg:text-4xl text-white/40 leading-[1.3] mona-sans-medium transition-colors duration-700 ease-[0.19,1,0.22,1] group-hover:text-white">
                             Branding feels generic. Content is not connecting. Campaigns are not converting. <br/><span className="text-white/80 mt-4 inline-block tracking-tight">Working with five agencies creates chaos.</span>
@@ -142,6 +164,17 @@ const ChallengeSection: React.FC = () => {
                         variants={wordsVariants}
                         className="flex flex-col group pr-4 md:pr-0"
                     >
+                        {/* Visual — Broken chain */}
+                        <div className="mb-8 md:mb-10 h-[80px] flex items-end">
+                          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" className="text-white/50 group-hover:text-white/70 transition-colors duration-700">
+                            <rect x="4" y="28" width="20" height="24" rx="12" stroke="currentColor" strokeWidth="1.5"/>
+                            <rect x="30" y="28" width="20" height="24" rx="12" stroke="currentColor" strokeWidth="1.5"/>
+                            <rect x="56" y="28" width="20" height="24" rx="12" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.8"/>
+                            <line x1="24" y1="40" x2="30" y2="40" stroke="#AFFF00" strokeWidth="1.5" opacity="1"/>
+                            <line x1="50" y1="40" x2="53" y2="37" stroke="#AFFF00" strokeWidth="1.5" strokeLinecap="round" opacity="0.8"/>
+                            <path d="M53 43L56 40" stroke="#AFFF00" strokeWidth="1" strokeLinecap="round" opacity="0.7"/>
+                          </svg>
+                        </div>
                         <h3 className="text-sm md:text-base poppins-semibold mb-8 text-white tracking-widest uppercase">03 / The Root Cause</h3>
                         <p className="text-2xl md:text-3xl lg:text-4xl text-white/40 leading-[1.3] mona-sans-medium transition-colors duration-700 ease-[0.19,1,0.22,1] group-hover:text-white">
                             Disconnected services create <span className="text-white italic">disconnected brands.</span> <br/><span className="mt-4 inline-block tracking-tight">You need alignment.</span>

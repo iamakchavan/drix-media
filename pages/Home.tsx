@@ -121,7 +121,7 @@ const Home: React.FC = () => {
                 </motion.div>
 
                 {/* Footer Integrated into Flow */}
-                <div className="relative z-10 bg-white">
+                <div className="relative z-10 bg-[#050505]">
                     <Footer />
                 </div>
             </div>
