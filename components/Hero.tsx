@@ -184,10 +184,7 @@ const Hero: React.FC = () => {
         />
       </div>
 
-      {/* Navbar overlay */}
-      <div className="absolute top-0 left-0 w-full z-50 px-6 md:px-12 lg:px-20 py-8">
-        <Navbar />
-      </div>
+      {/* Navbar is now globally fixed — removed from Hero */}
 
       <motion.div 
         style={{ opacity: yOpacity }}

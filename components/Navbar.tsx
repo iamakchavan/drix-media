@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { motion, AnimatePresence, Variants, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 100);
+  });
 
   useEffect(() => {
     if (isOpen) {
@@ -71,8 +78,12 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      {/* Main Navbar */}
-      <nav className="w-full flex justify-between items-start pt-4 md:pt-6 z-50 relative">
+      {/* Fixed Floating Navbar */}
+      <nav className={`fixed top-0 left-0 w-full z-[900] px-6 md:px-12 lg:px-20 flex justify-between items-center transition-all duration-500 ease-[0.76,0,0.24,1] ${
+        isScrolled && !isOpen
+          ? 'py-3 md:py-4 bg-black/60 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.3)]'
+          : 'py-6 md:py-8 bg-transparent border-b border-transparent'
+      }`}>
         {/* Logo */}
         <Link 
           to="/" 
@@ -82,7 +93,7 @@ const Navbar: React.FC = () => {
         </Link>
 
         {/* Center Links (Desktop) */}
-        <div className={`hidden md:flex items-start justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 top-6 transition-all duration-500 ${isOpen ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+        <div className={`hidden md:flex items-center justify-center gap-16 lg:gap-24 absolute left-1/2 transform -translate-x-1/2 transition-all duration-500 ${isOpen ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
           <Link to="/about" className="text-[11px] poppins-bold tracking-[0.15em] text-white mix-blend-difference hover:text-brand-lime transition-colors uppercase">
             About
           </Link>

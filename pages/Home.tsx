@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import ServicesSection from '../components/ServicesSection';
@@ -22,6 +23,8 @@ const Home: React.FC = () => {
 
     return (
         <main className="w-full min-h-screen bg-black">
+            {/* Fixed Floating Navbar */}
+            <Navbar />
             {/* Sticky Hero Section - Revealing effect */}
             <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
                 <motion.div
