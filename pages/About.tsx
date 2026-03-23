@@ -1,159 +1,181 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '../components/Navbar';
-import NoiseOverlay from '../components/NoiseOverlay';
 import Footer from '../components/Footer';
+import { SharedHeroLayout, letterVariants, premiumEasing, ScrambleButton } from '../components/SharedHero';
 
-// Hero Section
 const AboutHero = () => (
-    <div className="relative w-full h-screen bg-black overflow-hidden z-0">
-        <div className="relative w-full h-full origin-center">
-            <motion.div
-                initial={{ opacity: 0, scale: 1.15 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 z-0"
-            >
-                <div style={{ position: 'absolute', borderRadius: 'inherit', inset: '0px' }}>
-                    <img
-                        src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2601&auto=format&fit=crop"
-                        alt="Minimalistic workspace"
-                        style={{ display: 'block', width: '100%', height: '100%', borderRadius: 'inherit', objectPosition: 'center center', objectFit: 'cover' }}
-                    />
+    <SharedHeroLayout 
+        bottomLabel="The Agency"
+        buttonText="WORK WITH US"
+        buttonHref="#contact"
+        titleLines={
+            <>
+                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                    <span className="flex">
+                        {"We Build".split('').map((char, index) => (
+                            <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
+                    <span className="flex text-white/50 italic font-medium">
+                        {"Brands".split('').map((char, index) => (
+                            <motion.span key={`line1-b-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
                 </div>
-                {/* Dynamic Gradient Overlay for depth */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80 z-[1]" />
-            </motion.div>
-
-            <NoiseOverlay />
-
-            <div className="absolute top-0 left-0 w-full z-20 px-6 md:px-10 py-6">
-                <Navbar />
-            </div>
-
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-10 lg:px-12">
-
-                <motion.h1
-                    initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.2 }}
-                    className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl mona-sans-condensed-black tracking-tighter text-white text-center leading-[0.95] max-w-6xl mb-8"
-                >
-                    We Build <span className="text-white/40">Brands</span> <br />That Matter
-                </motion.h1>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.4 }}
-                    className="text-lg md:text-xl lg:text-2xl text-white/70 text-center poppins-medium max-w-2xl lg:max-w-3xl leading-relaxed px-4"
-                >
-                    A creative production agency built on strategy, executed with precision, and grown through consistency.
-                </motion.p>
-            </div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
-            >
-                <span className="text-[10px] poppins-bold tracking-[0.2em] text-white/30 uppercase">Scroll</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
-            </motion.div>
-        </div>
-    </div>
+                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                    <span className="flex text-[#AFFF00]">
+                        {"That Matter.".split('').map((char, index) => (
+                            <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
+                </div>
+            </>
+        }
+        subtextContent={
+            <>
+                <span className="text-white font-semibold block xl:whitespace-nowrap">A creative production agency built on strategy,</span>
+                <span className="block xl:whitespace-nowrap">executed with precision, and grown through consistency.</span>
+            </>
+        }
+    />
 );
 
+
+// Word helper for text reveal
+interface WordProps {
+    word: string;
+    progress: any;
+    range: [number, number];
+}
+
+const Word: React.FC<WordProps> = ({ word, progress, range }) => {
+    const opacity = useTransform(progress, range, [0.15, 1]);
+    const isHighlight = word.toLowerCase().includes('clarity');
+    
+    return (
+        <span className="relative inline-block mt-1 mr-3 md:mr-5 lg:mr-6">
+            <span className="absolute items-center opacity-0">{word}</span>
+            <motion.span 
+                style={{ opacity }} 
+                className={`text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.2rem] mona-sans-condensed-medium tracking-tighter leading-[0.95] inline-block ${isHighlight ? 'text-[#476D07]' : 'text-black'}`}
+            >
+                {word}
+            </motion.span>
+        </span>
+    );
+};
 
 // Our Story
-const OurStory = () => (
-    <motion.section
-        initial={{ opacity: 0, y: 40, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full bg-white py-40 px-6 md:px-12 text-[#0C0C0C] poppins-regular relative"
-    >
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+const OurStory = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start 85%", "center 65%"]
+    });
 
-            {/* Left: Sticky Headline & Minimal Timeline Label */}
-            <div className="lg:col-span-4 lg:sticky lg:top-40">
-                <div className="flex flex-col">
-                    <p className="text-[11px] poppins-bold tracking-[0.3em] text-[#476D07] uppercase mb-8">The Origins</p>
-                    <h2 className="text-6xl md:text-7xl mona-sans-condensed-black tracking-tighter text-black leading-[0.9] mb-12">
-                        How <br />We <br /><span className="text-black/15">Started</span>
-                    </h2>
+    const words = "Drix Media was born out of a pivot from chaos to clarity.".split(" ");
 
-                    {/* Minimalist Timeline Graphic */}
-                    <div className="hidden lg:flex flex-col gap-8 border-l border-black/5 pl-6 mt-4">
-                        <div className="flex flex-col">
-                            <span className="text-xs font-bold text-black/30 mb-1">2021</span>
-                            <span className="text-sm font-bold text-black/80">The Vision</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-xs font-bold text-black/30 mb-1">2022</span>
-                            <span className="text-sm font-bold text-black/80">First Partnerships</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-xs font-bold text-[#476D07] mb-1">Present</span>
-                            <span className="text-sm font-bold text-black">Integrated System</span>
-                        </div>
+    return (
+        <motion.section
+            ref={containerRef}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 1, ease: premiumEasing }}
+            className="w-full bg-white py-32 md:py-48 px-6 md:px-12 text-[#0C0C0C] relative"
+        >
+            <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start relative z-10">
+
+                {/* Left: Sticky Headline & Minimal Timeline Label */}
+                <div className="lg:col-span-4 lg:sticky lg:top-[20vh]">
+                    <div className="flex flex-col">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, ease: premiumEasing }}
+                            className="inline-flex items-center gap-4 mb-8"
+                        >
+                            <span className="w-1.5 h-1.5 bg-[#476D07] rounded-full"></span>
+                            <p className="text-[11px] poppins-bold tracking-[0.3em] text-[#476D07] uppercase mt-[2px]">The Origins</p>
+                        </motion.div>
+                        
+                        <motion.h2 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1, delay: 0.1, ease: premiumEasing }}
+                            className="text-5xl md:text-6xl lg:text-7xl mona-sans-condensed-black tracking-tighter text-black leading-[0.9] uppercase"
+                        >
+                            How We Started
+                        </motion.h2>
                     </div>
                 </div>
-            </div>
 
-            {/* Right: Detailed Content */}
-            <div className="lg:col-span-8">
-                <div className="flex flex-col gap-12">
-                    {/* Impactful Lead */}
-                    <p className="text-3xl md:text-5xl font-bold text-black tracking-tight leading-[1.1] max-w-4xl">
-                        Drix Media was born out of a pivot from <span className="text-black/30 underline decoration-[#588B00] decoration-2 underline-offset-8">chaos to clarity</span>.
-                    </p>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-lg text-black/60 leading-relaxed font-medium">
-                        <div className="space-y-8">
-                            <p>
-                                We observed a recurring failure in the creative industry: fragmentation.
-                                Great strategy was dying in the hands of generic execution. Designs were beautiful but disconnected from the brand's core soul.
-                            </p>
-                            <p>
-                                Businesses were hiring four different experts, resulting in four different voices. We saw the fatigue that caused—not just in the marketing budgets, but in the brand's identity.
-                            </p>
-                        </div>
-                        <div className="space-y-8">
-                            <p>
-                                We built Drix Media as an antidote to this siloed approach. We unified creative production, branding, and performance into a single, cohesive engine.
-                            </p>
-                            <p>
-                                Today, we don't just deliver "services." We manage reputations. We build digital ecosystems. We ensure that every frame of video and every pixel of design serves the exact same strategic goal.
-                            </p>
-                        </div>
+                {/* Right: Detailed Content */}
+                <div className="lg:col-span-8 flex flex-col gap-20 lg:gap-24 pt-2">
+                    
+                    {/* Apple-style massive scroll reveal text */}
+                    <div className="flex flex-wrap lg:gap-y-1">
+                        {words.map((word, i) => {
+                            const start = i / words.length;
+                            const end = start + (1 / words.length);
+                            return (
+                                <Word key={i} word={word} progress={scrollYProgress} range={[start, end]} />
+                            )
+                        })}
                     </div>
 
-                    {/* Minimal Highlight Box */}
-                    <div className="mt-8 p-10 md:p-14 bg-[#FAFAFA] border border-gray-100 relative overflow-hidden group">
-                        {/* Subtle red line accent */}
-                        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#AFFF00] to-transparent"></div>
+                    <div className="flex flex-col gap-12 text-[1.2rem] md:text-[1.35rem] text-black/60 leading-[1.8] font-medium max-w-4xl pt-4 pb-8">
+                        <motion.p 
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.2, delay: 0.1, ease: premiumEasing }}
+                        >
+                            The creative industry was failing due to fragmentation. Brands were forced to hire independent experts—one for strategy, one for design, one for ads—resulting in disjointed marketing, diluted identities, and exhausted budgets. Great strategy meant nothing in the hands of generic execution.
+                        </motion.p>
+                        <motion.p 
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.2, delay: 0.2, ease: premiumEasing }}
+                        >
+                            We built Drix Media as the definitive antidote. We unified creative production, branding, and performance into a single, cohesive engine. Today, we don't deliver disconnected services; we build high-performing digital ecosystems, ensuring every single pixel serves the exact same strategic goal.
+                        </motion.p>
+                    </div>
 
-                        <blockquote className="relative z-10 flex flex-col gap-6">
-                            <p className="text-2xl md:text-3xl font-bold text-black leading-tight italic">
-                                "Our goal isn't to be the agency with the most clients. It's to be the team that does the work others are afraid to commit to—integrated, honest, and high-performance."
-                            </p>
-                            <footer className="flex items-center gap-4">
-                                <div className="w-8 h-[1px] bg-black/20"></div>
-                                <cite className="text-xs font-bold tracking-widest uppercase text-black/40 not-italic">The Drix Media Philosophy</cite>
+                    {/* Highly aesthetic minimalistic blockquote */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.2, delay: 0.3, ease: premiumEasing }}
+                        className="p-10 md:p-14 bg-[#FAFAFA] border border-black/5 rounded-[24px]"
+                    >
+                        <blockquote className="flex flex-col gap-8">
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black leading-[1.3] tracking-tight max-w-3xl">
+                                "Our goal isn't to be the agency with the most clients. It's to be the team that does the work others are afraid to commit to—<span className="text-black/40">integrated, honest, and high-performance.</span>"
+                            </h3>
+                            
+                            <footer className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-black/10 pt-8 mt-2 gap-6">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-1.5 h-1.5 bg-black/20 rounded-full"></div>
+                                    <cite className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/40 not-italic">The Drix Media Philosophy</cite>
+                                </div>
+                                <motion.div className="flex-shrink-0">
+                                   <ScrambleButton href="#contact" text="WORK WITH US" />
+                                </motion.div>
                             </footer>
                         </blockquote>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-
-        </div>
-    </motion.section>
-);
+        </motion.section>
+    );
+};
 
 // Our Values
 const values = [
@@ -437,9 +459,11 @@ const CTASection = () => (
 
 const About: React.FC = () => {
     return (
-        <main className="w-full min-h-screen bg-black overflow-x-hidden">
+        <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
+            <Navbar />
             <AboutHero />
-            <div className="relative z-10 bg-white">
+            <div className="relative z-10 bg-white mt-[-60px] md:mt-[-100px] overflow-hidden" 
+                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <OurStory />
                 <OurValues />
                 <WhatMakesUsDifferent />

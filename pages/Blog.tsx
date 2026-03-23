@@ -72,66 +72,45 @@ const blogPosts = [
     },
 ];
 
+import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const BlogHero = () => (
-    <div className="relative w-full h-screen bg-black overflow-hidden z-0">
-        <div className="relative w-full h-full origin-center">
-            <motion.div
-                initial={{ opacity: 0, scale: 1.15 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 z-0"
-            >
-                <div style={{ position: 'absolute', borderRadius: 'inherit', inset: '0px' }}>
-                    <img
-                        src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2528&auto=format&fit=crop"
-                        alt="Library of knowledge"
-                        style={{ display: 'block', width: '100%', height: '100%', borderRadius: 'inherit', objectPosition: 'center center', objectFit: 'cover' }}
-                    />
+    <SharedHeroLayout 
+        bottomLabel="The Journal"
+        buttonText="READ JOURNAL"
+        buttonHref="#featured"
+        titleLines={
+            <>
+                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                    <span className="flex">
+                        {"The ".split('').map((char, index) => (
+                            <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
+                    <span className="flex text-white/50 italic font-medium">
+                        {"Drix".split('').map((char, index) => (
+                            <motion.span key={`line1-b-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90 z-[1]" />
-            </motion.div>
-
-            <NoiseOverlay />
-
-            <div className="absolute top-0 left-0 w-full z-20 px-6 md:px-10 py-6">
-                <Navbar />
-            </div>
-
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 md:px-10 lg:px-12">
-
-                <motion.h1
-                    initial={{ opacity: 0, y: 40, filter: "blur(20px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.2 }}
-                    className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tighter text-white text-center leading-[0.95] max-w-6xl mb-8"
-                >
-                    The <span className="text-white/40">Drix</span> <br />Journal
-                </motion.h1>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{ type: "spring", stiffness: 50, damping: 20, mass: 1, delay: 0.4 }}
-                    className="text-lg md:text-xl lg:text-2xl text-white/70 text-center font-medium max-w-2xl lg:max-w-4xl leading-relaxed px-4"
-                >
-                    Exploring the intersection of branding, technology, and culture. <br className="hidden md:block" /> Thought leadership for the modern brand builder.
-                </motion.p>
-            </div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-                className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4"
-            >
-                <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase">Read More</span>
-                <div className="w-[1px] h-12 bg-gradient-to-b from-[#AFFF00] to-transparent"></div>
-            </motion.div>
-        </div>
-    </div>
+                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                    <span className="flex text-[#AFFF00]">
+                        {"Journal".split('').map((char, index) => (
+                            <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        ))}
+                    </span>
+                </div>
+            </>
+        }
+        subtextContent={
+            <>
+                <span className="text-white font-semibold block xl:whitespace-nowrap">Exploring the intersection of branding, technology, and culture.</span>
+                <span className="block xl:whitespace-nowrap">Thought leadership for the modern brand builder.</span>
+            </>
+        }
+    />
 );
 
 // ─── Featured Post ────────────────────────────────────────────────────────────
@@ -355,9 +334,11 @@ const Newsletter = () => (
 
 const Blog: React.FC = () => {
     return (
-        <main className="w-full min-h-screen bg-black overflow-x-hidden">
+        <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
+            <Navbar />
             <BlogHero />
-            <div className="relative z-10 bg-white">
+            <div className="relative z-10 bg-white mt-[-60px] md:mt-[-100px] overflow-hidden" 
+                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <FeaturedPost />
                 <ArticlesGrid />
                 <Newsletter />
