@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const premiumEasing = [0.19, 1, 0.22, 1];
 
@@ -65,6 +65,30 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
   );
 };
 
+export const PremiumAurora = () => (
+    <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
+        {/* Single, extremely subtle brand color orb */}
+        <motion.div 
+            initial={{ opacity: 0, scale: 1 }}
+            animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.03, 0.06, 0.03],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[-20%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#AFFF00] blur-[160px] md:blur-[250px] mix-blend-screen" 
+        />
+
+        {/* Another faint white light for dimensionality */}
+        <div className="absolute bottom-[-30%] left-[-20%] w-[80vw] h-[80vw] rounded-full bg-white blur-[200px] md:blur-[300px] opacity-[0.015] mix-blend-screen" />
+        
+        {/* Premium SVG Noise - kept subtle */}
+        <div 
+            className="absolute inset-0 opacity-[0.05] mix-blend-plus-lighter pointer-events-none" 
+            style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
+        />
+    </div>
+);
+
 export const SharedHeroLayout = ({
     titleLines,
     subtextContent,
@@ -77,78 +101,76 @@ export const SharedHeroLayout = ({
     buttonText?: string;
     buttonHref?: string;
     bottomLabel: string;
-}) => (
-    <div className="relative w-full bg-[#050505] flex flex-col pt-[180px] md:pt-[22vh] pb-[60px] md:pb-[140px] z-0 overflow-hidden min-h-[70vh] lg:min-h-[85vh]">
-        
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-            {/* Subtle Aurora effect to match home */}
-            <motion.div 
-              animate={{ opacity: [0.1, 0.2, 0.1], scale: [1, 1.1, 1] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#AFFF00] blur-[150px] mix-blend-screen opacity-10" 
-            />
-            {/* Premium SVG Noise Overlay */}
-            <div 
-              className="absolute inset-0 opacity-10 mix-blend-plus-lighter" 
-              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} 
-            />
-        </div>
+}) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
+    const yOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-        <motion.div 
-            className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto"
-        >
-            <div className="flex-grow flex flex-col justify-start relative w-full pt-4 md:pt-10 z-10">
-                
-                <div className="flex flex-col w-full relative z-10">
-                    <motion.h1 
-                        variants={staggerVariants}
+    return (
+        <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[180px] md:pt-[22vh] pb-[60px] md:pb-[140px] z-0 overflow-hidden">
+            <PremiumAurora />
+
+            <motion.div 
+                style={{ opacity: yOpacity }}
+                className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto"
+            >
+                <div className="flex-grow flex flex-col justify-start relative w-full pt-4 md:pt-10 z-10">
+                    
+                    <div className="flex flex-col w-full relative z-10">
+                        <motion.h1 
+                            variants={staggerVariants}
+                            initial="hidden"
+                            animate="show"
+                            className="text-[9.5vw] sm:text-[9vw] md:text-[6.5vw] lg:text-[5.75vw] xl:text-[5.5vw] leading-[1.05] md:leading-[1] mona-sans-condensed-bold text-white tracking-tighter w-full flex flex-col items-start"
+                        >
+                            {titleLines}
+                        </motion.h1>
+                    </div>
+                    
+                    <motion.div 
                         initial="hidden"
                         animate="show"
-                        className="text-[9.5vw] sm:text-[9vw] md:text-[6.5vw] lg:text-[5.75vw] xl:text-[5.5vw] leading-[1.05] md:leading-[1] mona-sans-condensed-bold text-white tracking-tighter w-full flex flex-col items-start"
+                        variants={{
+                            hidden: { opacity: 0, y: 60, scale: 0.98, filter: "blur(8px)" },
+                            show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 1.6, delay: 0.6, ease: premiumEasing } }
+                        }}
+                        className="w-full flex justify-start md:justify-end mt-10 md:mt-12 relative"
                     >
-                        {titleLines}
-                    </motion.h1>
-                </div>
-                
-                <motion.div 
-                    initial="hidden"
-                    animate="show"
-                    variants={{
-                        hidden: { opacity: 0, y: 60, scale: 0.98, filter: "blur(8px)" },
-                        show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 1.6, delay: 0.6, ease: premiumEasing } }
-                    }}
-                    className="w-full flex justify-start md:justify-end mt-10 md:mt-12 relative"
-                >
-                    <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start md:items-center gap-10 md:gap-8">
-                        
-                        {/* Text Content */}
-                        <div className="w-full md:flex-1 flex items-start gap-4 pr-4">
-                            <span className="text-white/40 text-xl font-light mt-0 transform translate-y-[-2px]">+</span>
-                            <div className="flex flex-col gap-1 text-white/60 text-sm md:text-base leading-relaxed tracking-wide font-medium mt-[-2px]">
-                                {subtextContent}
+                        <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start md:items-center gap-10 md:gap-8">
+                            
+                            {/* Text Content */}
+                            <div className="w-full md:flex-1 flex items-start gap-4 pr-4">
+                                <span className="text-white/40 text-xl font-light mt-0 transform translate-y-[-2px]">+</span>
+                                <div className="flex flex-col gap-1 text-white/60 text-sm md:text-base leading-relaxed tracking-wide font-medium mt-[-2px]">
+                                    {subtextContent}
+                                </div>
                             </div>
+
+                            {/* Button explicitly aligned right to match precise reference design */}
+                            {buttonText && buttonHref && (
+                                <motion.div className="flex-shrink-0 flex items-center justify-start md:justify-end mt-4 md:mt-0">
+                                    <ScrambleButton href={buttonHref} text={buttonText} />
+                                </motion.div>
+                            )}
+                            
                         </div>
+                    </motion.div>
+                    
+                </div>
+            </motion.div>
 
-                        {/* Button explicitly aligned right to match precise reference design */}
-                        {buttonText && buttonHref && (
-                            <motion.div className="flex-shrink-0 flex items-center justify-start md:justify-end mt-4 md:mt-0">
-                                <ScrambleButton href={buttonHref} text={buttonText} />
-                            </motion.div>
-                        )}
-                        
-                    </div>
-                </motion.div>
-                
-            </div>
-        </motion.div>
-
-        <motion.div 
-            initial={{ opacity: 0, filter: "blur(4px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.6, delay: 0.9, ease: premiumEasing }}
-            className="absolute bottom-4 left-6 text-white/20 text-[10px] uppercase tracking-widest font-bold hidden md:block"
-        >
-            {bottomLabel}
-        </motion.div>
-    </div>
-);
+            <motion.div 
+                style={{ opacity: yOpacity }}
+                initial={{ opacity: 0, filter: "blur(4px)" }}
+                animate={{ opacity: 1, filter: "blur(0px)" }}
+                transition={{ duration: 1.6, delay: 0.9, ease: premiumEasing }}
+                className="absolute bottom-[80px] md:bottom-[120px] left-6 text-white/20 text-[10px] uppercase tracking-widest font-bold hidden md:block"
+            >
+                {bottomLabel}
+            </motion.div>
+        </div>
+    );
+};

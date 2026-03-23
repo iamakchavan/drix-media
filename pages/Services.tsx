@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import NoiseOverlay from '../components/NoiseOverlay';
@@ -457,11 +457,24 @@ const CTASection = () => (
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const Services: React.FC = () => {
+    const { scrollY } = useScroll();
+    const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.4]);
+    const heroY = useTransform(scrollY, [0, 800], [0, -150]);
+
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            <ServicesHero />
-            <div className="relative z-10 bg-white mt-[-60px] md:mt-[-100px] overflow-hidden" 
+            
+            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+                <motion.div
+                    style={{ opacity: heroOpacity, y: heroY }}
+                    className="w-full h-full"
+                >
+                    <ServicesHero />
+                </motion.div>
+            </div>
+
+            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]" 
                  style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <ServicesOverview />
                 {serviceItems.map((service, i) => (
