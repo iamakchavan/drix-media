@@ -40,7 +40,7 @@ const TrustBar: React.FC = () => {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.5 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="text-center text-[11px] md:text-[12px] poppins-bold tracking-[0.25em] uppercase text-black/70 mb-12 md:mb-14 px-6"
         >
           Trusted by brands across India and beyond

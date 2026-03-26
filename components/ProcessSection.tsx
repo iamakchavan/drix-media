@@ -62,13 +62,13 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
       whileHover="hover"
       variants={{
         initial: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" },
-        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
       }}
       className="group relative flex items-center justify-center bg-white h-[54px] md:h-[64px] px-10 md:px-12 transition-colors duration-500 overflow-hidden"
     >
       <motion.div 
         variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
-        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-0 bg-[#AFFF00] w-full h-full"
       />
       
@@ -81,23 +81,23 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
         <motion.div
           variants={{
             initial: { y: "0%" },
-            hover: { y: "-100%", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+            hover: { y: "-100%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
           }}
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
           variants={{
             initial: { y: "100%" },
-            hover: { y: "0%", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
+            hover: { y: "0%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
           }}
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -151,7 +151,7 @@ const ProcessSection: React.FC = () => {
                        initial={{ y: 80, opacity: 0, filter: 'blur(10px)' }}
                        animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                        exit={{ y: -80, opacity: 0, filter: 'blur(10px)' }}
-                       transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
+                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                        className="process-number absolute text-[12rem] md:text-[22rem] font-bold text-transparent leading-none"
                      >
                         {steps[activeIndex].number}
@@ -167,7 +167,7 @@ const ProcessSection: React.FC = () => {
                        initial={{ y: 30, opacity: 0 }}
                        animate={{ y: 0, opacity: 1 }}
                        exit={{ y: -30, opacity: 0 }}
-                       transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1], delay: 0.05 }}
+                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
                        className="absolute text-2xl md:text-5xl font-medium tracking-tight text-white uppercase"
                      >
                         {steps[activeIndex].title}
@@ -185,7 +185,7 @@ const ProcessSection: React.FC = () => {
                        key={i}
                        viewport={{ amount: 0.6 }}
                        onViewportEnter={() => setActiveIndex(i)}
-                       className={`min-h-[55vh] md:min-h-[75vh] flex flex-col justify-center transition-all duration-700 ease-[0.19,1,0.22,1] ${activeIndex === i ? 'opacity-100' : 'opacity-15'}`}
+                       className={`min-h-[55vh] md:min-h-[75vh] flex flex-col justify-center transition-all duration-700 ease-[0.16, 1, 0.3, 1] ${activeIndex === i ? 'opacity-100' : 'opacity-15'}`}
                     >
                        {/* Phase Label */}
                        <div className="flex items-center gap-4 mb-8">

@@ -116,18 +116,31 @@ const BlogHero = () => (
 // ─── Featured Post ────────────────────────────────────────────────────────────
 
 const FeaturedPost = () => (
-    <motion.section
-        initial={{ opacity: 0, y: 60, scale: 0.95 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full bg-white py-32 md:py-48 px-6 md:px-12"
-    >
+    <section className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
         <div className="max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-                {/* Image Section - Takes 7 Cols */}
+
+            {/* Header */}
+            <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
+                <div className="flex flex-col gap-2">
+                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Featured</span>
+                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                        Lead Story
+                    </h2>
+                </div>
+                <span className="hidden md:block text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">Latest</span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+                {/* Image Section — chamfered */}
                 <div className="lg:col-span-7">
-                    <div className="overflow-hidden rounded-[2.5rem] group cursor-pointer relative shadow-2xl">
+                    <motion.div
+                        initial="rest" whileHover="hover"
+                        variants={{
+                            rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0% 100%, 0% 0%)" },
+                            hover: { clipPath: "polygon(40px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 40px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
+                        }}
+                        className="relative group cursor-pointer overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
+                    >
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
@@ -139,48 +152,52 @@ const FeaturedPost = () => (
                                 className="w-full h-full object-cover"
                             />
                         </motion.div>
-                        <div className="absolute top-10 left-10">
-                            <div className="px-5 py-2.5 bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[10px] font-black uppercase tracking-[0.4em] rounded-full">
+                        <div className="absolute top-8 left-8">
+                            <div className="px-4 py-2 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
+                                style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
                                 Feature
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
 
-                {/* Content Section - Takes 5 Cols */}
-                <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4 lg:pt-10">
-                    <p className="text-[#476D07] text-[12px] font-black uppercase tracking-[0.5em] mb-10 opacity-80">
+                {/* Content Section */}
+                <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4 lg:pt-6">
+                    <span className="text-[9px] text-[#476D07] font-bold uppercase tracking-[0.4em] poppins-regular mb-8">
                         {blogPosts[0].category}
-                    </p>
-                    <h2 className="text-5xl md:text-6xl lg:text-[5rem] font-black tracking-tighter text-black mb-10 leading-[0.85]">
+                    </span>
+                    <h2 className="text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] mona-sans-condensed-medium tracking-tight text-black mb-8 leading-[0.95]">
                         {blogPosts[0].title}
                     </h2>
-                    <p className="text-black/50 text-xl md:text-2xl font-medium mb-12 leading-[1.3] max-w-lg">
+                    <p className="text-black/45 text-[15px] poppins-regular mb-10 leading-relaxed max-w-lg">
                         {blogPosts[0].excerpt}
                     </p>
 
-                    <div className="flex items-center gap-6 mb-16 px-1">
-                        <div className="w-12 h-[1px] bg-black/10"></div>
+                    <div className="flex items-center gap-6 mb-12 border-t border-black/[0.06] pt-6">
+                        <span
+                            className="text-[2rem] font-black leading-none select-none shrink-0
+                                       text-transparent [-webkit-text-stroke:1.5px_rgba(71,109,7,0.3)]"
+                        >
+                            {blogPosts[0].author[0]}
+                        </span>
                         <div className="flex flex-col">
-                            <span className="text-black font-extrabold text-base tracking-tight">{blogPosts[0].author}</span>
-                            <span className="text-black/30 text-[11px] font-bold uppercase tracking-widest mt-1">{blogPosts[0].date} · {blogPosts[0].readTime}</span>
+                            <span className="text-black text-[14px] poppins-regular font-bold tracking-tight">{blogPosts[0].author}</span>
+                            <span className="text-black/25 text-[10px] font-mono uppercase tracking-[0.2em] mt-1">{blogPosts[0].date} · {blogPosts[0].readTime}</span>
                         </div>
                     </div>
 
-                    <Link to={`/blog/${blogPosts[0].id}`} className="group inline-flex items-center gap-6">
-                        <span className="text-2xl font-black text-black group-hover:text-[#476D07] transition-colors duration-300">
+                    <Link to={`/blog/${blogPosts[0].id}`} className="group flex items-center gap-4 self-start">
+                        <span className="text-[1.1rem] mona-sans-condensed-medium text-black group-hover:text-[#476D07] transition-colors duration-300 tracking-tight">
                             Read the article
                         </span>
-                        <div className="w-14 h-14 rounded-full border border-black/5 flex items-center justify-center group-hover:bg-[#AFFF00] group-hover:border-[#AFFF00] group-hover:text-black transition-all duration-500 transform group-hover:translate-x-2">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                        <div className="shrink-0 w-10 h-10 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
+                            <svg className="w-4 h-4 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                         </div>
                     </Link>
                 </div>
             </div>
         </div>
-    </motion.section>
+    </section>
 );
 
 // ─── Blog Grid ────────────────────────────────────────────────────────────────
@@ -193,37 +210,31 @@ const ArticlesGrid = () => {
         : blogPosts.slice(1).filter(post => post.category === activeCategory);
 
     return (
-        <motion.section
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full bg-[#FBFBFB] py-32 md:py-48 px-6 md:px-12 border-t border-black/5"
-        >
+        <section className="w-full bg-[#FAFAFA] pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
             <div className="max-w-[1400px] mx-auto">
 
-                {/* Header Row */}
-                <div className="flex flex-col lg:flex-row justify-between items-end gap-16 mb-24">
-                    <div className="max-w-2xl">
-                        <p className="text-[11px] font-black tracking-[0.5em] text-[#476D07] uppercase mb-10">Archive</p>
-                        <h2 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.85] text-black">
-                            Selected <br /><span className="text-black/10">Readings</span>
+                {/* Header with category filter */}
+                <div className="w-full flex flex-col lg:flex-row lg:items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20 gap-8">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Archive</span>
+                        <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                            Selected Readings
                         </h2>
                     </div>
 
-                    <div className="flex flex-wrap gap-x-10 gap-y-4 border-b border-black/5 pb-2 w-full lg:w-auto overflow-x-auto whitespace-nowrap hide-scrollbar">
+                    <div className="flex flex-wrap gap-x-8 gap-y-3 border-b border-black/[0.05] pb-2 w-full lg:w-auto overflow-x-auto whitespace-nowrap hide-scrollbar">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`text-[12px] font-black uppercase tracking-[0.25em] pb-5 transition-all relative ${activeCategory === cat ? 'text-black' : 'text-black/25 hover:text-black/50'
+                                className={`text-[11px] font-bold uppercase tracking-[0.25em] pb-4 transition-all relative poppins-regular ${activeCategory === cat ? 'text-black' : 'text-black/25 hover:text-black/50'
                                     }`}
                             >
                                 {cat}
                                 {activeCategory === cat && (
                                     <motion.div
                                         layoutId="journalCatLine"
-                                        className="absolute bottom-[-1px] left-0 w-full h-[3px] bg-[#588B00]"
+                                        className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#476D07]"
                                     />
                                 )}
                             </button>
@@ -231,8 +242,8 @@ const ArticlesGrid = () => {
                     </div>
                 </div>
 
-                {/* Masonry-Style Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+                {/* Articles grid — chamfered cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
                     <AnimatePresence mode="popLayout">
                         {filteredPosts.map((post, index) => (
                             <motion.div
@@ -242,93 +253,300 @@ const ArticlesGrid = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.98 }}
                                 transition={{ duration: 0.6, delay: index * 0.05 }}
-                                className="group cursor-pointer flex flex-col h-full"
+                                className="group"
                             >
-                                <div className="aspect-[3/4] rounded-[2rem] overflow-hidden mb-10 relative bg-black/5 shadow-xl">
-                                    <img
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
-                                    />
-                                    <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-500"></div>
-                                    <div className="absolute top-8 left-8">
-                                        <span className="px-4 py-2 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] rounded-full border border-black/5">
-                                            {post.category}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col flex-grow">
-                                    <h3 className="text-3xl font-black text-black mb-5 tracking-tighter leading-tight group-hover:text-[#476D07] transition-colors duration-400">
-                                        {post.title}
-                                    </h3>
-                                    <p className="text-black/45 text-lg font-medium mb-10 line-clamp-2 leading-relaxed h-[3.5rem]">
-                                        {post.excerpt}
-                                    </p>
-
-                                    <div className="mt-auto flex items-center justify-between pt-8 border-t border-black/5 group-hover:border-black/10 transition-colors">
-                                        <div className="flex flex-col">
-                                            <span className="text-[10px] font-black text-black/25 uppercase tracking-[0.2em]">{post.date}</span>
-                                            <span className="text-[10px] font-bold text-black opacity-40 mt-1">{post.readTime}</span>
-                                        </div>
-                                        <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-black group-hover:bg-black group-hover:text-white transition-all duration-300">
-                                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                                <path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
+                                <motion.div
+                                    initial="rest" whileHover="hover"
+                                    variants={{
+                                        rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
+                                        hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
+                                    }}
+                                    className="bg-white h-full flex flex-col cursor-pointer shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                                >
+                                    {/* Image */}
+                                    <div className="aspect-[4/3] overflow-hidden relative">
+                                        <img
+                                            src={post.image}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
+                                        />
+                                        <div className="absolute top-6 left-6">
+                                            <span className="px-3 py-1.5 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
+                                                style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
+                                                {post.category}
+                                            </span>
                                         </div>
                                     </div>
-                                </div>
+
+                                    {/* Content */}
+                                    <div className="flex flex-col flex-grow p-6 md:p-8">
+                                        <h3 className="text-[1.15rem] md:text-[1.25rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-snug group-hover:text-[#476D07] transition-colors duration-400">
+                                            {post.title}
+                                        </h3>
+                                        <p className="text-black/40 text-[13px] poppins-regular mb-8 line-clamp-2 leading-relaxed">
+                                            {post.excerpt}
+                                        </p>
+
+                                        <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
+                                            <div className="flex flex-col">
+                                                <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{post.date}</span>
+                                                <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.readTime}</span>
+                                            </div>
+                                            <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
+                                                <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
                             </motion.div>
                         ))}
                     </AnimatePresence>
                 </div>
-
-                {/* Visual Anchor */}
-                <div className="mt-40 h-[1px] bg-gradient-to-r from-black/5 via-black/10 to-black/5"></div>
             </div>
-        </motion.section>
+        </section>
     );
 };
 
 // ─── Newsletter ───────────────────────────────────────────────────────────────
 
-const Newsletter = () => (
-    <motion.section
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full bg-white py-48 px-6 md:px-12 text-black font-sans relative overflow-hidden"
-    >
-        {/* Background Accent */}
-        <div className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-[#AFFF00]/5 rounded-full blur-[120px] pointer-events-none"></div>
+const Newsletter = () => {
+    const sectionRef = React.useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"]
+    });
+    const glowY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
 
-        <div className="max-w-[1400px] mx-auto text-center flex flex-col items-center relative z-10">
-            <p className="text-[12px] font-black tracking-[0.6em] text-[#476D07] uppercase mb-10">Connections</p>
-            <h2 className="text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] mb-16 max-w-5xl">
-                Knowledge <br /><span className="text-black/5">Unlocked.</span>
-            </h2>
-            <p className="text-2xl text-black/40 font-medium max-w-2xl leading-relaxed mb-20 px-4">
-                Join 5,000+ brand builders getting our monthly digest on design, culture, and the future of branding.
-            </p>
+    return (
+        <section ref={sectionRef} className="w-full bg-[#050505] relative overflow-hidden selection:bg-[#AFFF00] selection:text-black">
 
-            <form className="w-full max-w-3xl flex flex-col md:flex-row gap-4 p-2 bg-[#F6F6F6] rounded-full border border-black/5">
-                <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="flex-grow bg-transparent border-none rounded-full px-10 py-6 text-xl font-bold placeholder:text-black/15 focus:ring-0 outline-none transition-all"
-                />
-                <button className="bg-black text-white px-14 py-6 rounded-full font-black text-xl hover:bg-[#AFFF00] hover:text-black transition-all duration-500 shadow-2xl flex items-center justify-center gap-4">
-                    Subscribe
-                </button>
-            </form>
-            <div className="mt-12 flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-[#AFFF00]"></div>
-                <p className="text-black/20 text-xs font-black uppercase tracking-[0.3em]">No Spam. Pure Perspectives.</p>
+            {/* Ambient glow effects */}
+            <motion.div
+                style={{ y: glowY }}
+                className="absolute -right-40 top-0 w-[600px] h-[600px] bg-[#AFFF00] rounded-full blur-[280px] opacity-[0.04] pointer-events-none"
+            />
+            <motion.div
+                style={{ y: glowY }}
+                className="absolute -left-40 bottom-0 w-[500px] h-[500px] bg-[#476D07] rounded-full blur-[250px] opacity-[0.05] pointer-events-none"
+            />
+
+            {/* Header */}
+            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10">
+                <div className="flex items-end justify-between border-b border-white/[0.06] pt-20 md:pt-32 pb-8 md:pb-10">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular">Connections</span>
+                        <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-white leading-none mona-sans-condensed-medium font-normal">
+                            Knowledge Unlocked
+                        </h2>
+                    </div>
+                    <p className="hidden md:block text-sm text-white/20 max-w-[220px] leading-relaxed poppins-regular text-right">
+                        Stay ahead of the curve with curated insights.
+                    </p>
+                </div>
             </div>
-        </div>
-    </motion.section>
-);
+
+            {/* Bento Grid Layout */}
+            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 md:gap-5">
+
+                    {/* ── Main CTA Card (large left) ── */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                        className="lg:col-span-7 md:col-span-2 relative group"
+                    >
+                        <motion.div
+                            initial="rest" whileHover="hover"
+                            variants={{
+                                rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0% 100%, 0% 0%)" },
+                                hover: { clipPath: "polygon(32px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 32px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
+                            }}
+                            className="bg-[#0D0D0D] border border-white/[0.04] p-8 md:p-12 lg:p-14 h-full flex flex-col justify-between min-h-[380px] relative overflow-hidden"
+                        >
+                            {/* Subtle grid pattern */}
+                            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="w-2.5 h-2.5 bg-[#AFFF00] animate-pulse"></div>
+                                    <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular">Monthly Digest</span>
+                                </div>
+
+                                <h3 className="text-[1.8rem] md:text-[2.5rem] lg:text-[3rem] text-white leading-[0.95] tracking-tight mona-sans-condensed-medium mb-6 max-w-xl">
+                                    Insights on design, culture,
+                                    <br />
+                                    <span className="text-white/30">and the future of branding.</span>
+                                </h3>
+
+                                <p className="text-white/35 text-[14px] md:text-[15px] leading-relaxed poppins-regular max-w-md mb-10">
+                                    Join 5,000+ brand builders getting our curated monthly newsletter. No noise. Just the ideas shaping the industry.
+                                </p>
+                            </div>
+
+                            {/* Newsletter form */}
+                            <div className="relative z-10">
+                                <form className="flex flex-col sm:flex-row gap-3 max-w-lg">
+                                    <div className="relative flex-grow group/input">
+                                        <input
+                                            type="email"
+                                            placeholder="your@email.com"
+                                            className="w-full bg-white/[0.03] border border-white/[0.08] px-6 py-4 md:py-5 text-white text-[14px] poppins-regular placeholder:text-white/15 focus:outline-none focus:border-[#AFFF00]/40 focus:bg-white/[0.05] focus:shadow-[0_0_30px_rgba(175,255,0,0.06)] transition-all duration-500"
+                                            style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)" }}
+                                        />
+                                        {/* Glow line under input on focus */}
+                                        <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-gradient-to-r from-[#AFFF00]/60 to-transparent group-focus-within/input:w-full transition-all duration-700" />
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="group/btn flex items-center justify-center gap-3 bg-[#AFFF00] text-black px-7 py-4 md:py-5 text-[12px] tracking-[0.2em] uppercase poppins-regular font-bold transition-all duration-500 hover:bg-white shrink-0"
+                                        style={{ clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%)" }}
+                                    >
+                                        Subscribe
+                                        <svg className="w-3.5 h-3.5 group-hover/btn:rotate-45 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                    </button>
+                                </form>
+
+                                <div className="mt-6 flex items-center gap-3">
+                                    <div className="w-1.5 h-1.5 bg-[#AFFF00]/40"></div>
+                                    <p className="text-white/15 text-[9px] font-bold uppercase tracking-[0.3em] poppins-regular">No Spam · Unsubscribe Anytime</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* ── Right Column: Stacked cards ── */}
+                    <div className="lg:col-span-5 flex flex-col gap-4 md:gap-5">
+
+                        {/* Editorial Quote Card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.7, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+                        >
+                            <motion.div
+                                initial="rest" whileHover="hover"
+                                variants={{
+                                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 0%)" },
+                                    hover: { clipPath: "polygon(20px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 20px)", transition: { duration: 0.4, ease: [0.19,1,0.22,1] } }
+                                }}
+                                className="bg-[#0D0D0D] border border-white/[0.04] p-8 md:p-10 relative overflow-hidden group cursor-default"
+                            >
+                                {/* Decorative quote mark */}
+                                <span className="absolute top-4 right-6 text-[6rem] leading-none text-white/[0.03] font-serif select-none pointer-events-none">"</span>
+
+                                <div className="relative z-10">
+                                    <span className="text-[9px] font-bold tracking-[0.4em] text-white/20 uppercase poppins-regular block mb-6">From Our Perspective</span>
+                                    <blockquote className="text-[1.1rem] md:text-[1.3rem] text-white/70 leading-[1.5] mona-sans-condensed-medium tracking-tight mb-6 group-hover:text-white/90 transition-colors duration-500">
+                                        "The brands that win in 2026 are the ones building culture, not just campaigns."
+                                    </blockquote>
+                                    <div className="flex items-center gap-4 border-t border-white/[0.05] pt-5">
+                                        <span
+                                            className="text-[1.8rem] font-black leading-none select-none shrink-0
+                                                       text-transparent [-webkit-text-stroke:1px_rgba(175,255,0,0.3)]"
+                                        >
+                                            A
+                                        </span>
+                                        <div className="flex flex-col">
+                                            <span className="text-white/60 text-[13px] poppins-regular font-semibold">Alex Rivera</span>
+                                            <span className="text-white/20 text-[9px] font-mono uppercase tracking-[0.2em] mt-0.5">Chief Strategist</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* Stats Row — Two mini cards */}
+                        <div className="grid grid-cols-2 gap-4 md:gap-5">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+                                className="group"
+                            >
+                                <div
+                                    className="bg-[#0D0D0D] border border-white/[0.04] p-6 md:p-8 flex flex-col justify-between min-h-[160px] md:min-h-[180px] hover:border-[#AFFF00]/10 transition-all duration-500 relative overflow-hidden"
+                                    style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+                                >
+                                    <span className="text-[9px] font-bold tracking-[0.3em] text-white/15 uppercase poppins-regular">Readers</span>
+                                    <div>
+                                        <motion.span
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.8, delay: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                            className="text-[2.5rem] md:text-[3.5rem] font-black text-white leading-none tracking-tight block mona-sans-condensed-medium"
+                                        >
+                                            5K<span className="text-[#AFFF00]">+</span>
+                                        </motion.span>
+                                        <span className="text-white/20 text-[10px] poppins-regular mt-2 block">Active subscribers</span>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
+                                className="group"
+                            >
+                                <div
+                                    className="bg-[#AFFF00] p-6 md:p-8 flex flex-col justify-between min-h-[160px] md:min-h-[180px] relative overflow-hidden"
+                                    style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+                                >
+                                    {/* Subtle dot pattern */}
+                                    <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                                    
+                                    <span className="text-[9px] font-bold tracking-[0.3em] text-black/30 uppercase poppins-regular relative z-10">Issues</span>
+                                    <div className="relative z-10">
+                                        <motion.span
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, scale: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.8, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
+                                            className="text-[2.5rem] md:text-[3.5rem] font-black text-black leading-none tracking-tight block mona-sans-condensed-medium"
+                                        >
+                                            48
+                                        </motion.span>
+                                        <span className="text-black/40 text-[10px] poppins-regular mt-2 block">Published editions</span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Topics Strip */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.35, ease: [0.19, 1, 0.22, 1] }}
+                        >
+                            <div
+                                className="bg-[#0D0D0D] border border-white/[0.04] px-6 md:px-8 py-5 md:py-6 flex items-center justify-between gap-4 overflow-hidden"
+                                style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 0%)" }}
+                            >
+                                <span className="text-[9px] font-bold tracking-[0.3em] text-white/15 uppercase poppins-regular shrink-0">Topics</span>
+                                <div className="flex gap-2 flex-wrap justify-end">
+                                    {['Branding', 'Culture', 'Strategy', 'Design', 'Tech'].map((topic) => (
+                                        <span key={topic} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 border border-white/[0.06] poppins-regular hover:text-[#AFFF00] hover:border-[#AFFF00]/20 transition-all duration-300 cursor-default">
+                                            {topic}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="pb-8 md:pb-16" />
+        </section>
+    );
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 

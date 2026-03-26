@@ -41,14 +41,14 @@ const Footer: React.FC = () => {
                                 <motion.div 
                                     className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold"
                                     variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
-                                    transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     {link}
                                 </motion.div>
                                 <motion.div 
                                     className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold text-[#AFFF00]"
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
-                                    transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     {link}
                                 </motion.div>
@@ -80,18 +80,18 @@ const Footer: React.FC = () => {
                                 <motion.div 
                                     className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold"
                                     variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
-                                    transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <span>{link}</span>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 mb-[1px] group-hover:text-[#AFFF00] group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 mb-[1px] group-hover:text-[#AFFF00] group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                 </motion.div>
                                 <motion.div 
                                     className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold text-[#AFFF00]"
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
-                                    transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <span>{link}</span>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#AFFF00] mb-[1px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 delay-75 ease-[0.19,1,0.22,1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#AFFF00] mb-[1px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                 </motion.div>
                             </motion.a>
                         ))}
@@ -110,7 +110,7 @@ const Footer: React.FC = () => {
                         viewport={{ once: true, margin: "0px" }}
                         variants={{
                             initial: { opacity: 0, y: 100 },
-                            animate: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.19, 1, 0.22, 1] } }
+                            animate: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
                         }}
                         className="mona-sans-condensed-bold tracking-[-0.02em] pointer-events-auto cursor-pointer select-none text-[#AFFF00] flex flex-col items-center uppercase relative w-fit"
                     >
@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
                             variants={{
                                 initial: { fontWeight: 500 },
                                 animate: { fontWeight: 500 },
-                                hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.19, 1, 0.22, 1] } }
+                                hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                             }}
                             className="text-[24vw] md:text-[16vw] leading-[0.8] w-full text-center md:pl-[6vw] transition-colors duration-700 ease-out"
                         >
@@ -129,7 +129,7 @@ const Footer: React.FC = () => {
                                 variants={{
                                     initial: { fontWeight: 500 },
                                     animate: { fontWeight: 500 },
-                                    hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.19, 1, 0.22, 1] } }
+                                    hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                                 }}
                                 className="text-[24vw] md:text-[16vw] leading-[0.8] transition-colors duration-700 ease-out"
                             >
@@ -139,14 +139,14 @@ const Footer: React.FC = () => {
                             <motion.div 
                                 variants={{
                                     initial: { rotate: 0, scale: 1 },
-                                    hover: { rotate: 45, scale: 1.15, transition: { duration: 0.8, ease: [0.19, 1, 0.22, 1] } }
+                                    hover: { rotate: 45, scale: 1.15, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                                 }}
                                 className="flex items-center justify-center flex-shrink-0 mt-2 md:mt-6 ml-2 md:ml-4"
                             >
                                 <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="square" strokeLinejoin="miter" className="w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 text-[#AFFF00]"
                                   variants={{
                                     initial: { strokeWidth: 4 },
-                                    hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.19, 1, 0.22, 1] } }
+                                    hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                                   }}
                                 ><path d="M7 17l9.2-9.2M17 17V7H7"/></motion.svg>
                             </motion.div>
@@ -155,16 +155,11 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            {/* Bottom Bar: Copyright & Extras */}
-            <div className="w-full flex flex-col md:flex-row justify-between items-center gap-6 pb-8 mt-auto relative z-20 border-t border-white/[0.06] pt-8">
+            {/* Bottom Bar: Copyright */}
+            <div className="w-full flex justify-between items-center pb-8 mt-auto relative z-20 pt-8">
                 <span className="text-[11px] font-semibold text-white/30 tracking-wider">
                     © {new Date().getFullYear()} DRIX MEDIA. ALL RIGHTS RESERVED.
                 </span>
-                
-                <div className="flex flex-wrap items-center gap-4 md:gap-6 text-[10px] md:text-[11px] font-semibold text-white/40 tracking-wider">
-                    <a href="#" className="hover:text-[#AFFF00] transition-colors">PRIVACY POLICY</a>
-                    <a href="#" className="hover:text-[#AFFF00] transition-colors">TERMS OF SERVICE</a>
-                </div>
             </div>
          </div>
       </footer>
