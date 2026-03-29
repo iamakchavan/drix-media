@@ -341,113 +341,41 @@ const StackingServicesSection = () => {
     );
 };
 
-// ─── Why Integrated Services Matter ──────────────────────────────────────────
+// ─── The Drix Advantage ──────────────────────────────────────────────────────
 
-const problemCards = [
-    {
-        title: 'Inconsistent Messaging',
-        desc: 'Your brand voice changes depending on who wrote it.',
-    },
-    {
-        title: 'Wasted Time',
-        desc: 'You are the one connecting the dots between agencies. That is not your job.',
-    },
-    {
-        title: 'Higher Costs',
-        desc: 'Multiple agencies mean multiple contracts, multiple onboarding processes, and more overhead.',
-    },
-    {
-        title: 'Slower Execution',
-        desc: 'When teams do not talk, timelines stretch and work gets duplicated.',
-    },
-];
-
-const WhyIntegrated = () => (
-    <section className="w-full bg-white selection:bg-[#AFFF00] selection:text-black overflow-hidden">
-
-        {/* Header */}
+const DrixAdvantage = () => (
+    <section className="w-full bg-[#050505] selection:bg-[#AFFF00] selection:text-black py-16 md:py-32">
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
-            <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 pt-16 md:pt-28 mb-0">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">The Real Problem</span>
-                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                        The Problem With Siloed Agencies
-                    </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div className="flex flex-col gap-6">
+                    <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular">The Drix Media Advantage</span>
+                    <h3 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-white leading-none mona-sans-condensed-medium font-normal">
+                        One team.<br />One strategy.<br />One brand voice.
+                    </h3>
+                    <p className="text-white/40 text-[15px] md:text-[18px] leading-relaxed poppins-regular max-w-lg">
+                        Your strategist, designer, and content creator collaborate from day one. The result is work that feels unified and performs better.
+                    </p>
                 </div>
-                <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                    Why fragmented services cost you more than you think.
-                </p>
-            </div>
-        </div>
-
-        {/* Problem cards — 2×2 chamfered grid */}
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/[0.04]">
-                {problemCards.map((card, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: i * 0.08, ease: [0.19,1,0.22,1] }}
-                        className="group"
-                    >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.04]">
+                    {['One contract, one invoice', 'Integrated performance tracking', 'Consistent voice across every touchpoint', 'We handle all internal coordination'].map((item, i) => (
                         <motion.div
-                            initial="rest" whileHover="hover"
-                            variants={{
-                                rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                                hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
-                            }}
-                            className="bg-white h-full p-8 md:p-12 flex flex-col justify-between min-h-[260px] md:min-h-[300px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                            key={i}
+                            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.19,1,0.22,1] }}
+                            className="group bg-[#050505] hover:bg-white/[0.02] transition-colors duration-400 p-6 md:p-8 flex gap-5 items-start"
                         >
-                            <div className="flex flex-col gap-4">
-                                <span className="text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
-                                <h3 className="text-[1.3rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{card.title}</h3>
-                            </div>
-                            <div className="flex items-end justify-between mt-8">
-                                <p className="text-black/45 text-[13px] leading-relaxed poppins-regular">{card.desc}</p>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                ))}
-            </div>
-        </div>
-
-        {/* Drix Advantage Block — dark invert strip */}
-        <div className="w-full bg-[#050505] border-y border-white/[0.06]">
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                    <div className="flex flex-col gap-6">
-                        <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular">The Drix Media Advantage</span>
-                        <h3 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-white leading-none mona-sans-condensed-medium font-normal">
-                            One team.<br />One strategy.<br />One brand voice.
-                        </h3>
-                        <p className="text-white/40 text-[15px] leading-relaxed poppins-regular max-w-lg">
-                            Your strategist, designer, and content creator collaborate from day one. The result is work that feels unified and performs better.
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.04]">
-                        {['One contract, one invoice', 'Integrated performance tracking', 'Consistent voice across every touchpoint', 'We handle all internal coordination'].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.19,1,0.22,1] }}
-                                className="group bg-[#050505] hover:bg-white/[0.02] transition-colors duration-400 p-6 md:p-8 flex gap-5 items-start"
+                            <span
+                                className="text-[2rem] font-black leading-none select-none shrink-0 mt-0.5
+                                           text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] group-hover:[-webkit-text-stroke-color:rgba(175,255,0,0.3)] transition-all duration-500"
                             >
-                                <span
-                                    className="text-[2rem] font-black leading-none select-none shrink-0 mt-0.5
-                                               text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] group-hover:[-webkit-text-stroke-color:rgba(175,255,0,0.3)] transition-all duration-500"
-                                >
-                                    {String(i + 1).padStart(2, '0')}
-                                </span>
-                                <p className="text-white/60 group-hover:text-white text-[14px] leading-relaxed poppins-regular transition-colors duration-400">{item}</p>
-                            </motion.div>
-                        ))}
-                    </div>
+                                {String(i + 1).padStart(2, '0')}
+                            </span>
+                            <p className="text-white/60 group-hover:text-white text-[14px] leading-relaxed poppins-regular transition-colors duration-400">{item}</p>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </div>
-
-        <div className="pb-8 md:pb-16" />
     </section>
 );
 
@@ -612,8 +540,7 @@ const Services: React.FC = () => {
                  style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <ServicesOverview />
                 <StackingServicesSection />
-                <WhyIntegrated />
-                <ComparisonTable />
+                <DrixAdvantage />
                 <CTASection />
                 <Footer />
             </div>

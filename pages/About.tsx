@@ -97,7 +97,7 @@ const OurStory = () => {
                         className="flex flex-col gap-6"
                     >
                         <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
-                            The creative industry was failing due to fragmentation. Brands were forced to hire independent experts — one for strategy, one for design, one for ads — resulting in disjointed marketing, diluted identities, and exhausted budgets.
+                            The creative industry was failing due to fragmentation. Brands were forced to hire independent experts â€” one for strategy, one for design, one for ads â€” resulting in disjointed marketing, diluted identities, and exhausted budgets.
                         </p>
                         <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
                             We built Drix Media as the definitive antidote: a unified engine for creative production, branding, and performance. Every pixel serves the same strategic goal.
@@ -132,159 +132,200 @@ const OurStory = () => {
     );
 };
 
+// â”€â”€â”€ Our Core Principles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Clean feature grid with custom SVG illustrations â€” matches Contact "What Next"
+
+const principleIcons = [
+    (
+        <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="25" width="50" height="50" transform="rotate(45 50 50)" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" fill="none" strokeDasharray="4 4" />
+            <rect x="35" y="35" width="30" height="30" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <path d="M42 50H58M58 50L52 44M58 50L52 56" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    (
+        <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="35" x2="80" y2="35" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="20" y1="65" x2="80" y2="65" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M72 43L79 50L72 57" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <line x1="30" y1="28" x2="30" y2="42" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="50" y1="58" x2="50" y2="72" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+    ),
+    (
+        <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="14" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" fill="none" />
+            <circle cx="55" cy="55" r="14" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" fill="none" />
+            <circle cx="40" cy="65" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <circle cx="65" cy="40" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <line x1="80" y1="50" x2="95" y2="50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M88 43L95 50L88 57" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    (
+        <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 50H80M80 50L73 43M80 50L73 57" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M40 30L60 30" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M30 40L70 40" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M30 60L70 60" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M40 70L60 70" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    ),
+    (
+        <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="30" width="40" height="40" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" fill="none" strokeDasharray="4 4" />
+            <path d="M40 40L60 60M60 40L40 60" stroke="currentColor" strokeOpacity="0.3" strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="50" cy="50" r="28" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            <line x1="78" y1="50" x2="92" y2="50" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M85 43L92 50L85 57" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+];
+
 const values = [
-    { title: "Strategy First", desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", keyword: "Purpose" },
-    { title: "Integration Over Isolation", desc: "The best work happens when strategy, design, and execution work as one system. We build brands that feel cohesive across every touchpoint.", keyword: "Unified" },
-    { title: "Results Over Rank", desc: "We care more about driving your business forward than winning awards. Performance is the only metric that matters.", keyword: "Impact" },
-    { title: "Transparency Always", desc: "You will always know what we are working on, why we are doing it, and how it is performing. No jargon. No hidden processes.", keyword: "Clarity" },
-    { title: "Long-Term Thinking", desc: "We are not here for quick wins. We build systems and strategies that grow with you over time.", keyword: "Growth" }
+    { title: "Strategy First", desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", subtitle: "Purposeful design", keyword: "PURPOSE", theme: "dark" },
+    { title: "Integration Over Isolation", desc: "The best work happens when strategy, design, and execution work as one system. We build brands that feel cohesive across every touchpoint.", subtitle: "Unified systems", keyword: "UNIFIED", theme: "light" },
+    { title: "Results Over Rank", desc: "We care more about driving your business forward than winning awards. Performance is the only metric that matters.", subtitle: "Data driven", keyword: "IMPACT", theme: "green" },
+    { title: "Transparency Always", desc: "You will always know what we are working on, why we are doing it, and how it is performing. No jargon. No hidden processes.", subtitle: "Clear processes", keyword: "CLARITY", theme: "light" },
+    { title: "Long-Term Thinking", desc: "We are not here for quick wins. We build systems and strategies that grow with you over time.", subtitle: "Sustainable growth", keyword: "GROWTH", theme: "dark" }
 ];
 
-// Card style configurations: alternating dark, light, accent
-const cardStyles = [
-    { bg: 'bg-[#050505]', text: 'text-white', subText: 'text-white/40', ghostColor: 'rgba(255,255,255,0.12)', hoverBg: 'group-hover:bg-[#0A0A0A]', accentText: 'text-[#AFFF00]', borderCol: 'border-white/[0.06]', keywordColor: 'text-white/[0.09]' },
-    { bg: 'bg-white', text: 'text-black', subText: 'text-black/40', ghostColor: 'rgba(0,0,0,0.08)', hoverBg: '', accentText: 'text-[#476D07]', borderCol: 'border-black/[0.06]', keywordColor: 'text-black/[0.08]' },
-    { bg: 'bg-[#AFFF00]', text: 'text-black', subText: 'text-black/50', ghostColor: 'rgba(0,0,0,0.12)', hoverBg: '', accentText: 'text-black', borderCol: 'border-black/[0.08]', keywordColor: 'text-black/[0.15]' },
-    { bg: 'bg-white', text: 'text-black', subText: 'text-black/40', ghostColor: 'rgba(0,0,0,0.08)', hoverBg: '', accentText: 'text-[#476D07]', borderCol: 'border-black/[0.06]', keywordColor: 'text-black/[0.08]' },
-    { bg: 'bg-[#050505]', text: 'text-white', subText: 'text-white/40', ghostColor: 'rgba(255,255,255,0.12)', hoverBg: 'group-hover:bg-[#0A0A0A]', accentText: 'text-[#AFFF00]', borderCol: 'border-white/[0.06]', keywordColor: 'text-white/[0.09]' },
-];
+const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = ({ value, iconIndex }) => {
+    const isDark = value.theme === "dark";
+    const isGreen = value.theme === "green";
+    
+    // Main Card Colors
+    let bgClass = "bg-white"; 
+    let textTitleClass = "text-black";
+    let textDescClass = "text-black/50";
+    let iconWrapClass = "bg-black/[0.03] text-black";
+    let watermarkClass = "text-black/[0.03]";
+    // Use drop-shadow instead of box-shadow because drop-shadow perfectly follows the CSS clip-path!
+    let dropShadowClass = "drop-shadow-[0_8px_20px_rgba(0,0,0,0.04)] group-hover:drop-shadow-[0_16px_32px_rgba(0,0,0,0.08)]";
 
-const OurValues = () => {
-    const ValueCard = ({ v, i, style }: { v: typeof values[0], i: number, style: typeof cardStyles[0] }) => (
-        <motion.div
-            initial="rest" whileHover="hover"
-            variants={{
-                rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0% 100%, 0% 0%)" },
-                hover: { clipPath: "polygon(28px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 28px)", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
-            }}
-            className={`${style.bg} ${style.hoverBg} w-full h-full p-8 md:p-10 flex flex-col justify-between border ${style.borderCol} shadow-[0_4px_24px_rgba(0,0,0,0.04)] group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.12)] transition-all duration-500 relative overflow-hidden`}
-        >
-            {/* Fully visible and balanced background keyword */}
-            <span
-                className={`absolute right-8 bottom-6 text-[3rem] md:text-[3.8rem] lg:text-[4.2rem] font-black leading-none select-none pointer-events-none mona-sans-condensed-bold tracking-tighter uppercase text-right w-full ${style.keywordColor} transition-colors duration-500`}
-            >
-                {v.keyword}
-            </span>
+    if (isDark) {
+        bgClass = "bg-[#050505]";
+        textTitleClass = "text-white";
+        textDescClass = "text-white/40";
+        iconWrapClass = "bg-white/[0.05] text-[#AFFF00]";
+        watermarkClass = "text-white/[0.02]";
+        dropShadowClass = "drop-shadow-[0_8px_20px_rgba(0,0,0,0.2)] group-hover:drop-shadow-[0_16px_40px_rgba(0,0,0,0.5)]";
+    } else if (isGreen) {
+        bgClass = "bg-[#AFFF00]";
+        textTitleClass = "text-[#050505]";
+        textDescClass = "text-[#050505]/70";
+        iconWrapClass = "bg-black/[0.05] text-[#050505]";
+        watermarkClass = "text-black/[0.04]";
+        dropShadowClass = "drop-shadow-[0_8px_20px_rgba(175,255,0,0.15)] group-hover:drop-shadow-[0_16px_32px_rgba(175,255,0,0.3)]";
+    }
 
-            <div className="flex flex-col gap-5 relative z-10">
-                {/* Ghost number */}
-                <span
-                    className="text-[4rem] md:text-[5rem] font-black leading-none select-none block mona-sans-condensed-bold tracking-tighter"
-                    style={{ color: 'transparent', WebkitTextStroke: `1.5px ${style.ghostColor}` }}
-                >
-                    {String(i + 1).padStart(2, '0')}
-                </span>
-
-                <div>
-                    <h3 className={`text-[1.2rem] md:text-[1.4rem] ${style.text} leading-snug tracking-tight mona-sans-condensed-medium group-hover:${style.accentText.replace('text-', '')} transition-colors duration-400`}>
-                        {v.title}
-                    </h3>
-                </div>
-            </div>
-
-            <div className="relative z-10 mt-8">
-                <div className={`w-full h-px ${style.borderCol.replace('border-', 'bg-')} mb-5`} />
-                <p className={`${style.subText} text-[13px] leading-relaxed poppins-regular`}>{v.desc}</p>
-            </div>
-        </motion.div>
-    );
+    // Give EVERY card an accent cut on the outermost structural level. 
+    // We perfectly alternate Top-Left and Bottom-Right for visual dynamism.
+    const isEven = iconIndex % 2 === 1;
+    const clipPath = isEven 
+        ? "polygon(0 0, 100% 0, 100% calc(100% - 48px), calc(100% - 48px) 100%, 0 100%)" // Bottom Right
+        : "polygon(48px 0, 100% 0, 100% 100%, 0 100%, 0 48px)"; // Top Left
 
     return (
-        <section className="w-full bg-[#FAFAFA] pt-16 pb-20 md:py-40 selection:bg-[#AFFF00] selection:text-black">
-
-            {/* Header */}
-            <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
-                <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 mb-10 md:mb-20">
-                    <div className="flex flex-col gap-2">
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">The Blueprint</span>
-                        <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                            Our Core Principles
-                        </h2>
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, delay: iconIndex * 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className={`group w-full h-full flex transition-all duration-500 hover:-translate-y-2 ${dropShadowClass}`}
+        >
+            <div 
+                className={`w-full h-full flex flex-col p-8 md:p-10 ${bgClass} relative overflow-hidden`}
+                style={{ clipPath }}
+            >
+                {/* Refined "Not-too-big" Icon in a polished container */}
+                <div className="flex items-start justify-between relative z-10 w-full mb-16 md:mb-20">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase opacity-40 font-mono">
+                            0{iconIndex + 1}
+                        </span>
                     </div>
-                    <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                        Refined over years at the intersection of creativity and commerce.
+
+                    <div className={`w-[48px] h-[48px] md:w-[54px] md:h-[54px] rounded-[14px] flex items-center justify-center p-2.5 md:p-3 transition-transform duration-500 group-hover:scale-110 ${iconWrapClass}`}>
+                        {principleIcons[iconIndex]}
+                    </div>
+                </div>
+
+                {/* Giant Watermark positioned carefully */}
+                <div className={`absolute -right-8 -bottom-8 text-[6rem] md:text-[8rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0`}>
+                    {value.keyword}
+                </div>
+
+                {/* Content Area */}
+                <div className="flex flex-col flex-grow relative z-10">
+                    <h3 className={`text-[1.3rem] md:text-[1.5rem] ${textTitleClass} tracking-tight mb-4 font-semibold leading-[1.2] mona-sans-condensed-medium`}>
+                        {value.title}
+                    </h3>
+                    
+                    <p className={`${textDescClass} text-[13px] md:text-[14px] leading-[1.7] poppins-regular max-w-[95%] md:max-w-[90%]`}>
+                        {value.desc}
                     </p>
                 </div>
             </div>
-
-            {/* ── MOBILE: Scroll-snap carousel ── */}
-            <div
-                className="md:hidden flex gap-4 overflow-x-auto px-6"
-                style={{
-                    scrollSnapType: "x mandatory",
-                    WebkitOverflowScrolling: "touch",
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                }}
-            >
-                {values.map((v, i) => (
-                    <div
-                        key={i}
-                        className="shrink-0 h-[340px] group"
-                        style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}
-                    >
-                        <ValueCard v={v} i={i} style={cardStyles[i]} />
-                    </div>
-                ))}
-                <div className="shrink-0 w-4" />
-            </div>
-
-            {/* ── DESKTOP: Staggered 3+2 grid ── */}
-            <div className="hidden md:block w-full max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
-                {/* Top row — 3 cards */}
-                <div className="grid grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
-                    {values.slice(0, 3).map((v, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7, delay: i * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                            className="group h-[380px] lg:h-[420px]"
-                        >
-                            <ValueCard v={v} i={i} style={cardStyles[i]} />
-                        </motion.div>
-                    ))}
-                </div>
-                {/* Bottom row — 2 cards, wider */}
-                <div className="grid grid-cols-2 gap-4 md:gap-5">
-                    {values.slice(3).map((v, i) => (
-                        <motion.div
-                            key={i + 3}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7, delay: (i + 3) * 0.1, ease: [0.19, 1, 0.22, 1] }}
-                            className="group h-[340px] lg:h-[380px]"
-                        >
-                            <ValueCard v={v} i={i + 3} style={cardStyles[i + 3]} />
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-
-        </section>
+        </motion.div>
     );
 };
 
+const OurValues = () => (
+    <section className="w-full bg-[#FAFAFA] relative pt-24 pb-32 md:pt-40 md:pb-48 font-sans selection:bg-[#AFFF00] selection:text-black">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 flex flex-col gap-12 md:gap-16">
+            
+            {/* Header Area - Left Aligned */}
+            <div className="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-black/[0.07] pb-8 gap-6 md:gap-0">
+                <div className="flex flex-col gap-2">
+                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular mb-1">
+                        The Blueprint
+                    </span>
+                    <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                        Our Core Principles
+                    </h2>
+                </div>
+                <p className="md:text-right text-[13px] md:text-[15px] text-black/50 max-w-[280px] leading-relaxed poppins-regular">
+                    We don't just solve problems; we build systems at the intersection of creativity and commerce.
+                </p>
+            </div>
 
-// What Makes Us Different
+            {/* Grid Area - Perfectly Balanced 6-Column Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-6 gap-5 md:gap-6 lg:gap-8 w-full items-stretch">
+                {/* Row 1: 3 equal cards spanning 2 columns each */}
+                <div className="md:col-span-2"><PrincipleCard value={values[0]} iconIndex={0} /></div>
+                <div className="md:col-span-2"><PrincipleCard value={values[1]} iconIndex={1} /></div>
+                <div className="md:col-span-2"><PrincipleCard value={values[2]} iconIndex={2} /></div>
+                
+                {/* Row 2: 2 equal cards centered natively using spacers. */}
+                <div className="hidden md:block md:col-span-1 border-none bg-transparent pointer-events-none" />
+                <div className="md:col-span-2"><PrincipleCard value={values[3]} iconIndex={3} /></div>
+                <div className="md:col-span-2"><PrincipleCard value={values[4]} iconIndex={4} /></div>
+                <div className="hidden md:block md:col-span-1 border-none bg-transparent pointer-events-none" />
+            </div>
+            
+        </div>
+    </section>
+);
+
+// â”€â”€â”€ What Makes Us Different â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
 const differences = [
-    { title: "We Think Like Business Owners", desc: "We do not just execute briefs. We ask the hard questions. Is this the right move for the business? Will this drive real results? If the answer is no, we push back.", keyword: "OWNERSHIP" },
-    { title: "One Team, Not Departments", desc: "Your brand strategist, designer, and content creator sit in the same room. They collaborate from day one. The result is work that feels unified, not pieced together.", keyword: "UNITY" },
-    { title: "Built on Systems, Not Heroics", desc: "We do not rely on last-minute magic. We build repeatable processes that deliver quality work consistently.", keyword: "SYSTEMS" },
-    { title: "Honest About What We Do Not Know", desc: "If something is outside our expertise, we say so. We would rather be honest than overpromise and underdeliver.", keyword: "HONESTY" }
+    { title: "One Team,\nAll Disciplines", desc: "Strategy, design, content, and production â€” all under one roof. No outsourcing, no misaligned vendors.", keyword: "Unified" },
+    { title: "Obsessed With\nYour Growth", desc: "We measure our success by your revenue, not by how many assets we deliver.", keyword: "Growth" },
+    { title: "We Challenge\nThe Brief", desc: "We will push back if something doesn't serve your business. Honest counsel is part of the deal.", keyword: "Honest" },
+    { title: "Built For\nSpeed", desc: "We ship fast, iterate faster. No six-month timelines for a brand refresh.", keyword: "Velocity" },
 ];
 
 const WhatMakesUsDifferent = () => {
     const [hoverIndex, setHoverIndex] = React.useState(0);
 
     return (
-        <section className="w-full bg-[#050505] selection:bg-[#AFFF00] selection:text-black overflow-hidden pt-20 pb-20 md:pt-32 md:pb-32 relative">
-            
+        <section className="w-full bg-[#050505] py-16 md:py-40 selection:bg-[#AFFF00] selection:text-black overflow-hidden">
             {/* Header */}
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-12 md:mb-20">
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-5">
                     <span className="text-[10px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular flex items-center gap-3">
                         <span className="w-2 h-2 bg-[#AFFF00]"></span> The Edge
                     </span>
@@ -297,7 +338,7 @@ const WhatMakesUsDifferent = () => {
                 </div>
             </div>
 
-            {/* ── DESKTOP: Expanding Flex Gallery ── */}
+            {/* â”€â”€ DESKTOP: Expanding Flex Gallery â”€â”€ */}
             <div className="hidden md:flex flex-row w-full max-w-[1400px] mx-auto h-[600px] lg:h-[700px] gap-4 px-6 md:px-12">
                 {differences.map((diff, i) => {
                     const isActive = hoverIndex === i;
@@ -367,7 +408,7 @@ const WhatMakesUsDifferent = () => {
                 })}
             </div>
 
-            {/* ── MOBILE: Expanding Stacked Cards ── */}
+            {/* â”€â”€ MOBILE: Expanding Stacked Cards â”€â”€ */}
             <div className="md:hidden flex flex-col w-full px-6 gap-3">
                 {differences.map((diff, i) => {
                     const isActive = hoverIndex === i;
@@ -431,9 +472,60 @@ const WhatMakesUsDifferent = () => {
     );
 };
 
+// â”€â”€â”€ Who We Work With â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Seamless 1px grid with SVG illustrations â€” matching Contact "What Next"
 
+const clientIllustrations = [
+    // 01 â€” Rocket / Startup
+    (
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M40 12C40 12 28 24 28 44C28 52 32 58 40 64C48 58 52 52 52 44C52 24 40 12 40 12Z" className="stroke-black" strokeWidth="2.5" fill="none" />
+            <circle cx="40" cy="38" r="6" className="fill-[#AFFF00] stroke-black" strokeWidth="2" />
+            <path d="M28 48L18 52L24 44" className="stroke-black/40" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <path d="M52 48L62 52L56 44" className="stroke-black/40" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <line x1="36" y1="64" x2="36" y2="72" className="stroke-[#AFFF00]" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="40" y1="66" x2="40" y2="74" className="stroke-[#AFFF00]" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="44" y1="64" x2="44" y2="72" className="stroke-[#AFFF00]" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+    ),
+    // 02 â€” Graph / Growth
+    (
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="14" width="56" height="52" rx="4" className="stroke-black" strokeWidth="2.5" fill="none" />
+            <line x1="12" y1="26" x2="68" y2="26" className="stroke-black/20" strokeWidth="2" />
+            <circle cx="24" cy="20" r="2" className="fill-[#AFFF00]" />
+            <circle cx="30" cy="20" r="2" className="fill-black/20" />
+            <circle cx="36" cy="20" r="2" className="fill-black/20" />
+            <polyline points="22,56 32,46 42,50 52,34 60,30" className="stroke-[#AFFF00]" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <polyline points="22,56 32,52 42,54 52,48 60,44" className="stroke-black/20" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            <circle cx="52" cy="34" r="4" className="fill-[#AFFF00] stroke-black" strokeWidth="1.5" />
+        </svg>
+    ),
+    // 03 â€” Refresh / Rebrand
+    (
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M56 28C56 28 50 18 40 18C29 18 20 27 20 38C20 49 29 58 40 58" className="stroke-black" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+            <path d="M24 52C24 52 30 62 40 62C51 62 60 53 60 42C60 31 51 22 40 22" className="stroke-black/30" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+            <polygon points="56,22 62,28 56,34" className="fill-[#AFFF00] stroke-black" strokeWidth="1.5" />
+            <polygon points="24,46 18,52 24,58" className="fill-[#AFFF00] stroke-black" strokeWidth="1.5" />
+            <circle cx="40" cy="40" r="8" className="stroke-black" strokeWidth="2.5" fill="none" />
+            <circle cx="40" cy="40" r="3" className="fill-[#AFFF00]" />
+        </svg>
+    ),
+    // 04 â€” Shopping bag / E-commerce
+    (
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 30H58L54 66H26L22 30Z" className="stroke-black" strokeWidth="2.5" fill="none" />
+            <path d="M30 30V24C30 18.4772 34.4772 14 40 14C45.5228 14 50 18.4772 50 24V30" className="stroke-black" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+            <line x1="30" y1="42" x2="50" y2="42" className="stroke-[#AFFF00]" strokeWidth="3" strokeLinecap="round" />
+            <line x1="32" y1="50" x2="48" y2="50" className="stroke-black/20" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="34" y1="58" x2="46" y2="58" className="stroke-black/20" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="52" cy="24" r="8" className="fill-[#AFFF00] stroke-black" strokeWidth="2" />
+            <path d="M49 24l2 2 4-4" className="stroke-black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+        </svg>
+    ),
+];
 
-// Who We Work With
 const clients = [
     { title: "Startups Building from Scratch", desc: "You need positioning, identity, and a go-to-market strategy that works from day one." },
     { title: "Growing Brands Scaling Up", desc: "You have traction but your branding feels inconsistent or your marketing is not keeping up." },
@@ -456,34 +548,87 @@ const WhoWeWorkWith = () => (
                 </p>
             </div>
 
-            {/* 2×2 chamfer card grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/[0.04]">
-                {clients.map((c, i) => (
-                    <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: i * 0.08, ease: [0.19,1,0.22,1] }}
-                        className="group"
-                    >
+            {/* â”€â”€ DESKTOP: Seamless 1px Grid (2Ã—2) â”€â”€ */}
+            <div className="hidden md:flex flex-col gap-px w-full bg-black/5 border border-black/5 overflow-hidden">
+                <div className="grid grid-cols-2 gap-px bg-black/5">
+                    {clients.slice(0, 2).map((c, i) => (
                         <motion.div
-                            initial="rest" whileHover="hover"
-                            variants={{
-                                rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                                hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
-                            }}
-                            className="bg-white h-full p-8 md:p-12 flex flex-col justify-between min-h-[260px] md:min-h-[300px] shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                            key={i}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.65, delay: i * 0.05 }}
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[350px] p-10 flex flex-col justify-between"
                         >
-                            <div className="flex flex-col gap-4">
-                                <span className="text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">0{i+1}</span>
-                                <h3 className="text-[1.3rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
+                            <div className="flex flex-col gap-6">
+                                <div className="flex items-start justify-between">
+                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                        {clientIllustrations[i]}
+                                    </div>
+                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
+                                </div>
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
                             </div>
                             <div className="flex items-end justify-between mt-8">
-                                <p className="text-black/45 text-[13px] leading-relaxed poppins-regular">{c.desc}</p>
+                                <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{c.desc}</p>
                             </div>
                         </motion.div>
-                    </motion.div>
+                    ))}
+                </div>
+                <div className="grid grid-cols-2 gap-px bg-black/5">
+                    {clients.slice(2).map((c, i) => (
+                        <motion.div
+                            key={i + 2}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.65, delay: (i + 2) * 0.05 }}
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[350px] p-10 flex flex-col justify-between"
+                        >
+                            <div className="flex flex-col gap-6">
+                                <div className="flex items-start justify-between">
+                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                        {clientIllustrations[i + 2]}
+                                    </div>
+                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 3}</span>
+                                </div>
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
+                            </div>
+                            <div className="flex items-end justify-between mt-8">
+                                <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{c.desc}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+
+            {/* â”€â”€ MOBILE: Scroll-snap cards â”€â”€ */}
+            <div
+                className="md:hidden flex gap-4 overflow-x-auto"
+                style={{
+                    scrollSnapType: "x mandatory",
+                    WebkitOverflowScrolling: "touch",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                }}
+            >
+                {clients.map((c, i) => (
+                    <div key={i} className="shrink-0 h-[340px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
+                        <div className="bg-white w-full h-full p-8 flex flex-col justify-between border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
+                            <div className="flex flex-col gap-5">
+                                <div className="flex items-start justify-between">
+                                    <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
+                                        {clientIllustrations[i]}
+                                    </div>
+                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
+                                </div>
+                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{c.title}</h3>
+                            </div>
+                            <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{c.desc}</p>
+                        </div>
+                    </div>
                 ))}
+                <div className="shrink-0 w-4" />
             </div>
 
         </div>
@@ -563,7 +708,6 @@ const About: React.FC = () => {
                 <OurStory />
                 <OurValues />
                 <WhatMakesUsDifferent />
-
                 <WhoWeWorkWith />
                 <CTASection />
                 <Footer />

@@ -73,211 +73,170 @@ const ContactFormSection = () => {
         setSubmitted(true);
     };
 
-    const inputBase = "w-full bg-transparent border-b border-black/[0.08] py-5 text-black placeholder-black/25 focus:outline-none focus:border-[#476D07] transition-all duration-300 text-[15px] poppins-regular";
-    const labelBase = "block text-[10px] font-bold tracking-[0.3em] uppercase text-black/30 mb-1 poppins-regular";
+    const inputClasses = "w-full bg-transparent text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mona-sans-condensed-medium outline-none placeholder-black/10 text-black group-focus-within:text-[#AFFF00] transition-colors duration-500 overflow-hidden resize-none";
+    const labelRowClasses = "w-full md:w-[25%] p-6 md:p-8 lg:p-10 flex items-center md:border-r border-black/10 group-focus-within:border-white/10 transition-colors duration-500";
+    const labelClasses = "text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase text-black/40 group-focus-within:text-white transition-colors duration-500 poppins-regular";
+    const inputRowClasses = "w-full md:w-[75%] p-6 md:p-8 lg:p-10 flex items-center relative";
+    const rowContainerBase = "w-full flex flex-col md:flex-row border-b border-black/10 group focus-within:bg-[#050505] hover:bg-black/[0.02] focus-within:hover:bg-[#050505] transition-colors duration-500";
 
     return (
-        <section id="form" className="w-full bg-white text-black poppins-regular selection:bg-[#AFFF00] selection:text-black pt-16 md:pt-24">
-            <div className="max-w-[1600px] mx-auto w-full flex flex-col items-start border-t border-black/10">
-
-                {/* Split Layout */}
-                <div className="flex flex-col lg:flex-row w-full relative">
-
-                    {/* Left Column: Sticky Info Panel */}
-                    <div className="w-full lg:w-[35%] py-10 md:py-16 px-6 md:px-12 lg:sticky lg:top-24 lg:h-auto flex flex-col justify-start self-start">
-                        {/* Label */}
-                        <div className="flex items-center gap-3 mb-8 md:mb-12">
-                            <span className="w-2 md:w-2.5 h-2 md:h-2.5 bg-black"></span>
-                            <span className="text-black text-[12px] md:text-[13px] font-bold tracking-[0.25em] uppercase">
-                                Get in Touch
-                            </span>
-                        </div>
-
-                        {/* Title */}
-                        <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] mona-sans-condensed-bold tracking-tight mb-10 md:mb-12">
-                            LET'S<br />TALK
-                        </h2>
-
-                        {/* Contact details */}
-                        <div className="space-y-8">
-                            <div>
-                                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/30 poppins-regular block mb-2">Email</span>
-                                <a href="mailto:hello@drixmedia.com" className="text-[1.3rem] md:text-[1.5rem] mona-sans-condensed-medium tracking-tight text-black hover:text-[#476D07] transition-colors leading-tight break-all">
-                                    hello@drixmedia.com
-                                </a>
-                            </div>
-                            <div>
-                                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/30 poppins-regular block mb-2">Phone</span>
-                                <p className="text-[15px] poppins-regular text-black/60">(+91) 98765 43210</p>
-                            </div>
-                            <div>
-                                <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/30 poppins-regular block mb-2">Address</span>
-                                <p className="text-[15px] poppins-regular text-black/55 max-w-xs leading-relaxed mt-1">
-                                    Drix Media HQ, Creative Suites,<br />Mumbai, India, 400001
-                                </p>
-                            </div>
-                        </div>
+        <section id="form" className="w-full bg-white text-black poppins-regular selection:bg-[#AFFF00] selection:text-black pt-16 md:pt-24 border-t border-black/10">
+            <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row px-6 md:px-12 py-10 md:py-16 mb-4 lg:mb-8">
+                <div className="w-full md:w-[60%] flex flex-col justify-end">
+                    <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] leading-[0.85] mona-sans-condensed-bold tracking-tight text-[#050505] uppercase">
+                        Start a<br/>New Project
+                    </h2>
+                </div>
+                <div className="w-full md:w-[40%] flex flex-col sm:flex-row gap-10 lg:gap-16 mt-10 md:mt-0 items-start md:items-end justify-start md:justify-end pb-2">
+                    <div className="flex flex-col">
+                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-2 poppins-regular">Inquiries</span>
+                         <a href="mailto:hello@drixmedia.com" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">hello@drixmedia.com</a>
                     </div>
-
-                    {/* Right Column: Form */}
-                    <div className="w-full lg:w-[65%] flex flex-col border-l border-black/10 pl-0 lg:pl-10">
-                        <div className="px-6 md:px-12 py-10 md:py-16">
-                            <AnimatePresence mode="wait">
-                                {submitted ? (
-                                    <motion.div
-                                        key="success"
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        className="flex flex-col items-center justify-center text-center py-32 lg:py-48"
-                                    >
-                                        <div className="w-14 h-14 bg-[#050505] flex items-center justify-center mb-8" style={{ clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%)" }}>
-                                            <svg width="24" height="24" viewBox="0 0 256 256" fill="white">
-                                                <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L100,192.69,218.34,74.34a8,8,0,0,1,11.32,11.32Z" />
-                                            </svg>
-                                        </div>
-                                        <h3 className="text-[2.5rem] md:text-[3rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-tight">Sent successfully</h3>
-                                        <p className="text-black/40 text-[15px] poppins-regular max-w-sm">
-                                            We'll review your inquiry and get back to you within 24 hours.
-                                        </p>
-                                    </motion.div>
-                                ) : (
-                                    <motion.form
-                                        key="form"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        onSubmit={handleSubmit}
-                                        className="flex flex-col gap-10"
-                                    >
-                                        {/* Form heading */}
-                                        <div className="mb-4">
-                                            <span className="text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase block mb-3">01</span>
-                                            <h3 className="text-[1.3rem] md:text-[1.5rem] mona-sans-condensed-medium text-black tracking-tight">Your Details</h3>
-                                        </div>
-
-                                        <div className="space-y-10">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                                <div>
-                                                    <label className={labelBase}>Name *</label>
-                                                    <input type="text" name="name" required placeholder="Your full name" value={form.name} onChange={handleChange} className={inputBase} />
-                                                </div>
-                                                <div>
-                                                    <label className={labelBase}>E-mail *</label>
-                                                    <input type="email" name="email" required placeholder="your@email.com" value={form.email} onChange={handleChange} className={inputBase} />
-                                                </div>
-                                            </div>
-
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                                <div>
-                                                    <label className={labelBase}>Phone</label>
-                                                    <input type="tel" name="phone" placeholder="+91 00000 00000" value={form.phone} onChange={handleChange} className={inputBase} />
-                                                </div>
-                                                <div>
-                                                    <label className={labelBase}>Company</label>
-                                                    <input type="text" name="company" placeholder="Your company name" value={form.company} onChange={handleChange} className={inputBase} />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Section 2 */}
-                                        <div className="mt-8 border-t border-black/[0.06] pt-10">
-                                            <div className="mb-6">
-                                                <span className="text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase block mb-3">02</span>
-                                                <h3 className="text-[1.3rem] md:text-[1.5rem] mona-sans-condensed-medium text-black tracking-tight">Your Project</h3>
-                                            </div>
-
-                                            <div className="space-y-10">
-                                                <div>
-                                                    <label className={labelBase}>What do you need help with? *</label>
-                                                    <div className="relative">
-                                                        <div
-                                                            onClick={() => setDropdownOpen(!dropdownOpen)}
-                                                            className={`${inputBase} flex items-center justify-between cursor-pointer pb-4`}
-                                                        >
-                                                            <span className={form.service ? 'text-black' : 'text-black/25'}>
-                                                                {form.service || 'Select a service'}
-                                                            </span>
-                                                            <motion.svg
-                                                                animate={{ rotate: dropdownOpen ? 180 : 0 }}
-                                                                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-                                                                width="12" height="12" viewBox="0 0 256 256" fill="currentColor" className="text-black/20 shrink-0"
-                                                            >
-                                                                <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
-                                                            </motion.svg>
-                                                        </div>
-
-                                                        {/* Hidden required input for form validation */}
-                                                        <input type="text" name="service" required className="absolute opacity-0 pointer-events-none w-0 h-0" value={form.service} onChange={() => { }} />
-
-                                                        <AnimatePresence>
-                                                            {dropdownOpen && (
-                                                                <motion.div
-                                                                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                                                                    exit={{ opacity: 0, y: 5, scale: 0.98 }}
-                                                                    transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-                                                                    className="absolute top-[calc(100%+8px)] left-0 w-full bg-white border border-black/[0.08] shadow-[0_12px_40px_rgba(0,0,0,0.06)] z-50 overflow-hidden"
-                                                                >
-                                                                    {serviceOptions.map((opt) => (
-                                                                        <div
-                                                                            key={opt}
-                                                                            onClick={() => {
-                                                                                setForm({ ...form, service: opt });
-                                                                                setDropdownOpen(false);
-                                                                            }}
-                                                                            className="px-6 py-4 text-[14px] text-black/70 poppins-regular cursor-pointer hover:bg-[#FAFAFA] hover:text-[#476D07] transition-all duration-300 border-b border-black/[0.03] last:border-0"
-                                                                        >
-                                                                            {opt}
-                                                                        </div>
-                                                                    ))}
-                                                                </motion.div>
-                                                            )}
-                                                        </AnimatePresence>
-                                                    </div>
-                                                </div>
-
-                                                <div>
-                                                    <label className={labelBase}>Message (Tell us about your project) *</label>
-                                                    <textarea
-                                                        name="message"
-                                                        required
-                                                        placeholder="Briefly describe your goals..."
-                                                        value={form.message}
-                                                        onChange={handleChange}
-                                                        rows={3}
-                                                        className={`${inputBase} overflow-hidden resize-none`}
-                                                    />
-                                                </div>
-
-                                                <div>
-                                                    <label className={labelBase}>How did you hear about us?</label>
-                                                    <input type="text" name="referral" placeholder="Google, Social Media, referral..." value={form.referral} onChange={handleChange} className={inputBase} />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="mt-8 flex items-center gap-8">
-                                            <button
-                                                type="submit"
-                                                className="group flex items-center gap-4 bg-black text-white px-10 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#050505] hover:gap-6"
-                                                style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
-                                            >
-                                                Get in touch
-                                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                                            </button>
-                                            <span className="text-[10px] text-black/25 poppins-regular tracking-wide hidden md:block">We reply within 24 hours</span>
-                                        </div>
-                                    </motion.form>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Spacer */}
-                        <div className="h-16 md:h-24"></div>
+                     <div className="flex flex-col">
+                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-2 poppins-regular">Call us</span>
+                         <span className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium text-black">(+91) 98765 43210</span>
                     </div>
-
                 </div>
             </div>
+
+            <AnimatePresence mode="wait">
+                {submitted ? (
+                    <motion.div
+                        key="success"
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="flex w-full justify-center py-20 md:py-40 bg-[#FAFAFA] border-t border-black/10 px-6"
+                    >
+                        <div className="flex flex-col items-center justify-center text-center p-12 md:p-24 max-w-4xl w-full border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.04)]" style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}>
+                            <div className="w-16 h-16 bg-[#AFFF00] flex items-center justify-center mb-8 border border-black/10 shadow-sm" style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
+                                <svg width="24" height="24" viewBox="0 0 256 256" fill="black">
+                                    <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L100,192.69,218.34,74.34a8,8,0,0,1,11.32,11.32Z" />
+                                </svg>
+                            </div>
+                            <h3 className="text-[3rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-bold mb-6 tracking-tighter leading-none text-[#050505] uppercase">
+                                Message Sent
+                            </h3>
+                            <p className="text-black/50 text-[15px] md:text-[18px] poppins-regular max-w-xl mx-auto mb-12">
+                                Thank you for reaching out. Our team is carefully reviewing your inquiry and will be in touch with you within 24 hours to begin the process.
+                            </p>
+                            <button onClick={() => setSubmitted(false)} className="group flex items-center gap-4 border border-black/10 text-black px-10 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#FAFAFA] hover:gap-6 mx-auto" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)" }}>
+                                Submit Another
+                                <svg className="w-4 h-4 text-black/40 group-hover:text-[#AFFF00] transition-colors duration-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                            </button>
+                        </div>
+                    </motion.div>
+                ) : (
+                    <motion.form
+                        key="form"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onSubmit={handleSubmit}
+                        className="w-full flex flex-col"
+                    >
+                        {/* Wrapper for the massive grid layout */}
+                        <div className="w-full border-t border-black/10">
+
+                            {/* 01: Name */}
+                            <div className={rowContainerBase}>
+                                <div className={labelRowClasses}>
+                                    <label className={labelClasses}>01 / Name *</label>
+                                </div>
+                                <div className={inputRowClasses}>
+                                    <input type="text" name="name" required placeholder="John Doe" value={form.name} onChange={handleChange} className={inputClasses} />
+                                </div>
+                            </div>
+
+                            {/* 02: Email */}
+                            <div className={rowContainerBase}>
+                                <div className={labelRowClasses}>
+                                    <label className={labelClasses}>02 / E-mail *</label>
+                                </div>
+                                <div className={inputRowClasses}>
+                                    <input type="email" name="email" required placeholder="hello@example.com" value={form.email} onChange={handleChange} className={inputClasses} />
+                                </div>
+                            </div>
+
+                            {/* 03: Company */}
+                            <div className={rowContainerBase}>
+                                <div className={labelRowClasses}>
+                                    <label className={labelClasses}>03 / Company</label>
+                                </div>
+                                <div className={inputRowClasses}>
+                                    <input type="text" name="company" placeholder="Your Brand" value={form.company} onChange={handleChange} className={inputClasses} />
+                                </div>
+                            </div>
+
+                            {/* 04: Service Dropdown */}
+                            <div className={rowContainerBase}>
+                                <div className={labelRowClasses}>
+                                    <label className={labelClasses}>04 / Service *</label>
+                                </div>
+                                <div className={`${inputRowClasses} cursor-pointer outline-none`} tabIndex={0} onClick={() => setDropdownOpen(!dropdownOpen)}>
+                                    <div className={`${inputClasses} flex items-center justify-between`}>
+                                        <span className={form.service ? 'text-black group-focus-within:text-[#AFFF00]' : 'text-black/10 group-focus-within:text-white/20'}>
+                                            {form.service || 'Select discipline'}
+                                        </span>
+                                        <motion.svg animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }} width="32" height="32" viewBox="0 0 256 256" fill="currentColor" className="text-black/20 group-focus-within:text-white shrink-0">
+                                            <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
+                                        </motion.svg>
+                                    </div>
+                                    <input type="text" name="service" required className="absolute opacity-0 pointer-events-none w-0 h-0" value={form.service} onChange={() => { }} />
+
+                                    <AnimatePresence>
+                                        {dropdownOpen && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 20 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                exit={{ opacity: 0, y: 10 }}
+                                                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                                                className="absolute top-full left-0 w-full bg-[#050505] border-t border-black/10 md:border-white/10 z-50 flex flex-col shadow-2xl"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                {serviceOptions.map((opt) => (
+                                                    <div
+                                                        key={opt}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setForm({ ...form, service: opt });
+                                                            setDropdownOpen(false);
+                                                        }}
+                                                        className="w-full px-6 md:px-10 py-5 md:py-6 text-[1.2rem] md:text-[1.8rem] mona-sans-condensed-medium uppercase text-white/50 cursor-pointer hover:bg-[#AFFF00]/10 hover:text-[#AFFF00] hover:pl-12 transition-all duration-400 ease-[0.19,1,0.22,1] border-b border-white/5 last:border-0"
+                                                    >
+                                                        {opt}
+                                                    </div>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            </div>
+
+                            {/* 05: Message */}
+                            <div className={`${rowContainerBase} items-start`}>
+                                <div className={`${labelRowClasses} h-full pt-10 md:pt-14`}>
+                                    <label className={labelClasses}>05 / Message *</label>
+                                </div>
+                                <div className={`${inputRowClasses} pt-10 md:pt-14 pb-14`}>
+                                    <textarea name="message" required placeholder="Project detail..." value={form.message} onChange={handleChange} rows={3} className={inputClasses} />
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {/* Submit Button Row */}
+                        <div className="w-full">
+                            <button type="submit" className="w-full bg-[#AFFF00] hover:bg-[#050505] text-[#050505] hover:text-[#AFFF00] transition-colors duration-500 py-12 md:py-16 flex items-center justify-center group outline-none">
+                                <span className="text-[2rem] md:text-[3.5rem] lg:text-[4.5rem] leading-none mona-sans-condensed-bold tracking-tighter uppercase mr-5 md:mr-8 group-hover:scale-[1.03] transition-transform duration-500 origin-right">
+                                    Send Inquiry
+                                </span>
+                                <svg className="w-8 h-8 md:w-14 md:h-14 group-hover:rotate-[35deg] group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                            </button>
+                        </div>
+
+                    </motion.form>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
@@ -642,55 +601,6 @@ const FAQSection = () => (
 );
 
 
-
-// ─── CTA ─────────────────────────────────────────────────────────────────────
-
-const CTASection = () => (
-    <section className="w-full bg-[#080808] px-6 md:px-10 pt-16 md:pt-24 pb-10 selection:bg-black selection:text-[#AFFF00]">
-        <motion.div
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-8 md:px-20 py-14 md:py-20"
-            style={{ clipPath: "polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%)" }}
-        >
-            <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-
-            <div className="relative z-10 w-full max-w-[1400px] mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-                    <div className="flex flex-col gap-6">
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-black/50 uppercase poppins-regular">Get Started</span>
-                        <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
-                            Ready to Get<br />
-                            <span className="text-black/30">Started?</span>
-                        </h2>
-                        <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
-                            Book your strategy call and let's build something great.
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4 shrink-0">
-                        <a
-                            href="mailto:hello@drixmedia.com"
-                            className="group flex items-center gap-4 bg-black text-white px-8 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#050505] hover:gap-6"
-                            style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
-                        >
-                            Book a Call
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                        </a>
-                        <a
-                            href="mailto:hello@drixmedia.com"
-                            className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center"
-                        >
-                            hello@drixmedia.com
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </motion.div>
-    </section>
-);
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const Contact: React.FC = () => {
@@ -716,7 +626,6 @@ const Contact: React.FC = () => {
                 <ContactFormSection />
                 <WhatHappensNext />
                 <FAQSection />
-                <CTASection />
                 <Footer />
             </div>
         </main>

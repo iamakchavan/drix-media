@@ -2,19 +2,14 @@ import React from 'react';
 
 const NoiseOverlay: React.FC = () => {
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 opacity-[0.15] mix-blend-overlay">
-       <svg className="h-full w-full">
-            <filter id="noiseFilter">
-                <feTurbulence 
-                    type="fractalNoise" 
-                    baseFrequency="0.8" 
-                    numOctaves="3" 
-                    stitchTiles="stitch" 
-                />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
-    </div>
+    <div 
+      className="pointer-events-none absolute inset-0 z-10"
+      style={{
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.0) 50%, rgba(175, 255, 0, 0.02) 100%)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
+      }}
+    />
   );
 };
 
