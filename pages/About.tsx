@@ -184,86 +184,67 @@ const principleIcons = [
 ];
 
 const values = [
-    { title: "Strategy First", desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", subtitle: "Purposeful design", keyword: "PURPOSE", theme: "dark" },
-    { title: "Integration Over Isolation", desc: "The best work happens when strategy, design, and execution work as one system. We build brands that feel cohesive across every touchpoint.", subtitle: "Unified systems", keyword: "UNIFIED", theme: "light" },
-    { title: "Results Over Rank", desc: "We care more about driving your business forward than winning awards. Performance is the only metric that matters.", subtitle: "Data driven", keyword: "IMPACT", theme: "green" },
-    { title: "Transparency Always", desc: "You will always know what we are working on, why we are doing it, and how it is performing. No jargon. No hidden processes.", subtitle: "Clear processes", keyword: "CLARITY", theme: "light" },
-    { title: "Long-Term Thinking", desc: "We are not here for quick wins. We build systems and strategies that grow with you over time.", subtitle: "Sustainable growth", keyword: "GROWTH", theme: "dark" }
+    { title: "Strategy First", desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", keyword: "PURPOSE", bentoClass: "md:col-span-8 md:row-span-2", theme: "dark" },
+    { title: "Integrated Systems", desc: "Strategy, design, and execution must work as one cohesive unit. No disjointed vendors.", keyword: "UNIFIED", bentoClass: "md:col-span-4", theme: "dark" },
+    { title: "Results Over Rank", desc: "We care about moving the needle. Performance is the only metric that matters.", keyword: "IMPACT", bentoClass: "md:col-span-4", theme: "green" },
+    { title: "Transparency Always", desc: "You will always know what we are working on, why we are doing it, and how it is performing.", keyword: "CLARITY", bentoClass: "md:col-span-6", theme: "dark" },
+    { title: "Long-Term Thinking", desc: "We are not here for quick wins. We build systems and strategies that grow with your business.", keyword: "GROWTH", bentoClass: "md:col-span-6", theme: "dark" }
 ];
 
 const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = ({ value, iconIndex }) => {
-    const isDark = value.theme === "dark";
     const isGreen = value.theme === "green";
     
-    // Main Card Colors
-    let bgClass = "bg-white"; 
-    let textTitleClass = "text-black";
-    let textDescClass = "text-black/50";
-    let iconWrapClass = "bg-black/[0.03] text-black";
-    let watermarkClass = "text-black/[0.03]";
-    // Use drop-shadow instead of box-shadow because drop-shadow perfectly follows the CSS clip-path!
-    let dropShadowClass = "drop-shadow-[0_8px_20px_rgba(0,0,0,0.04)] group-hover:drop-shadow-[0_16px_32px_rgba(0,0,0,0.08)]";
+    // Main Card Colors for Sleek Dark Theme
+    let bgClass = "bg-[#0A0A0A] border border-white/5 group-hover:bg-[#0f0f0f] group-hover:border-white/10"; 
+    let textTitleClass = "text-white";
+    let textDescClass = "text-white/40";
+    let iconWrapClass = "bg-white/[0.04] text-[#AFFF00]";
+    let watermarkClass = "text-white/[0.02]";
 
-    if (isDark) {
-        bgClass = "bg-[#050505]";
-        textTitleClass = "text-white";
-        textDescClass = "text-white/40";
-        iconWrapClass = "bg-white/[0.05] text-[#AFFF00]";
-        watermarkClass = "text-white/[0.02]";
-        dropShadowClass = "drop-shadow-[0_8px_20px_rgba(0,0,0,0.2)] group-hover:drop-shadow-[0_16px_40px_rgba(0,0,0,0.5)]";
-    } else if (isGreen) {
-        bgClass = "bg-[#AFFF00]";
+    if (isGreen) {
+        bgClass = "bg-[#AFFF00] border-none group-hover:bg-[#bfff33]";
         textTitleClass = "text-[#050505]";
         textDescClass = "text-[#050505]/70";
         iconWrapClass = "bg-black/[0.05] text-[#050505]";
         watermarkClass = "text-black/[0.04]";
-        dropShadowClass = "drop-shadow-[0_8px_20px_rgba(175,255,0,0.15)] group-hover:drop-shadow-[0_16px_32px_rgba(175,255,0,0.3)]";
     }
 
-    // Give EVERY card an accent cut on the outermost structural level. 
-    // We perfectly alternate Top-Left and Bottom-Right for visual dynamism.
-    const isEven = iconIndex % 2 === 1;
-    const clipPath = isEven 
-        ? "polygon(0 0, 100% 0, 100% calc(100% - 48px), calc(100% - 48px) 100%, 0 100%)" // Bottom Right
-        : "polygon(48px 0, 100% 0, 100% 100%, 0 100%, 0 48px)"; // Top Left
+    // A beautiful chamfered corner only on the bottom right
+    const clipPath = "polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%)";
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: iconIndex * 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className={`group w-full h-full flex transition-all duration-500 hover:-translate-y-2 ${dropShadowClass}`}
+            transition={{ duration: 0.7, delay: iconIndex * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className={`group w-full h-full flex transition-all duration-500`}
         >
             <div 
-                className={`w-full h-full flex flex-col p-8 md:p-10 ${bgClass} relative overflow-hidden`}
+                className={`w-full h-full flex flex-col p-8 md:p-10 ${bgClass} relative overflow-hidden transition-all duration-700 min-h-[300px]`}
                 style={{ clipPath }}
             >
-                {/* Refined "Not-too-big" Icon in a polished container */}
-                <div className="flex items-start justify-between relative z-10 w-full mb-16 md:mb-20">
-                    <div className="flex flex-col gap-1">
-                        <span className="text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase opacity-40 font-mono">
-                            0{iconIndex + 1}
-                        </span>
-                    </div>
-
+                {/* Top Section: Index and Icon */}
+                <div className="flex items-start justify-between relative z-10 w-full mb-20 md:mb-24">
+                    <span className="text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase opacity-40 font-mono text-inherit">
+                        0{iconIndex + 1}
+                    </span>
                     <div className={`w-[48px] h-[48px] md:w-[54px] md:h-[54px] rounded-[14px] flex items-center justify-center p-2.5 md:p-3 transition-transform duration-500 group-hover:scale-110 ${iconWrapClass}`}>
                         {principleIcons[iconIndex]}
                     </div>
                 </div>
 
-                {/* Giant Watermark positioned carefully */}
-                <div className={`absolute -right-8 -bottom-8 text-[6rem] md:text-[8rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0`}>
+                {/* Ambient Watermark */}
+                <div className={`absolute -right-6 -bottom-6 text-[5.5rem] md:text-[7rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0 transition-transform duration-1000 group-hover:scale-110 origin-bottom-right`}>
                     {value.keyword}
                 </div>
 
                 {/* Content Area */}
-                <div className="flex flex-col flex-grow relative z-10">
-                    <h3 className={`text-[1.3rem] md:text-[1.5rem] ${textTitleClass} tracking-tight mb-4 font-semibold leading-[1.2] mona-sans-condensed-medium`}>
+                <div className="flex flex-col mt-auto relative z-10">
+                    <h3 className={`text-[1.4rem] md:text-[1.8rem] ${textTitleClass} tracking-tight mb-4 font-semibold leading-[1.1] mona-sans-condensed-medium`}>
                         {value.title}
                     </h3>
-                    
-                    <p className={`${textDescClass} text-[13px] md:text-[14px] leading-[1.7] poppins-regular max-w-[95%] md:max-w-[90%]`}>
+                    <p className={`${textDescClass} text-[13px] md:text-[15px] leading-[1.6] poppins-regular max-w-[95%]`}>
                         {value.desc}
                     </p>
                 </div>
@@ -273,38 +254,39 @@ const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = 
 };
 
 const OurValues = () => (
-    <section className="w-full bg-[#FAFAFA] relative pt-24 pb-32 md:pt-40 md:pb-48 font-sans selection:bg-[#AFFF00] selection:text-black">
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 flex flex-col gap-12 md:gap-16">
+    <section className="w-full bg-[#050505] relative pt-24 pb-32 md:pt-40 md:pb-48 font-sans selection:bg-[#AFFF00] selection:text-black">
+        {/* Subtle grid backdrop for dark aesthetic */}
+        <div className="absolute inset-0 z-0 flex justify-center pointer-events-none opacity-[0.03]">
+            <div className="w-[1px] h-full bg-white absolute left-[20%]"></div>
+            <div className="w-[1px] h-full bg-white absolute left-[50%]"></div>
+            <div className="w-[1px] h-full bg-white absolute left-[80%]"></div>
+        </div>
+
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 flex flex-col gap-14 md:gap-20">
             
-            {/* Header Area - Left Aligned */}
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between border-b border-black/[0.07] pb-8 gap-6 md:gap-0">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular mb-1">
-                        The Blueprint
+            {/* Header Area */}
+            <div className="flex flex-col xl:flex-row xl:items-end justify-between border-b border-white/10 pb-10 gap-6 xl:gap-0">
+                <div className="flex flex-col gap-3">
+                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular mb-1 flex items-center gap-3">
+                        <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span> The Blueprint
                     </span>
-                    <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4.5rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                    <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] tracking-tight text-white leading-[0.9] mona-sans-condensed-medium font-normal">
                         Our Core Principles
                     </h2>
                 </div>
-                <p className="md:text-right text-[13px] md:text-[15px] text-black/50 max-w-[280px] leading-relaxed poppins-regular">
+                <p className="xl:text-right text-[14px] md:text-[16px] text-white/40 max-w-[340px] leading-relaxed poppins-regular">
                     We don't just solve problems; we build systems at the intersection of creativity and commerce.
                 </p>
             </div>
 
-            {/* Grid Area - Perfectly Balanced 6-Column Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-6 gap-5 md:gap-6 lg:gap-8 w-full items-stretch">
-                {/* Row 1: 3 equal cards spanning 2 columns each */}
-                <div className="md:col-span-2"><PrincipleCard value={values[0]} iconIndex={0} /></div>
-                <div className="md:col-span-2"><PrincipleCard value={values[1]} iconIndex={1} /></div>
-                <div className="md:col-span-2"><PrincipleCard value={values[2]} iconIndex={2} /></div>
-                
-                {/* Row 2: 2 equal cards centered natively using spacers. */}
-                <div className="hidden md:block md:col-span-1 border-none bg-transparent pointer-events-none" />
-                <div className="md:col-span-2"><PrincipleCard value={values[3]} iconIndex={3} /></div>
-                <div className="md:col-span-2"><PrincipleCard value={values[4]} iconIndex={4} /></div>
-                <div className="hidden md:block md:col-span-1 border-none bg-transparent pointer-events-none" />
+            {/* Dark Theme Bento Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 w-full items-stretch relative">
+                {values.map((v, i) => (
+                    <div className={v.bentoClass} key={i}>
+                        <PrincipleCard value={v} iconIndex={i} />
+                    </div>
+                ))}
             </div>
-            
         </div>
     </section>
 );
