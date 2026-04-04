@@ -5,14 +5,14 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Add a slight delay to ensure the new page DOM has painted before scrolling up
-    setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      });
-    }, 100);
+    // Reset standard window scroll
+    window.scrollTo(0, 0);
+
+    // Reset Lenis smooth scroll if it exists globally
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
   }, [pathname]);
 
   return null;

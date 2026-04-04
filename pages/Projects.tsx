@@ -142,41 +142,43 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
             onMouseLeave={() => setIsHovered(false)}
             className="group cursor-pointer"
         >
-            <div className={`relative w-full ${aspectClass} overflow-hidden rounded-xl md:rounded-2xl bg-[#F2F2F2] shadow-[0_4px_20px_rgba(0,0,0,0.04)] group-hover:shadow-[0_16px_50px_rgba(0,0,0,0.1)] transition-shadow duration-700`}>
-                <motion.img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    animate={{ scale: isHovered ? 1.05 : 1 }}
-                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                    loading="lazy"
-                />
-                <motion.div 
-                    className="absolute top-4 right-4 z-20"
-                    animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                    <div className="w-10 h-10 rounded-full bg-[#AFFF00] flex items-center justify-center shadow-lg">
-                        <svg className="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                        </svg>
-                    </div>
-                </motion.div>
-            </div>
-
-            <div className="flex items-start justify-between gap-3 mt-4 md:mt-5 px-1">
-                <div className="flex flex-col gap-0.5">
-                    <h3 className="text-[1rem] md:text-[1.15rem] mona-sans-condensed-medium text-[#050505] leading-snug tracking-tight group-hover:text-[#476D07] transition-colors duration-400">
-                        {project.title}
-                    </h3>
-                    <span className="text-[11px] poppins-regular text-black/30 tracking-wide">
-                        {project.category}
-                    </span>
+            <Link to={`/projects/${project.id}`}>
+                <div className={`relative w-full ${aspectClass} overflow-hidden rounded-xl md:rounded-2xl bg-[#F2F2F2] shadow-[0_4px_20px_rgba(0,0,0,0.04)] group-hover:shadow-[0_16px_50px_rgba(0,0,0,0.1)] transition-shadow duration-700`}>
+                    <motion.img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        animate={{ scale: isHovered ? 1.05 : 1 }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        loading="lazy"
+                    />
+                    <motion.div 
+                        className="absolute top-4 right-4 z-20"
+                        animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                        <div className="w-10 h-10 rounded-full bg-[#AFFF00] flex items-center justify-center shadow-lg">
+                            <svg className="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                            </svg>
+                        </div>
+                    </motion.div>
                 </div>
-                <svg className="w-4 h-4 text-black/15 group-hover:text-[#476D07] group-hover:rotate-45 transition-all duration-500 mt-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                </svg>
-            </div>
+
+                <div className="flex items-start justify-between gap-3 mt-4 md:mt-5 px-1">
+                    <div className="flex flex-col gap-0.5">
+                        <h3 className="text-[1rem] md:text-[1.15rem] mona-sans-condensed-medium text-[#050505] leading-snug tracking-tight group-hover:text-[#476D07] transition-colors duration-400">
+                            {project.title}
+                        </h3>
+                        <span className="text-[11px] poppins-regular text-black/30 tracking-wide">
+                            {project.category}
+                        </span>
+                    </div>
+                    <svg className="w-4 h-4 text-black/15 group-hover:text-[#476D07] group-hover:rotate-45 transition-all duration-500 mt-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                    </svg>
+                </div>
+            </Link>
         </motion.div>
     );
 };
