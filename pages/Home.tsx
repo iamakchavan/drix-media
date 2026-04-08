@@ -4,7 +4,6 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import TrustBar from '../components/TrustBar';
 import ServicesSection from '../components/ServicesSection';
-import ChallengeSection from '../components/ChallengeSection';
 import WhyDrixSection from '../components/WhyDrixSection';
 import QuoteSection from '../components/QuoteSection';
 import PartnersSection from '../components/PartnersSection';
@@ -46,15 +45,6 @@ const Home: React.FC = () => {
                     transition={{ duration: 0.8 }}
                 >
                     <TrustBar />
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <ChallengeSection />
                 </motion.div>
 
                 <motion.div
