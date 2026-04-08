@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import NoiseOverlay from '../components/NoiseOverlay';
 import Footer from '../components/Footer';
+import FAQSection from '../components/FAQSection';
 
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 
@@ -541,6 +542,7 @@ const Services: React.FC = () => {
                 <ServicesOverview />
                 <StackingServicesSection />
                 <DrixAdvantage />
+                <FAQSection />
                 <CTASection />
                 <Footer />
             </div>

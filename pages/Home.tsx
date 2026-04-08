@@ -11,7 +11,6 @@ import PartnersSection from '../components/PartnersSection';
 import Footer from '../components/Footer';
 import ProcessSection from '../components/ProcessSection';
 import TestimonialsSection from '../components/TestimonialsSection';
-import FAQSection from '../components/FAQSection';
 import EyeSection from '../components/EyeSection';
 
 const Home: React.FC = () => {
@@ -101,15 +100,6 @@ const Home: React.FC = () => {
                     transition={{ duration: 1 }}
                 >
                     <TestimonialsSection />
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <FAQSection />
                 </motion.div>
 
                 {/* EyeSection */}

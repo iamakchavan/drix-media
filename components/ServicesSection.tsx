@@ -37,7 +37,7 @@ const ServicesSection: React.FC = () => {
     const [activeService, setActiveService] = useState(0);
 
     return (
-        <section className="w-full bg-black py-24 px-6 md:px-12 relative overflow-hidden text-white font-sans">
+        <section className="w-full bg-black py-16 md:py-20 px-6 md:px-12 relative overflow-hidden text-white font-sans">
             <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row">
 
                 {/* Left Sidebar / Header Elements */}

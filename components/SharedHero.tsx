@@ -47,7 +47,7 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
           className="absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-semibold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
@@ -58,7 +58,7 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
           className="absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -67,21 +67,30 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
 
 export const PremiumAurora = () => (
     <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-        {/* Simple static gradient orb */}
-        <div className="absolute top-[-20%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-[#AFFF00] blur-[160px] md:blur-[250px] mix-blend-screen opacity-[0.04]" />
 
-        {/* Another faint white light for dimensionality */}
-        <div className="absolute bottom-[-30%] left-[-20%] w-[80vw] h-[80vw] rounded-full bg-white blur-[200px] md:blur-[300px] opacity-[0.015] mix-blend-screen" />
-        
-        {/* Glassy Finish Gradient */}
-        <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-                background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.0) 50%, rgba(175, 255, 0, 0.02) 100%)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-            }}
-        />
+        {/* Primary green orb — top right, rich and deep */}
+        <div className="absolute top-[-15%] right-[-5%] w-[65vw] h-[65vw] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(175,255,0,0.18) 0%, rgba(175,255,0,0.06) 40%, transparent 70%)', filter: 'blur(60px)' }} />
+
+        {/* Secondary green orb — mid left, softer */}
+        <div className="absolute top-[20%] left-[-15%] w-[50vw] h-[50vw] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(175,255,0,0.08) 0%, transparent 65%)', filter: 'blur(80px)' }} />
+
+        {/* Deep teal/green underlayer for depth */}
+        <div className="absolute bottom-[-10%] right-[10%] w-[55vw] h-[40vw] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(9,75,40,0.35) 0%, transparent 70%)', filter: 'blur(100px)' }} />
+
+        {/* Specular highlight — top center, like light hitting glass */}
+        <div className="absolute top-0 left-[20%] w-[60vw] h-[30vh] rounded-full"
+            style={{ background: 'radial-gradient(ellipse, rgba(255,255,255,0.04) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+
+        {/* Glassy sheen overlay — diagonal light sweep */}
+        <div className="absolute inset-0"
+            style={{ background: 'linear-gradient(125deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 30%, transparent 55%, rgba(175,255,0,0.03) 100%)' }} />
+
+        {/* Vignette — keeps edges dark and cinematic */}
+        <div className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%)' }} />
     </div>
 );
 
@@ -170,3 +179,4 @@ export const SharedHeroLayout = ({
         </div>
     );
 };
+

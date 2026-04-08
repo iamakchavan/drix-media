@@ -73,7 +73,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
       />
       
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
-        <div className="opacity-0 pointer-events-none flex items-center gap-2 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
+        <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
           <span>{text}</span>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </div>
@@ -86,7 +86,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
         
         <motion.div
@@ -97,7 +97,7 @@ const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
           className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] md:text-[14px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
         >
           <span>{text}</span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.4] transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
       </div>
     </motion.a>
@@ -111,7 +111,7 @@ const ProcessSection: React.FC = () => {
     <section className="w-full bg-[#050505] text-white poppins-regular selection:bg-[#AFFF00] selection:text-black">
       
       {/* Header Block */}
-      <div className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto flex flex-col md:flex-row gap-12 justify-between items-start md:items-end border-b border-white/10">
+      <div className="pt-20 pb-12 md:pt-32 md:pb-20 px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto flex flex-col md:flex-row gap-12 justify-between items-start md:items-end border-b border-white/10">
         <div className="flex flex-col gap-6">
           <p className="text-[#AFFF00] text-[11px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase flex items-center gap-3">
              <span className="w-2 h-2 bg-[#AFFF00] shadow-[0_0_10px_rgba(175,255,0,0.5)]"></span>
@@ -243,3 +243,4 @@ const ProcessSection: React.FC = () => {
 };
 
 export default ProcessSection;
+

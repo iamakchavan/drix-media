@@ -29,9 +29,9 @@ const IconType = () => (
 
 const PrioritySection: React.FC = () => {
     return (
-        <section id="benefits" className="w-full bg-white py-24 px-4 md:px-8">
+        <section id="benefits" className="w-full bg-white py-16 md:py-20 px-4 md:px-8">
             {/* Header */}
-            <div className="max-w-5xl mx-auto text-center mb-20">
+            <div className="max-w-5xl mx-auto text-center mb-12">
                 <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-6">
                     Most Brands Face the Same Challenge
                 </h2>

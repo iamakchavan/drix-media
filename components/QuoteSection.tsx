@@ -2,7 +2,7 @@ import React from 'react';
 
 const QuoteSection: React.FC = () => {
   return (
-    <section className="w-full bg-white py-24 px-6 md:px-12 flex justify-center">
+    <section className="w-full bg-white py-16 md:py-20 px-6 md:px-12 flex justify-center">
       <div className="max-w-[1200px] w-full flex flex-col md:flex-row gap-12 lg:gap-24 items-center">
         
         {/* Left Column: Image */}

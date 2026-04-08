@@ -201,48 +201,56 @@ const ProjectDetail: React.FC = () => {
                             <div className="max-w-[1600px] mx-auto flex flex-col gap-12 md:gap-16">
                                 <SectionHeader label="More Work" light={true} />
                                 
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                                     {otherProjects.map((p, i) => (
                                         <Link 
                                             key={i} 
                                             to={`/projects/${p.id}`}
-                                            className="group relative flex flex-col w-full bg-[#0A0A0A] aspect-[4/5] overflow-hidden"
+                                            className="group relative flex flex-col w-full aspect-[3/4] overflow-hidden bg-[#111] border border-white/[0.06] hover:border-white/[0.14] transition-colors duration-500"
                                             style={{ clipPath: pageFoldClipSmall }}
                                         >
-                                            {/* Background Image */}
+                                            {/* Full-brightness image — Framer style: visible by default */}
                                             <div className="absolute inset-0 z-0">
                                                 <img 
                                                     src={p.thumbnail || p.heroImage} 
                                                     alt={p.title} 
-                                                    className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-110 transition-all duration-[1.5s] ease-[0.16,1,0.3,1] grayscale group-hover:grayscale-0"
+                                                    className="w-full h-full object-cover opacity-90 group-hover:scale-[1.04] transition-transform duration-[2s] ease-[0.16,1,0.3,1]"
                                                 />
                                             </div>
-                                            
-                                            {/* Dark Gradient Overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
 
-                                            {/* Hover Accent Glow */}
-                                            <div className="absolute inset-0 bg-[#AFFF00]/0 group-hover:bg-[#AFFF00]/10 transition-colors duration-700 z-10 pointer-events-none" />
+                                            {/* Permanent subtle vignette — just enough for text legibility */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10" />
 
-                                            {/* Content */}
-                                            <div className="relative z-20 flex flex-col justify-end h-full p-6 md:p-8">
-                                                <div className="flex flex-col gap-2 group-hover:-translate-y-2 transition-transform duration-500 ease-[0.16,1,0.3,1]">
-                                                    <span className="text-[#AFFF00] text-[9px] font-bold tracking-[0.2em] uppercase poppins-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                                        {p.category}
-                                                    </span>
-                                                    <h3 className="text-2xl md:text-3xl text-white mona-sans-condensed-bold tracking-tight uppercase leading-[0.9]">
-                                                        {p.title}
-                                                    </h3>
-                                                    <div className="w-0 group-hover:w-12 h-[2px] bg-[#AFFF00] transition-all duration-700 ease-[0.16,1,0.3,1] mt-2" />
-                                                </div>
+                                            {/* Page-fold corner accent — site theme */}
+                                            <div 
+                                                className="absolute bottom-0 right-0 w-[16px] h-[16px] bg-[#AFFF00] z-30 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                                                style={{ clipPath: "polygon(100% 0%, 100% 100%, 0% 100%)" }}
+                                            />
+
+                                            {/* Index number — top left */}
+                                            <div className="absolute top-5 left-5 z-20">
+                                                <span className="text-white/30 text-[10px] poppins-medium tracking-[0.35em]">
+                                                    {String(i + 1).padStart(2, '0')}
+                                                </span>
                                             </div>
-                                            
-                                            {/* Icon Top Right */}
-                                            <div className="absolute top-6 right-6 z-20 w-10 h-10 bg-black/40 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500 flex items-center justify-center backdrop-blur-md"
-                                                 style={{ clipPath: pageFoldClipSmall }}>
-                                                <svg className="w-4 h-4 text-[#AFFF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+
+                                            {/* Arrow — top right, fades in */}
+                                            <div className="absolute top-5 right-5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <svg className="w-[14px] h-[14px] text-[#AFFF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                                     <path d="M7 17l9.2-9.2M17 17V7H7"/>
                                                 </svg>
+                                            </div>
+
+                                            {/* Bottom content — slides up on hover */}
+                                            <div className="relative z-20 flex flex-col justify-end h-full p-5 md:p-6">
+                                                <div className="flex flex-col gap-1.5">
+                                                    <span className="text-[#AFFF00] text-[9px] font-bold tracking-[0.3em] uppercase poppins-medium opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 ease-[0.16,1,0.3,1]">
+                                                        {p.category}
+                                                    </span>
+                                                    <h3 className="text-[1.35rem] md:text-[1.5rem] text-white mona-sans-condensed-bold tracking-tight uppercase leading-[0.9]">
+                                                        {p.title}
+                                                    </h3>
+                                                </div>
                                             </div>
                                         </Link>
                                     ))}
