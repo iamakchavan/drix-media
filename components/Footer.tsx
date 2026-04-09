@@ -52,17 +52,17 @@ const Footer: React.FC = () => {
                                 key={label}
                                 className="relative flex items-center overflow-hidden w-fit group text-white/80 h-6 md:h-7"
                             >
-                                <div className="opacity-0 pointer-events-none text-base md:text-lg poppins-semibold">
+                                <Link to={path} className="opacity-0 pointer-events-none text-base md:text-lg poppins-semibold">
                                     {label}
-                                </div>
-                                <motion.div
+                                </Link>
+                                <motion.div 
                                     className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold"
                                     variants={{ initial: { y: "0%" }, hover: { y: "-100%" } }}
                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <Link to={path}>{label}</Link>
                                 </motion.div>
-                                <motion.div
+                                <motion.div 
                                     className="absolute inset-0 flex items-center w-full h-full text-base md:text-lg poppins-semibold text-[#AFFF00]"
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
