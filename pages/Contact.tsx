@@ -357,18 +357,16 @@ const WhatHappensNext = () => (
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.65, delay: i * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[350px] p-10 flex flex-col justify-between"
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
                         >
-                            <div className="flex flex-col gap-6">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                        {stepIllustrations[i]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    {stepIllustrations[i]}
                                 </div>
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
                             </div>
-                            <div className="flex items-end justify-between mt-8">
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
                                 <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
                             </div>
                         </motion.div>
@@ -384,18 +382,16 @@ const WhatHappensNext = () => (
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.65, delay: (i + 3) * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[320px] p-10 flex flex-col justify-between"
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
                         >
-                            <div className="flex flex-col gap-6">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                        {stepIllustrations[i + 3]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 4}</span>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    {stepIllustrations[i + 3]}
                                 </div>
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 4}</span>
                             </div>
-                            <div className="flex items-end justify-between mt-8">
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
                                 <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
                             </div>
                         </motion.div>
@@ -414,18 +410,18 @@ const WhatHappensNext = () => (
                 }}
             >
                 {nextSteps.map((step, i) => (
-                    <div key={i} className="shrink-0 h-[340px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
-                        <div className="bg-white w-full h-full p-8 flex flex-col justify-between border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
-                            <div className="flex flex-col gap-5">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
-                                        {stepIllustrations[i]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
+                    <div key={i} className="shrink-0 h-[300px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
+                        <div className="bg-white w-full h-full p-8 flex flex-col gap-6 border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
+                                    {stepIllustrations[i]}
                                 </div>
-                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{step.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
                             </div>
-                            <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{step.description}</p>
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{step.title}</h3>
+                                <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{step.description}</p>
+                            </div>
                         </div>
                     </div>
                 ))}

@@ -33,7 +33,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => (
 // Engineered corner bracket SVG
 const CornerBracket = ({ className }: { className?: string }) => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className={className}>
-    <path d="M0 20 L0 0 L20 0" stroke="#AFFF00" strokeWidth="1.5" strokeOpacity="0.6"/>
+    <path d="M0 20 L0 0 L20 0" stroke="#AFFF00" strokeWidth="1.5" strokeOpacity="0.6" />
   </svg>
 );
 
@@ -56,17 +56,20 @@ const ChallengeSection: React.FC = () => {
     {
       index: '01',
       label: 'The Reality',
-      body: <>Your product is solid. Your team is talented.<br /><span className="text-[#AFFF00]">But something is missing.</span></>,
+      body: <>Solid product. Talented team.<br /><span className="text-[#AFFF00]">Something is missing.</span></>,
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
     },
     {
       index: '02',
       label: 'The Symptoms',
-      body: <>Branding feels generic. Content is not connecting. Campaigns are not converting.<br /><span className="text-white/80">Working with five agencies creates chaos.</span></>,
+      body: <>Generic branding. Noise.<br /><span className="text-[#AFFF00]">Agency chaos.</span></>,
+      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
     },
     {
       index: '03',
       label: 'The Root Cause',
-      body: <>Disconnected services create <span className="text-white italic">disconnected brands.</span><br />You need alignment.</>,
+      body: <>Disconnected services.<br /><span className="text-[#AFFF00] italic">Disconnected brands.</span></>,
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
     },
   ];
 
@@ -133,49 +136,69 @@ const ChallengeSection: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* ── PAIN POINTS — stacked rows with ruled lines ── */}
+        {/* ── PAIN POINTS — Horizontal Cards ── */}
         <motion.div
           initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}
-          variants={{ show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
-          className="mb-0"
+          variants={{ show: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } } }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12"
         >
           {painPoints.map((point, i) => (
             <motion.div
               key={point.index}
-              variants={wordsVariants}
-              className="group relative grid grid-cols-[auto_1fr] md:grid-cols-[120px_1fr_auto] items-start gap-6 md:gap-12 py-10 md:py-14 border-t border-white/[0.08] hover:border-white/20 transition-colors duration-500"
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+              }}
+              className="group relative h-[400px] md:h-[480px] overflow-hidden bg-white/10 p-[1px]"
+              style={{
+                clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0% 100%, 0% 0%)"
+              }}
             >
-              {/* Animated left accent line */}
-              <motion.div
-                className="absolute left-0 top-0 bottom-0 w-px bg-[#AFFF00] origin-top"
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
-              />
+              {/* Inner Card Container (Acts as the border mask) */}
+              <div
+                className="relative w-full h-full bg-[#0A0A0A] overflow-hidden"
+                style={{
+                  clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 31px), calc(100% - 31px) 100%, 0% 100%, 0% 0%)"
+                }}
+              >
+                {/* Background Image with Hover Effect */}
+                <div className="absolute inset-0">
+                  <img
+                    src={point.image}
+                    alt={point.label}
+                    className="w-full h-full object-cover grayscale opacity-20 transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-40"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-95" />
+                </div>
 
-              {/* Index + label */}
-              <div className="flex flex-col gap-1 pl-4 pt-1">
-                <span className="text-[10px] font-mono tracking-[0.3em] text-[#AFFF00]/60">{point.index}</span>
-                <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/25 whitespace-nowrap hidden md:block">{point.label}</span>
-              </div>
+                {/* Top Header Labels */}
+                <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-20">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[11px] font-mono tracking-[0.3em] text-[#AFFF00]">{point.index}</span>
+                    <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/30">{point.label}</span>
+                  </div>
+                </div>
 
-              {/* Body text */}
-              <p className="text-2xl md:text-3xl lg:text-[2.6rem] mona-sans-medium leading-[1.25] text-white/35 group-hover:text-white/70 transition-colors duration-700 tracking-tight">
-                {point.body}
-              </p>
+                {/* Body Text Area */}
+                <div className="absolute bottom-0 left-0 w-full p-8 z-20">
+                  <div className="overflow-hidden">
+                    <motion.div
+                      initial={{ y: "100%" }}
+                      whileInView={{ y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
+                    >
+                      <p className="text-xl md:text-2xl mona-sans-medium leading-[1.3] text-white/60 group-hover:text-white transition-all duration-500 tracking-tight">
+                        {point.body}
+                      </p>
+                    </motion.div>
+                  </div>
+                </div>
 
-              {/* Right — engineering tick marks (desktop only) */}
-              <div className="hidden md:flex flex-col items-end justify-between self-stretch py-1 gap-1 opacity-20 group-hover:opacity-50 transition-opacity duration-500">
-                {[...Array(5)].map((_, t) => (
-                  <div key={t} className={`bg-white/60 ${t === 2 ? 'w-6 h-px' : 'w-3 h-px'}`} />
-                ))}
+                {/* Corner Bracket */}
+                <CornerBracket className="absolute bottom-10 right-10 rotate-180 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75" />
               </div>
             </motion.div>
           ))}
-
-          {/* Bottom rule after last row */}
-          <motion.div variants={lineReveal} className="h-px bg-white/[0.08] origin-left" />
         </motion.div>
 
         {/* ── SOLUTION BLOCK ── */}
@@ -184,7 +207,7 @@ const ChallengeSection: React.FC = () => {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: "0px 0px -150px 0px" }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-16 md:mt-24 relative"
+          className="mt-12 md:mt-24 relative"
         >
           {/* Engineered frame lines on solution block */}
           <div className="absolute -top-px left-0 right-0 flex items-center gap-3 pointer-events-none">
@@ -221,7 +244,7 @@ const ChallengeSection: React.FC = () => {
               <h2 className="text-[clamp(4rem,11vw,11rem)] mona-sans-condensed-medium tracking-tighter leading-[0.85] text-black mb-10 md:mb-14">
                 Under<br className="hidden md:block" /> One Roof.
               </h2>
-              <p className="text-2xl md:text-3xl lg:text-[2.8rem] mona-sans-medium text-black/70 leading-[1.15] tracking-tight max-w-3xl">
+              <p className="text-2xl md:text-3xl lg:text-[2rem] mona-sans-medium text-black/70 leading-[1.15] tracking-tight max-w-3xl">
                 Strategy, design, content, and execution working together as{' '}
                 <span className="underline decoration-black/20 underline-offset-[10px]">one system.</span>
               </p>

@@ -184,29 +184,66 @@ const principleIcons = [
 ];
 
 const values = [
-    { title: "Strategy First", desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", keyword: "PURPOSE", bentoClass: "md:col-span-8 md:row-span-2", theme: "dark" },
-    { title: "Integrated Systems", desc: "Strategy, design, and execution must work as one cohesive unit. No disjointed vendors.", keyword: "UNIFIED", bentoClass: "md:col-span-4", theme: "dark" },
-    { title: "Results Over Rank", desc: "We care about moving the needle. Performance is the only metric that matters.", keyword: "IMPACT", bentoClass: "md:col-span-4", theme: "green" },
-    { title: "Transparency Always", desc: "You will always know what we are working on, why we are doing it, and how it is performing.", keyword: "CLARITY", bentoClass: "md:col-span-6", theme: "dark" },
-    { title: "Long-Term Thinking", desc: "We are not here for quick wins. We build systems and strategies that grow with your business.", keyword: "GROWTH", bentoClass: "md:col-span-6", theme: "dark" }
+    { 
+        title: "Strategy First", 
+        desc: "Every creative decision starts with a strategic foundation. We do not design for the sake of design. We design with purpose.", 
+        keyword: "PURPOSE", 
+        bentoClass: "md:col-span-8 md:row-span-2", 
+        theme: "dark",
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200"
+    },
+    { 
+        title: "Integrated Systems", 
+        desc: "Strategy, design, and execution must work as one cohesive unit. No disjointed vendors.", 
+        keyword: "UNIFIED", 
+        bentoClass: "md:col-span-4", 
+        theme: "dark",
+        image: "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=800"
+    },
+    { 
+        title: "Results Over Rank", 
+        desc: "We care about moving the needle. Performance is the only metric that matters.", 
+        keyword: "IMPACT", 
+        bentoClass: "md:col-span-4", 
+        theme: "green",
+        image: "https://images.unsplash.com/photo-1551288049-bbbda5366991?auto=format&fit=crop&q=80&w=800"
+    },
+    { 
+        title: "Transparency Always", 
+        desc: "You will always know what we are working on, why we are doing it, and how it is performing.", 
+        keyword: "CLARITY", 
+        bentoClass: "md:col-span-6", 
+        theme: "dark",
+        image: "https://images.unsplash.com/photo-1454165833762-02c0f1359670?auto=format&fit=crop&q=80&w=800"
+    },
+    { 
+        title: "Long-Term Thinking", 
+        desc: "We are not here for quick wins. We build systems and strategies that grow with your business.", 
+        keyword: "GROWTH", 
+        bentoClass: "md:col-span-6", 
+        theme: "dark",
+        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800"
+    }
 ];
 
 const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = ({ value, iconIndex }) => {
     const isGreen = value.theme === "green";
     
     // Main Card Colors for Sleek Dark Theme
-    let bgClass = "bg-[#0A0A0A] border border-white/5 group-hover:bg-[#0f0f0f] group-hover:border-white/10"; 
+    let bgClass = "bg-[#0A0A0A] border border-white/5 group-hover:border-[#AFFF00]/30"; 
     let textTitleClass = "text-white";
     let textDescClass = "text-white/40";
     let iconWrapClass = "bg-white/[0.04] text-[#AFFF00]";
     let watermarkClass = "text-white/[0.02]";
+    let overlayClass = "bg-black/70 group-hover:bg-black/60";
 
     if (isGreen) {
-        bgClass = "bg-[#AFFF00] border-none group-hover:bg-[#bfff33]";
+        bgClass = "bg-[#AFFF00] border-none";
         textTitleClass = "text-[#050505]";
         textDescClass = "text-[#050505]/70";
-        iconWrapClass = "bg-black/[0.05] text-[#050505]";
+        iconWrapClass = "bg-black/[0.1] text-[#050505]";
         watermarkClass = "text-black/[0.04]";
+        overlayClass = "bg-[#AFFF00]/80 group-hover:bg-[#AFFF00]/70";
     }
 
     // A beautiful chamfered corner only on the bottom right
@@ -221,30 +258,40 @@ const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = 
             className={`group w-full h-full flex transition-all duration-500`}
         >
             <div 
-                className={`w-full h-full flex flex-col p-8 md:p-10 ${bgClass} relative overflow-hidden transition-all duration-700 min-h-[300px]`}
+                className={`w-full h-full flex flex-col p-6 md:p-8 ${bgClass} relative overflow-hidden transition-all duration-700 min-h-[280px] shadow-2xl`}
                 style={{ clipPath }}
             >
+                {/* Background Image Layer */}
+                <div className="absolute inset-0 z-0">
+                    <img 
+                        src={value.image} 
+                        alt={value.title} 
+                        className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${isGreen ? 'grayscale brightness-[1.2]' : 'grayscale opacity-30 group-hover:opacity-40'}`}
+                    />
+                    <div className={`absolute inset-0 transition-colors duration-500 ${overlayClass}`} />
+                </div>
+
                 {/* Top Section: Index and Icon */}
-                <div className="flex items-start justify-between relative z-10 w-full mb-20 md:mb-24">
-                    <span className="text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase opacity-40 font-mono text-inherit">
+                <div className="flex items-start justify-between relative z-10 w-full mb-12 md:mb-16">
+                    <span className="text-[11px] md:text-[13px] font-bold tracking-[0.2em] uppercase opacity-40 font-mono text-inherit">
                         0{iconIndex + 1}
                     </span>
-                    <div className={`w-[48px] h-[48px] md:w-[54px] md:h-[54px] rounded-[14px] flex items-center justify-center p-2.5 md:p-3 transition-transform duration-500 group-hover:scale-110 ${iconWrapClass}`}>
+                    <div className={`w-[40px] h-[40px] md:w-[48px] md:h-[48px] rounded-[12px] flex items-center justify-center p-2 md:p-2.5 transition-transform duration-500 group-hover:scale-110 ${iconWrapClass}`}>
                         {principleIcons[iconIndex]}
                     </div>
                 </div>
 
                 {/* Ambient Watermark */}
-                <div className={`absolute -right-6 -bottom-6 text-[5.5rem] md:text-[7rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0 transition-transform duration-1000 group-hover:scale-110 origin-bottom-right`}>
+                <div className={`absolute -right-4 -bottom-4 text-[4.5rem] md:text-[6rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0 transition-transform duration-1000 group-hover:scale-110 origin-bottom-right`}>
                     {value.keyword}
                 </div>
 
                 {/* Content Area */}
                 <div className="flex flex-col mt-auto relative z-10">
-                    <h3 className={`text-[1.4rem] md:text-[1.8rem] ${textTitleClass} tracking-tight mb-4 font-semibold leading-[1.1] mona-sans-condensed-medium`}>
+                    <h3 className={`text-[1.2rem] md:text-[1.5rem] ${textTitleClass} tracking-tight mb-3 font-semibold leading-[1.1] mona-sans-condensed-medium uppercase`}>
                         {value.title}
                     </h3>
-                    <p className={`${textDescClass} text-[13px] md:text-[15px] leading-[1.6] poppins-regular max-w-[95%]`}>
+                    <p className={`${textDescClass} text-[12px] md:text-[14px] leading-[1.5] poppins-regular max-w-[95%]`}>
                         {value.desc}
                     </p>
                 </div>
@@ -254,7 +301,7 @@ const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = 
 };
 
 const OurValues = () => (
-    <section className="w-full bg-[#050505] relative pt-24 pb-32 md:pt-40 md:pb-48 font-sans selection:bg-[#AFFF00] selection:text-black">
+    <section className="w-full bg-[#050505] relative pt-16 pb-20 md:pt-28 md:pb-32 font-sans selection:bg-[#AFFF00] selection:text-black">
         {/* Subtle grid backdrop for dark aesthetic */}
         <div className="absolute inset-0 z-0 flex justify-center pointer-events-none opacity-[0.03]">
             <div className="w-[1px] h-full bg-white absolute left-[20%]"></div>
@@ -540,18 +587,16 @@ const WhoWeWorkWith = () => (
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.65, delay: i * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[350px] p-10 flex flex-col justify-between"
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
                         >
-                            <div className="flex flex-col gap-6">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                        {clientIllustrations[i]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    {clientIllustrations[i]}
                                 </div>
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
                             </div>
-                            <div className="flex items-end justify-between mt-8">
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
                                 <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{c.desc}</p>
                             </div>
                         </motion.div>
@@ -565,18 +610,16 @@ const WhoWeWorkWith = () => (
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.65, delay: (i + 2) * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[350px] p-10 flex flex-col justify-between"
+                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
                         >
-                            <div className="flex flex-col gap-6">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                        {clientIllustrations[i + 2]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 3}</span>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                    {clientIllustrations[i + 2]}
                                 </div>
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 3}</span>
                             </div>
-                            <div className="flex items-end justify-between mt-8">
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{c.title}</h3>
                                 <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{c.desc}</p>
                             </div>
                         </motion.div>
@@ -595,18 +638,18 @@ const WhoWeWorkWith = () => (
                 }}
             >
                 {clients.map((c, i) => (
-                    <div key={i} className="shrink-0 h-[340px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
-                        <div className="bg-white w-full h-full p-8 flex flex-col justify-between border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
-                            <div className="flex flex-col gap-5">
-                                <div className="flex items-start justify-between">
-                                    <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
-                                        {clientIllustrations[i]}
-                                    </div>
-                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
+                    <div key={i} className="shrink-0 h-[300px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
+                        <div className="bg-white w-full h-full p-8 flex flex-col gap-6 border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
+                            <div className="flex items-start justify-between">
+                                <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
+                                    {clientIllustrations[i]}
                                 </div>
-                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{c.title}</h3>
+                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
                             </div>
-                            <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{c.desc}</p>
+                            <div className="flex flex-col gap-3">
+                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{c.title}</h3>
+                                <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{c.desc}</p>
+                            </div>
                         </div>
                     </div>
                 ))}

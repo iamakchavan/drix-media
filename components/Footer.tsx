@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
                 {/* 1. Logo & Contact info */}
                 <div className="w-full md:w-1/3 flex flex-col gap-8">
                     <div className="flex items-start select-none w-fit pt-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-8 md:h-10 w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-[18px] md:h-[24px] w-auto">
                             <path fill="white" d="M98.4,42.5c0,27-18,39.7-38.6,39.7H2.2V2.8h57.6c20.5,0,38.6,12.7,38.6,39.7ZM78,42.5c0-19.3-10.4-22.6-25.9-22.6h-29.5v45.2h29.5c15.4,0,25.9-3.3,25.9-22.6Z"/>
                             <path fill="white" d="M181.3,58.6l14.6,23.6h-24.1l-12.8-21.2h-32.9v21.2h-20.4V2.8h62.4c18,0,30.4,11.5,30.4,29.2s-6.6,22.5-17.2,26.7ZM126.2,43.9h36.3c6.1,0,15.7,0,15.7-11.9s-9.5-12-15.7-12h-36.3v23.9Z"/>
                             <path fill="white" d="M225.7,82.2h-20.4V25.5h20.4v56.7Z"/>
@@ -92,7 +92,7 @@ const Footer: React.FC = () => {
                             >
                                 <div className="flex items-center gap-2 opacity-0 pointer-events-none text-base md:text-lg poppins-semibold">
                                     <span>{link}</span>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="butt" strokeLinejoin="miter" className="mb-[1px]"><path d="M7 17L17 7M17 17V7H7" /></svg>
                                 </div>
                                 <motion.div 
                                     className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold"
@@ -100,7 +100,7 @@ const Footer: React.FC = () => {
                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <span>{link}</span>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white/25 mb-[1px] group-hover:text-[#AFFF00] group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="butt" strokeLinejoin="miter" className="text-white/25 mb-[1px] group-hover:text-[#AFFF00] group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17L17 7M17 17V7H7" /></svg>
                                 </motion.div>
                                 <motion.div 
                                     className="absolute inset-0 flex items-center gap-2 w-full h-full text-base md:text-lg poppins-semibold text-[#AFFF00]"
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                 >
                                     <span>{link}</span>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#AFFF00] mb-[1px] -rotate-45 group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="butt" strokeLinejoin="miter" className="text-[#AFFF00] mb-[1px] -rotate-44 group-hover:rotate-45 group-hover:scale-[1.3] transition-all duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17L17 7M17 17V7H7" /></svg>
                                 </motion.div>
                             </motion.a>
                         ))}
@@ -160,12 +160,12 @@ const Footer: React.FC = () => {
                                 }}
                                 className="flex items-center justify-center flex-shrink-0 mt-2 md:mt-6 ml-2 md:ml-4"
                             >
-                                <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" className="w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 text-[#AFFF00]"
+                                <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="butt" strokeLinejoin="miter" className="w-16 h-16 sm:w-20 sm:h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 text-[#AFFF00]"
                                   variants={{
                                     initial: { strokeWidth: 4 },
                                     hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
                                   }}
-                                ><path d="M7 17l9.2-9.2M17 17V7H7"/></motion.svg>
+                                ><path d="M7 17L17 7M17 17V7H7"/></motion.svg>
                             </motion.div>
                         </div>
                     </motion.a>

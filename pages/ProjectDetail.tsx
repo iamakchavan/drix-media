@@ -214,7 +214,7 @@ const ProjectDetail: React.FC = () => {
                                                 <img 
                                                     src={p.thumbnail || p.heroImage} 
                                                     alt={p.title} 
-                                                    className="w-full h-full object-cover opacity-90 group-hover:scale-[1.04] transition-transform duration-[2s] ease-[0.16,1,0.3,1]"
+                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 opacity-90 group-hover:scale-[1.04] transition-all duration-[1s] ease-[0.16,1,0.3,1]"
                                                 />
                                             </div>
 

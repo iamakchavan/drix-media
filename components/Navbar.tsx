@@ -121,7 +121,7 @@ const Navbar: React.FC = () => {
                 </svg>
               ) : (
                 /* Full nav: web logo SVG */
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-6 md:h-8 w-auto mix-blend-difference">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-4 md:h-5 w-auto mix-blend-difference">
                   <path fill="white" d="M98.4,42.5c0,27-18,39.7-38.6,39.7H2.2V2.8h57.6c20.5,0,38.6,12.7,38.6,39.7ZM78,42.5c0-19.3-10.4-22.6-25.9-22.6h-29.5v45.2h29.5c15.4,0,25.9-3.3,25.9-22.6Z"/>
                   <path fill="white" d="M181.3,58.6l14.6,23.6h-24.1l-12.8-21.2h-32.9v21.2h-20.4V2.8h62.4c18,0,30.4,11.5,30.4,29.2s-6.6,22.5-17.2,26.7ZM126.2,43.9h36.3c6.1,0,15.7,0,15.7-11.9s-9.5-12-15.7-12h-36.3v23.9Z"/>
                   <path fill="white" d="M225.7,82.2h-20.4V25.5h20.4v56.7Z"/>
@@ -223,7 +223,7 @@ const Navbar: React.FC = () => {
                     className="z-[60]"
                   >
                     <Link to="/" onClick={() => setIsOpen(false)}>
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-6 md:h-8 w-auto">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-4 md:h-5 w-auto">
                         <path fill="white" d="M98.4,42.5c0,27-18,39.7-38.6,39.7H2.2V2.8h57.6c20.5,0,38.6,12.7,38.6,39.7ZM78,42.5c0-19.3-10.4-22.6-25.9-22.6h-29.5v45.2h29.5c15.4,0,25.9-3.3,25.9-22.6Z"/>
                         <path fill="white" d="M181.3,58.6l14.6,23.6h-24.1l-12.8-21.2h-32.9v21.2h-20.4V2.8h62.4c18,0,30.4,11.5,30.4,29.2s-6.6,22.5-17.2,26.7ZM126.2,43.9h36.3c6.1,0,15.7,0,15.7-11.9s-9.5-12-15.7-12h-36.3v23.9Z"/>
                         <path fill="white" d="M225.7,82.2h-20.4V25.5h20.4v56.7Z"/>

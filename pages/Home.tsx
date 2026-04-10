@@ -11,7 +11,7 @@ import PartnersSection from '../components/PartnersSection';
 import Footer from '../components/Footer';
 import ProcessSection from '../components/ProcessSection';
 import TestimonialsSection from '../components/TestimonialsSection';
-import EyeSection from '../components/EyeSection';
+
 
 const Home: React.FC = () => {
     const { scrollY } = useScroll();
@@ -102,16 +102,7 @@ const Home: React.FC = () => {
                     <TestimonialsSection />
                 </motion.div>
 
-                {/* EyeSection */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 1 }}
-                    className="relative z-10 bg-white"
-                >
-                    <EyeSection />
-                </motion.div>
+
 
                 {/* Footer Integrated into Flow */}
                 <div className="relative z-10 bg-[#050505]">

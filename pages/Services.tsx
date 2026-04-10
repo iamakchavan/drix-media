@@ -357,21 +357,35 @@ const DrixAdvantage = () => (
                         Your strategist, designer, and content creator collaborate from day one. The result is work that feels unified and performs better.
                     </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/[0.04]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {['One contract, one invoice', 'Integrated performance tracking', 'Consistent voice across every touchpoint', 'We handle all internal coordination'].map((item, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.19,1,0.22,1] }}
-                            className="group bg-[#050505] hover:bg-white/[0.02] transition-colors duration-400 p-6 md:p-8 flex gap-5 items-start"
+                            viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                            className="group relative bg-white/10 p-[1px]"
+                            style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%)" }}
                         >
-                            <span
-                                className="text-[2rem] font-black leading-none select-none shrink-0 mt-0.5
-                                           text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)] group-hover:[-webkit-text-stroke-color:rgba(175,255,0,0.3)] transition-all duration-500"
+                            <div 
+                                className="relative bg-[#0A0A0A] w-full h-full p-8 md:p-10 flex gap-6 items-start overflow-hidden"
+                                style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%)" }}
                             >
-                                {String(i + 1).padStart(2, '0')}
-                            </span>
-                            <p className="text-white/60 group-hover:text-white text-[14px] leading-relaxed poppins-regular transition-colors duration-400">{item}</p>
+                                <span
+                                    className="text-[2.5rem] md:text-[3rem] font-bold leading-none select-none shrink-0 
+                                               text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.15)] group-hover:[-webkit-text-stroke-color:#AFFF00] transition-all duration-500 font-mono"
+                                >
+                                    {String(i + 1).padStart(2, '0')}
+                                </span>
+                                <div className="flex flex-col gap-2 mt-1">
+                                    <p className="text-white/60 group-hover:text-white text-[15px] md:text-[16px] leading-relaxed poppins-regular transition-colors duration-400">
+                                        {item}
+                                    </p>
+                                    <div className="w-8 h-[1px] bg-white/10 group-hover:bg-[#AFFF00]/40 transition-all duration-500" />
+                                </div>
+
+                                {/* Subtle Ambient Glow on Hover */}
+                                <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-[#AFFF00]/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                            </div>
                         </motion.div>
                     ))}
                 </div>
