@@ -104,12 +104,14 @@ export const SharedHeroLayout = ({
     buttonText,
     buttonHref,
     bottomLabel,
+    children,
 }: {
     titleLines: React.ReactNode;
     subtextContent: React.ReactNode;
     buttonText?: string;
     buttonHref?: string;
     bottomLabel: string;
+    children?: React.ReactNode;
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
@@ -121,6 +123,7 @@ export const SharedHeroLayout = ({
     return (
         <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[180px] md:pt-[22vh] pb-[60px] md:pb-[140px] z-0 overflow-hidden">
             <PremiumAurora />
+            {children}
 
             <motion.div 
                 style={{ opacity: yOpacity }}

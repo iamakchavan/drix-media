@@ -110,8 +110,20 @@ const BlogHero = () => (
                 <span className="block xl:whitespace-nowrap">Thought leadership for the modern brand builder.</span>
             </>
         }
-    />
+    >
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
+            <motion.span 
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+                className="text-[20vw] md:text-[17vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+            >
+                JOURNAL
+            </motion.span>
+        </div>
+    </SharedHeroLayout>
 );
+
 
 // ─── Featured Post ────────────────────────────────────────────────────────────
 
