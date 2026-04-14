@@ -145,7 +145,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Creative Production',
         description: 'Films, photography, and visual content that captures attention and drives action.',
         deliverables: ['Brand films & commercials', 'Product photography', 'Social media content', 'Motion graphics'],
-        image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop',
         dark: false,
     },
     {
@@ -153,7 +153,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Branding & Identity',
         description: 'Defining how your brand is perceived — strategy, visuals, and messaging systems.',
         deliverables: ['Brand strategy & positioning', 'Visual identity systems', 'Brand messaging & tone', 'Guidelines & systems'],
-        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop',
         dark: true,
     },
     {
@@ -161,7 +161,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Content Strategy',
         description: 'Content that connects with your audience and drives them to act.',
         deliverables: ['Content strategy & planning', 'Copywriting (web, social, ads)', 'Social media management', 'SEO-optimized content'],
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2000&auto=format&fit=crop',
         dark: false,
     },
     {
@@ -169,7 +169,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Digital & Web Design',
         description: 'Websites and digital experiences that are fast, functional, and built to convert.',
         deliverables: ['Website design & development', 'E-commerce platforms', 'Landing pages', 'UI/UX design'],
-        image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2000&auto=format&fit=crop',
         accent: true,
     },
     {
@@ -177,7 +177,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Campaigns & Performance',
         description: 'Integrated marketing campaigns across channels, designed for measurable results.',
         deliverables: ['Campaign strategy', 'Paid ads (Google, Meta, LinkedIn)', 'Performance tracking', 'A/B testing & analytics'],
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=2000&auto=format&fit=crop',
         dark: true,
     },
 ];

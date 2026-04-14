@@ -56,20 +56,48 @@ const ChallengeSection: React.FC = () => {
     {
       index: '01',
       label: 'The Reality',
-      body: <>Solid product. Talented team.<br /><span className="text-[#AFFF00]">Something is missing.</span></>,
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
+      body: <>Great product. Strong vision.<br /><span className="text-[#AFFF00]">Still not getting noticed.</span></>,
+      icon: (
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none">
+          <rect x="4" y="4" width="30" height="30" rx="2" stroke="#AFFF00" strokeWidth="1.5"/>
+          <rect x="4" y="46" width="30" height="30" rx="2" stroke="white" strokeWidth="1.5" strokeOpacity="0.2"/>
+          <rect x="46" y="46" width="30" height="30" rx="2" stroke="white" strokeWidth="1.5" strokeOpacity="0.2"/>
+          <rect x="46" y="4" width="30" height="30" rx="2" stroke="white" strokeWidth="1.5" strokeDasharray="4 3" strokeOpacity="0.25"/>
+          <circle cx="61" cy="19" r="3.5" stroke="#AFFF00" strokeWidth="1.2" strokeOpacity="0.8"/>
+        </svg>
+      ),
     },
     {
       index: '02',
       label: 'The Symptoms',
-      body: <>Generic branding. Noise.<br /><span className="text-[#AFFF00]">Agency chaos.</span></>,
-      image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
+      body: <>Random content. Inconsistent messaging.<br /><span className="text-[#AFFF00]">Marketing that doesn't convert.</span></>,
+      icon: (
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none">
+          <path d="M6 58L18 34L30 48L44 18L57 44L70 12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" strokeOpacity="0.25"/>
+          <path d="M44 18L57 44L70 12" stroke="#AFFF00" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="44" cy="18" r="3" fill="#AFFF00"/>
+          <circle cx="70" cy="12" r="3" fill="#AFFF00"/>
+          <line x1="6" y1="72" x2="74" y2="72" stroke="white" strokeWidth="1" strokeOpacity="0.12"/>
+          <line x1="18" y1="68" x2="18" y2="72" stroke="white" strokeWidth="1" strokeOpacity="0.3"/>
+          <line x1="30" y1="65" x2="30" y2="72" stroke="white" strokeWidth="1" strokeOpacity="0.3"/>
+          <line x1="44" y1="62" x2="44" y2="72" stroke="white" strokeWidth="1" strokeOpacity="0.3"/>
+        </svg>
+      ),
     },
     {
       index: '03',
       label: 'The Root Cause',
-      body: <>Disconnected services.<br /><span className="text-[#AFFF00] italic">Disconnected brands.</span></>,
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800"
+      body: <>Too many moving pieces. No clear thought.<br /><span className="text-[#AFFF00] italic">Disconnected brand presence.</span></>,
+      icon: (
+        <svg width="40" height="40" viewBox="0 0 80 80" fill="none">
+          <rect x="4" y="28" width="20" height="24" rx="12" stroke="white" strokeWidth="1.5" strokeOpacity="0.2"/>
+          <rect x="30" y="28" width="20" height="24" rx="12" stroke="#AFFF00" strokeWidth="1.5"/>
+          <rect x="56" y="28" width="20" height="24" rx="12" stroke="white" strokeWidth="1.5" strokeDasharray="4 3" strokeOpacity="0.2"/>
+          <line x1="24" y1="40" x2="30" y2="40" stroke="#AFFF00" strokeWidth="1.5"/>
+          <line x1="50" y1="38" x2="54" y2="35" stroke="white" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.25"/>
+          <line x1="50" y1="42" x2="54" y2="45" stroke="white" strokeWidth="1" strokeLinecap="round" strokeOpacity="0.25"/>
+        </svg>
+      ),
     },
   ];
 
@@ -116,11 +144,14 @@ const ChallengeSection: React.FC = () => {
 
             <div className="px-4 py-2">
               <h2 className="text-[clamp(3rem,9vw,9rem)] mona-sans-condensed-medium tracking-tighter leading-[0.9]">
-                <div className="overflow-hidden">
-                  <motion.span variants={wordsVariants} className="inline-block">Most Brands Face</motion.span>
+                <div className="overflow-hidden pb-3">
+                  <motion.span variants={wordsVariants} className="inline-block">It Should Be Working</motion.span>
                 </div>
-                <div className="overflow-hidden">
-                  <motion.span variants={wordsVariants} className="inline-block text-white/25">The Same Challenge.</motion.span>
+                <div className="overflow-hidden pb-3">
+                  <motion.span variants={wordsVariants} className="inline-block text-[#AFFF00]">But It Isn't.</motion.span>
+                </div>
+                <div className="overflow-hidden pb-6">
+                  <motion.span variants={wordsVariants} className="inline-block text-white/25">Here's Why.</motion.span>
                 </div>
               </h2>
             </div>
@@ -140,62 +171,47 @@ const ChallengeSection: React.FC = () => {
         <motion.div
           initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}
           variants={{ show: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } } }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12"
         >
           {painPoints.map((point, i) => (
             <motion.div
               key={point.index}
               variants={{
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0, y: 24 },
                 show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
-              className="group relative h-[400px] md:h-[480px] overflow-hidden bg-white/10 p-[1px]"
-              style={{
-                clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0% 100%, 0% 0%)"
-              }}
+              className="group relative flex flex-col justify-between bg-[#0A0A0A] hover:bg-[#0d0d0d] transition-colors duration-500 p-8 md:p-10 min-h-[340px] md:min-h-[400px] border-r border-white/[0.07] last:border-r-0 overflow-hidden"
+              style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0% 100%)" }}
             >
-              {/* Inner Card Container (Acts as the border mask) */}
-              <div
-                className="relative w-full h-full bg-[#0A0A0A] overflow-hidden"
-                style={{
-                  clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 31px), calc(100% - 31px) 100%, 0% 100%, 0% 0%)"
-                }}
-              >
-                {/* Background Image with Hover Effect */}
-                <div className="absolute inset-0">
-                  <img
-                    src={point.image}
-                    alt={point.label}
-                    className="w-full h-full object-cover grayscale opacity-20 transition-all duration-1000 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-40"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent opacity-95" />
-                </div>
+              {/* Hover accent line top */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-[#AFFF00] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
 
-                {/* Top Header Labels */}
-                <div className="absolute top-0 left-0 w-full p-6 flex justify-between items-start z-20">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[11px] font-mono tracking-[0.3em] text-[#AFFF00]">{point.index}</span>
-                    <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/30">{point.label}</span>
-                  </div>
+              {/* Top: index + label + icon below */}
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[11px] font-mono tracking-[0.3em] text-[#AFFF00]">{point.index}</span>
+                  <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/25">{point.label}</span>
                 </div>
-
-                {/* Body Text Area */}
-                <div className="absolute bottom-0 left-0 w-full p-8 z-20">
-                  <div className="overflow-hidden">
-                    <motion.div
-                      initial={{ y: "100%" }}
-                      whileInView={{ y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2 + (i * 0.1) }}
-                    >
-                      <p className="text-xl md:text-2xl mona-sans-medium leading-[1.3] text-white/60 group-hover:text-white transition-all duration-500 tracking-tight">
-                        {point.body}
-                      </p>
-                    </motion.div>
-                  </div>
+                {/* Icon left-aligned below label */}
+                <div className="opacity-30 group-hover:opacity-90 transition-opacity duration-500 mt-1">
+                  {point.icon}
                 </div>
+              </div>
 
-                {/* Corner Bracket */}
-                <CornerBracket className="absolute bottom-10 right-10 rotate-180 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75" />
+              {/* Body text pinned to bottom */}
+              <div className="mt-auto pt-10">
+                <div className="overflow-hidden">
+                  <motion.div
+                    initial={{ y: "100%" }}
+                    whileInView={{ y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    <p className="text-2xl md:text-3xl mona-sans-medium leading-[1.25] text-white/50 group-hover:text-white/80 transition-colors duration-500 tracking-tight">
+                      {point.body}
+                    </p>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}

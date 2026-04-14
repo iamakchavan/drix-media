@@ -4,31 +4,31 @@ const services = [
     {
         id: '01',
         title: 'Creative Production',
-        image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop',
         description: "Films, photography, content creation that captures attention and tells your story."
     },
     {
         id: '02',
         title: 'Branding & Identity',
-        image: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop',
         description: "Positioning, visual identity, messaging, and brand systems that differentiate you."
     },
     {
         id: '03',
         title: 'Content Strategy & Marketing',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2000&auto=format&fit=crop',
         description: "Content that connects with your audience and drives them to action."
     },
     {
         id: '04',
         title: 'Digital & Web Design',
-        image: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2000&auto=format&fit=crop',
         description: "Websites and digital experiences built for performance and usability."
     },
     {
         id: '05',
         title: 'Campaigns & Performance',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2000&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=2000&auto=format&fit=crop',
         description: "Integrated campaigns across channels designed to deliver measurable results."
     }
 ];
@@ -142,14 +142,14 @@ const ServicesSection: React.FC = () => {
 
                         {/* Link */}
                         <div className="mt-16 md:mt-24">
-                            <a href="#" className="inline-flex items-center gap-4 group">
+                            <a href="/contact" className="inline-flex items-center gap-4 group">
                                 {/* SVG Icon from snippet */}
                                 <div className="w-8 h-8 text-[#AFFF00] transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-full h-full">
                                         <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z"></path>
                                     </svg>
                                 </div>
-                                <span className="text-white font-medium text-lg">See pricing</span>
+                                <span className="text-white font-medium text-lg">Connect with us</span>
                             </a>
                         </div>
                     </div>

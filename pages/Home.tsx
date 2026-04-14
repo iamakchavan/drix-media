@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content Wrapper - Slides over Hero */}
-            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)]">
+            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.1)] pb-0">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -101,13 +101,11 @@ const Home: React.FC = () => {
                 >
                     <TestimonialsSection />
                 </motion.div>
+            </div>
 
-
-
-                {/* Footer Integrated into Flow */}
-                <div className="relative z-10 bg-[#050505]">
-                    <Footer />
-                </div>
+            {/* Footer outside white wrapper — sits directly on dark bg */}
+            <div className="relative z-10">
+                <Footer />
             </div>
         </main>
     );

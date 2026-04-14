@@ -61,12 +61,12 @@ const ContactHero = () => (
 // ─── Contact Form + Info ───────────────────────────────────────────────────────
 
 const serviceOptions = [
-    'Branding & Identity',
-    'Creative Production',
-    'Content Strategy & Marketing',
-    'Digital & Web Design',
-    'Campaigns & Performance',
-    'Full-Service',
+    'Marketing',
+    'Development',
+    'Designing',
+    'UI/UX',
+    'Photography/Videography',
+    'Others',
 ];
 
 const ContactFormSection = () => {
@@ -230,7 +230,7 @@ const ContactFormSection = () => {
                                     <label className={labelClasses}>05 / Message *</label>
                                 </div>
                                 <div className={`${inputRowClasses} pt-10 md:pt-14 pb-14`}>
-                                    <textarea name="message" required placeholder="Project detail..." value={form.message} onChange={handleChange} rows={3} className={inputClasses} />
+                                    <textarea name="message" required placeholder="Add details of your requirement..." value={form.message} onChange={handleChange} rows={3} className={inputClasses} />
                                 </div>
                             </div>
 
@@ -334,11 +334,11 @@ const stepIllustrations = [
 ];
 
 const nextSteps = [
-    { title: 'We Review Your Request', description: 'Our team will review your submission within 24 hours.' },
-    { title: 'We Schedule a Call', description: 'We will send you a calendar link to book a time that works for you.' },
-    { title: 'We Discuss Your Goals', description: 'On the call, we will learn about your business, your challenges, and where you want to go.' },
-    { title: 'We Share Our Approach', description: 'We will walk you through how we can help and what working together would look like.' },
-    { title: 'We Send a Proposal', description: 'If it is a fit, we will send you a detailed proposal with scope, timeline, and investment.' },
+    { title: 'We Review Your Request', description: 'Our team reviews your submission within 24 hours.' },
+    { title: 'We Schedule a Call', description: 'We send a calendar link to book a time that works for you.' },
+    { title: 'We Discuss Your Goals', description: 'We learn about your business, challenges, and where you want to go.' },
+    { title: 'We Share Our Approach', description: 'We walk you through how we can help and what working together looks like.' },
+    { title: 'We Send a Proposal', description: 'If it is a fit, we send a detailed proposal with scope, timeline, and investment.' },
 ];
 
 const WhatHappensNext = () => (
@@ -354,7 +354,7 @@ const WhatHappensNext = () => (
                     </h2>
                 </div>
                 <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                    We move quickly and keep you informed at every step. No ghosting, no jargon—just results.
+                    We move fast.<br/>We keep you in the loop.<br/>No fluff, just results.
                 </p>
             </div>
 
@@ -439,6 +439,11 @@ const WhatHappensNext = () => (
                 ))}
                 <div className="shrink-0 w-4" />
             </div>
+            {/* Subtext */}
+            <p className="text-center text-sm text-black/35 poppins-regular mt-8 md:mt-10 max-w-lg mx-auto leading-relaxed">
+                Every project starts with a conversation.<br/>We make sure the process is clear from day one.
+            </p>
+
         </div>
     </section>
 );

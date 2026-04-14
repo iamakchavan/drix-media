@@ -8,6 +8,9 @@ import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsConditions from './pages/TermsConditions';
+import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
@@ -23,6 +26,9 @@ const App: React.FC = () => {
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/cookies" element={<CookiePolicy />} />
       </Routes>
     </BrowserRouter>
   );

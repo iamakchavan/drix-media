@@ -85,7 +85,7 @@ const ProjectsHero = () => (
                 </div>
                 <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
-                        {"That Speaks Volumes.".split('').map((char, index) => (
+                        {"That Speaks.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
@@ -219,7 +219,7 @@ const ProjectsGallery = () => {
                         </h2>
                     </div>
                     <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                        A curated selection of our finest work across disciplines.
+                        A curated selection of our finest work across all verticals.
                     </p>
                 </div>
 
@@ -359,7 +359,7 @@ const ProjectsCTA = () => (
                             <span className="text-black/30">Let's Make It Real.</span>
                         </h2>
                         <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
-                            Tell us about your next project and let's create work that stands out.
+                            Tell us about your next project.
                         </p>
                     </div>
 

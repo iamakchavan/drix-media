@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const location = useLocation();
 
   const { scrollY } = useScroll();
@@ -66,25 +67,23 @@ const Navbar: React.FC = () => {
 
   const linkVariants: Variants = {
     closed: {
-      y: 100,
-      rotateX: -25,
+      y: 60,
       opacity: 0,
       transition: { duration: 0.4, ease }
     },
     open: (i: number) => ({
       y: 0,
-      rotateX: 0,
       opacity: 1,
-      transition: { duration: 0.9, ease: smoothEase, delay: 0.3 + i * 0.05 }
+      transition: { duration: 0.8, ease: smoothEase, delay: 0.3 + i * 0.06 }
     })
   };
 
-  const infoVariants: Variants = {
+  const bottomVariants: Variants = {
     closed: { y: 20, opacity: 0, transition: { duration: 0.3, ease } },
-    open: (i: number) => ({
+    open: {
       y: 0, opacity: 1,
-      transition: { duration: 0.7, ease: smoothEase, delay: 0.55 + i * 0.08 }
-    })
+      transition: { duration: 0.7, ease: smoothEase, delay: 0.7 }
+    }
   };
 
   const isActive = (path: string) => location.pathname === path;
@@ -212,16 +211,13 @@ const Navbar: React.FC = () => {
               animate="open"
               exit="closed"
               variants={contentFade}
-              className="fixed inset-0 z-[999] flex flex-col text-white poppins-regular selection:bg-[#AFFF00] selection:text-black bg-[#050505]"
+              className="fixed inset-0 z-[999] bg-[#050505] text-white overflow-hidden"
             >
-              <div className="flex flex-col w-full max-w-[120rem] mx-auto px-6 md:px-12 lg:px-20 py-8 md:py-12 h-full">
+              <div className="relative w-full h-full flex flex-col px-6 md:px-10 lg:px-14 py-6 md:py-8">
 
-                {/* Header — Logo + Close */}
-                <div className="flex justify-between items-start w-full flex-none">
-                  <motion.div
-                    variants={contentFade}
-                    className="z-[60]"
-                  >
+                {/* ── Top bar: Logo + Close ── */}
+                <div className="flex items-center justify-between w-full flex-none">
+                  <motion.div variants={contentFade}>
                     <Link to="/" onClick={() => setIsOpen(false)}>
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 85" className="h-4 md:h-5 w-auto">
                         <path fill="white" d="M98.4,42.5c0,27-18,39.7-38.6,39.7H2.2V2.8h57.6c20.5,0,38.6,12.7,38.6,39.7ZM78,42.5c0-19.3-10.4-22.6-25.9-22.6h-29.5v45.2h29.5c15.4,0,25.9-3.3,25.9-22.6Z"/>
@@ -241,91 +237,66 @@ const Navbar: React.FC = () => {
                   <motion.button
                     variants={contentFade}
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-3 group cursor-pointer"
+                    className="flex items-center gap-2 group cursor-pointer"
                   >
-                    <span className="text-xl md:text-2xl poppins-bold uppercase tracking-tight text-white/60 group-hover:text-white transition-colors duration-300">
+                    <span className="text-sm md:text-base poppins-semibold uppercase tracking-[0.15em] text-white/50 group-hover:text-white transition-colors duration-300">
                       Close
                     </span>
-                    <div className="relative w-7 h-7 flex items-center justify-center">
-                      <span className="absolute block w-6 h-[2px] bg-white/60 group-hover:bg-white transform rotate-45 transition-all duration-500 origin-center group-hover:rotate-[225deg]"></span>
-                      <span className="absolute block w-6 h-[2px] bg-white/60 group-hover:bg-white transform -rotate-45 transition-all duration-500 origin-center group-hover:-rotate-[225deg]"></span>
+                    <div className="relative w-5 h-5 flex items-center justify-center">
+                      <span className="absolute block w-5 h-[1.5px] bg-white/50 group-hover:bg-white transform rotate-45 transition-colors duration-300"></span>
+                      <span className="absolute block w-5 h-[1.5px] bg-white/50 group-hover:bg-white transform -rotate-45 transition-colors duration-300"></span>
                     </div>
                   </motion.button>
                 </div>
 
-                {/* Main Content Area */}
-                <div className="flex flex-col md:flex-row flex-grow items-end justify-between pb-6 md:pb-10 pt-8 md:pt-0">
-
-                  {/* Left — Contact info */}
-                  <div className="flex flex-col gap-8 w-full md:w-5/12 order-2 md:order-1">
-                    <motion.div custom={0} variants={infoVariants} className="flex flex-col gap-1.5">
-                      <span className="text-[9px] poppins-bold tracking-[0.3em] uppercase text-white/20 mb-3">Get in Touch</span>
-                      <a href="mailto:hello@drixmedia.com" className="text-base md:text-lg poppins-medium tracking-tight text-white/50 hover:text-[#AFFF00] transition-colors duration-300">
-                        hello@drixmedia.com
-                      </a>
-                      <a href="tel:5108956500" className="text-sm poppins-medium text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
-                        (510) 895-6500
-                      </a>
-                    </motion.div>
-
-                    <motion.div custom={1} variants={infoVariants} className="flex gap-5">
-                      {['Twitter', 'Instagram', 'LinkedIn'].map((s) => (
-                        <a key={s} href="#" className="text-[10px] poppins-bold tracking-[0.12em] uppercase text-white/20 hover:text-[#AFFF00] transition-colors duration-300">
-                          {s}
-                        </a>
-                      ))}
-                    </motion.div>
-                  </div>
-
-                  {/* Right — Framer-style Premium Navigation Links */}
-                  <div className="flex flex-col items-end justify-center w-full md:w-8/12 order-1 md:order-2 mb-12 md:mb-0 group/nav gap-2 md:gap-4">
-                    {menuItems.map((item, i) => {
-                      const isCurrent = isActive(item.path);
-                      return (
-                        <motion.div
-                          key={item.label}
-                          custom={i}
-                          variants={linkVariants}
-                          className="w-full flex justify-end"
+                {/* ── Nav links — right-aligned, fills remaining height ── */}
+                <div className="flex-1 flex flex-col justify-center items-end pr-0 md:pr-2 overflow-hidden">
+                  {menuItems.map((item, i) => {
+                    const isCurrent = isActive(item.path);
+                    return (
+                      <motion.div
+                        key={item.label}
+                        custom={i}
+                        variants={linkVariants}
+                        className="overflow-hidden"
+                      >
+                        <Link
+                          to={item.path}
+                          onClick={() => setIsOpen(false)}
+                          onMouseEnter={() => setHoveredIndex(i)}
+                          onMouseLeave={() => setHoveredIndex(null)}
+                          className={`block mona-sans-condensed-bold uppercase tracking-tighter leading-[0.88] transition-colors duration-300
+                            text-[13vw] sm:text-[11vw] md:text-[10vw] lg:text-[9vw]
+                            ${isCurrent
+                              ? 'text-[#AFFF00]'
+                              : hoveredIndex !== null
+                                ? hoveredIndex === i ? 'text-white' : 'text-white/20'
+                                : 'text-white/40'
+                            }`}
                         >
-                          <Link
-                            to={item.path}
-                            onClick={() => setIsOpen(false)}
-                            className="group flex items-center justify-end gap-6 md:gap-8 relative transition-all duration-500"
-                          >
-                            {/* Hover sliding number/descriptor */}
-                            <span className="text-[11px] md:text-[13px] font-mono tracking-[0.2em] uppercase text-[#AFFF00] opacity-0 -translate-x-6 md:-translate-x-12 group-hover:opacity-100 group-hover:-translate-x-2 md:group-hover:-translate-x-4 transition-all duration-500 ease-[cubic-bezier(0.16, 1, 0.3, 1)] pointer-events-none hidden md:block mt-2">
-                              0{i+1}&nbsp;&nbsp;—&nbsp;&nbsp;Navigate
-                            </span>
-
-                            {/* Main Text -> Bright on Hover */}
-                            <span 
-                              className={`text-[3.5rem] md:text-[5rem] lg:text-[7.5rem] mona-sans-condensed-bold leading-[0.85] tracking-tighter uppercase transition-all duration-[600ms] ease-[cubic-bezier(0.16, 1, 0.3, 1)] origin-right
-                                ${isCurrent ? 'text-[#AFFF00] drop-shadow-[0_0_15px_rgba(175,255,0,0.2)]' : 'text-white/40 group-hover:text-white group-hover:-translate-x-2 md:group-hover:-translate-x-4'} 
-                                group-hover/nav:opacity-20 hover:!opacity-100
-                              `}
-                            >
-                              {item.label}
-                            </span>
-                          </Link>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-
+                          {item.label}
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
                 </div>
 
-                {/* Bottom bar */}
+                {/* ── Bottom: contact info left, copyright right ── */}
                 <motion.div
-                  custom={2}
-                  variants={infoVariants}
-                  className="flex-none flex justify-between items-center border-t border-white/[0.06] pt-4 pb-1"
+                  variants={contentFade}
+                  className="flex-none flex items-end justify-between pt-4"
                 >
-                  <span className="text-[9px] poppins-medium tracking-[0.12em] uppercase text-white/15">
-                    © 2024 Drix Media
-                  </span>
-                  <span className="text-[9px] poppins-medium tracking-[0.12em] uppercase text-white/15">
-                    All rights reserved
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[9px] poppins-bold tracking-[0.3em] uppercase text-white/20">Get in touch</span>
+                    <a href="mailto:hello@drixmedia.com" className="text-sm poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors duration-300">
+                      hello@drixmedia.com
+                    </a>
+                    <a href="tel:5108956500" className="text-xs poppins-regular text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
+                      (510) 895-6500
+                    </a>
+                  </div>
+                  <span className="text-[9px] poppins-medium tracking-[0.15em] uppercase text-white/15">
+                    © {new Date().getFullYear()} Drix Media
                   </span>
                 </motion.div>
 
