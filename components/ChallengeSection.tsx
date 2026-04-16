@@ -278,7 +278,9 @@ const ChallengeSection: React.FC = () => {
                 ))}
               </div>
               <p className="text-lg md:text-xl poppins-medium text-black/60 leading-[1.5] max-w-xs xl:text-right">
-                Not separate departments. One integrated team building one unified brand.
+                No Separate Departments.<br />
+                One Integrated Team.<br />
+                One Unified Brand.
               </p>
               <ScrambleButton href="#contact" text="GET STARTED" />
             </div>

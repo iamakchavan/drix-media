@@ -83,21 +83,21 @@ const BlogHero = () => (
         buttonHref="#featured"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
-                    <span className="flex">
-                        {"The ".split('').map((char, index) => (
+                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-2 gap-x-[1vw] md:gap-x-4">
+                    <span className="flex text-white/30 italic">
+                        {"Ideas,".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
-                    <span className="flex text-white/50 italic font-medium">
-                        {"Drix".split('').map((char, index) => (
+                    <span className="flex">
+                        {"Insights &".split('').map((char, index) => (
                             <motion.span key={`line1-b-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
                 </div>
                 <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
-                        {"Journal".split('').map((char, index) => (
+                        {"Perspectives.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>

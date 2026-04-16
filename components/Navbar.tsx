@@ -265,8 +265,8 @@ const Navbar: React.FC = () => {
                           onClick={() => setIsOpen(false)}
                           onMouseEnter={() => setHoveredIndex(i)}
                           onMouseLeave={() => setHoveredIndex(null)}
-                          className={`block mona-sans-condensed-bold uppercase tracking-tighter leading-[0.88] transition-colors duration-300
-                            text-[13vw] sm:text-[11vw] md:text-[10vw] lg:text-[9vw]
+                          className={`block mona-sans-condensed-bold uppercase tracking-tighter leading-[0.9] transition-colors duration-300
+                            text-[8vw] sm:text-[6.5vw] md:text-[5.5vw] lg:text-[4.5vw]
                             ${isCurrent
                               ? 'text-[#AFFF00]'
                               : hoveredIndex !== null

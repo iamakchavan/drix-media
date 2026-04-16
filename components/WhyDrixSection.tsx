@@ -4,28 +4,28 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 const features = [
   {
     title: "Integrated Approach",
-    description: "We do not hand you off between departments. Your strategist, designer, and content creator work together from day one. The result? A brand that feels consistent everywhere it shows up.",
+    description: "No handoffs. Your strategist, designer, and content creator work together from day one. Result? A consistent brand everywhere.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_23)"><path d="M501 236.583H430.832C424.041 147.906 353.094 76.9592 264.417 70.1678V0H236.583V70.1678C147.906 76.9592 76.9592 147.906 70.1678 236.583H0V264.417H70.1678C76.9592 353.094 147.906 424.041 236.583 430.832V501H264.417V430.832C353.094 424.041 424.041 353.094 430.832 264.417H501V236.583ZM402.915 236.583H396.625C323.729 236.583 264.417 177.27 264.417 104.375V98.0847C337.73 104.737 396.291 163.27 402.915 236.583ZM331.467 250.5C295.534 266.588 266.588 295.534 250.5 331.467C234.412 295.534 205.466 266.588 169.533 250.5C205.466 234.412 234.412 205.466 250.5 169.533C266.588 205.466 295.534 234.412 331.467 250.5ZM236.583 98.0847V104.375C236.583 177.27 177.27 236.583 104.375 236.583H98.0847C104.737 163.27 163.27 104.709 236.583 98.0847ZM98.0847 264.417H104.375C177.27 264.417 236.583 323.729 236.583 396.625V402.915C163.27 396.263 104.709 337.73 98.0847 264.417ZM264.417 402.915V396.625C264.417 323.729 323.729 264.417 396.625 264.417H402.915C396.263 337.73 337.73 396.291 264.417 402.915Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_23"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "Business-First Thinking",
-    description: "We are not here to make pretty things. We are here to drive results. Every creative decision connects to a business goal. Every campaign is built to perform.",
+    description: "We're not here to make pretty things. We're here for results. Every decision ties to a goal. Every campaign is built to perform.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_18)"><path d="M208.75 236.583C158.873 236.583 118.292 196.002 118.292 146.125H90.4583C90.4583 182.392 106.88 214.873 132.654 236.583H0V264.417H132.654C106.88 286.127 90.4583 318.608 90.4583 354.875H118.292C118.292 304.998 158.873 264.417 208.75 264.417V236.583Z" fill="currentColor"></path><path d="M264.417 292.25H236.583C236.583 342.127 196.002 382.708 146.125 382.708V410.542C182.392 410.542 214.873 394.12 236.583 368.346V501H264.417V368.346C286.127 394.12 318.608 410.542 354.875 410.542V382.708C304.998 382.708 264.417 342.127 264.417 292.25Z" fill="currentColor"></path><path d="M236.583 208.75H264.417C264.417 158.873 304.998 118.292 354.875 118.292V90.4583C318.608 90.4583 286.127 106.88 264.417 132.654V0H236.583V132.626C214.873 106.852 182.392 90.4305 146.125 90.4305V118.264C196.002 118.264 236.583 158.845 236.583 208.722V208.75Z" fill="currentColor"></path><path d="M501 236.583H368.374C394.148 214.873 410.542 182.392 410.542 146.125H382.708C382.708 196.002 342.127 236.583 292.25 236.583V264.417C342.127 264.417 382.708 304.998 382.708 354.875H410.542C410.542 318.608 394.12 286.127 368.346 264.417H501V236.583Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_18"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "End-to-End Execution",
-    description: "From brand strategy to final campaign delivery, we handle it all. You get one team, one process, one point of contact.",
+    description: "From strategy to final campaign delivery, we handle it all. You get a seamless, end-to-end experience. One team, one process, one point of contact.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_7)"><path d="M389.667 0H361.833C361.833 61.4003 311.9 111.333 250.5 111.333H13.9166V139.167H55.6666V180.945H97.4166V139.167H250.5C311.9 139.167 361.833 189.1 361.833 250.5H389.667C389.667 189.1 439.6 139.167 501 139.167V111.333C439.6 111.333 389.667 61.4003 389.667 0ZM375.75 189.879C362.084 161.767 339.233 138.916 311.121 125.25C339.233 111.584 362.084 88.7327 375.75 60.621C389.416 88.7327 412.267 111.584 440.379 125.25C412.267 138.916 389.416 161.767 375.75 189.879Z" fill="currentColor"></path><path d="M55.6666 180.945H13.9166V222.695H55.6666V180.945Z" fill="currentColor"></path><path d="M139.167 180.945H97.4166V222.695H139.167V180.945Z" fill="currentColor"></path><path d="M487.083 389.667V361.833H250.5C189.1 361.833 139.167 311.9 139.167 250.5H111.333C111.333 311.9 61.4003 361.833 0 361.833V389.667C61.4003 389.667 111.333 439.6 111.333 501H139.167C139.167 439.6 189.1 389.667 250.5 389.667H403.583V431.444H445.333V389.667H487.083ZM125.25 440.379C111.584 412.267 88.7327 389.416 60.621 375.75C88.7327 362.084 111.584 339.233 125.25 311.121C138.916 339.233 161.767 362.084 189.879 375.75C161.767 389.416 138.916 412.267 125.25 440.379Z" fill="currentColor"></path><path d="M487.083 431.444H445.333V473.194H487.083V431.444Z" fill="currentColor"></path><path d="M403.583 431.444H361.833V473.194H403.583V431.444Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_7"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
     title: "No Guessing, Just Data",
-    description: "We track what works. We optimize what does not. Every project comes with clear metrics so you know exactly what you are getting.",
+    description: "We track what works and optimize what doesn't. Every project comes with clear metrics. So you know exactly what you're getting.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_16)"><path d="M410.542 118.403V76.0963C432.252 101.87 464.733 118.292 501 118.292V90.4583C451.123 90.4583 410.542 49.8773 410.542 0H382.708C382.708 49.8773 342.127 90.4583 292.25 90.4583V118.292C328.517 118.292 360.998 101.87 382.708 76.0963V118.403C382.708 314.016 223.557 473.167 27.9447 473.167H27.8612V0H0V473.167H27.8333V501H500.972V473.167H171.147C311.371 416.359 410.542 278.751 410.542 118.403Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_16"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
@@ -188,7 +188,7 @@ const WhyDrixSection: React.FC = () => {
                     transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
                     className="absolute w-full px-4 md:px-6"
                   >
-                    <p className="text-[15px] md:text-[1.1rem] lg:text-[1.2rem] text-white/90 leading-[1.6] md:leading-[1.7] font-medium text-center">
+                    <p className="text-[15px] md:text-[1.1rem] lg:text-[1.2rem] text-white/90 leading-[1.6] md:leading-[1.7] font-medium text-left">
                       {feature.description}
                     </p>
                   </motion.div>
