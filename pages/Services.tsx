@@ -167,9 +167,9 @@ const stackServices: StackServiceCard[] = [
     {
         number: '04',
         title: 'Digital & Web Design',
-        description: 'Websites and digital experiences that are fast, functional, and built to convert.',
-        deliverables: ['Website design & development', 'E-commerce platforms', 'Landing pages', 'UI/UX design'],
-        image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2000&auto=format&fit=crop',
+        description: 'We design and develop websites, apps, and digital experiences that are fast, functional, and built to convert.',
+        deliverables: ['Website & app designing', 'UI/UX design', 'Website development', 'E-commerce platforms'],
+        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop',
         accent: true,
     },
     {

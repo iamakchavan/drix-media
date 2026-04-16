@@ -522,7 +522,7 @@ const Newsletter = () => {
                                             transition={{ duration: 0.8, delay: 0.5, ease: [0.19, 1, 0.22, 1] }}
                                             className="text-[2.5rem] md:text-[3.5rem] font-black text-black leading-none tracking-tight block mona-sans-condensed-medium"
                                         >
-                                            48
+                                            10
                                         </motion.span>
                                         <span className="text-black/40 text-[10px] poppins-regular mt-2 block">Published editions</span>
                                     </div>

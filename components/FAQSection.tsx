@@ -4,15 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 const faqs = [
   {
     question: "What’s your process for designing and developing a new website?",
-    answer: "I start by understanding your brand and goals, then create a tailored design that reflects your vision. Once the design is approved, I develop the site with clean, scalable code and ensure it’s fully tested before launch."
+    answer: "We start by understanding your brand and goals, then create a tailored design that reflects your vision. Once the design is approved, we develop the site with clean, scalable code and ensure it’s fully tested before launch."
   },
   {
     question: "What if I need to make changes or add features in the future?",
-    answer: "I design with scalability in mind, making it easy to add new features as your business grows. I also offer ongoing support packages if you’d like me to handle updates for you."
+    answer: "We design with scalability in mind, making it easy to add new features as your business grows. We also offer ongoing support packages if you’d like me to handle updates for you."
   },
   {
     question: "Do you offer SEO services?",
-    answer: "Yes, I incorporate SEO best practices into every website I build to help improve your search visibility from the start. For more advanced SEO strategies, I also offer customized SEO packages."
+    answer: "Yes, We incorporate SEO best practices into every website we build to help improve your search visibility from the start. For more advanced SEO strategies, We also offer customized SEO packages."
   },
   {
     question: "How long does it typically take to see results from my brand’s new website?",
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     question: "How do you ensure the website is mobile-friendly?",
-    answer: "I use responsive design techniques and thoroughly test on various devices and screen sizes. This ensures your site looks great and works well for all users, no matter how they access it."
+    answer: "We use responsive design techniques and thoroughly test on various devices and screen sizes. This ensures your site looks great and works well for all users, no matter how they access it."
   }
 ];
 
@@ -38,7 +38,7 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
           <span className="text-black/30 font-bold tracking-[0.2em] text-[13px] md:text-sm transition-colors duration-500 group-hover:text-black/50">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] mona-sans-condensed-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black group-hover:text-black/70'}`}>
+          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] mona-sans-condensed-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#476D07]' : 'text-black group-hover:text-black/70'}`}>
             {question}
           </h3>
         </div>
@@ -48,7 +48,7 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
            <motion.div 
              animate={{ rotate: isOpen ? 45 : 0 }}
              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-             className={`absolute inset-0 flex items-center justify-center transition-colors duration-500 ${isOpen ? 'text-[#AFFF00]' : 'text-black/30 group-hover:text-black'}`}
+             className={`absolute inset-0 flex items-center justify-center transition-colors duration-500 ${isOpen ? 'text-[#476D07]' : 'text-black/30 group-hover:text-black'}`}
            >
              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 md:w-8 md:h-8">
                <line x1="12" y1="5" x2="12" y2="19"></line>
