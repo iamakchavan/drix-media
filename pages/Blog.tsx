@@ -543,7 +543,7 @@ const Newsletter = () => {
                             >
                                 <span className="text-[9px] font-bold tracking-[0.3em] text-white/15 uppercase poppins-regular shrink-0">Topics</span>
                                 <div className="flex gap-2 flex-wrap justify-end">
-                                    {['Branding', 'Culture', 'Strategy', 'Design', 'Tech'].map((topic) => (
+                                    {['Branding', 'Culture', 'Strategy', 'Design', 'Tech', 'Marketing', 'UI/UX', 'Development', 'Content', 'Growth', 'Identity', 'Digital'].map((topic) => (
                                         <span key={topic} className="px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-white/30 border border-white/[0.06] poppins-regular hover:text-[#AFFF00] hover:border-[#AFFF00]/20 transition-all duration-300 cursor-default">
                                             {topic}
                                         </span>
