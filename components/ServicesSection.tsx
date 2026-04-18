@@ -37,7 +37,7 @@ const ServicesSection: React.FC = () => {
     const [activeService, setActiveService] = useState(0);
 
     return (
-        <section className="w-full bg-black py-16 md:py-20 px-6 md:px-12 relative overflow-hidden text-white font-sans">
+        <section className="w-full bg-black py-16 md:py-20 px-6 md:px-12 relative overflow-hidden text-white font-sans min-h-screen flex flex-col justify-center">
             <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row">
 
                 {/* Left Sidebar / Header Elements */}
@@ -81,7 +81,7 @@ const ServicesSection: React.FC = () => {
                 <div className="flex flex-col md:flex-row w-full gap-12 lg:gap-24 pl-0 md:pl-8">
 
                     {/* Image & Description Column */}
-                    <div className="w-full md:w-5/12 relative flex flex-col pt-4 md:pt-32 min-h-[500px]">
+                    <div className="w-full md:w-5/12 relative flex flex-col pt-4 md:pt-0 min-h-[500px] md:min-h-[60vh]">
                         {services.map((service, index) => (
                             <div
                                 key={service.id}
@@ -108,8 +108,8 @@ const ServicesSection: React.FC = () => {
                     </div>
 
                     {/* List Column */}
-                    <div className="w-full md:w-7/12 flex flex-col pt-0 md:pt-32">
-                        <div className="flex flex-col gap-2">
+                    <div className="w-full md:w-7/12 flex flex-col pt-0 md:pt-0 justify-center">
+                        <div className="flex flex-col gap-3">
                             {services.map((service, index) => {
                                 const isActive = activeService === index;
                                 return (

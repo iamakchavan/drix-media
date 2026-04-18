@@ -7,70 +7,9 @@ import Footer from '../components/Footer';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
-const categories = ['All', 'Branding', 'Digital', 'Strategy', 'Culture', 'Production'];
+import { blogPosts } from '../data/blogData';
 
-const blogPosts = [
-    {
-        id: 1,
-        category: 'Strategy',
-        title: 'The Future of Digital Storytelling in 2026',
-        excerpt: 'How emerging AI technologies and spatial computing are redefining the way brands connect with their audiences.',
-        author: 'Alex Rivera',
-        date: 'March 12, 2026',
-        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2672&auto=format&fit=crop',
-        readTime: '8 min read'
-    },
-    {
-        id: 2,
-        category: 'Branding',
-        title: 'Minimalism is Dead. Long Live Meaningful Design.',
-        excerpt: 'Moving beyond the "blanding" era and rediscovering visual character in a saturated market.',
-        author: 'Elena Vance',
-        date: 'March 08, 2026',
-        image: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2564&auto=format&fit=crop',
-        readTime: '6 min read'
-    },
-    {
-        id: 3,
-        category: 'Production',
-        title: 'Behind the Scenes: The Kinetic Identity for Solaris',
-        excerpt: 'A deep dive into our latest motion-led branding project and the technical challenges we overcame.',
-        author: 'Marcus Chen',
-        date: 'March 02, 2026',
-        image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=2670&auto=format&fit=crop',
-        readTime: '12 min read'
-    },
-    {
-        id: 4,
-        category: 'Culture',
-        title: 'Why We Optimized for Autonomy Over Oversight',
-        excerpt: 'How Drix Media built a remote-first culture that prioritizes creative freedom and personal ownership.',
-        author: 'Sarah Jenkins',
-        date: 'February 24, 2026',
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop',
-        readTime: '5 min read'
-    },
-    {
-        id: 5,
-        category: 'Digital',
-        title: 'Building High-Performance Web Ecosystems',
-        excerpt: 'Why raw speed and intentional motion are the new pillars of premium user experience.',
-        author: 'David Kim',
-        date: 'February 18, 2026',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop',
-        readTime: '10 min read'
-    },
-    {
-        id: 6,
-        category: 'Branding',
-        title: 'The Psychology of Color in Luxury Branding',
-        excerpt: 'Explaining the subtle nuances of hue and saturation that separate premium brands from the mainstream.',
-        author: 'Elena Vance',
-        date: 'February 11, 2026',
-        image: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop',
-        readTime: '7 min read'
-    },
-];
+const categories = ['All', 'Branding', 'Digital', 'Strategy', 'Culture', 'Production'];
 
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 

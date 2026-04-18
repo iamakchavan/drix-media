@@ -6,6 +6,7 @@ import Services from './pages/Services';
 
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
+import BlogDetail from './pages/BlogDetail';
 import Projects from './pages/Projects';
 import ProjectDetail from './pages/ProjectDetail';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <Route path="/projects/:id" element={<ProjectDetail />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/cookies" element={<CookiePolicy />} />
