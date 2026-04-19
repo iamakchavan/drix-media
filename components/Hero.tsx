@@ -219,7 +219,7 @@ const Hero: React.FC = () => {
                       <span className="text-white/40 text-xl font-light mt-0 transform translate-y-[-2px]">+</span>
                       <div className="flex flex-col gap-1 text-white/60 text-sm md:text-base leading-relaxed tracking-wide font-medium mt-[-2px]">
                          <span className="text-white font-semibold block md:whitespace-nowrap">Drix Media is a creative agency that builds unforgettable brands.</span>
-                         <span className="block md:whitespace-nowrap">From strategy to execution, we handle your full technical delivery.</span>
+                         <span className="block md:whitespace-nowrap">From strategy to execution, we handle the full technical delivery for you.</span>
                       </div>
                    </div>
 

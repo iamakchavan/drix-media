@@ -11,7 +11,7 @@ import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
 const ServicesHero = () => (
-    <SharedHeroLayout 
+    <SharedHeroLayout
         bottomLabel="The Services"
         buttonText="OUR EXPERTISE"
         buttonHref="#approach"
@@ -40,13 +40,13 @@ const ServicesHero = () => (
         }
         subtextContent={
             <>
-                <span className="text-white font-semibold block xl:whitespace-nowrap">We offer creative production, branding, content strategy, and performance campaigns</span>
-                <span className="block xl:whitespace-nowrap">as one integrated system. Not as separate silos.</span>
+                <span className="text-white font-semibold block xl:whitespace-nowrap">Creative production. Branding. Content strategy. Performance campaigns.</span>
+                <span className="block xl:whitespace-nowrap">All working together, not in separate boxes.</span>
             </>
         }
     >
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
-            <motion.span 
+            <motion.span
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
@@ -83,11 +83,11 @@ const ServicesOverview = () => (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20">
                 <motion.div
                     initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19,1,0.22,1] }}
+                    viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                     className="flex flex-col gap-6"
                 >
                     <p className="text-[1.3rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
-                        Most agencies sell services in silos. Branding here. Content there. Campaigns somewhere else.
+                        Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
                     </p>
                     <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
                         The problem? Your brand ends up feeling fragmented.
@@ -96,10 +96,10 @@ const ServicesOverview = () => (
 
                 <motion.div
                     initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19,1,0.22,1] }}
+                    viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
                 >
                     <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular mb-8">
-                        At Drix Media, everything works together. Your brand strategy informs your content. Your content fuels your campaigns. Your campaigns are tracked and optimized for performance.
+                        At Drix Media, everything connects. Your brand strategy shapes your content. Your campaigns are fueled by content and optimised for real results.
                     </p>
 
                     {/* Chamfered highlight block */}
@@ -107,17 +107,17 @@ const ServicesOverview = () => (
                         initial="rest" whileHover="hover"
                         variants={{
                             rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                            hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
+                            hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19, 1, 0.22, 1] } }
                         }}
                         className="bg-[#FAFAFA] border border-black/[0.05] p-8 md:p-10 flex flex-col gap-6"
                     >
                         <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
-                            One team. One vision. Better results.
+                            Fewer delays. Faster output. Stronger brand.
                         </p>
                         <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
                             <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Engine</cite>
                             <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center hover:bg-[#476D07] hover:border-[#476D07] transition-all duration-400">
-                                <svg className="w-3 h-3 text-black/30 hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                <svg className="w-3 h-3 text-black/30 hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                             </div>
                         </div>
                     </motion.div>
@@ -189,7 +189,7 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
     // The point where this specific card has fully reached its sticky top
     // and the NEXT card starts coming up over it.
     const startShrink = i / total;
-    
+
     // How much this card scales down depends on its position in the deck
     const targetScale = 1 - (total - 1 - i) * 0.05;
     const targetOpacity = (total - 1 - i) * 0.15; // Max darkness
@@ -217,8 +217,8 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
     return (
         <div
             className="sticky top-0 flex items-start justify-center w-full"
-            style={{ 
-                top: `${CARD_TOP_OFFSET + i * CARD_STACK_GAP}px`, 
+            style={{
+                top: `${CARD_TOP_OFFSET + i * CARD_STACK_GAP}px`,
                 zIndex: i + 1,
                 marginBottom: i === total - 1 ? 0 : '80px',
             }}
@@ -228,17 +228,17 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1], delay: 0.1 }}
-                style={{ 
+                style={{
                     scale,
                     transformOrigin: "top center",
-                    clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)" 
+                    clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)"
                 }}
                 className={`${bgColor} ${shadowStyle} relative overflow-hidden w-full max-w-[1240px] transform-gpu border ${borderCol}`}
             >
                 {/* Scroll-driven dark overlay for background depth */}
-                <motion.div 
-                    style={{ opacity: overlayOpacity }} 
-                    className="absolute inset-0 bg-black z-50 pointer-events-none" 
+                <motion.div
+                    style={{ opacity: overlayOpacity }}
+                    className="absolute inset-0 bg-black z-50 pointer-events-none"
                 />
                 <div className="flex flex-col lg:flex-row w-full min-h-[420px] md:min-h-[480px]">
                     {/* Left: Content */}
@@ -296,7 +296,7 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
                         {/* Arrow button bottom-right */}
                         <div className="absolute bottom-6 right-6 z-20">
                             <div className={`w-12 h-12 border ${arrowBorder} flex items-center justify-center transition-all duration-400 backdrop-blur-md bg-white/5`}>
-                                <svg className={`w-5 h-5 ${arrowIcon} transition-colors group-hover:block`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                <svg className={`w-5 h-5 ${arrowIcon} transition-colors group-hover:block`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@ const StackingServicesSection = () => {
     return (
         <section ref={containerRef} className="w-full bg-[#FAFAFA] selection:bg-[#AFFF00] selection:text-black relative">
             <div className="sticky top-0 h-0 pointer-events-none" />
-            
+
             {/* Header */}
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-20">
                 <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 pt-16 md:pt-28 mb-12">
@@ -342,11 +342,11 @@ const StackingServicesSection = () => {
             {/* Stacking cards container */}
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pb-32 md:pb-[25vh] relative z-10 flex flex-col">
                 {stackServices.map((service, i) => (
-                    <AnimatedServiceCard 
-                        key={service.number} 
-                        service={service} 
-                        i={i} 
-                        progress={scrollYProgress} 
+                    <AnimatedServiceCard
+                        key={service.number}
+                        service={service}
+                        i={i}
+                        progress={scrollYProgress}
                         total={stackServices.length}
                     />
                 ))}
@@ -379,7 +379,7 @@ const DrixAdvantage = () => (
                             className="group relative bg-white/10 p-[1px]"
                             style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%)" }}
                         >
-                            <div 
+                            <div
                                 className="relative bg-[#0A0A0A] w-full h-full p-8 md:p-10 flex gap-6 items-start overflow-hidden"
                                 style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 23px), calc(100% - 23px) 100%, 0 100%)" }}
                             >
@@ -477,7 +477,7 @@ const ComparisonTable = () => {
                             {/* Arrow */}
                             <div className="col-span-12 md:col-span-1 hidden md:flex justify-end">
                                 <div className="shrink-0 w-7 h-7 border border-black/10 group-hover:border-[#AFFF00] group-hover:bg-[#AFFF00] flex items-center justify-center transition-all duration-400">
-                                    <svg className="w-3 h-3 text-black/20 group-hover:text-black transition-colors duration-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                    <svg className="w-3 h-3 text-black/20 group-hover:text-black transition-colors duration-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                 </div>
                             </div>
                         </div>
@@ -500,7 +500,7 @@ const CTASection = () => (
         <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: [0.19,1,0.22,1] }}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-8 md:px-20 py-14 md:py-20"
             style={{ clipPath: "polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%)" }}
         >
@@ -513,8 +513,7 @@ const CTASection = () => (
                     <div className="flex flex-col gap-6">
                         <span className="text-[10px] font-bold tracking-[0.4em] text-black/50 uppercase poppins-regular">Get Started</span>
                         <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
-                            Ready to See How<br />
-                            <span className="text-black/30">Integrated Services Work?</span>
+                            See How Integrated Services Work for Your Business
                         </h2>
                         <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
                             Let's talk about your goals and how we can help you get there.
@@ -528,7 +527,7 @@ const CTASection = () => (
                             style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
                         >
                             Book a Strategy Call
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                         </Link>
                         <a
                             href="mailto:hello@drixmedia.com"
@@ -554,7 +553,7 @@ const Services: React.FC = () => {
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            
+
             <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
@@ -564,8 +563,8 @@ const Services: React.FC = () => {
                 </motion.div>
             </div>
 
-            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]" 
-                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
+            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]"
+                style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <ServicesOverview />
                 <StackingServicesSection />
                 <DrixAdvantage />

@@ -39,7 +39,7 @@ const ContactHero = () => (
         }
         subtextContent={
             <>
-                <span className="text-white font-semibold block xl:whitespace-nowrap">Book a free strategy call — no commitment, no pressure.</span>
+                <span className="text-white font-semibold block xl:whitespace-nowrap">Let's Talk About Your Brand</span>
                 <span className="block xl:whitespace-nowrap">Let's explore how we can grow together.</span>
             </>
         }
@@ -334,11 +334,11 @@ const stepIllustrations = [
 ];
 
 const nextSteps = [
-    { title: 'We Review Your Request', description: 'Our team reviews your submission within 24 hours.' },
-    { title: 'We Schedule a Call', description: 'We send a calendar link to book a time that works for you.' },
-    { title: 'We Discuss Your Goals', description: 'We learn about your business, challenges, and where you want to go.' },
-    { title: 'We Share Our Approach', description: 'We walk you through how we can help and what working together looks like.' },
-    { title: 'We Send a Proposal', description: 'If it is a fit, we send a detailed proposal with scope, timeline, and investment.' },
+    { title: 'We Review Your Request', description: 'Our team carefully reviews your submission and gets back to you with a response within 24 hours.' },
+    { title: 'We Schedule a Call', description: 'We send over a personalized calendar link so you can book a strategy call at your convenience.' },
+    { title: 'We Discuss Your Goals', description: 'We dive deep to understand your brand\'s unique challenges and where you want to take it next.' },
+    { title: 'We Share Our Approach', description: 'We walk you through our strategic framework and show you exactly what working with us looks like.' },
+    { title: 'We Send a Proposal', description: 'If we are a great fit, we\'ll send a detailed proposal covering the scope, timeline, and investment.' },
 ];
 
 const WhatHappensNext = () => (

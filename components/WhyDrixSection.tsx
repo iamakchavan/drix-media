@@ -44,18 +44,18 @@ const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string })
       }}
       className="group relative flex items-center justify-center bg-transparent border border-black/20 h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
     >
-      <motion.div 
+      <motion.div
         variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-0 bg-black w-full h-full"
       />
-      
+
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
         <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
           <span>{text}</span>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </div>
-        
+
         <motion.div
           variants={{
             initial: { y: "0%" },
@@ -66,7 +66,7 @@ const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string })
           <span>{text}</span>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
-        
+
         <motion.div
           variants={{
             initial: { y: "100%" },
@@ -98,45 +98,45 @@ const WhyDrixSection: React.FC = () => {
     <section ref={targetRef} className="relative h-[250vh] bg-white text-black selection:bg-black selection:text-[#AFFF00]">
       {/* Container that sticks to the viewport while you scroll through height */}
       <div className="sticky top-0 h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-16 md:pt-20 pb-10 md:pb-6">
-        
+
         {/* UPPER SECTION: The Title and Controls */}
         <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
-            
-            <div className="flex flex-col items-start gap-4 lg:gap-6">
-              <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] mona-sans-condensed-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
-                Why Brands<br className="hidden md:block"/>
-                <span className="inline-flex items-center mt-1">
-                  Choose Drix
-                  <svg className="ml-2 md:ml-4 w-10 md:w-[6vh] h-10 md:h-[6vh] text-black transform translate-y-[18px] md:translate-y-[3vh] opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="miter">
-                    <polyline points="10 16 16 22 22 16"/>
-                    <path d="M0 4h16v18"/>
-                  </svg>
-                </span>
-              </h2>
-              
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 w-full max-w-4xl pt-2">
-                  <div className="w-max shrink-0 scale-90 md:scale-100 origin-left">
-                     <ScrambleButtonSecondary href="#about" text="About Us" />
-                  </div>
-                  
-                  <p className="text-black/40 text-[10px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase leading-[1.6]">
-                     Design, Develop And Run Any Media Strategy You Need.
-                  </p>
+
+          <div className="flex flex-col items-start gap-4 lg:gap-6">
+            <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] mona-sans-condensed-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
+              Why Brands<br className="hidden md:block" />
+              <span className="inline-flex items-center mt-1">
+                Choose Drix
+                <svg className="ml-2 md:ml-4 w-10 md:w-[6vh] h-10 md:h-[6vh] text-black transform translate-y-[18px] md:translate-y-[3vh] opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="miter">
+                  <polyline points="10 16 16 22 22 16" />
+                  <path d="M0 4h16v18" />
+                </svg>
+              </span>
+            </h2>
+
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 w-full max-w-4xl pt-2">
+              <div className="w-max shrink-0 scale-90 md:scale-100 origin-left">
+                <ScrambleButtonSecondary href="#about" text="About Us" />
               </div>
 
+              <p className="text-black/40 text-[10px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase leading-[1.6]">
+                Design, Develop And Deploy Any Media Strategy You Need.
+              </p>
             </div>
+
+          </div>
         </div>
 
         {/* LOWER SECTION: The horizontally scrolling track containing the cards */}
         <div className="w-full h-full flex items-center overflow-visible mt-auto pt-6 min-h-[300px]">
-          <motion.div 
-              style={{ x }} 
-              className="flex gap-6 md:gap-8 w-max pl-[85vw] md:pl-[50vw] lg:pl-[65vw] xl:pl-[75vw]"
+          <motion.div
+            style={{ x }}
+            className="flex gap-6 md:gap-8 w-max pl-[85vw] md:pl-[50vw] lg:pl-[65vw] xl:pl-[75vw]"
           >
             {/* Scrolling Cards */}
             {features.map((feature, idx) => (
-              <motion.div 
-                key={idx} 
+              <motion.div
+                key={idx}
                 initial="inactive"
                 whileInView="active"
                 viewport={{ margin: "0px -40% 0px -40%", amount: 0.5 }}
@@ -148,7 +148,7 @@ const WhyDrixSection: React.FC = () => {
                 className="relative w-[75vw] sm:w-[320px] md:w-[360px] lg:w-[400px] aspect-square flex-shrink-0 rounded-none flex flex-col items-center justify-center border overflow-hidden cursor-default"
               >
                 {/* Top Left Number */}
-                <motion.span 
+                <motion.span
                   variants={{
                     inactive: { color: "rgba(0,0,0,0.4)" },
                     active: { color: "#AFFF00" }
@@ -161,9 +161,9 @@ const WhyDrixSection: React.FC = () => {
 
                 {/* Centered Content Wrapper (Crossfade) */}
                 <div className="absolute inset-0 flex items-center justify-center w-full h-full px-6 md:px-10">
-                  
+
                   {/* Default State: Icon & Title */}
-                  <motion.div 
+                  <motion.div
                     variants={{
                       inactive: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
                       active: { opacity: 0, y: -20, scale: 0.95, filter: "blur(4px)" },
@@ -195,7 +195,7 @@ const WhyDrixSection: React.FC = () => {
                 </div>
 
                 {/* Bottom Center Arrow (Disappears when Active) */}
-                <motion.div 
+                <motion.div
                   variants={{
                     inactive: { opacity: 1, y: 0 },
                     active: { opacity: 0, y: 15 }

@@ -56,19 +56,19 @@ const ChallengeSection: React.FC = () => {
     {
       index: '01',
       label: 'The Reality',
-      body: <>Great product. Strong vision.<br /><span className="text-[#AFFF00]">Still not getting noticed.</span></>,
+      body: <>Great product.<br />Strong vision.<br /><span className="text-[#AFFF00] italic">Still not getting noticed.</span></>,
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop',
     },
     {
       index: '02',
       label: 'The Symptoms',
-      body: <>Random content. Inconsistent messaging.<br /><span className="text-[#AFFF00]">Marketing that doesn't convert.</span></>,
+      body: <>Random content.<br />Inconsistent messaging.<br /><span className="text-[#AFFF00] italic">Marketing that doesn't convert.</span></>,
       image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop',
     },
     {
       index: '03',
       label: 'The Root Cause',
-      body: <>Too many moving pieces. No clear thought.<br /><span className="text-[#AFFF00] italic">Disconnected brand presence.</span></>,
+      body: <>Too many moving pieces.<br />No clear thought.<br /><span className="text-[#AFFF00] italic">Disconnected brand presence.</span></>,
       image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
     },
   ];
@@ -100,9 +100,7 @@ const ChallengeSection: React.FC = () => {
           {/* Top rule with label */}
           <div className="flex items-center gap-4 mb-12">
             <motion.div variants={lineReveal} className="h-px bg-white/20 flex-1 origin-left" />
-            <motion.span variants={wordsVariants} className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 whitespace-nowrap">
-              SEC — 02 / DIAGNOSIS
-            </motion.span>
+
             <motion.div variants={lineReveal} className="h-px bg-white/20 w-12 origin-left" />
           </div>
 
@@ -131,9 +129,7 @@ const ChallengeSection: React.FC = () => {
           <div className="flex items-center gap-4 mt-12">
             <motion.div variants={lineReveal} className="h-px bg-[#AFFF00]/30 w-8 origin-left" />
             <motion.div variants={lineReveal} className="h-px bg-white/10 flex-1 origin-left" />
-            <motion.span variants={wordsVariants} className="text-[10px] font-mono tracking-[0.3em] text-white/20">
-              X:0000 / Y:0000
-            </motion.span>
+
           </div>
         </motion.div>
 
@@ -151,15 +147,12 @@ const ChallengeSection: React.FC = () => {
                 show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
               className="group relative flex flex-col justify-between min-h-[380px] md:min-h-[440px] border-r border-white/[0.07] last:border-r-0 overflow-hidden"
-              style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0% 100%)" }}
+              style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}
             >
-              {/* Background image */}
               <div className="absolute inset-0">
                 <img src={point.image} alt={point.label} className="w-full h-full object-cover grayscale opacity-25 group-hover:opacity-45 group-hover:grayscale-0 transition-all duration-1000 ease-out" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-[#080808]/30" />
               </div>
-              {/* Hover accent line top */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-[#AFFF00] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               {/* Index + label */}
               <div className="relative z-10 p-8 md:p-10 flex flex-col gap-1">
                 <span className="text-[11px] font-mono tracking-[0.3em] text-[#AFFF00]">{point.index}</span>
@@ -169,7 +162,7 @@ const ChallengeSection: React.FC = () => {
               <div className="relative z-10 mt-auto p-8 md:p-10 pt-0">
                 <div className="overflow-hidden">
                   <motion.div initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}>
-                    <p className="text-2xl md:text-3xl mona-sans-medium leading-[1.25] text-white/70 group-hover:text-white transition-colors duration-500 tracking-tight">
+                    <p className="text-xl md:text-2xl mona-sans-medium leading-[1.25] text-white/70 group-hover:text-white transition-colors duration-500 tracking-tight">
                       {point.body}
                     </p>
                   </motion.div>
@@ -250,7 +243,7 @@ const ChallengeSection: React.FC = () => {
 
           {/* Bottom engineering label */}
           <div className="flex items-center gap-3 mt-0 pt-3 border-t border-white/[0.06]">
-            <span className="text-[9px] font-mono tracking-[0.3em] text-white/15">END — CHALLENGE.SECTION</span>
+
             <div className="flex-1 h-px bg-white/[0.04]" />
             <span className="text-[9px] font-mono tracking-[0.3em] text-white/10">©DRIX</span>
           </div>

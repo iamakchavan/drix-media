@@ -23,20 +23,15 @@ const BlogHero = () => (
         titleLines={
             <>
                 <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-2 gap-x-[1vw] md:gap-x-4">
-                    <span className="flex text-white/30 italic">
-                        {"Ideas,".split('').map((char, index) => (
-                            <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
-                        ))}
-                    </span>
                     <span className="flex">
-                        {"Insights &".split('').map((char, index) => (
-                            <motion.span key={`line1-b-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
+                        {"The Drix".split('').map((char, index) => (
+                            <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
                 </div>
                 <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
-                        {"Perspectives.".split('').map((char, index) => (
+                        {"Archive.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
@@ -46,7 +41,7 @@ const BlogHero = () => (
         subtextContent={
             <>
                 <span className="text-white font-semibold block xl:whitespace-nowrap">Exploring the intersection of branding, technology, and culture.</span>
-                <span className="block xl:whitespace-nowrap">Thought leadership for the modern brand builder.</span>
+                <span className="block xl:whitespace-nowrap">Real talk on branding, marketing, and what actually works.</span>
             </>
         }
     >
@@ -326,9 +321,9 @@ const Newsletter = () => {
                                 </div>
 
                                 <h3 className="text-[1.8rem] md:text-[2.5rem] lg:text-[3rem] text-white leading-[0.95] tracking-tight mona-sans-condensed-medium mb-6 max-w-xl">
-                                    Insights on design, culture,
+                                    Ideas worth reading.
                                     <br />
-                                    <span className="text-white/30">and the future of branding.</span>
+                                    <span className="text-white/30">Strategies worth stealing.</span>
                                 </h3>
 
                                 <p className="text-white/35 text-[14px] md:text-[15px] leading-relaxed poppins-regular max-w-md mb-10">
@@ -391,7 +386,7 @@ const Newsletter = () => {
                                 <div className="relative z-10">
                                     <span className="text-[9px] font-bold tracking-[0.4em] text-white/20 uppercase poppins-regular block mb-6">From Our Perspective</span>
                                     <blockquote className="text-[1.1rem] md:text-[1.3rem] text-white/70 leading-[1.5] mona-sans-condensed-medium tracking-tight mb-6 group-hover:text-white/90 transition-colors duration-500">
-                                        "The brands that win in 2026 are the ones building culture, not just campaigns."
+                                        "The brands that cut through aren't louder; they're clearer. Strategy is the difference between content and communication."
                                     </blockquote>
                                     <div className="flex items-center gap-4 border-t border-white/[0.05] pt-5">
                                         <span
