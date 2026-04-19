@@ -16,12 +16,12 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
       }}
       className="group relative flex items-center justify-center bg-[#AFFF00] h-[54px] px-10 transition-colors duration-500 overflow-hidden"
     >
-      <motion.div 
+      <motion.div
         variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-0 bg-white w-full h-full"
       />
-      
+
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
         <div className="opacity-0 pointer-events-none flex items-center gap-2 text-[13px] tracking-[0.25em] uppercase font-semibold whitespace-nowrap">
           <span>{text}</span>
@@ -37,7 +37,7 @@ const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
           <span>{text}</span>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
         </motion.div>
-        
+
         <motion.div
           variants={{
             initial: { y: "100%" },
@@ -69,22 +69,11 @@ const Hero: React.FC = () => {
     if (!video) return;
     const src = 'https://stream.mux.com/Kec29dVyJgiPdtWaQtPuEiiGHkJIYQAVUJcNiIHUYeo.m3u8';
 
-    let isFading = false;
-
     const handleTimeUpdate = () => {
-      if (!video.duration || isFading) return;
-      // When within 1s of the end, fade out → seek to start → fade in
-      if (video.currentTime >= video.duration - 1) {
-        isFading = true;
-        video.style.opacity = '0';
-        setTimeout(() => {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-          setTimeout(() => {
-            video.style.opacity = '1';
-            isFading = false;
-          }, 100);
-        }, 800); // Match the CSS transition duration
+      // Endless loop trimmed to 6 seconds
+      if (video.currentTime >= 6) {
+        video.currentTime = 0;
+        video.play().catch(() => { });
       }
     };
 
@@ -94,11 +83,11 @@ const Hero: React.FC = () => {
       const hls = new Hls({ enableWorker: true, lowLatencyMode: false });
       hls.loadSource(src);
       hls.attachMedia(video);
-      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => {}); });
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { video.play().catch(() => { }); });
       return () => { video.removeEventListener('timeupdate', handleTimeUpdate); hls.destroy(); };
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = src;
-      video.addEventListener('loadedmetadata', () => { video.play().catch(() => {}); });
+      video.addEventListener('loadedmetadata', () => { video.play().catch(() => { }); });
     }
     return () => { video.removeEventListener('timeupdate', handleTimeUpdate); };
   }, []);
@@ -107,18 +96,18 @@ const Hero: React.FC = () => {
   const premiumEasing = [0.16, 1, 0.3, 1];
 
   const letterVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 40, 
+    hidden: {
+      opacity: 0,
+      y: 40,
       scale: 0.8,
       filter: "blur(12px)"
     },
-    show: { 
-      opacity: 1, 
+    show: {
+      opacity: 1,
       y: 0,
       scale: 1,
       filter: "blur(0px)",
-      transition: { duration: 1.4, ease: premiumEasing } 
+      transition: { duration: 1.4, ease: premiumEasing }
     }
   };
 
@@ -135,15 +124,16 @@ const Hero: React.FC = () => {
 
   return (
     <div ref={containerRef} className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col poppins-regular selection:bg-[#AFFF00] selection:text-black">
-      
+
       {/* HLS Video Background Layer */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
           ref={videoRef}
           muted
+          autoPlay
+          loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ transition: 'opacity 0.8s ease' }}
         />
         {/* Dark overlay to keep text readable */}
         <div className="absolute inset-0 bg-black/50" />
@@ -153,16 +143,16 @@ const Hero: React.FC = () => {
 
       {/* Navbar is now globally fixed — removed from Hero */}
 
-      <motion.div 
+      <motion.div
         style={{ opacity: yOpacity }}
         className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto pt-[12vh] md:pt-[18vh] pb-12 min-h-[100svh]"
       >
         {/* Main Content Area - Aligned to Reference Design */}
         <div className="flex-grow flex flex-col justify-center relative w-full pt-10 md:pt-16 pb-12 z-10">
-          
+
           <div className="flex flex-col w-full relative z-10">
             {/* Massive Heading, Left Aligned, Clean 2-Line Structure */}
-            <motion.h1 
+            <motion.h1
               variants={staggerVariants}
               initial="hidden"
               animate="show"
@@ -194,61 +184,61 @@ const Hero: React.FC = () => {
               </div>
             </motion.h1>
           </div>
-          
+
           {/* Two-Column Below Structure (Mapped from reference image) */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="show"
             variants={{
               hidden: { opacity: 0, y: 60, scale: 0.98, filter: "blur(8px)" },
-              show: { 
-                opacity: 1, 
-                y: 0, 
-                scale: 1, 
-                filter: "blur(0px)", 
-                transition: { duration: 1.6, delay: 0.6, ease: premiumEasing } 
+              show: {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                transition: { duration: 1.6, delay: 0.6, ease: premiumEasing }
               }
             }}
             className="w-full flex justify-start md:justify-end mt-10 md:mt-12 relative"
           >
-             <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
-                
-                {/* Left Column: Text + Button */}
-                <div className="w-full md:w-[55%] flex flex-col gap-10 mt-2">
-                   <div className="flex items-start gap-4 pr-4">
-                      <span className="text-white/40 text-xl font-light mt-0 transform translate-y-[-2px]">+</span>
-                      <div className="flex flex-col gap-1 text-white/60 text-sm md:text-base leading-relaxed tracking-wide font-medium mt-[-2px]">
-                         <span className="text-white font-semibold block md:whitespace-nowrap">Drix Media is a creative agency that builds unforgettable brands.</span>
-                         <span className="block md:whitespace-nowrap">From strategy to execution, we handle the full technical delivery for you.</span>
-                      </div>
-                   </div>
+            <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start gap-16 md:gap-8">
 
-                   {/* High-Tech Scramble CTA Button mapped to EXPLORE ORIGIN reference */}
-                   <motion.div className="flex items-center ml-0 md:ml-8 mt-4 md:mt-2">
-                     <ScrambleButton href="#contact" text="BOOK STRATEGY" />
-                   </motion.div>
+              {/* Left Column: Text + Button */}
+              <div className="w-full md:w-[55%] flex flex-col gap-10 mt-2">
+                <div className="flex items-start gap-4 pr-4">
+                  <span className="text-white/40 text-xl font-light mt-0 transform translate-y-[-2px]">+</span>
+                  <div className="flex flex-col gap-1 text-white/60 text-sm md:text-base leading-relaxed tracking-wide font-medium mt-[-2px]">
+                    <span className="text-white font-semibold block md:whitespace-nowrap">Drix Media is a creative agency that builds unforgettable brands.</span>
+                    <span className="block md:whitespace-nowrap">From strategy to execution, we handle the full technical delivery for you.</span>
+                  </div>
                 </div>
 
-                {/* Right Column: List Group */}
-                <div className="w-full md:w-[45%] flex flex-col gap-0 text-white font-medium text-sm md:text-base md:pl-12">
-                    {[
-                      { num: '01', text: 'Creative Strategy' },
-                      { num: '02', text: 'UI/UX Design' },
-                      { num: '03', text: 'Brand Identity' },
-                      { num: '04', text: 'Technical Development' }
-                    ].map((item, i) => (
-                       <div key={item.num} className="flex items-center gap-6 py-4 border-b border-white/10 group cursor-default">
-                           <span className="text-white/20 italic font-mono text-xs">({item.num})</span>
-                           <span className="text-white/70 group-hover:text-[#AFFF00] transition-colors">{item.text}</span>
-                       </div>
-                    ))}
-                </div>
+                {/* High-Tech Scramble CTA Button mapped to EXPLORE ORIGIN reference */}
+                <motion.div className="flex items-center ml-0 md:ml-8 mt-4 md:mt-2">
+                  <ScrambleButton href="#contact" text="BOOK STRATEGY" />
+                </motion.div>
+              </div>
 
-             </div>
+              {/* Right Column: List Group */}
+              <div className="w-full md:w-[45%] flex flex-col gap-0 text-white font-medium text-sm md:text-base md:pl-12">
+                {[
+                  { num: '01', text: 'Creative Strategy' },
+                  { num: '02', text: 'UI/UX Design' },
+                  { num: '03', text: 'Brand Identity' },
+                  { num: '04', text: 'Technical Development' }
+                ].map((item, i) => (
+                  <div key={item.num} className="flex items-center gap-6 py-4 border-b border-white/10 group cursor-default">
+                    <span className="text-white/20 italic font-mono text-xs">({item.num})</span>
+                    <span className="text-white/70 group-hover:text-[#AFFF00] transition-colors">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+
+            </div>
           </motion.div>
-          
+
           {/* Copyright Floating */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, filter: "blur(4px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
             transition={{ duration: 1.6, delay: 0.9, ease: premiumEasing }}
