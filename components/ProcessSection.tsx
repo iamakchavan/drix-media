@@ -55,20 +55,26 @@ const steps = [
 ];
 
 const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
+  const clipStyle = {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)"
+  };
+
   return (
     <motion.a
       href={href}
       initial="initial"
       whileHover="hover"
-      variants={{
-        initial: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" },
-        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
-      }}
-      className="group relative flex items-center justify-center bg-white h-[54px] md:h-[64px] px-10 md:px-12 transition-colors duration-500 overflow-hidden"
+      className="group relative flex items-center justify-center h-[54px] md:h-[64px] px-10 md:px-12 transition-colors duration-500 overflow-hidden"
     >
+      {/* Outer Border */}
+      <div className="absolute inset-0 bg-white/20 group-hover:bg-[#AFFF00]" style={clipStyle} />
+      {/* Inner Mask (1px border) */}
+      <div className="absolute inset-[1.5px] bg-white group-hover:bg-[#AFFF00]" style={clipStyle} />
+
       <motion.div
         variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        style={clipStyle}
         className="absolute inset-0 bg-[#AFFF00] w-full h-full"
       />
 
@@ -127,7 +133,7 @@ const ProcessSection: React.FC = () => {
           <p className="text-white/50 text-[14px] md:text-[16px] leading-relaxed poppins-medium">
             Five steps to bridge the gap between strategy and execution.
           </p>
-          <div className="w-max">
+          <div className="w-full sm:w-max">
             <ScrambleButtonDark text="Book Strategy Call" href="#contact" />
           </div>
         </div>
@@ -137,22 +143,22 @@ const ProcessSection: React.FC = () => {
       <div className="flex flex-col md:flex-row w-full max-w-[1600px] mx-auto relative">
 
         {/* L: Sticky Viewport (Locks to screen) */}
-        <div className="w-full md:w-1/2 sticky top-0 h-[45vh] md:h-screen flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-white/10 bg-[#050505] z-10 overflow-hidden">
+        <div className="w-full md:w-1/2 sticky top-[64px] md:top-0 h-[38svh] md:h-screen flex flex-col justify-center items-center border-b md:border-b-0 md:border-r border-white/10 bg-[#050505] z-10 overflow-hidden">
 
           {/* Dynamic Odometer Number — Responsive Stroke */}
           <style>{`
-               .process-number { -webkit-text-stroke: 1.5px rgba(175, 255, 0, 0.9); }
+               .process-number { -webkit-text-stroke: 1.2px rgba(175, 255, 0, 0.9); }
                @media (min-width: 768px) { .process-number { -webkit-text-stroke: 3px rgba(175, 255, 0, 0.9); } }
              `}</style>
-          <div className="relative h-[160px] md:h-[300px] w-full flex items-center justify-center">
+          <div className="relative h-[120px] md:h-[300px] w-full flex items-center justify-center">
             <AnimatePresence>
               <motion.div
                 key={activeIndex}
-                initial={{ y: 80, opacity: 0, filter: 'blur(10px)' }}
+                initial={{ y: 60, opacity: 0, filter: 'blur(10px)' }}
                 animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                exit={{ y: -80, opacity: 0, filter: 'blur(10px)' }}
+                exit={{ y: -60, opacity: 0, filter: 'blur(10px)' }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="process-number absolute text-[12rem] md:text-[22rem] font-bold text-transparent leading-none"
+                className="process-number absolute text-[8rem] sm:text-[10rem] md:text-[22rem] font-bold text-transparent leading-none"
               >
                 {steps[activeIndex].number}
               </motion.div>
@@ -160,15 +166,15 @@ const ProcessSection: React.FC = () => {
           </div>
 
           {/* Floating Title Sync */}
-          <div className="relative h-[40px] md:h-[60px] w-full flex items-center justify-center mt-4 md:mt-10">
+          <div className="relative h-[30px] md:h-[60px] w-full flex items-center justify-center mt-2 md:mt-10">
             <AnimatePresence>
               <motion.div
                 key={activeIndex}
-                initial={{ y: 30, opacity: 0 }}
+                initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -30, opacity: 0 }}
+                exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                className="absolute text-2xl md:text-5xl font-medium tracking-tight text-white uppercase"
+                className="absolute text-xl sm:text-2xl md:text-5xl font-medium tracking-tight text-white uppercase"
               >
                 {steps[activeIndex].title}
               </motion.div>
@@ -178,7 +184,7 @@ const ProcessSection: React.FC = () => {
         </div>
 
         {/* R: Scrolling Content — Clean Editorial Layout */}
-        <div className="w-full md:w-1/2 flex flex-col px-6 md:px-12 lg:px-16 pb-[30vh] md:pb-[50vh] bg-[#050505]">
+        <div className="w-full md:w-1/2 flex flex-col px-6 md:px-12 lg:px-16 pb-[20vh] md:pb-[50vh] bg-[#050505]">
           <div className="pt-[15vh] md:pt-[25vh]">
             {steps.map((step, i) => (
               <motion.div

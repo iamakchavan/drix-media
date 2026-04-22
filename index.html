@@ -269,6 +269,14 @@
       font-style: normal;
       font-variation-settings: "wdth" 75;
     }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
   <script>
     tailwind.config = {

@@ -16,7 +16,7 @@ const ContactHero = () => (
         buttonHref="#form"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-4 gap-x-[4vw] md:gap-x-4">
                     <span className="flex">
                         {"Let's".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -28,7 +28,7 @@ const ContactHero = () => (
                         ))}
                     </span>
                 </div>
-                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible mt-0 md:mt-2 pb-1 md:pb-4 gap-x-[4vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
                         {"About Your Brand.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -49,7 +49,7 @@ const ContactHero = () => (
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[20vw] md:text-[17vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+                className="text-[25vw] md:text-[17vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
             >
                 CONTACT
             </motion.span>
@@ -85,27 +85,27 @@ const ContactFormSection = () => {
         setSubmitted(true);
     };
 
-    const inputClasses = "w-full bg-transparent text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mona-sans-condensed-medium outline-none placeholder-black/10 text-black group-focus-within:text-[#AFFF00] transition-colors duration-500 overflow-hidden resize-none";
-    const labelRowClasses = "w-full md:w-[25%] p-6 md:p-8 lg:p-10 flex items-center md:border-r border-black/10 group-focus-within:border-white/10 transition-colors duration-500";
-    const labelClasses = "text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase text-black/40 group-focus-within:text-white transition-colors duration-500 poppins-regular";
-    const inputRowClasses = "w-full md:w-[75%] p-6 md:p-8 lg:p-10 flex items-center relative";
+    const inputClasses = "w-full bg-transparent text-[1.35rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mona-sans-condensed-medium outline-none placeholder-black/10 text-black group-focus-within:text-[#AFFF00] transition-colors duration-500 overflow-hidden resize-none";
+    const labelRowClasses = "w-full md:w-[25%] p-5 sm:p-6 md:p-8 lg:p-10 flex items-center md:border-r border-black/10 group-focus-within:border-white/10 transition-colors duration-500";
+    const labelClasses = "text-[10px] sm:text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase text-black/40 group-focus-within:text-white transition-colors duration-500 poppins-regular";
+    const inputRowClasses = "w-full md:w-[75%] p-5 sm:p-6 md:p-8 lg:p-10 flex items-center relative";
     const rowContainerBase = "w-full flex flex-col md:flex-row border-b border-black/10 group focus-within:bg-[#050505] hover:bg-black/[0.02] focus-within:hover:bg-[#050505] transition-colors duration-500";
 
     return (
         <section id="form" className="w-full bg-white text-black poppins-regular selection:bg-[#AFFF00] selection:text-black pt-16 md:pt-24 border-t border-black/10">
             <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row px-6 md:px-12 py-10 md:py-16 mb-4 lg:mb-8">
                 <div className="w-full md:w-[60%] flex flex-col justify-end">
-                    <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] leading-[0.85] mona-sans-condensed-bold tracking-tight text-[#050505] uppercase">
+                    <h2 className="text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] leading-[0.9] md:leading-[0.85] mona-sans-condensed-bold tracking-tight text-[#050505] uppercase">
                         Start a<br/>New Project
                     </h2>
                 </div>
-                <div className="w-full md:w-[40%] flex flex-col sm:flex-row gap-10 lg:gap-16 mt-10 md:mt-0 items-start md:items-end justify-start md:justify-end pb-2">
-                    <div className="flex flex-col">
-                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-2 poppins-regular">Inquiries</span>
+                <div className="w-full md:w-[40%] flex flex-col sm:flex-row gap-8 sm:gap-10 lg:gap-16 mt-10 md:mt-0 items-start md:items-end justify-start md:justify-end pb-2">
+                    <div className="flex flex-col gap-1">
+                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Inquiries</span>
                          <a href="mailto:hello@drixmedia.com" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">hello@drixmedia.com</a>
                     </div>
-                     <div className="flex flex-col">
-                         <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-2 poppins-regular">Call us</span>
+                     <div className="flex flex-col gap-1">
+                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Call us</span>
                          <span className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium text-black">(+91) 98765 43210</span>
                     </div>
                 </div>
@@ -119,19 +119,19 @@ const ContactFormSection = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         className="flex w-full justify-center py-20 md:py-40 bg-[#FAFAFA] border-t border-black/10 px-6"
                     >
-                        <div className="flex flex-col items-center justify-center text-center p-12 md:p-24 max-w-4xl w-full border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.04)]" style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}>
-                            <div className="w-16 h-16 bg-[#AFFF00] flex items-center justify-center mb-8 border border-black/10 shadow-sm" style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
+                        <div className="flex flex-col items-center justify-center text-center p-8 sm:p-12 md:p-24 max-w-4xl w-full border border-black/10 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.04)]" style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}>
+                            <div className="w-14 h-14 md:w-16 md:h-16 bg-[#AFFF00] flex items-center justify-center mb-6 md:mb-8 border border-black/10 shadow-sm" style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
                                 <svg width="24" height="24" viewBox="0 0 256 256" fill="black">
                                     <path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L100,192.69,218.34,74.34a8,8,0,0,1,11.32,11.32Z" />
                                 </svg>
                             </div>
-                            <h3 className="text-[3rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-bold mb-6 tracking-tighter leading-none text-[#050505] uppercase">
+                            <h3 className="text-[2.5rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-bold mb-4 md:mb-6 tracking-tighter leading-none text-[#050505] uppercase">
                                 Message Sent
                             </h3>
-                            <p className="text-black/50 text-[15px] md:text-[18px] poppins-regular max-w-xl mx-auto mb-12">
+                            <p className="text-black/50 text-[14px] sm:text-[15px] md:text-[18px] poppins-regular max-w-xl mx-auto mb-10 md:mb-12 leading-relaxed px-4">
                                 Thank you for reaching out. Our team is carefully reviewing your inquiry and will be in touch with you within 24 hours to begin the process.
                             </p>
-                            <button onClick={() => setSubmitted(false)} className="group flex items-center gap-4 border border-black/10 text-black px-10 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#FAFAFA] hover:gap-6 mx-auto" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)" }}>
+                            <button onClick={() => setSubmitted(false)} className="group flex items-center gap-4 border border-black/10 text-black px-8 sm:px-10 py-4 sm:py-5 text-[12px] md:text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#FAFAFA] hover:gap-6 mx-auto" style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)" }}>
                                 Submit Another
                                 <svg className="w-4 h-4 text-black/40 group-hover:text-[#AFFF00] transition-colors duration-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                             </button>
@@ -226,10 +226,10 @@ const ContactFormSection = () => {
 
                             {/* 05: Message */}
                             <div className={`${rowContainerBase} items-start`}>
-                                <div className={`${labelRowClasses} h-full pt-10 md:pt-14`}>
+                                <div className={`${labelRowClasses} h-full pt-8 sm:pt-10 md:pt-14`}>
                                     <label className={labelClasses}>05 / Message *</label>
                                 </div>
-                                <div className={`${inputRowClasses} pt-10 md:pt-14 pb-14`}>
+                                <div className={`${inputRowClasses} pt-8 sm:pt-10 md:pt-14 pb-10 sm:pb-14`}>
                                     <textarea name="message" required placeholder="Add details of your requirement..." value={form.message} onChange={handleChange} rows={3} className={inputClasses} />
                                 </div>
                             </div>
@@ -238,11 +238,11 @@ const ContactFormSection = () => {
 
                         {/* Submit Button Row */}
                         <div className="w-full">
-                            <button type="submit" className="w-full bg-[#AFFF00] hover:bg-[#050505] text-[#050505] hover:text-[#AFFF00] transition-colors duration-500 py-12 md:py-16 flex items-center justify-center group outline-none">
-                                <span className="text-[2rem] md:text-[3.5rem] lg:text-[4.5rem] leading-none mona-sans-condensed-bold tracking-tighter uppercase mr-5 md:mr-8 group-hover:scale-[1.03] transition-transform duration-500 origin-right">
+                            <button type="submit" className="w-full bg-[#AFFF00] hover:bg-[#050505] text-[#050505] hover:text-[#AFFF00] transition-colors duration-500 py-10 sm:py-12 md:py-16 flex items-center justify-center group outline-none">
+                                <span className="text-[1.8rem] sm:text-[2rem] md:text-[3.5rem] lg:text-[4.5rem] leading-none mona-sans-condensed-bold tracking-tighter uppercase mr-4 sm:mr-5 md:mr-8 group-hover:scale-[1.03] transition-transform duration-500 origin-right">
                                     Send Inquiry
                                 </span>
-                                <svg className="w-8 h-8 md:w-14 md:h-14 group-hover:rotate-[35deg] group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                <svg className="w-7 h-7 sm:w-8 sm:h-8 md:w-14 md:h-14 group-hover:rotate-[35deg] group-hover:scale-110 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                             </button>
                         </div>
 
@@ -341,112 +341,170 @@ const nextSteps = [
     { title: 'We Send a Proposal', description: 'If we are a great fit, we\'ll send a detailed proposal covering the scope, timeline, and investment.' },
 ];
 
-const WhatHappensNext = () => (
-    <section className="w-full bg-[#FAFAFA] pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
-        <div className="w-full max-w-[1400px] mx-auto">
+const WhatHappensNext = () => {
+    const [activeIndex, setActiveIndex] = useState(0);
+    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
-            {/* Header */}
-            <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 mb-10 md:mb-20">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">The Journey</span>
-                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                        What Next
-                    </h2>
-                </div>
-                <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                    We move fast.<br/>We keep you in the loop.<br/>No fluff, just results.
-                </p>
-            </div>
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const container = e.currentTarget;
+        const scrollPosition = container.scrollLeft;
+        const itemWidth = container.offsetWidth * 0.85; // Roughly the min-w-[85vw]
+        const index = Math.round(scrollPosition / itemWidth);
+        if (index !== activeIndex && index >= 0 && index < nextSteps.length) {
+            setActiveIndex(index);
+        }
+    };
 
-            {/* ── DESKTOP: Editorial 1px Seamless Grid ── */}
-            <div className="hidden md:flex flex-col gap-px w-full bg-black/5 border border-black/5 mb-10 overflow-hidden">
-                {/* Row 1: 3 cards */}
-                <div className="grid grid-cols-3 gap-px bg-black/5">
-                    {nextSteps.slice(0, 3).map((step, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.65, delay: i * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                    {stepIllustrations[i]}
-                                </div>
-                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
-                                <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
-                            </div>
-                        </motion.div>
-                    ))}
+    return (
+        <section className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
+            <div className="w-full max-w-[1400px] mx-auto">
+
+                {/* Header */}
+                <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 mb-12 md:mb-20">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">The Journey</span>
+                        <h2 className="text-[1.8rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                            What Next
+                        </h2>
+                    </div>
+                    <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
+                        We move fast.<br/>We keep you in the loop.<br/>No fluff, just results.
+                    </p>
                 </div>
 
-                {/* Row 2: 2 cards — wider */}
-                <div className="grid grid-cols-2 gap-px bg-black/5">
-                    {nextSteps.slice(3).map((step, i) => (
-                        <motion.div
-                            key={i + 3}
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.65, delay: (i + 3) * 0.05 }}
-                            className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
-                        >
-                            <div className="flex items-start justify-between">
-                                <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
-                                    {stepIllustrations[i + 3]}
+                {/* ── DESKTOP: Editorial 1px Seamless Grid ── */}
+                <div className="hidden md:flex flex-col gap-px w-full bg-black/5 border border-black/5 mb-10 overflow-hidden">
+                    {/* Row 1: 3 cards */}
+                    <div className="grid grid-cols-3 gap-px bg-black/5">
+                        {nextSteps.slice(0, 3).map((step, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.65, delay: i * 0.05 }}
+                                className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                        {stepIllustrations[i]}
+                                    </div>
+                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 1}</span>
                                 </div>
-                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 4}</span>
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
-                                <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
+                                <div className="flex flex-col gap-3">
+                                    <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
+                                    <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
 
-            {/* ── MOBILE: CSS scroll-snap horizontal carousel ── */}
-            <div
-                className="md:hidden flex gap-4 overflow-x-auto"
-                style={{
-                    scrollSnapType: "x mandatory",
-                    WebkitOverflowScrolling: "touch",
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                }}
-            >
-                {nextSteps.map((step, i) => (
-                    <div key={i} className="shrink-0 h-[300px] group" style={{ scrollSnapAlign: "start", width: "calc(100vw - 3rem)" }}>
-                        <div className="bg-white w-full h-full p-8 flex flex-col gap-6 border border-black/[0.05]" style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" }}>
-                            <div className="flex items-start justify-between">
-                                <div className="w-[64px] h-[64px] flex items-center justify-center [&_svg]:w-[64px] [&_svg]:h-[64px]">
-                                    {stepIllustrations[i]}
+                    {/* Row 2: 2 cards — wider */}
+                    <div className="grid grid-cols-2 gap-px bg-black/5">
+                        {nextSteps.slice(3).map((step, i) => (
+                            <motion.div
+                                key={i + 3}
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.65, delay: (i + 3) * 0.05 }}
+                                className="group bg-white hover:bg-[#F9F9F9] transition-colors duration-500 w-full min-h-[280px] p-10 flex flex-col gap-6"
+                            >
+                                <div className="flex items-start justify-between">
+                                    <div className="w-[60px] h-[60px] flex items-center justify-center transform group-hover:scale-105 transition-transform duration-500">
+                                        {stepIllustrations[i + 3]}
+                                    </div>
+                                    <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase mt-1">0{i + 4}</span>
                                 </div>
-                                <span className="text-[9px] text-black/15 font-mono tracking-[0.2em] uppercase">0{i + 1}</span>
-                            </div>
-                            <div className="flex flex-col gap-3">
-                                <h3 className="text-[1.2rem] text-black tracking-tight mona-sans-condensed-medium">{step.title}</h3>
-                                <p className="text-black/40 text-[13px] leading-relaxed poppins-regular">{step.description}</p>
-                            </div>
+                                <div className="flex flex-col gap-3">
+                                    <h3 className="text-[1.3rem] md:text-[1.4rem] text-black leading-snug tracking-tight mona-sans-condensed-medium group-hover:text-[#476D07] transition-colors duration-400">{step.title}</h3>
+                                    <p className="text-black/40 text-[14px] leading-relaxed poppins-regular max-w-[95%]">{step.description}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ── MOBILE: Horizontal Scroll Area ── */}
+                <div className="relative -mx-6 px-6 md:hidden">
+                    <div 
+                        ref={scrollContainerRef}
+                        onScroll={handleScroll}
+                        className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
+                    >
+                        {nextSteps.map((step, i) => (
+                            <motion.div 
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: i * 0.05 }}
+                                className="shrink-0 p-1 flex flex-col min-w-[80vw] sm:min-w-[50vw] snap-center pt-2"
+                            >
+                                {/* THE STROKE LAYER: Defines the perimeter including the chamfer */}
+                                <div 
+                                    className="w-full h-full p-[1px] relative group bg-black/[0.12] transition-colors duration-500 hover:bg-black/20"
+                                    style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%)" }}
+                                >
+                                    {/* THE CONTENT LAYER: Nests inside to reveal the 1px 'stroke' */}
+                                    <div 
+                                        className="bg-white w-full h-full p-8 flex flex-col min-h-[360px] relative"
+                                        style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%)" }}
+                                    >
+                                        {/* Top Area: Icon and Number */}
+                                        <div className="flex items-start justify-between relative z-10 w-full">
+                                            <div className="w-[60px] h-[60px] flex items-center justify-center [&_svg]:w-[60px] [&_svg]:h-[60px] opacity-90 transition-transform duration-500 group-hover:scale-105">
+                                                {stepIllustrations[i]}
+                                            </div>
+                                            <span className="text-[12px] text-black/40 font-mono tracking-[0.3em] font-bold">0{i + 1}</span>
+                                        </div>
+                                        
+                                        {/* Content Area: Centered vertically */}
+                                        <div className="flex flex-col gap-4 mt-auto mb-10 relative z-10">
+                                            <h3 className="text-[1.5rem] text-black tracking-tight mona-sans-condensed-bold leading-[1.05] uppercase max-w-[220px]">
+                                                {step.title}
+                                            </h3>
+                                            <p className="text-black/45 text-[14px] leading-relaxed poppins-regular max-w-[240px]">
+                                                {step.description}
+                                            </p>
+                                        </div>
+
+                                        {/* Interactive Progress Bar Accent */}
+                                        <div className="absolute bottom-0 left-0 w-full h-[3px] bg-black/[0.02] overflow-hidden">
+                                            <div className="w-0 h-full bg-[#AFFF00] group-hover:w-full transition-all duration-700 ease-[0.19, 1, 0.22, 1]" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Mobile Scroll Indicator */}
+                    <div className="flex items-center justify-between mt-10 px-2 transition-opacity duration-300">
+                        <div className="text-[9px] font-bold tracking-[0.4em] text-black/30 uppercase">Process Phase 0{activeIndex + 1}</div>
+                        <div className="flex gap-2">
+                            {nextSteps.map((_, i) => (
+                                <div 
+                                    key={i} 
+                                    className={`h-1 rounded-full transition-all duration-500 ${
+                                        i === activeIndex ? 'bg-[#476D07] w-6' : 'bg-black/10 w-3'
+                                    }`} 
+                                />
+                            ))}
                         </div>
                     </div>
-                ))}
-                <div className="shrink-0 w-4" />
-            </div>
-            {/* Subtext */}
-            <p className="text-center text-sm text-black/35 poppins-regular mt-8 md:mt-10 max-w-lg mx-auto leading-relaxed">
-                Every project starts with a conversation.<br/>We make sure the process is clear from day one.
-            </p>
+                </div>
 
-        </div>
-    </section>
-);
+                {/* Subtext */}
+                <p className="text-center text-[12px] sm:text-[13px] md:text-sm text-black/35 poppins-regular mt-12 md:mt-10 max-w-[340px] md:max-w-lg mx-auto leading-relaxed px-4">
+                    Every project starts with a conversation.<br className="hidden sm:block" />
+                    We make sure the process is clear from day one.
+                </p>
+
+            </div>
+        </section>
+    );
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
@@ -459,7 +517,7 @@ const Contact: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
 
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"

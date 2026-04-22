@@ -17,7 +17,7 @@ const ServicesHero = () => (
         buttonHref="#approach"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[3vw] md:gap-x-4">
                     <span className="flex">
                         {"Services".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -29,7 +29,7 @@ const ServicesHero = () => (
                         ))}
                     </span>
                 </div>
-                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[3vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
                         {"To Work Together.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -50,7 +50,7 @@ const ServicesHero = () => (
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[18vw] md:text-[15vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+                className="text-[28vw] md:text-[15vw] font-black text-white/[0.015] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
             >
                 SERVICES
             </motion.span>
@@ -62,15 +62,68 @@ const ServicesHero = () => (
 
 // ─── Services Overview ────────────────────────────────────────────────────────
 
+const PhilosophyCard = () => {
+    return (
+        <motion.div
+            initial="rest" whileHover="hover"
+            className="relative group/box w-full"
+        >
+            {/* The Stroke Layer: Absolute to wrap the content-driven parent */}
+            <motion.div 
+                variants={{
+                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
+                    hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px, 0% 24px)" }
+                }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="absolute inset-0 bg-black/15 group-hover/box:bg-black/25 transition-colors duration-500 z-0"
+            />
+
+            {/* The Inner Body Layer: Now RELATIVE to drive parent height based on text content */}
+            <motion.div 
+                variants={{
+                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 23.4px), calc(100% - 23.4px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
+                    hover: { clipPath: "polygon(23.4px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 23.4px, 0% 23.4px)" }
+                }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="relative z-10 bg-[#FAFAFA] m-[1px] p-8 md:p-10 flex flex-col justify-between min-h-[280px]"
+            >
+                {/* Text Content: This will now push the card height dynamically if needed */}
+                <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
+                    Fewer delays. Faster output. Stronger brand.
+                </p>
+
+                <div className="flex flex-row items-center justify-between border-t border-black/[0.06] pt-8 md:pt-10 gap-4 md:gap-0 mt-8">
+                    <div className="flex flex-col gap-2">
+                        <cite className="text-[9px] font-bold tracking-[0.4em] uppercase text-black/50 not-italic poppins-regular">The Drix Engine</cite>
+                        <div className="w-10 h-[1px] bg-black/[0.08]" />
+                    </div>
+
+                    {/* Premium Arrow Button */}
+                    <div className="group/arrow relative w-11 h-11 md:w-12 md:h-12 transition-transform duration-500 hover:scale-110 shrink-0 cursor-pointer">
+                        <div className="absolute inset-0 bg-black/10 transition-colors duration-300 group-hover/arrow:bg-black" 
+                            style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)" }}></div>
+                        <div className="absolute inset-[1px] bg-white transition-all duration-300 group-hover/arrow:inset-[3.5px] group-hover/arrow:bg-transparent" 
+                            style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)" }}></div>
+                        <div className="relative z-10 flex items-center justify-center w-full h-full">
+                            <svg className="w-4 h-4 text-black transition-colors duration-300 group-hover/arrow:text-[#AFFF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M7 17l9.2-9.2M17 17V7H7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </motion.div>
+    );
+};
+
 const ServicesOverview = () => (
     <section id="approach" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
         <div className="max-w-[1400px] mx-auto">
-
             {/* Header */}
             <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
                 <div className="flex flex-col gap-2">
                     <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Integrated Strategy</span>
-                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                    <h2 className="text-[1.8rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
                         One Team. One Vision.
                     </h2>
                 </div>
@@ -80,47 +133,34 @@ const ServicesOverview = () => (
             </div>
 
             {/* Two-col body copy */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 mb-16 md:mb-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
                 <motion.div
                     initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                    className="flex flex-col gap-6"
+                    className="flex flex-col gap-8"
                 >
-                    <p className="text-[1.3rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
-                        Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
-                    </p>
-                    <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
-                        The problem? Your brand ends up feeling fragmented.
-                    </p>
+                    <div className="flex flex-col gap-6">
+                        <p className="text-[1.15rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
+                            Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
+                        </p>
+                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-md">
+                            The problem? Your brand ends up feeling fragmented.
+                        </p>
+                    </div>
+                    
+                    <div className="w-20 h-[1px] bg-black/10" />
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+                    className="flex flex-col gap-10"
                 >
-                    <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular mb-8">
+                    <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
                         At Drix Media, everything connects. Your brand strategy shapes your content. Your campaigns are fueled by content and optimised for real results.
                     </p>
 
-                    {/* Chamfered highlight block */}
-                    <motion.div
-                        initial="rest" whileHover="hover"
-                        variants={{
-                            rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                            hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19, 1, 0.22, 1] } }
-                        }}
-                        className="bg-[#FAFAFA] border border-black/[0.05] p-8 md:p-10 flex flex-col gap-6"
-                    >
-                        <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
-                            Fewer delays. Faster output. Stronger brand.
-                        </p>
-                        <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
-                            <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Engine</cite>
-                            <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center hover:bg-[#476D07] hover:border-[#476D07] transition-all duration-400">
-                                <svg className="w-3 h-3 text-black/30 hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                            </div>
-                        </div>
-                    </motion.div>
+                    <PhilosophyCard />
                 </motion.div>
             </div>
         </div>
@@ -186,29 +226,22 @@ const CARD_TOP_OFFSET = 120; // px from top for sticky
 const CARD_STACK_GAP = 30; // additional px each card stacks below prev
 
 const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
-    // The point where this specific card has fully reached its sticky top
-    // and the NEXT card starts coming up over it.
     const startShrink = i / total;
-
-    // How much this card scales down depends on its position in the deck
     const targetScale = 1 - (total - 1 - i) * 0.05;
-    const targetOpacity = (total - 1 - i) * 0.15; // Max darkness
+    const targetOpacity = (total - 1 - i) * 0.15;
 
-    // Scale and dimming are driven by the wrapper's scroll progress
     const scale = useTransform(progress, [startShrink, 1], [1, targetScale]);
     const overlayOpacity = useTransform(progress, [startShrink, 1], [0, targetOpacity]);
 
     const bgColor = service.accent ? 'bg-[#AFFF00]' : service.dark ? 'bg-[#050505]' : 'bg-white';
     const textMain = service.accent ? 'text-black' : service.dark ? 'text-white' : 'text-[#050505]';
     const textSub = service.accent ? 'text-black/55' : service.dark ? 'text-white/45' : 'text-black/45';
-    const borderCol = service.accent ? 'border-black/[0.08]' : service.dark ? 'border-white/[0.06]' : 'border-black/[0.06]';
+    // Deepen the border color for the 1px stroke visibility
+    const strokeColor = service.accent ? 'bg-black/15' : service.dark ? 'bg-white/10' : 'bg-black/10';
     const numberStroke = service.accent ? '2px rgba(0,0,0,0.12)' : service.dark ? '2px rgba(255,255,255,0.06)' : '2px rgba(0,0,0,0.05)';
-    const delivColor = service.accent ? 'text-black/70' : service.dark ? 'text-white/60' : 'text-black/55';
     const dotColor = service.accent ? 'bg-black/30' : service.dark ? 'bg-[#AFFF00]' : 'bg-[#476D07]';
     const labelColor = service.accent ? 'text-black/40' : service.dark ? 'text-[#AFFF00]' : 'text-[#476D07]';
-    const arrowBorder = service.accent ? 'border-black/15 hover:bg-black hover:border-black' : service.dark ? 'border-white/10 hover:bg-[#AFFF00] hover:border-[#AFFF00]' : 'border-black/10 hover:bg-[#476D07] hover:border-[#476D07]';
-    const arrowIcon = service.accent ? 'text-black/30 hover:text-white' : service.dark ? 'text-white/20 hover:text-black' : 'text-black/30 hover:text-white';
-
+    
     // Shadow for depth effect as cards stack
     const shadowStyle = service.dark || service.accent
         ? 'shadow-[0_-8px_40px_rgba(0,0,0,0.3)]'
@@ -218,97 +251,102 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
         <div
             className="sticky top-0 flex items-start justify-center w-full"
             style={{
-                top: `${CARD_TOP_OFFSET + i * CARD_STACK_GAP}px`,
+                top: `calc(env(safe-area-inset-top, 0px) + ${80 + i * 20}px)`, // Adaptive mobile-friendly offset
                 zIndex: i + 1,
-                marginBottom: i === total - 1 ? 0 : '80px',
+                marginBottom: i === total - 1 ? 0 : '60px',
             }}
         >
             <motion.div
-                initial={{ opacity: 0, y: 100, rotateX: 10 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.9, ease: [0.19, 1, 0.22, 1], delay: 0.1 }}
-                style={{
-                    scale,
-                    transformOrigin: "top center",
-                    clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)"
-                }}
-                className={`${bgColor} ${shadowStyle} relative overflow-hidden w-full max-w-[1240px] transform-gpu border ${borderCol}`}
+                style={{ scale, transformOrigin: "top center" }}
+                className="relative w-full max-w-[1240px] transform-gpu"
             >
-                {/* Scroll-driven dark overlay for background depth */}
-                <motion.div
-                    style={{ opacity: overlayOpacity }}
-                    className="absolute inset-0 bg-black z-50 pointer-events-none"
+                {/* 1. The High-Fidelity Stroke Layer */}
+                <div 
+                    className={`absolute inset-0 ${strokeColor} z-0 ${shadowStyle}`}
+                    style={{ clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)" }}
                 />
-                <div className="flex flex-col lg:flex-row w-full min-h-[420px] md:min-h-[480px]">
-                    {/* Left: Content */}
-                    <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-between">
-                        <div>
-                            {/* Number + Label */}
-                            <div className="flex items-center gap-6 mb-8 md:mb-12">
-                                <span
-                                    className="text-[4rem] md:text-[5.5rem] font-black leading-none select-none"
-                                    style={{ color: 'transparent', WebkitTextStroke: numberStroke }}
-                                >
-                                    {service.number}
-                                </span>
-                                <span className={`text-[9px] font-bold tracking-[0.4em] uppercase poppins-regular ${labelColor}`}>Service</span>
-                            </div>
 
-                            {/* Title */}
-                            <h3 className={`text-[2rem] md:text-[3rem] lg:text-[3.5rem] ${textMain} leading-[0.95] tracking-tight mona-sans-condensed-medium mb-6`}>
-                                {service.title}
-                            </h3>
+                {/* 2. The Content Layer: Offset by 1px to reveal the stroke */}
+                <div 
+                    className={`relative z-10 ${bgColor} m-[1px] overflow-hidden`}
+                    style={{ clipPath: "polygon(0 0, calc(100% - 39px) 0, 100% 39px, 100% 100%, 0 100%)" }}
+                >
+                    {/* Scroll-driven dark overlay for background depth */}
+                    <motion.div
+                        style={{ opacity: overlayOpacity }}
+                        className="absolute inset-0 bg-black z-40 pointer-events-none"
+                    />
 
-                            {/* Description */}
-                            <p className={`${textSub} text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-lg mb-10`}>
-                                {service.description}
-                            </p>
-                        </div>
-
-                        {/* Deliverables — compact dot list */}
-                        <div>
-                            <span className={`text-[9px] font-bold tracking-[0.3em] uppercase ${textSub} block mb-5 poppins-regular`}>Key Deliverables</span>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
-                                {service.deliverables.map((item: string, j: number) => (
-                                    <div key={j} className="flex items-center gap-3 group/item">
-                                        <div className={`w-1.5 h-1.5 ${dotColor} shrink-0 group-hover/item:scale-150 transition-transform duration-300`}></div>
-                                        <span className={`${delivColor} text-[13px] md:text-[14px] poppins-regular leading-snug group-hover/item:text-[${textMain}] transition-colors duration-300`}>{item}</span>
+                    <div className="flex flex-col lg:flex-row w-full min-h-[400px] md:min-h-[480px]">
+                        {/* Left: Content */}
+                        <div className="flex-1 p-8 md:p-12 lg:p-16 flex flex-col justify-between">
+                            <div>
+                                {/* Number + Label */}
+                                <div className="flex items-center gap-4 md:gap-6 mb-6 md:mb-12">
+                                    <span
+                                        className="text-[3.5rem] md:text-[5.5rem] font-black leading-none select-none tracking-tighter"
+                                        style={{ color: 'transparent', WebkitTextStroke: numberStroke }}
+                                    >
+                                        {service.number}
+                                    </span>
+                                    <div className="flex flex-col gap-1">
+                                        <span className={`text-[8px] md:text-[9px] font-bold tracking-[0.4em] uppercase poppins-regular ${labelColor}`}>Service</span>
+                                        <div className={`w-8 h-[1px] ${strokeColor} opacity-50`} />
                                     </div>
-                                ))}
+                                </div>
+
+                                {/* Title */}
+                                <h3 className={`text-[1.8rem] md:text-[3rem] lg:text-[3.5rem] ${textMain} leading-[0.95] tracking-tight mona-sans-condensed-medium mb-6`}>
+                                    {service.title}
+                                </h3>
+
+                                {/* Description */}
+                                <p className={`${textSub} text-[14px] md:text-[16px] leading-relaxed poppins-regular max-w-lg mb-10`}>
+                                    {service.description}
+                                </p>
+                            </div>
+
+                            {/* Deliverables — compact dot list */}
+                            <div>
+                                <span className={`text-[8px] font-bold tracking-[0.3em] uppercase ${textSub} block mb-5 poppins-regular`}>Key Deliverables</span>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
+                                    {service.deliverables.map((item: string, j: number) => (
+                                        <div key={j} className="flex items-center gap-3">
+                                            <div className={`w-1 h-1 md:w-1.5 md:h-1.5 ${dotColor} shrink-0`}></div>
+                                            <span className={`${textSub} text-[13px] md:text-[14px] poppins-regular leading-snug`}>{item}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Right: Image */}
-                    <div className="hidden lg:block w-[42%] relative overflow-hidden group">
-                        <motion.img
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                            src={service.image}
-                            alt={service.title}
-                            className="absolute inset-0 w-full h-full object-cover"
-                            loading="lazy"
-                        />
-                        {/* Gradient overlay for text readability on edges */}
-                        <div className={`absolute inset-0 bg-gradient-to-r ${service.accent ? 'from-[#AFFF00]/50' : service.dark ? 'from-[#050505]/60' : 'from-white/40'} to-transparent w-1/3 z-10`} />
-
-                        {/* Arrow button bottom-right */}
-                        <div className="absolute bottom-6 right-6 z-20">
-                            <div className={`w-12 h-12 border ${arrowBorder} flex items-center justify-center transition-all duration-400 backdrop-blur-md bg-white/5`}>
-                                <svg className={`w-5 h-5 ${arrowIcon} transition-colors group-hover:block`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                            </div>
+                        {/* Right: Image (Desktop) */}
+                        <div className="hidden lg:block w-[42%] relative overflow-hidden group">
+                            <motion.img
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                                src={service.image}
+                                alt={service.title}
+                                className="absolute inset-0 w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                            <div className={`absolute inset-0 bg-gradient-to-r ${service.accent ? 'from-[#AFFF00]/50' : service.dark ? 'from-[#050505]/60' : 'from-white/40'} to-transparent w-1/3 z-10`} />
                         </div>
-                    </div>
 
-                    {/* Mobile image */}
-                    <div className="lg:hidden w-full h-[250px] relative overflow-hidden">
-                        <img
-                            src={service.image}
-                            alt={service.title}
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                        />
+                        {/* Mobile image (Adaptive height) */}
+                        <div className="lg:hidden w-full h-[220px] sm:h-[280px] relative overflow-hidden">
+                            <img
+                                src={service.image}
+                                alt={service.title}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                            />
+                            <div className={`absolute inset-0 bg-gradient-to-t ${service.accent ? 'from-[#AFFF00]/20' : service.dark ? 'from-[#050505]/30' : 'from-white/20'} to-transparent z-10`} />
+                        </div>
                     </div>
                 </div>
             </motion.div>
@@ -501,42 +539,65 @@ const CTASection = () => (
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-8 md:px-20 py-14 md:py-20"
+            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-6 md:px-20 py-12 md:py-20"
             style={{ clipPath: "polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%)" }}
         >
             {/* Subtle dot grid */}
             <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
             <div className="relative z-10 w-full max-w-[1400px] mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 md:gap-12">
                     <div className="flex flex-col gap-6">
                         <span className="text-[10px] font-bold tracking-[0.4em] text-black/50 uppercase poppins-regular">Get Started</span>
-                        <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
-                            See How Integrated Services Work for Your Business
+                        <h2 className="text-[2.2rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
+                            See How Integrated<br /> Services Work
                         </h2>
                         <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
                             Let's talk about your goals and how we can help you get there.
                         </p>
                     </div>
-
-                    <div className="flex flex-col gap-4 shrink-0">
-                        <Link
-                            to="/contact"
-                            className="group flex items-center gap-4 bg-black text-white px-8 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#050505] hover:gap-6"
-                            style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
-                        >
-                            Book a Strategy Call
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                        </Link>
-                        <a
-                            href="mailto:hello@drixmedia.com"
-                            className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center"
-                        >
-                            hello@drixmedia.com
-                        </a>
+                    <div className="flex flex-col gap-4 shrink-0 w-full md:w-auto">
+                        <div className="w-full md:w-auto scale-[0.85] md:scale-100 origin-left">
+                            {/* Re-using the premium button pattern directly */}
+                            <motion.a
+                                href="/contact"
+                                initial="initial"
+                                whileHover="hover"
+                                variants={{
+                                    initial: { clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" },
+                                    hover: { clipPath: "polygon(18px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 18px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+                                }}
+                                className="group relative flex items-center justify-center bg-black h-[60px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+                            >
+                                <motion.div 
+                                    variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
+                                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                    className="absolute inset-0 bg-white w-full h-full"
+                                />
+                                <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
+                                    <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
+                                        <span>BOOK A STRATEGY CALL</span>
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    </div>
+                                    <motion.div
+                                        variants={{ initial: { y: "0%" }, hover: { y: "-100%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } } }}
+                                        className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold text-white whitespace-nowrap"
+                                    >
+                                        <span>BOOK A STRATEGY CALL</span>
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    </motion.div>
+                                    <motion.div
+                                        variants={{ initial: { y: "100%" }, hover: { y: "0%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } } }}
+                                        className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
+                                    >
+                                        <span>BOOK A STRATEGY CALL</span>
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                    </motion.div>
+                                </div>
+                            </motion.a>
+                        </div>
+                        <a href="mailto:hello@drixmedia.com" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left">hello@drixmedia.com</a>
                     </div>
-
                 </div>
             </div>
         </motion.div>
@@ -554,7 +615,7 @@ const Services: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
 
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"

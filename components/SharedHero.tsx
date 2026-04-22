@@ -121,15 +121,15 @@ export const SharedHeroLayout = ({
     const yOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[180px] md:pt-[22vh] pb-[60px] md:pb-[140px] z-0 overflow-hidden">
+        <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[16svh] md:pt-[22vh] pb-[8svh] md:pb-[140px] z-0 overflow-hidden min-h-[90svh] md:min-h-0">
             <PremiumAurora />
             {children}
 
             <motion.div 
                 style={{ opacity: yOpacity }}
-                className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto"
+                className="relative z-10 flex-grow flex flex-col justify-between px-6 md:px-12 lg:px-20 w-full max-w-[120rem] mx-auto min-h-0 md:min-h-0"
             >
-                <div className="flex-grow flex flex-col justify-start relative w-full pt-4 md:pt-10 z-10">
+                <div className="flex-grow flex flex-col justify-center md:justify-start relative w-full pt-6 md:pt-10 z-10">
                     
                     <div className="flex flex-col w-full relative z-10">
                         <motion.h1 
@@ -149,7 +149,7 @@ export const SharedHeroLayout = ({
                             hidden: { opacity: 0, y: 60, scale: 0.98, filter: "blur(8px)" },
                             show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 1.6, delay: 0.6, ease: premiumEasing } }
                         }}
-                        className="w-full flex justify-start md:justify-end mt-10 md:mt-12 relative"
+                        className="w-full flex justify-start md:justify-end mt-8 md:mt-12 relative"
                     >
                         <div className="w-full lg:w-[85%] xl:w-[75%] flex flex-col md:flex-row justify-between items-start md:items-center gap-10 md:gap-8">
                             

@@ -35,10 +35,18 @@ const services = [
 
 const ServicesSection: React.FC = () => {
     const [activeService, setActiveService] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     return (
-        <section className="w-full bg-black py-16 md:py-20 px-6 md:px-12 relative overflow-hidden text-white font-sans min-h-screen flex flex-col justify-center">
-            <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row">
+        <section className="w-full bg-black py-12 md:py-24 px-6 md:px-12 relative overflow-hidden text-white font-sans min-h-screen flex flex-col justify-start md:justify-center">
+            <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row pt-4 md:pt-0">
 
                 {/* Left Sidebar / Header Elements */}
                 <div className="hidden md:flex flex-col w-[120px] shrink-0 h-full relative">
@@ -64,15 +72,15 @@ const ServicesSection: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Mobile Header */}
-                <div className="flex md:hidden items-center justify-between mb-16">
+                {/* Mobile Header: Reduced margin */}
+                <div className="flex md:hidden items-center justify-between mb-8">
                     <div className="flex items-start">
-                        <span className="font-bebas text-[32px] leading-[0.85em] tracking-[-0.04em]">DRIX MEDIA</span>
-                        <span className="font-bebas text-[12px] leading-[0.85em] tracking-[-0.04em] ml-0.5 pt-1">®</span>
+                        <span className="font-bebas text-[28px] leading-[0.85em] tracking-[-0.04em]">DRIX MEDIA</span>
+                        <span className="font-bebas text-[11px] leading-[0.85em] tracking-[-0.04em] ml-0.5 pt-1">®</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <span className="text-[13px] font-semibold tracking-[-0.04em] uppercase text-white">Services</span>
-                        <div className="w-2 h-2 border-r-2 border-b-2 border-[#AFFF00]"></div>
+                        <span className="text-[12px] font-semibold tracking-[-0.04em] uppercase text-white">Services</span>
+                        <div className="w-2 h-2 border-r-1.5 border-b-1.5 border-[#AFFF00]"></div>
                     </div>
                 </div>
 
@@ -80,26 +88,27 @@ const ServicesSection: React.FC = () => {
                 {/* Main Content Grid */}
                 <div className="flex flex-col md:flex-row w-full gap-12 lg:gap-24 pl-0 md:pl-8">
 
-                    {/* Image & Description Column */}
-                    <div className="w-full md:w-5/12 relative flex flex-col pt-4 md:pt-0 min-h-[500px] md:min-h-[60vh]">
+                    {/* Left Column: Image & Description (Grid Stack) */}
+                    <div className="w-full md:w-5/12 grid grid-cols-1 grid-rows-1 pt-2 md:pt-0">
                         {services.map((service, index) => (
                             <div
                                 key={service.id}
-                                className={`absolute inset-0 flex flex-col transition-all duration-700 ease-out ${activeService === index ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'}`}
+                                className={`col-start-1 row-start-1 flex flex-col transition-all duration-700 ease-out ${activeService === index ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}`}
                             >
                                 {/* Image */}
-                                <div className="w-full aspect-[4/3] mb-8 overflow-hidden relative">
+                                <div className="w-full aspect-[4/3] md:aspect-[4/3] mb-5 md:mb-8 overflow-hidden relative rounded-sm">
                                     <img
                                         src={service.image}
                                         alt={service.title}
                                         className="w-full h-full object-cover"
                                     />
+                                    <div className="absolute inset-0 bg-black/5 mix-blend-multiply"></div>
                                 </div>
 
                                 {/* Text Content */}
-                                <div className="flex flex-col gap-4">
-                                    <h4 className="text-white/60 text-base font-normal tracking-wide">{service.title}</h4>
-                                    <p className="text-white text-base md:text-lg leading-relaxed max-w-md font-medium">
+                                <div className="flex flex-col gap-2 md:gap-4 px-1 md:px-0 mb-8 md:mb-0">
+                                    <h4 className="text-[#AFFF00] text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase opacity-80">{service.id} — SERVICE</h4>
+                                    <p className="text-white text-base sm:text-lg md:text-lg lg:text-xl leading-tight md:leading-relaxed max-w-md font-medium tracking-tight">
                                         {service.description}
                                     </p>
                                 </div>
@@ -107,32 +116,33 @@ const ServicesSection: React.FC = () => {
                         ))}
                     </div>
 
-                    {/* List Column */}
-                    <div className="w-full md:w-7/12 flex flex-col pt-0 md:pt-0 justify-center">
-                        <div className="flex flex-col gap-3">
+                    {/* Right Column: List Column */}
+                    <div className="w-full md:w-7/12 flex flex-col pt-4 md:pt-0 justify-center">
+                        <div className="flex flex-col gap-4 md:gap-3">
                             {services.map((service, index) => {
                                 const isActive = activeService === index;
                                 return (
                                     <div
                                         key={service.id}
-                                        className="group flex items-start cursor-pointer transition-all duration-300 select-none"
-                                        onMouseEnter={() => setActiveService(index)}
+                                        className="group flex items-start cursor-pointer transition-all duration-300 select-none touch-manipulation"
+                                        onMouseEnter={() => !isMobile && setActiveService(index)}
+                                        onClick={() => setActiveService(index)}
                                     >
-                                        <div className="flex items-start justify-between gap-4 w-full">
+                                        <div className={`flex items-start justify-between gap-4 w-full border-b transition-colors duration-300 ${isActive ? 'border-white/20' : 'border-white/5'} md:border-none pb-4 md:pb-0`}>
 
                                             {/* Title */}
                                             <h3
-                                                className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.05em] leading-[1.1] transition-all duration-300 flex-1 min-w-0
-                                            ${isActive ? 'text-white' : 'text-white/15 group-hover:text-white/30'}`}
+                                                className={`text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-medium tracking-[-0.05em] leading-[1.1] transition-all duration-300 flex-1 min-w-0
+                                            ${isActive ? 'text-white' : 'text-white/10 group-hover:text-white/30'}`}
                                             >
                                                 {service.title}
                                             </h3>
 
                                             {/* Number: { 01 } — always right-aligned */}
-                                            <div className="flex items-baseline font-bold tracking-[-0.05em] text-lg md:text-xl flex-shrink-0 pt-2 md:pt-3">
-                                                <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/20'}`}>{'{'}</span>
-                                                <span className={`mx-2 transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/40'}`}>{service.id}</span>
-                                                <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/20'}`}>{'}'}</span>
+                                            <div className="flex items-baseline font-bold tracking-[-0.05em] text-sm md:text-xl flex-shrink-0 pt-1 md:pt-3">
+                                                <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/10'}`}>{'{'}</span>
+                                                <span className={`mx-2 transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/30'}`}>{service.id}</span>
+                                                <span className={`transition-colors duration-300 ${isActive ? 'text-[#AFFF00]' : 'text-white/10'}`}>{'}'}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -141,9 +151,8 @@ const ServicesSection: React.FC = () => {
                         </div>
 
                         {/* Link */}
-                        <div className="mt-16 md:mt-24">
+                        <div className="mt-12 md:mt-24 pb-8 md:pb-0">
                             <a href="/contact" className="inline-flex items-center gap-4 group">
-                                {/* SVG Icon from snippet */}
                                 <div className="w-8 h-8 text-[#AFFF00] transition-transform duration-300 group-hover:translate-x-1 group-hover:translate-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-full h-full">
                                         <path d="M221.66,181.66l-48,48a8,8,0,0,1-11.32-11.32L196.69,184H72a8,8,0,0,1-8-8V32a8,8,0,0,1,16,0V168H196.69l-34.35-34.34a8,8,0,0,1,11.32-11.32l48,48A8,8,0,0,1,221.66,181.66Z"></path>

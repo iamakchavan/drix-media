@@ -33,12 +33,12 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
       onClick={() => setIsOpen(!isOpen)}
     >
       {/* Row Header */}
-      <div className="flex justify-between items-start md:items-center py-6 md:py-10 px-6 md:px-12">
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 lg:gap-24 w-full pr-8">
-          <span className="text-black/30 font-bold tracking-[0.2em] text-[13px] md:text-sm transition-colors duration-500 group-hover:text-black/50">
+      <div className="flex justify-between items-start py-8 md:py-10 px-6 md:px-12">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-12 lg:gap-24 w-full pr-8">
+          <span className="text-black/30 font-bold tracking-[0.2em] text-[11px] md:text-sm transition-colors duration-500 group-hover:text-black/50">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <h3 className={`text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] mona-sans-condensed-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#476D07]' : 'text-black group-hover:text-black/70'}`}>
+          <h3 className={`text-[1.35rem] md:text-3xl lg:text-[2.5rem] leading-[1.2] md:leading-[1.1] mona-sans-condensed-medium tracking-tight transition-colors duration-500 ${isOpen ? 'text-[#476D07]' : 'text-black group-hover:text-black/70'}`}>
             {question}
           </h3>
         </div>
@@ -69,7 +69,7 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
             className="overflow-hidden"
           >
             <div className="px-6 md:px-12 pb-10 md:pb-12 pt-2 ml-0 md:ml-20 lg:ml-32">
-              <p className="text-base md:text-xl text-black/60 leading-relaxed poppins-medium max-w-3xl">
+              <p className="text-[15px] md:text-xl text-black/60 leading-relaxed poppins-medium max-w-3xl">
                 {answer}
               </p>
             </div>
@@ -82,94 +82,117 @@ const FAQItem: React.FC<{ question: string; answer: string; index: number }> = (
 
 const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string }) => {
   return (
-    <motion.a
-      href={href}
-      initial="initial"
-      whileHover="hover"
-      variants={{
-        initial: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" },
-        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
-      }}
-      className="group relative w-max flex items-center justify-center bg-transparent border border-black/20 h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
-    >
-      <motion.div
-        variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 bg-black w-full h-full"
-      />
+    <div className="w-max shrink-0 scale-[0.85] md:scale-100 origin-left">
+      <motion.a
+        href={href}
+        initial="initial"
+        whileHover="hover"
+        className="group relative flex items-center justify-center bg-transparent h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+        style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+      >
+        {/* Proper 1px Stroke Layer */}
+        <div 
+          className="absolute inset-0 bg-black/20" 
+          style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+        />
+        
+        {/* Inner Body Layer */}
+        <div 
+          className="absolute inset-[1px] bg-white transition-colors duration-500 group-hover:bg-white" 
+          style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+        />
 
-      <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
-        <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
-          <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-        </div>
-
-        <motion.div
-          variants={{
-            initial: { y: "0%" },
-            hover: { y: "-100%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
-          }}
-          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
-        >
-          <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-        </motion.div>
-
+        {/* Hover Fill Color */}
         <motion.div
           variants={{
             initial: { y: "100%" },
-            hover: { y: "0%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+            hover: { y: "0%" }
           }}
-          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-white whitespace-nowrap"
-        >
-          <span>{text}</span>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-        </motion.div>
-      </div>
-    </motion.a>
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute inset-0 bg-black w-full h-full"
+          style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" }}
+        />
+
+        <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
+          {/* Layout placeholder */}
+          <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
+            <span>{text}</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          </div>
+
+          {/* Rest State Text */}
+          <motion.div
+            variants={{
+              initial: { y: "0%" },
+              hover: { y: "-100%" }
+            }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
+          >
+            <span>{text}</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          </motion.div>
+
+          {/* Hover State Text */}
+          <motion.div
+            variants={{
+              initial: { y: "100%" },
+              hover: { y: "0%" }
+            }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[13px] tracking-[0.2em] uppercase font-bold text-white whitespace-nowrap"
+          >
+            <span>{text}</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+          </motion.div>
+        </div>
+      </motion.a>
+    </div>
   );
 };
 
 const FAQSection: React.FC = () => {
   return (
-    <section className="w-full bg-white text-black poppins-regular selection:bg-black selection:text-[#AFFF00] pt-24 md:pt-40">
+    <section className="w-full bg-white text-black poppins-regular selection:bg-black selection:text-[#AFFF00] pt-16 md:pt-40">
       <div className="max-w-[1600px] mx-auto w-full flex flex-col items-start border-t border-black/10">
 
         {/* Superior Split Layout */}
         <div className="flex flex-col lg:flex-row w-full relative">
 
           {/* Left Column: Sticky Header */}
-          <div className="w-full lg:w-[35%] py-16 px-6 md:px-12 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start">
+          <div className="w-full lg:w-[35%] py-16 md:py-24 px-6 md:px-12 lg:sticky lg:top-0 lg:h-screen flex flex-col justify-start">
             {/* Label */}
-            <div className="flex items-center gap-3 mb-10 md:mb-16">
-              <span className="w-2 h-2 bg-black shadow-[0_0_10px_rgba(0,0,0,0.2)]"></span>
-              <span className="text-black text-[11px] md:text-[12px] font-bold tracking-[0.2em] uppercase">
+            <div className="flex items-center gap-3 mb-8 md:mb-16">
+              <span className="w-2 h-2 bg-black shadow-[0_0_10px_rgba(0,0,0,0.1)]"></span>
+              <span className="text-black text-[10px] md:text-[12px] font-bold tracking-[0.4em] uppercase poppins-regular">
                 Knowledge Base
               </span>
             </div>
 
             {/* Title */}
-            <h2 className="text-6xl md:text-8xl lg:text-[7rem] leading-[0.9] mona-sans-condensed-medium tracking-tight mb-8 md:mb-12">
+            <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] leading-[0.9] mona-sans-condensed-medium tracking-tighter mb-8 md:mb-12">
               FAQ
             </h2>
 
             {/* Subtitle */}
-            <p className="text-black/50 text-lg md:text-xl poppins-medium leading-relaxed max-w-xs mb-12">
-              We’ve heard it all. Here’s everything you need to know before working with us.
+            <p className="text-black/50 text-[16px] md:text-xl poppins-medium leading-relaxed max-w-sm mb-10 md:mb-12">
+              Everything you need to know before working with us.
             </p>
 
             {/* Ask Question Button */}
-            <ScrambleButtonSecondary text="Ask a question" href="/contact" />
+            <div className="w-full md:w-auto">
+              <ScrambleButtonSecondary text="Ask a question" href="/contact" />
+            </div>
           </div>
 
           {/* Right Column: Expansive Accordion */}
-          <div className="w-full lg:w-[65%] flex flex-col border-l border-black/10">
+          <div className="w-full lg:w-[65%] flex flex-col border-t lg:border-t-0 lg:border-l border-black/10">
             {faqs.map((faq, index) => (
               <FAQItem key={index} index={index} question={faq.question} answer={faq.answer} />
             ))}
 
             {/* Spacer padding block at the bottom for scrolling gracefully */}
-            <div className="h-32"></div>
+            <div className="h-20 md:h-32"></div>
           </div>
 
         </div>

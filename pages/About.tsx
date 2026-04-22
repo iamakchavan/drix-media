@@ -12,7 +12,7 @@ const AboutHero = () => (
         buttonHref="#contact"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-4 gap-x-3 md:gap-x-4">
                     <span className="flex">
                         {"We Build".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -24,7 +24,7 @@ const AboutHero = () => (
                         ))}
                     </span>
                 </div>
-                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible mt-0 md:mt-2 pb-2 md:pb-4 gap-x-3 md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
                         {"That Matter.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -45,7 +45,7 @@ const AboutHero = () => (
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[25vw] md:text-[22vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+                className="text-[28vw] md:text-[22vw] font-black text-white/[0.015] uppercase tracking-[-0.05em] translate-y-[-5%] md:translate-y-[-5%] mona-sans-condensed-bold"
             >
                 ABOUT
             </motion.span>
@@ -57,7 +57,7 @@ interface WordProps { word: string; progress: any; range: [number, number]; }
 const Word: React.FC<WordProps> = ({ word, progress, range }) => {
     const opacity = useTransform(progress, range, [0.08, 1]);
     return (
-        <motion.span style={{ opacity }} className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-medium tracking-tight text-black mr-[0.25em] leading-[1.1]">
+        <motion.span style={{ opacity }} className="text-[1.8rem] sm:text-[2.2rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-medium tracking-tight text-black mr-[0.25em] leading-[1.1]">
             {word}
         </motion.span>
     );
@@ -69,9 +69,9 @@ const OurStory = () => {
     const words = "Drix Media was born out of a pivot from chaos to clarity.".split(" ");
 
     return (
-        <section ref={containerRef} className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
+        <section ref={containerRef} className="w-full bg-white pt-16 pb-16 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
             <div className="w-full max-w-[1400px] mx-auto">
-                <div className="flex flex-wrap mb-16 md:mb-20">
+                <div className="flex flex-wrap mb-10 md:mb-20">
                     {words.map((word, i) => {
                         const start = i / words.length;
                         const end = start + (1 / words.length);
@@ -94,14 +94,16 @@ const OurStory = () => {
                                 rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
                                 hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19, 1, 0.22, 1] } }
                             }}
-                            className="bg-[#FAFAFA] border border-black/[0.05] p-8 md:p-10 flex flex-col gap-6"
+                            className="bg-[#FAFAFA] border border-black/[0.05] p-6 md:p-10 flex flex-col gap-6"
                         >
-                            <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
-                                We don’t measure success by how many clients we have.<br /> We measure it by results. The work either performs, or we refine it until it does.
+                            <p className="text-[1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
+                                We don’t measure success by how many clients we have.<br className="hidden md:block" /> We measure it by results. The work either performs, or we refine it until it does.
                             </p>
-                            <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
-                                <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Philosophy</cite>
-                                <ScrambleButton href="/contact" text="WORK WITH US" />
+                             <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-t border-black/[0.06] pt-6 gap-6 md:gap-0">
+                                <cite className="text-[9px] font-bold tracking-[0.4em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Philosophy</cite>
+                                <div className="w-full md:w-auto scale-[0.85] md:scale-100 origin-left">
+                                    <ScrambleButton href="/contact" text="WORK WITH US" />
+                                </div>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -258,7 +260,7 @@ const PrincipleCard: React.FC<{ value: typeof values[0], iconIndex: number }> = 
                 </div>
 
                 {/* Ambient Watermark */}
-                <div className={`absolute -right-4 -bottom-4 text-[4.5rem] md:text-[6rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0 transition-transform duration-1000 group-hover:scale-110 origin-bottom-right`}>
+                <div className={`absolute -right-4 -bottom-4 text-[3.5rem] md:text-[6rem] font-black leading-none uppercase tracking-tighter ${watermarkClass} select-none pointer-events-none mona-sans-condensed-bold z-0 transition-transform duration-1000 group-hover:scale-110 origin-bottom-right`}>
                     {value.keyword}
                 </div>
 
@@ -285,7 +287,7 @@ const OurValues = () => (
             <div className="w-[1px] h-full bg-white absolute left-[80%]"></div>
         </div>
 
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 flex flex-col gap-14 md:gap-20">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 relative z-10 flex flex-col gap-10 md:gap-20">
             
             {/* Header Area */}
             <div className="flex flex-col xl:flex-row xl:items-end justify-between border-b border-white/10 pb-10 gap-6 xl:gap-0">
@@ -293,7 +295,7 @@ const OurValues = () => (
                     <span className="text-[10px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular mb-1 flex items-center gap-3">
                         <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span> The Blueprint
                     </span>
-                    <h2 className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] tracking-tight text-white leading-[0.9] mona-sans-condensed-medium font-normal">
+                    <h2 className="text-[2.2rem] sm:text-[3rem] md:text-[4rem] lg:text-[5rem] tracking-tight text-white leading-[0.9] mona-sans-condensed-medium font-normal">
                         Our Core Principles
                     </h2>
                 </div>
@@ -328,7 +330,7 @@ const WhatMakesUsDifferent = () => {
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-12 md:mb-20">
                 <div className="flex flex-col gap-5">
                     <span className="text-[10px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase poppins-regular flex items-center gap-3"><span className="w-2 h-2 bg-[#AFFF00]"></span> The Edge</span>
-                    <h2 className="text-[2.5rem] md:text-[4.5rem] lg:text-[5.5rem] tracking-tight text-white leading-[0.9] mona-sans-condensed-medium font-normal max-w-3xl">We Didn't Build Another Agency.</h2>
+                    <h2 className="text-[2.2rem] md:text-[4.5rem] lg:text-[5.5rem] tracking-tight text-white leading-[0.9] mona-sans-condensed-medium font-normal max-w-3xl">We Didn't Build Another Agency.</h2>
                     <p className="text-white/40 text-[14px] md:text-[16px] leading-relaxed poppins-regular max-w-lg mt-4 md:mt-6">Most agencies chase scale. We focus on what works and what makes a real difference.</p>
                 </div>
             </div>
@@ -368,20 +370,20 @@ const WhatMakesUsDifferent = () => {
                     const isActive = hoverIndex === i;
                     return (
                         <motion.div key={i} onClick={() => setHoverIndex(i)} layout
-                            animate={{ height: isActive ? 380 : 80, backgroundColor: isActive ? '#AFFF00' : '#0a0a0a', borderColor: isActive ? '#AFFF00' : 'rgba(255,255,255,0.06)' }}
+                            animate={{ height: isActive ? 340 : 70, backgroundColor: isActive ? '#AFFF00' : '#0a0a0a', borderColor: isActive ? '#AFFF00' : 'rgba(255,255,255,0.06)' }}
                             transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
                             className="relative overflow-hidden w-full border cursor-pointer group"
                             style={{ clipPath: isActive ? "polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%)" : "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
                         >
-                            <div className="absolute top-0 left-0 w-full h-[80px] flex items-center justify-between px-6 z-20 pointer-events-none">
-                                <span className={`text-[2rem] mona-sans-condensed-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-black/30' : 'text-white/30'}`}>0{i + 1}</span>
+                            <div className="absolute top-0 left-0 w-full h-[70px] flex items-center justify-between px-6 z-20 pointer-events-none">
+                                <span className={`text-[1.8rem] mona-sans-condensed-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-black/30' : 'text-white/30'}`}>0{i + 1}</span>
                                 <motion.div animate={{ opacity: isActive ? 0 : 1 }} transition={{ duration: 0.3 }} className="pl-4 flex-grow text-right truncate">
-                                    <span className="text-[1.2rem] mona-sans-condensed-medium text-white/80 uppercase">{diff.title.replace('\n', ' ')}</span>
+                                    <span className="text-[1.1rem] mona-sans-condensed-medium text-white/80 uppercase">{diff.title.replace('\n', ' ')}</span>
                                 </motion.div>
                             </div>
-                            <motion.div animate={{ opacity: isActive ? 1 : 0 }} transition={{ duration: 0.4, delay: isActive ? 0.2 : 0 }} className="absolute inset-0 pt-[80px] px-6 pb-8 flex flex-col justify-between pointer-events-none">
-                                <span className="absolute -right-4 -bottom-6 text-[6rem] font-black leading-none select-none mona-sans-condensed-bold tracking-tightest uppercase text-black/[0.04] z-0">{diff.keyword}</span>
-                                <h3 className="text-[2.4rem] text-black leading-[1.0] tracking-tight mona-sans-condensed-bold uppercase drop-shadow-sm z-10 w-[95%]" style={{ whiteSpace: 'pre-line' }}>{diff.title}</h3>
+                            <motion.div animate={{ opacity: isActive ? 1 : 0 }} transition={{ duration: 0.4, delay: isActive ? 0.2 : 0 }} className="absolute inset-0 pt-[70px] px-6 pb-8 flex flex-col justify-between pointer-events-none">
+                                <span className="absolute -right-4 -bottom-6 text-[4.5rem] font-black leading-none select-none mona-sans-condensed-bold tracking-tightest uppercase text-black/[0.04] z-0">{diff.keyword}</span>
+                                <h3 className="text-[1.8rem] text-black leading-[1.0] tracking-tight mona-sans-condensed-bold uppercase drop-shadow-sm z-10 w-[95%]" style={{ whiteSpace: 'pre-line' }}>{diff.title}</h3>
                                 <div className="mt-4 relative z-10 w-full flex items-end justify-between">
                                     <p className="text-black/80 text-[15px] leading-relaxed poppins-medium w-[85%] border-l-2 border-[#094B28]/20 pl-4">{diff.desc}</p>
                                 </div>
@@ -415,55 +417,120 @@ const WhoWeWorkWith = () => (
             <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
                 <div className="flex flex-col gap-2">
                     <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Our Clients</span>
-                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">Who We Work With</h2>
+                    <h2 className="text-[1.8rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">Who We Work With</h2>
                 </div>
                 <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">We work best with brands that are serious about growth.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/[0.04]">
-                {clients.map((client, i) => (
-                    <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.07, ease: [0.19, 1, 0.22, 1] }}
-                        className="group bg-white hover:bg-[#FAFAFA] transition-colors duration-500 p-8 md:p-12 flex flex-col gap-8"
-                    >
-                        <div className="w-[64px] h-[64px] text-black/40 group-hover:text-black/70 transition-colors duration-500">{clientIllustrations[i]}</div>
-                        <div className="flex flex-col gap-3">
-                            <div className="flex items-center gap-4">
-                                <span className="text-[9px] font-mono tracking-[0.3em] text-black/20">0{i + 1}</span>
-                                <h3 className="text-[1.15rem] md:text-[1.3rem] text-black mona-sans-condensed-medium tracking-tight group-hover:text-[#476D07] transition-colors duration-400">{client.title}</h3>
+            {/* Support for Horizontal Scroll on Mobile, Grid on Desktop */}
+            <div className="relative -mx-6 px-6 md:mx-0 md:px-0">
+                <div className="flex md:grid md:grid-cols-2 gap-px bg-black/[0.04] overflow-x-auto md:overflow-x-visible hide-scrollbar snap-x snap-mandatory">
+                    {clients.map((client, i) => (
+                        <motion.div 
+                            key={i} 
+                            initial={{ opacity: 0, y: 20 }} 
+                            whileInView={{ opacity: 1, y: 0 }} 
+                            viewport={{ once: true }} 
+                            transition={{ duration: 0.6, delay: i * 0.07, ease: [0.19, 1, 0.22, 1] }}
+                            className="group bg-white hover:bg-[#FAFAFA] transition-colors duration-500 p-8 md:p-12 flex flex-col gap-10 min-w-[85vw] md:min-w-0 snap-center"
+                        >
+                            <div className="w-[64px] h-[64px] text-black/40 group-hover:text-black/70 transition-colors duration-500">{clientIllustrations[i]}</div>
+                            <div className="flex flex-col gap-4 mt-auto">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-[10px] font-bold tracking-[0.3em] text-black/40 font-mono">0{i + 1}</span>
+                                    <h3 className="text-[1.25rem] md:text-[1.3rem] text-black mona-sans-condensed-medium tracking-tight group-hover:text-[#476D07] transition-colors duration-400 uppercase">{client.title}</h3>
+                                </div>
+                                <p className="text-black/60 text-[14px] md:text-[15px] leading-relaxed poppins-regular max-w-sm">{client.desc}</p>
                             </div>
-                            <p className="text-black/45 text-[14px] leading-relaxed poppins-regular">{client.desc}</p>
-                        </div>
-                    </motion.div>
-                ))}
+                        </motion.div>
+                    ))}
+                </div>
+                
+                {/* Mobile Scroll Indicator */}
+                <div className="flex md:hidden items-center justify-between mt-8">
+                    <div className="text-[9px] font-bold tracking-[0.3em] text-black/20 uppercase">Swipe for more</div>
+                    <div className="flex gap-1.5">
+                        {clients.map((_, i) => (
+                            <div key={i} className={`w-1.5 h-1.5 bg-black/${i === 0 ? '40' : '10'} rounded-full`} />
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 );
+
+const ScrambleButtonDark = ({ text, href }: { text: string; href: string }) => {
+  return (
+    <motion.a
+      href={href}
+      initial="initial"
+      whileHover="hover"
+      variants={{
+        initial: { clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" },
+        hover: { clipPath: "polygon(18px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 18px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+      }}
+      className="group relative flex items-center justify-center bg-black h-[60px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+    >
+      <motion.div 
+        variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-0 bg-white w-full h-full"
+      />
+      
+      <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
+        <div className="opacity-0 pointer-events-none flex items-center gap-3 text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold whitespace-nowrap">
+          <span>{text}</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </div>
+        <motion.div
+          variants={{
+            initial: { y: "0%" },
+            hover: { y: "-100%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+          }}
+          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold text-white whitespace-nowrap"
+        >
+          <span>{text}</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px] group-hover:rotate-45 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </motion.div>
+        
+        <motion.div
+          variants={{
+            initial: { y: "100%" },
+            hover: { y: "0%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
+          }}
+          className="absolute inset-0 flex items-center justify-center gap-3 w-full h-full text-[12px] md:text-[13px] tracking-[0.2em] uppercase font-bold text-black whitespace-nowrap"
+        >
+          <span>{text}</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[1px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+        </motion.div>
+      </div>
+    </motion.a>
+  );
+};
 
 const CTASection = () => (
     <section className="w-full bg-[#080808] px-6 md:px-10 pt-16 md:pt-24 pb-10 selection:bg-black selection:text-[#AFFF00]">
         <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-8 md:px-20 py-14 md:py-20"
+            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-6 md:px-20 py-12 md:py-20"
             style={{ clipPath: "polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%)" }}
         >
             <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
             <div className="relative z-10 w-full max-w-[1400px] mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 md:gap-12">
                     <div className="flex flex-col gap-6">
                         <span className="text-[10px] font-bold tracking-[0.4em] text-black/50 uppercase poppins-regular">Start a Project</span>
-                        <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
+                        <h2 className="text-[2.5rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
                             Ready to Build<br /><span className="text-black/30">Something Real?</span>
                         </h2>
                         <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">Let's talk about your brand and where you want to take it.</p>
                     </div>
-                    <div className="flex flex-col gap-4 shrink-0">
-                        <Link to="/contact" className="group flex items-center gap-4 bg-black text-white px-8 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:gap-6"
-                            style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}>
-                            Start a Conversation
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
-                        </Link>
-                        <a href="mailto:hello@drixmedia.com" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center">hello@drixmedia.com</a>
+                    <div className="flex flex-col gap-4 shrink-0 w-full md:w-auto">
+                        <div className="w-full md:w-auto scale-[0.85] md:scale-100 origin-left">
+                            <ScrambleButtonDark href="/contact" text="START A CONVERSATION" />
+                        </div>
+                        <a href="mailto:hello@drixmedia.com" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left">hello@drixmedia.com</a>
                     </div>
                 </div>
             </div>
@@ -479,7 +546,7 @@ const About: React.FC = () => {
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div style={{ opacity: heroOpacity, y: heroY }} className="w-full h-full">
                     <AboutHero />
                 </motion.div>

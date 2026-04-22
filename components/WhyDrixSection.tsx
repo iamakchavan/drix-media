@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 const features = [
@@ -20,7 +20,7 @@ const features = [
     title: "End-to-End Execution",
     description: "From strategy to final campaign delivery, we handle it all. You get a seamless, end-to-end experience. One team, one process, one point of contact.",
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_7)"><path d="M389.667 0H361.833C361.833 61.4003 311.9 111.333 250.5 111.333H13.9166V139.167H55.6666V180.945H97.4166V139.167H250.5C311.9 139.167 361.833 189.1 361.833 250.5H389.667C389.667 189.1 439.6 139.167 501 139.167V111.333C439.6 111.333 389.667 61.4003 389.667 0ZM375.75 189.879C362.084 161.767 339.233 138.916 311.121 125.25C339.233 111.584 362.084 88.7327 375.75 60.621C389.416 88.7327 412.267 111.584 440.379 125.25C412.267 138.916 389.416 161.767 375.75 189.879Z" fill="currentColor"></path><path d="M55.6666 180.945H13.9166V222.695H55.6666V180.945Z" fill="currentColor"></path><path d="M139.167 180.945H97.4166V222.695H139.167V180.945Z" fill="currentColor"></path><path d="M487.083 389.667V361.833H250.5C189.1 361.833 139.167 311.9 139.167 250.5H111.333C111.333 311.9 61.4003 361.833 0 361.833V389.667C61.4003 389.667 111.333 439.6 111.333 501H139.167C139.167 439.6 189.1 389.667 250.5 389.667H403.583V431.444H445.333V389.667H487.083ZM125.25 440.379C111.584 412.267 88.7327 389.416 60.621 375.75C88.7327 362.084 111.584 339.233 125.25 311.121C138.916 339.233 161.767 362.084 189.879 375.75C161.767 389.416 138.916 412.267 125.25 440.379Z" fill="currentColor"></path><path d="M487.083 431.444H445.333V473.194H487.083V431.444Z" fill="currentColor"></path><path d="M403.583 431.444H361.833V473.194H403.583V431.444Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_7"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 501 501" fill="none" className="step-icon"><g clipPath="url(#clip0_592_7)"><path d="M389.667 0H361.833C361.833 61.4003 311.9 111.333 250.5 111.333H13.9166V139.167H55.6666V180.945H97.4166V139.167H250.5C311.9 139.167 361.833 189.1 361.833 250.5H389.667C389.667 189.1 439.6 139.167 501 139.167V111.333C439.6 111.333 389.667 61.4003 389.667 0ZM375.75 189.879C362.084 161.767 339.233 138.916 311.121 125.25C339.233 111.584 362.084 88.7327 375.75 60.621C389.416 88.7327 412.267 111.584 440.379 125.25C412.267 138.916 389.416 161.767 375.75 189.879Z" fill="currentColor"></path><path d="M55.6666 180.945H13.9166V222.695H55.6666V180.945" fill="currentColor"></path><path d="M139.167 180.945H97.4166V222.695H139.167V180.945Z" fill="currentColor"></path><path d="M487.083 389.667V361.833H250.5C189.1 361.833 139.167 311.9 139.167 250.5H111.333C111.333 311.9 61.4003 361.833 0 361.833V389.667C61.4003 389.667 111.333 439.6 111.333 501H139.167C139.167 439.6 189.1 389.667 250.5 389.667H403.583V431.444H445.333V389.667H487.083ZM125.25 440.379C111.584 412.267 88.7327 389.416 60.621 375.75C88.7327 362.084 111.584 339.233 125.25 311.121C138.916 339.233 161.767 362.084 189.879 375.75C161.767 389.416 138.916 412.267 125.25 440.379Z" fill="currentColor"></path><path d="M487.083 431.444H445.333V473.194H487.083V431.444Z" fill="currentColor"></path><path d="M403.583 431.444H361.833V473.194H403.583V431.444Z" fill="currentColor"></path></g><defs><clipPath id="clip0_592_7"><rect width="501" height="501" fill="currentColor"></rect></clipPath></defs></svg>
     )
   },
   {
@@ -33,20 +33,38 @@ const features = [
 ];
 
 const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string }) => {
+  const clipStyle = {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)"
+  };
+
   return (
     <motion.a
       href={href}
       initial="initial"
       whileHover="hover"
-      variants={{
-        initial: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 0%)" },
-        hover: { clipPath: "polygon(16px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 16px)", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
-      }}
-      className="group relative flex items-center justify-center bg-transparent border border-black/20 h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+      className="group relative flex items-center justify-center bg-transparent h-[50px] md:h-[56px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
+      style={clipStyle}
     >
+      {/* Outer Border Layer */}
+      <div 
+        className="absolute inset-0 bg-black/20" 
+        style={clipStyle} 
+      />
+
+      {/* Inner Mask (creates the 1px border effect) */}
+      <div 
+        className="absolute inset-[1px] bg-white" 
+        style={clipStyle} 
+      />
+
+      {/* The hover fill */}
       <motion.div
-        variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
+        variants={{ 
+          initial: { y: "100%" }, 
+          hover: { y: "0%" } 
+        }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        style={clipStyle}
         className="absolute inset-0 bg-black w-full h-full"
       />
 
@@ -85,41 +103,47 @@ const ScrambleButtonSecondary = ({ text, href }: { text: string; href: string })
 
 const WhyDrixSection: React.FC = () => {
   const targetRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end end"]
   });
 
-  // Dynamically computes the perfect horizontal scroll distance for ANY screen size
-  // Framer Motion automatically interpolates these matched string formats
   const x = useTransform(scrollYProgress, [0, 1], ["calc(0% - 0vw)", "calc(-100% + 100vw)"]);
 
   return (
     <section ref={targetRef} className="relative h-[250vh] bg-white text-black selection:bg-black selection:text-[#AFFF00]">
-      {/* Container that sticks to the viewport while you scroll through height */}
-      <div className="sticky top-0 h-[100svh] w-full flex flex-col justify-between overflow-hidden pt-16 md:pt-20 pb-10 md:pb-6">
+      <div className="sticky top-0 h-[100svh] w-full flex flex-col overflow-hidden pt-12 md:pt-[6vh] pb-6 md:pb-[4vh]">
 
         {/* UPPER SECTION: The Title and Controls */}
-        <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 mb-2 md:mb-4 flex flex-col shrink-0">
+        <div className="w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-20 flex flex-col shrink-0">
 
-          <div className="flex flex-col items-start gap-4 lg:gap-6">
-            <h2 className="text-5xl md:text-[12vh] lg:text-[14vh] mona-sans-condensed-medium tracking-tight leading-[0.95] md:leading-[0.9] text-black">
+          <div className="flex flex-col items-start gap-4 md:gap-[2vh]">
+            <h2 className="text-[10vw] md:text-[clamp(3.5rem,10vh,12vh)] lg:text-[clamp(4rem,12vh,14vh)] mona-sans-condensed-medium tracking-tight leading-[0.9] text-black">
               Why Brands<br className="hidden md:block" />
               <span className="inline-flex items-center mt-1">
                 Choose Drix
-                <svg className="ml-2 md:ml-4 w-10 md:w-[6vh] h-10 md:h-[6vh] text-black transform translate-y-[18px] md:translate-y-[3vh] opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="miter">
+                <svg className="ml-2 md:ml-4 w-8 md:w-[5vh] h-8 md:h-[5vh] text-black transform translate-y-[12px] md:translate-y-[2.5vh] opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="miter">
                   <polyline points="10 16 16 22 22 16" />
                   <path d="M0 4h16v18" />
                 </svg>
               </span>
             </h2>
 
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12 w-full max-w-4xl pt-2">
-              <div className="w-max shrink-0 scale-90 md:scale-100 origin-left">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-12 w-full max-w-4xl pt-1">
+              <div className="w-max shrink-0 scale-[0.85] md:scale-100 origin-left">
                 <ScrambleButtonSecondary href="#about" text="About Us" />
               </div>
 
-              <p className="text-black/40 text-[10px] md:text-[12px] poppins-bold tracking-[0.2em] uppercase leading-[1.6]">
+              <p className="hidden md:block text-black/40 text-[9px] md:text-[min(12px,1.2vh)] poppins-bold tracking-[0.2em] uppercase leading-[1.6]">
                 Design, Develop And Deploy Any Media Strategy You Need.
               </p>
             </div>
@@ -128,24 +152,26 @@ const WhyDrixSection: React.FC = () => {
         </div>
 
         {/* LOWER SECTION: The horizontally scrolling track containing the cards */}
-        <div className="w-full h-full flex items-center overflow-visible mt-auto pt-6 min-h-[300px]">
+        <div className="w-full flex-1 flex items-center overflow-visible mt-4 md:mt-[2vh] min-h-0">
           <motion.div
             style={{ x }}
-            className="flex gap-6 md:gap-8 w-max pl-[85vw] md:pl-[50vw] lg:pl-[65vw] xl:pl-[75vw]"
+            className="flex gap-4 md:gap-8 w-max pl-[80vw] md:pl-[50vw] lg:pl-[65vw] xl:pl-[75vw]"
           >
-            {/* Scrolling Cards */}
             {features.map((feature, idx) => (
               <motion.div
                 key={idx}
                 initial="inactive"
                 whileInView="active"
-                viewport={{ margin: "0px -40% 0px -40%", amount: 0.5 }}
+                viewport={{ 
+                  margin: isMobile ? "0px -30% 0px -30%" : "0px -40% 0px -40%", 
+                  amount: 0.5 
+                }}
                 variants={{
                   inactive: { backgroundColor: "#FAFAFA", borderColor: "rgba(0,0,0,0.05)" },
                   active: { backgroundColor: "#0A0A0A", borderColor: "#AFFF00" }
                 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative w-[75vw] sm:w-[320px] md:w-[360px] lg:w-[400px] aspect-square flex-shrink-0 rounded-none flex flex-col items-center justify-center border overflow-hidden cursor-default"
+                className="relative w-[70vw] sm:w-[320px] md:w-[clamp(300px,35vh,380px)] lg:w-[clamp(340px,45vh,440px)] aspect-square flex-shrink-0 rounded-none flex flex-col items-center justify-center border overflow-hidden cursor-default"
               >
                 {/* Top Left Number */}
                 <motion.span
@@ -154,13 +180,13 @@ const WhyDrixSection: React.FC = () => {
                     active: { color: "#AFFF00" }
                   }}
                   transition={{ duration: 0.6 }}
-                  className="absolute top-6 left-6 text-[11px] font-bold tracking-[0.2em]"
+                  className="absolute top-5 left-5 md:top-[6%] md:left-[6%] text-[10px] md:text-[max(11px,1.1vh)] font-bold tracking-[0.2em]"
                 >
                   0{idx + 1}
                 </motion.span>
 
                 {/* Centered Content Wrapper (Crossfade) */}
-                <div className="absolute inset-0 flex items-center justify-center w-full h-full px-6 md:px-10">
+                <div className="absolute inset-0 flex items-center justify-center w-full h-full px-5 md:px-[10%]">
 
                   {/* Default State: Icon & Title */}
                   <motion.div
@@ -168,27 +194,27 @@ const WhyDrixSection: React.FC = () => {
                       inactive: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
                       active: { opacity: 0, y: -20, scale: 0.95, filter: "blur(4px)" },
                     }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute flex flex-col items-center justify-center gap-5 md:gap-8 w-full"
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isMobile ? 0.15 : 0 }}
+                    className="absolute flex flex-col items-center justify-center gap-4 md:gap-[15%] w-full"
                   >
-                    <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center text-black/50 shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-[1.5]">
+                    <div className="w-10 h-10 md:w-[clamp(2.5rem,8vh,4.5rem)] md:h-[clamp(2.5rem,8vh,4.5rem)] flex items-center justify-center text-black/50 shrink-0 [&>svg]:w-full [&>svg]:h-full [&>svg]:stroke-[1.5]">
                       {feature.icon}
                     </div>
-                    <h3 className="text-xl md:text-2xl poppins-medium tracking-tight text-black text-center leading-[1.2]">
+                    <h3 className="text-lg md:text-[clamp(1.2rem,2.5vh,1.6rem)] poppins-medium tracking-tight text-black text-center leading-[1.2]">
                       {feature.title}
                     </h3>
                   </motion.div>
 
-                  {/* Active State: Description (Now large and purely center stage) */}
+                  {/* Active State: Description */}
                   <motion.div
                     variants={{
                       inactive: { opacity: 0, y: 20, scale: 0.95, filter: "blur(4px)" },
                       active: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
                     }}
-                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
-                    className="absolute w-full px-4 md:px-6"
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: isMobile ? 0.25 : 0.05 }}
+                    className="absolute w-full px-4 md:px-[6%]"
                   >
-                    <p className="text-[15px] md:text-[1.1rem] lg:text-[1.2rem] text-white/90 leading-[1.6] md:leading-[1.7] font-medium text-left">
+                    <p className="text-[14px] md:text-[clamp(0.9rem,1.8vh,1.1rem)] text-white/90 leading-[1.6] md:leading-[1.7] font-medium text-left">
                       {feature.description}
                     </p>
                   </motion.div>
@@ -200,10 +226,10 @@ const WhyDrixSection: React.FC = () => {
                     inactive: { opacity: 1, y: 0 },
                     active: { opacity: 0, y: 15 }
                   }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-black/30"
+                  transition={{ duration: 0.4, delay: isMobile ? 0.15 : 0 }}
+                  className="absolute bottom-5 md:bottom-[6%] left-1/2 transform -translate-x-1/2 text-black/30"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="12" height="12" md:width="14" md:height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-[min(14px,1.5vh)] h-[min(14px,1.5vh)]">
                     <line x1="7" y1="17" x2="17" y2="7"></line>
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
@@ -211,8 +237,7 @@ const WhyDrixSection: React.FC = () => {
               </motion.div>
             ))}
 
-            {/* Decorative padding block at the end */}
-            <div className="w-[5vw] md:w-[15vw] lg:w-[25vw] xl:w-[40vw] shrink-0"></div>
+            <div className="w-[10vw] md:w-[15vw] lg:w-[25vw] xl:w-[40vw] shrink-0"></div>
 
           </motion.div>
         </div>
@@ -223,4 +248,3 @@ const WhyDrixSection: React.FC = () => {
 };
 
 export default WhyDrixSection;
-

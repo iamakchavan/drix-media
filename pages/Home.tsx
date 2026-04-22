@@ -25,7 +25,7 @@ const Home: React.FC = () => {
             {/* Fixed Floating Navbar */}
             <Navbar />
             {/* Sticky Hero Section - Revealing effect */}
-            <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{
                         opacity: heroOpacity,
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Main Content Wrapper - Slides over Hero */}
-            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.1)] pb-0">
+            <div className="relative z-10 bg-white shadow-[0_-15px_40px_rgba(0,0,0,0.1)] pb-0">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

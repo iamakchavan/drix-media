@@ -71,7 +71,7 @@ const ProjectsHero = () => (
         buttonHref="#projects-gallery"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-4 gap-x-[4vw] md:gap-x-4">
                     <span className="flex">
                         {"Selected".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -83,7 +83,7 @@ const ProjectsHero = () => (
                         ))}
                     </span>
                 </div>
-                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible mt-0 md:mt-2 pb-1 md:pb-4 gap-x-[4vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
                         {"That Speaks for Itself.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -104,7 +104,7 @@ const ProjectsHero = () => (
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[18vw] md:text-[15vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+                className="text-[22vw] md:text-[15vw] font-black text-white/[0.018] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
             >
                 PROJECTS
             </motion.span>
@@ -116,20 +116,34 @@ const ProjectsHero = () => (
 // ─── Category Filter Tabs ────────────────────────────────────────────────────
 
 const CategoryTabs = ({ active, onChange }: { active: string; onChange: (cat: string) => void }) => (
-    <div className="flex flex-wrap justify-center gap-2 md:gap-1">
-        {categories.map((cat) => (
-            <button
-                key={cat}
-                onClick={() => onChange(cat)}
-                className={`relative px-5 md:px-7 py-2.5 md:py-3 text-[11px] poppins-semibold tracking-[0.12em] uppercase transition-all duration-500 rounded-full border
-                    ${active === cat 
-                        ? 'bg-[#050505] text-white border-[#050505]' 
-                        : 'bg-transparent text-black/40 border-black/[0.08] hover:text-black hover:border-black/20'
-                    }`}
-            >
-                {cat}
-            </button>
-        ))}
+    <div className="w-full relative overflow-hidden">
+        {/* Horizontal Slider for Mobile, Centered for Desktop */}
+        <div className="flex overflow-x-auto no-scrollbar pb-4 md:pb-0 md:justify-center gap-3 md:gap-4 px-6 md:px-0 flex-nowrap scroll-smooth">
+            {categories.map((cat) => (
+                <button
+                    key={cat}
+                    onClick={() => onChange(cat)}
+                    className={`relative shrink-0 px-6 md:px-7 py-2.5 md:py-3 text-[11px] poppins-semibold tracking-[0.1em] md:tracking-[0.12em] uppercase transition-all duration-500 rounded-full border whitespace-nowrap
+                        ${active === cat 
+                            ? 'bg-[#050505] text-white border-[#050505]' 
+                            : 'bg-transparent text-black/40 border-black/[0.08] hover:text-black hover:border-black/20'
+                        }`}
+                >
+                    {cat}
+                </button>
+            ))}
+        </div>
+
+        {/* Global style for hiding scrollbar if not already present */}
+        <style dangerouslySetInnerHTML={{ __html: `
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        ` }} />
     </div>
 );
 
@@ -139,56 +153,66 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
     const [isHovered, setIsHovered] = useState(false);
 
     const aspectClass = project.aspect === 'portrait' 
-        ? 'aspect-[3/4]' 
+        ? 'aspect-[3/4.2]' 
         : project.aspect === 'square' 
             ? 'aspect-square' 
             : 'aspect-[4/3]';
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: 0.8, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: index * 0.05, ease: [0.19, 1, 0.22, 1] }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="group cursor-pointer"
+            className="group cursor-pointer w-full"
         >
             <Link to={`/projects/${project.id}`}>
-                <div className={`relative w-full ${aspectClass} overflow-hidden rounded-xl md:rounded-2xl bg-[#F2F2F2] shadow-[0_4px_20px_rgba(0,0,0,0.04)] group-hover:shadow-[0_16px_50px_rgba(0,0,0,0.1)] transition-shadow duration-700`}>
+                <div 
+                    className={`relative w-full ${aspectClass} overflow-hidden bg-[#F2F2F2] transition-all duration-700`}
+                    style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
+                >
                     <motion.img
                         src={project.image}
                         alt={project.title}
                         className="w-full h-full object-cover"
                         animate={{ scale: isHovered ? 1.05 : 1 }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                         loading="lazy"
                     />
+                    
+                    {/* Corner Detail (Industrial Zen Signature) */}
+                    <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 backdrop-blur-md flex items-center justify-center"
+                         style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}>
+                        <div className="w-1.5 h-1.5 bg-white/40 rounded-full translate-x-2 translate-y-[-8px]" />
+                    </div>
+
                     <motion.div 
-                        className="absolute top-4 right-4 z-20"
-                        animate={{ opacity: isHovered ? 1 : 0, scale: isHovered ? 1 : 0.8 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute bottom-4 right-4 z-20"
+                        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+                        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                     >
-                        <div className="w-10 h-10 rounded-full bg-[#AFFF00] flex items-center justify-center shadow-lg">
-                            <svg className="w-4 h-4 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <div className="w-10 h-10 md:w-12 md:h-12 border border-white/20 bg-black/10 backdrop-blur-md flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                                 <path d="M7 17l9.2-9.2M17 17V7H7"/>
                             </svg>
                         </div>
                     </motion.div>
                 </div>
 
-                <div className="flex items-start justify-between gap-3 mt-4 md:mt-5 px-1">
-                    <div className="flex flex-col gap-0.5">
-                        <h3 className="text-[1rem] md:text-[1.15rem] mona-sans-condensed-medium text-[#050505] leading-snug tracking-tight group-hover:text-[#476D07] transition-colors duration-400">
+                <div className="flex items-start justify-between gap-3 mt-4 md:mt-6 px-1">
+                    <div className="flex flex-col gap-1">
+                        <h3 className="text-[0.95rem] md:text-[1.25rem] mona-sans-condensed-medium text-[#050505] leading-none tracking-tight group-hover:text-[#476D07] transition-colors duration-400">
                             {project.title}
                         </h3>
-                        <span className="text-[11px] poppins-regular text-black/30 tracking-wide">
-                            {project.category}
-                        </span>
+                        <div className="flex items-center gap-2">
+                             <div className="w-4 h-[1px] bg-black/10" />
+                             <span className="text-[9px] md:text-[10px] poppins-regular text-black/40 tracking-[0.1em] uppercase">
+                                {project.category}
+                            </span>
+                        </div>
                     </div>
-                    <svg className="w-4 h-4 text-black/15 group-hover:text-[#476D07] group-hover:rotate-45 transition-all duration-500 mt-1 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                    </svg>
                 </div>
             </Link>
         </motion.div>
@@ -204,6 +228,7 @@ const ProjectsGallery = () => {
         ? projects 
         : projects.filter(p => p.category === activeCategory);
 
+    // Filter Logic for 2-column masonry on desktop, 1 column on mobile
     const col1 = filteredProjects.filter((_, i) => i % 2 === 0);
     const col2 = filteredProjects.filter((_, i) => i % 2 === 1);
 
@@ -211,29 +236,29 @@ const ProjectsGallery = () => {
         <section id="projects-gallery" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
             <div className="w-full max-w-[1400px] mx-auto">
 
-                <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-10 md:mb-14">
-                    <div className="flex flex-col gap-2">
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Portfolio</span>
-                        <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                <div className="w-full flex flex-col md:flex-row md:items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-10 md:mb-16">
+                    <div className="flex flex-col gap-2 mb-6 md:mb-0">
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Portfolio Index</span>
+                        <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
                             Our Projects
                         </h2>
                     </div>
-                    <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                        A curated selection of our finest work across all verticals.
-                    </p>
+                    
+                    <div className="w-full md:w-auto">
+                         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
+                    </div>
                 </div>
 
-                <div className="mb-12 md:mb-16">
-                    <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
-                </div>
-
-                <div className="flex gap-6 md:gap-8 lg:gap-10">
-                    <div className="flex-1 flex flex-col gap-8 md:gap-10">
+                {/* Adaptive Masonry Grid */}
+                <div className="flex flex-col md:flex-row gap-8 md:gap-10">
+                    <div className="flex-1 flex flex-col gap-8 md:gap-12">
                         {col1.map((project, i) => (
                             <ProjectImageCard key={project.id} project={project} index={i * 2} />
                         ))}
                     </div>
-                    <div className="flex-1 flex flex-col gap-8 md:gap-10 pt-16 md:pt-24">
+                    
+                    {/* Hide empty column behavior on mobile but keep state for desktop */}
+                    <div className={`${filteredProjects.length < 2 ? 'hidden md:flex' : 'flex'} flex-1 flex flex-col gap-8 md:gap-12 pt-0 md:pt-32`}>
                         {col2.map((project, i) => (
                             <ProjectImageCard key={project.id} project={project} index={i * 2 + 1} />
                         ))}
@@ -246,8 +271,8 @@ const ProjectsGallery = () => {
                         animate={{ opacity: 1 }}
                         className="flex flex-col items-center justify-center py-24 text-center"
                     >
-                        <span className="text-black/[0.06] text-[5rem] mona-sans-condensed-bold leading-none mb-4">∅</span>
-                        <p className="text-black/30 text-[14px] poppins-regular">No projects found in this category yet.</p>
+                        <span className="text-black/[0.04] text-[6rem] mona-sans-condensed-bold leading-none mb-4 tracking-tighter">NULL</span>
+                        <p className="text-black/30 text-[12px] md:text-[14px] poppins-regular uppercase tracking-widest">No entries found in index</p>
                     </motion.div>
                 )}
             </div>
@@ -340,41 +365,51 @@ const ScrollingShowcase = () => {
 // ─── CTA Section ─────────────────────────────────────────────────────────────
 
 const ProjectsCTA = () => (
-    <section className="w-full bg-[#080808] px-6 md:px-10 pt-16 md:pt-24 pb-10 selection:bg-black selection:text-[#AFFF00]">
+    <section className="w-full bg-[#080808] px-4 md:px-10 pt-16 md:pt-24 pb-10 selection:bg-black selection:text-[#AFFF00]">
         <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: [0.19,1,0.22,1] }}
-            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-8 md:px-20 py-14 md:py-20"
-            style={{ clipPath: "polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%)" }}
+            className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-7 md:px-20 py-12 md:py-20"
+            style={{ 
+                clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)",
+                // Responsive clip-path would be better handled by a CSS variable, but for now we'll use a fixed value that works well for both
+            }}
         >
+            {/* Desktop variant for larger chamfer */}
+            <style dangerouslySetInnerHTML={{ __html: `
+                @media (min-width: 768px) {
+                    .projects-cta-card { clip-path: polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%) !important; }
+                }
+            ` }} />
+            
             <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
             <div className="relative z-10 w-full max-w-[1400px] mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
-                    <div className="flex flex-col gap-6">
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-black/50 uppercase poppins-regular">Start a Project</span>
-                        <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">
+                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 md:gap-12">
+                    <div className="flex flex-col gap-5 md:gap-6">
+                        <span className="text-[9px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.4em] text-black/50 uppercase poppins-regular">Start a Project</span>
+                        <h2 className="text-[2.6rem] sm:text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-[1.05] md:leading-none mona-sans-condensed-medium font-normal">
                             Have a Vision?<br />
                             <span className="text-black/30">Let's Make It Real.</span>
                         </h2>
-                        <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
+                        <p className="text-black/60 text-[14px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">
                             Tell us about your next project.
                         </p>
                     </div>
 
-                    <div className="flex flex-col gap-4 shrink-0">
+                    <div className="flex flex-col gap-4 w-full md:w-auto shrink-0">
                         <Link
                             to="/contact"
-                            className="group flex items-center gap-4 bg-black text-white px-8 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:bg-[#050505] hover:gap-6"
+                            className="group flex items-center justify-between md:justify-start gap-6 bg-black text-white px-8 py-5 md:py-6 text-[12px] md:text-[13px] tracking-[0.15em] md:tracking-[0.18em] uppercase poppins-bold transition-all duration-400 hover:bg-[#050505]"
                             style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
                         >
-                            Start a Conversation
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            <span className="shrink-0">Start a Conversation</span>
+                            <svg className="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                         </Link>
                         <a
                             href="mailto:hello@drixmedia.com"
-                            className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center"
+                            className="text-black/50 hover:text-black transition-colors text-[11px] md:text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left md:pl-2"
                         >
                             hello@drixmedia.com
                         </a>
@@ -396,7 +431,7 @@ const Projects: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
             
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"

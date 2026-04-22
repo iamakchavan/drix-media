@@ -74,7 +74,7 @@ const ChallengeSection: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-[#080808] text-white pt-28 md:pt-44 pb-0 selection:bg-[#AFFF00] selection:text-black poppins-regular overflow-hidden">
+    <section ref={sectionRef} className="relative w-full bg-[#080808] text-white pt-20 md:pt-44 pb-0 selection:bg-[#AFFF00] selection:text-black poppins-regular overflow-hidden">
 
       {/* Subtle green glow */}
       <motion.div style={{ y: yParallax }} className="absolute right-[-10%] top-[15%] w-[600px] h-[600px] bg-[#094B28] rounded-full blur-[220px] opacity-15 pointer-events-none" />
@@ -95,41 +95,26 @@ const ChallengeSection: React.FC = () => {
         <motion.div
           initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }}
           variants={{ show: { transition: { staggerChildren: 0.07 } } }}
-          className="mb-20 md:mb-32"
+          className="mb-14 md:mb-32"
         >
-          {/* Top rule with label */}
-          <div className="flex items-center gap-4 mb-12">
-            <motion.div variants={lineReveal} className="h-px bg-white/20 flex-1 origin-left" />
-
-            <motion.div variants={lineReveal} className="h-px bg-white/20 w-12 origin-left" />
-          </div>
-
           {/* Main heading with engineered frame */}
           <div className="relative">
             {/* Corner brackets */}
-            <CornerBracket className="absolute -top-3 -left-3" />
-            <CornerBracket className="absolute -top-3 -right-3 rotate-90" />
-            <CornerBracket className="absolute -bottom-3 -left-3 -rotate-90" />
-            <CornerBracket className="absolute -bottom-3 -right-3 rotate-180" />
-
-            <div className="px-4 py-2">
-              <h2 className="text-[clamp(3rem,9vw,9rem)] mona-sans-condensed-medium tracking-tighter leading-[0.9]">
-                <div className="overflow-hidden pb-4">
+            <CornerBracket className="absolute -top-2 -left-2 md:-top-3 md:-left-3" />
+            <CornerBracket className="absolute -top-2 -right-2 md:-top-3 md:-right-3 rotate-90" />
+            <CornerBracket className="absolute -bottom-2 -left-2 md:-bottom-3 md:-left-3 -rotate-90" />
+            <CornerBracket className="absolute -bottom-2 -right-2 md:-bottom-3 md:-right-3 rotate-180" />
+            <div className="px-2 md:px-4 py-2">
+              <h2 className="text-[clamp(2rem,8.2vw,9.5rem)] md:text-[clamp(3rem,9vw,9rem)] mona-sans-condensed-medium tracking-tighter leading-[0.9] whitespace-nowrap md:whitespace-normal">
+                <div className="overflow-hidden pb-1 md:pb-4">
                   <motion.span variants={wordsVariants} className="inline-block">It Should Be Working</motion.span>
                 </div>
-                <div className="overflow-hidden pb-4 flex flex-wrap items-baseline gap-x-[0.3em]">
+                <div className="overflow-hidden pb-1 md:pb-4 flex items-baseline gap-x-[0.3em]">
                   <motion.span variants={wordsVariants} className="inline-block text-[#AFFF00]">But It Isn't.</motion.span>
                   <motion.span variants={wordsVariants} className="inline-block text-white/25">Here's Why.</motion.span>
                 </div>
               </h2>
             </div>
-          </div>
-
-          {/* Bottom rule */}
-          <div className="flex items-center gap-4 mt-12">
-            <motion.div variants={lineReveal} className="h-px bg-[#AFFF00]/30 w-8 origin-left" />
-            <motion.div variants={lineReveal} className="h-px bg-white/10 flex-1 origin-left" />
-
           </div>
         </motion.div>
 
@@ -146,23 +131,23 @@ const ChallengeSection: React.FC = () => {
                 hidden: { opacity: 0, y: 24 },
                 show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
-              className="group relative flex flex-col justify-between min-h-[380px] md:min-h-[440px] border-r border-white/[0.07] last:border-r-0 overflow-hidden"
+              className="group relative flex flex-col justify-between min-h-[360px] md:min-h-[440px] border-r border-white/[0.07] last:border-r-0 overflow-hidden"
               style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}
             >
               <div className="absolute inset-0">
                 <img src={point.image} alt={point.label} className="w-full h-full object-cover grayscale opacity-25 group-hover:opacity-45 group-hover:grayscale-0 transition-all duration-1000 ease-out" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-[#080808]/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-transparent" />
               </div>
               {/* Index + label */}
-              <div className="relative z-10 p-8 md:p-10 flex flex-col gap-1">
+              <div className="relative z-10 p-7 md:p-10 flex flex-col gap-1">
                 <span className="text-[11px] font-mono tracking-[0.3em] text-[#AFFF00]">{point.index}</span>
                 <span className="text-[9px] font-mono tracking-[0.2em] uppercase text-white/30">{point.label}</span>
               </div>
               {/* Body text pinned to bottom */}
-              <div className="relative z-10 mt-auto p-8 md:p-10 pt-0">
+              <div className="relative z-10 mt-auto p-7 md:p-10 pt-0">
                 <div className="overflow-hidden">
                   <motion.div initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.2 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}>
-                    <p className="text-xl md:text-2xl mona-sans-medium leading-[1.25] text-white/70 group-hover:text-white transition-colors duration-500 tracking-tight">
+                    <p className="text-[clamp(1.15rem,5.2vw,1.5rem)] md:text-2xl mona-sans-medium leading-[1.25] text-white/70 group-hover:text-white transition-colors duration-500 tracking-tight whitespace-nowrap md:whitespace-normal">
                       {point.body}
                     </p>
                   </motion.div>
@@ -188,7 +173,7 @@ const ChallengeSection: React.FC = () => {
             <div className="w-2 h-2 border border-[#AFFF00]/40 rotate-45" />
           </div>
 
-          <div className="w-full bg-[#AFFF00] p-10 md:p-20 lg:p-28 flex flex-col xl:flex-row justify-between items-start xl:items-end gap-16 relative overflow-hidden">
+          <div className="w-full bg-[#AFFF00] p-8 sm:p-10 md:p-20 lg:p-28 flex flex-col xl:flex-row justify-between items-start xl:items-end gap-12 md:gap-16 relative overflow-hidden">
 
             {/* Engineered grid overlay on green block */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
@@ -212,26 +197,16 @@ const ChallengeSection: React.FC = () => {
                 <span className="text-[10px] font-mono tracking-[0.35em] uppercase text-black/50">Our Solution</span>
                 <div className="w-12 h-px bg-black/20" />
               </div>
-              <h2 className="text-[clamp(4rem,11vw,11rem)] mona-sans-condensed-medium tracking-tighter leading-[0.85] text-black mb-10 md:mb-14">
-                Under<br className="hidden md:block" /> One Roof.
+              <h2 className="text-[clamp(3.5rem,12vw,11rem)] md:text-[clamp(4rem,11vw,11rem)] mona-sans-condensed-medium tracking-tighter leading-[0.85] text-black mb-8 md:mb-14">
+                Under<br /> One Roof.
               </h2>
-              <p className="text-2xl md:text-3xl lg:text-[2rem] mona-sans-medium text-black/70 leading-[1.15] tracking-tight max-w-3xl">
+              <p className="text-xl md:text-3xl lg:text-[2rem] mona-sans-medium text-black/70 leading-[1.15] tracking-tight max-w-3xl">
                 Strategy, design, content, and execution working together as{' '}
-                <span className="underline decoration-black/20 underline-offset-[10px]">one system.</span>
+                <span className="underline decoration-black/20 underline-offset-[6px] md:underline-offset-[10px]">one system.</span>
               </p>
             </div>
 
-            <div className="flex flex-col xl:items-end gap-8 relative z-10 pb-2">
-              {/* Engineered data readout */}
-              <div className="flex flex-col gap-2 xl:items-end mb-4">
-                {[['STATUS', 'ACTIVE'], ['MODE', 'INTEGRATED'], ['OUTPUT', 'UNIFIED']].map(([k, v]) => (
-                  <div key={k} className="flex items-center gap-3">
-                    <span className="text-[9px] font-mono tracking-[0.3em] text-black/30">{k}</span>
-                    <div className="w-8 h-px bg-black/20" />
-                    <span className="text-[9px] font-mono tracking-[0.3em] text-black/60">{v}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-col xl:items-end gap-6 md:gap-8 relative z-10 pb-2">
               <p className="text-lg md:text-xl poppins-medium text-black/60 leading-[1.5] max-w-xs xl:text-right">
                 No Separate Departments.<br />
                 One Integrated Team.<br />

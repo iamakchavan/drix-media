@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const StarIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
@@ -80,35 +81,86 @@ const TestimonialCard = ({ t, dark }: { t: typeof testimonials[0]; dark: boolean
 );
 
 const TestimonialsSection: React.FC = () => {
-  return (
-    <section className="w-full bg-white py-16 md:py-20 px-6 md:px-12 font-sans border-t border-[#E5E5E5]">
-      <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-        {/* Card 1: Intro — White */}
-        <div className="relative flex flex-col justify-between p-8 border border-[#E5E5E5] bg-white min-h-[500px] xl:min-h-[600px]">
-          <div className="absolute top-8 right-8 w-2.5 h-2.5 border-t-2 border-r-2 border-[#AFFF00]" />
-          <div>
-            <div className="flex items-start mb-16 text-[#0C0C0C]">
-              <span className="font-bebas text-[35px] leading-[0.85em] tracking-[-0.04em]">DRIX MEDIA</span>
-              <span className="font-bebas text-[14px] leading-[0.85em] tracking-[-0.04em] ml-0.5 pt-0.5">®</span>
+    return (
+        <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 font-sans border-t border-[#E5E5E5] overflow-hidden">
+            <div className="max-w-[1600px] mx-auto">
+                <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+
+                    {/* Card 1: Intro — Preserving Desktop 'Split' while keeping Mobile 'Tight' */}
+                    <div className="relative flex flex-col justify-between p-7 md:p-8 border border-[#E5E5E5] bg-white min-h-0 md:min-h-[500px] xl:min-h-[600px]">
+                        <div className="absolute top-7 md:top-8 right-7 md:right-8 w-2 h-2 md:w-2.5 md:h-2.5 border-t-2 border-r-2 border-[#AFFF00]" />
+                        
+                        <div className="flex flex-col gap-4 md:block">
+                            <div className="flex items-start md:mb-16 text-[#0C0C0C]">
+                                <span className="font-bebas text-[28px] md:text-[35px] leading-[0.85em] tracking-[-0.04em]">DRIX MEDIA</span>
+                                <span className="font-bebas text-[11px] md:text-[14px] leading-[0.85em] tracking-[-0.04em] ml-0.5 pt-0.5">®</span>
+                            </div>
+                            <h2 className="text-[38px] sm:text-[42px] md:text-[3.5rem] xl:text-[4rem] font-bold tracking-tighter leading-[0.9] text-[#0C0C0C]">
+                                Success<br />stories
+                            </h2>
+                            
+                            {/* Mobile Tagline (Part of the group) */}
+                            <p className="md:hidden text-[#0C0C0C]/50 text-[14px] leading-snug text-left">
+                                Our work speaks for itself, but our clients say it even better.
+                            </p>
+                        </div>
+
+                        {/* Desktop Tagline (Anchored to bottom) */}
+                        <p className="hidden md:block text-[#0C0C0C]/60 text-lg leading-relaxed text-right md:max-w-[200px] md:ml-auto">
+                            Our work speaks for itself, but our clients say it even better.
+                        </p>
+                    </div>
+
+                    {/* Testimonials Container */}
+                    <div className="xl:col-span-3">
+                        {/* Desktop: Grid Display */}
+                        <div className="hidden xl:grid grid-cols-3 gap-6 h-full">
+                            {testimonials.map((t, i) => (
+                                <TestimonialCard key={i} t={t} dark={i % 2 === 0} />
+                            ))}
+                        </div>
+
+                        {/* Mobile/Tablet: Carousel Display */}
+                        <div className="xl:hidden mt-8">
+                            <div className="relative">
+                                <motion.div
+                                    className="flex gap-6 cursor-grab active:cursor-grabbing"
+                                    drag="x"
+                                    dragConstraints={{ right: 0, left: -((testimonials.length - 1) * 320) }}
+                                    onDragEnd={(_, info) => {
+                                        if (info.offset.x < -100 && currentIndex < testimonials.length - 1) {
+                                            setCurrentIndex(currentIndex + 1);
+                                        } else if (info.offset.x > 100 && currentIndex > 0) {
+                                            setCurrentIndex(currentIndex - 1);
+                                        }
+                                    }}
+                                >
+                                    {testimonials.map((t, i) => (
+                                        <div key={i} className="min-w-[300px] sm:min-w-[350px] w-full">
+                                            <TestimonialCard t={t} dark={i % 2 === 0} />
+                                        </div>
+                                    ))}
+                                </motion.div>
+
+                                {/* Pagination Dots */}
+                                <div className="flex justify-center gap-2 mt-8">
+                                    {testimonials.map((_, i) => (
+                                        <div
+                                            key={i}
+                                            className={`h-1.5 transition-all duration-300 rounded-full ${currentIndex === i ? 'w-8 bg-black' : 'w-2 bg-black/10'}`}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <h2 className="text-5xl md:text-[3.5rem] xl:text-[4rem] font-bold tracking-tighter leading-[0.9] text-[#0C0C0C]">
-              Success<br />stories
-            </h2>
-          </div>
-          <p className="text-[#0C0C0C]/60 text-base md:text-lg leading-relaxed text-right mt-auto max-w-[200px] ml-auto">
-            Our work speaks for itself, but our clients say it even better.
-          </p>
-        </div>
-
-        {/* Cards 2–4: alternating Black, White, Black */}
-        {testimonials.map((t, i) => (
-          <TestimonialCard key={i} t={t} dark={i % 2 === 0} />
-        ))}
-
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default TestimonialsSection;

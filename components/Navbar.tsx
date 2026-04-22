@@ -35,7 +35,6 @@ const Navbar: React.FC = () => {
     { label: 'About', path: '/about' },
     { label: 'Services', path: '/services' },
     { label: 'Projects', path: '/projects' },
-    { label: 'Journal', path: '/blog' },
     { label: 'Contact', path: '/contact' },
   ];
 
@@ -44,7 +43,7 @@ const Navbar: React.FC = () => {
     { label: 'About', path: '/about' },
     { label: 'Services', path: '/services' },
     { label: 'Projects', path: '/projects' },
-    { label: 'Journal', path: '/blog' },
+    { label: 'Blogs', path: '/blog' },
     { label: 'Contact', path: '/contact' },
   ];
 
@@ -98,17 +97,17 @@ const Navbar: React.FC = () => {
         className="fixed top-0 left-0 w-full z-[900] pointer-events-none flex justify-center"
       >
         <div 
-           className={`pointer-events-auto flex justify-between items-center transition-all duration-[600ms] ease-[cubic-bezier(0.16, 1, 0.3, 1)] will-change-transform ${
+           className={`pointer-events-auto flex justify-between items-center transition-all duration-[700ms] ease-[cubic-bezier(0.19, 1, 0.22, 1)] will-change-transform ${
              isScrolled && !isOpen
-               ? 'w-[calc(100%-2rem)] md:w-[85%] lg:w-[80vw] max-w-[1200px] h-[65px] md:h-[75px] bg-[#050505]/95 backdrop-blur-xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.5)] rounded-[20px] md:rounded-full px-5 md:px-10 mt-3 md:mt-4'
+               ? 'w-[calc(100%-1.25rem)] sm:w-[calc(100%-2rem)] md:w-[92%] lg:w-[85vw] max-w-[1400px] h-[60px] md:h-[75px] bg-[#050505]/95 backdrop-blur-xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.4)] rounded-full px-4 sm:px-6 md:px-10 mt-3 md:mt-4'
                : 'w-full max-w-none h-[90px] bg-transparent border-transparent rounded-none px-6 md:px-12 lg:px-20 mt-0'
            }`}
         >
             {/* ── Logo ── */}
-            <Link to="/" className="z-[60] flex items-center">
+            <Link to="/" className="z-[60] flex items-center transition-transform duration-500 hover:scale-105 active:scale-95">
               {/* Pill state: icon only */}
               {isScrolled && !isOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" className="h-8 w-8 md:h-9 md:w-9 flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 flex-shrink-0">
                   <path fill="#afff00" d="M127.6,872.4c-3.9-76,2-140.5,41.7-207,46.9-78.7,160.1-154.3,253.8-154.3h338c-12.8-54.2-65.2-136.4-163.7-140.3H246.6v121.2l-137.6,133.6-75.2-74,98-102.1v-189.2h441.3c46.6,0,92.5,11.1,134.4,31.6,186,90.9,230.9,381.3,36.1,520.8-55.4,39.6-122.4,59.7-190.5,59.7H127.6ZM761,621.6h-321c-17.6,0-66.2,14.9-84,22.3-49.5,20.5-93.5,65.3-105.2,118h346.5c10,0,47.1-13.2,58.3-18.3,50-22.5,92.8-68.5,105.4-122Z"/>
                   <g fill="#afff00">
                     <path d="M672.1,235.1l-31.2-5.7,7.3-39.9-30.2,35.8-20.4-3.7-15.6-44.1-7.3,39.9-31.2-5.7,15.4-84,38.4,7,17.1,52.7,34.7-43.2,38.4,7-15.4,84Z"/>
@@ -135,13 +134,12 @@ const Navbar: React.FC = () => {
               )}
             </Link>
 
-            {/* ── Center Links (Desktop) ── */}
-            <div className={`hidden md:flex items-center justify-center gap-10 lg:gap-16 absolute left-1/2 transform -translate-x-1/2 transition-all duration-500 ${
+            {/* ── Center Links (Desktop Adaptive) ── */}
+            <div className={`hidden lg:flex items-center justify-center gap-8 xl:gap-16 absolute left-1/2 transform -translate-x-1/2 transition-all duration-500 ${
                 isOpen ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'
             }`}>
               {navLinks.map((link) => {
                 const isItemActive = isActive(link.path);
-                // Smart color logic depending on scrolling state vs active vs blending
                 let linkStyle = "";
                 if (isScrolled && !isOpen) {
                     linkStyle = isItemActive ? 'text-[#AFFF00]' : 'text-white/70 hover:text-white';
@@ -153,7 +151,7 @@ const Navbar: React.FC = () => {
                   <Link
                     key={link.label}
                     to={link.path}
-                    className={`text-[11px] poppins-semibold tracking-[0.15em] transition-colors uppercase ${linkStyle}`}
+                    className={`text-[10px] xl:text-[11px] poppins-semibold tracking-[0.15em] transition-colors uppercase ${linkStyle}`}
                   >
                     {link.label}
                   </Link>
@@ -164,15 +162,15 @@ const Navbar: React.FC = () => {
             {/* ── Menu Trigger ── */}
             <button
               onClick={() => setIsOpen(true)}
-              className={`flex items-center gap-2 md:gap-3 group cursor-pointer z-[60] transition-all duration-500 ${
+              className={`flex items-center gap-2 sm:gap-3 group cursor-pointer z-[60] transition-all duration-500 ${
                   isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
               } ${isScrolled && !isOpen ? 'text-white' : 'text-white mix-blend-difference'}`}
             >
               <div className="flex flex-col gap-1 md:gap-1.5 items-end pt-0.5 md:pt-1">
-                <span className={`block w-6 md:w-8 h-[2px] transition-colors duration-300 ${isScrolled && !isOpen ? 'bg-white group-hover:bg-[#AFFF00]' : 'bg-white mix-blend-difference group-hover:bg-[#AFFF00]'}`}></span>
-                <span className={`block w-4 md:w-5 h-[2px] md:group-hover:w-8 group-hover:w-6 transition-all duration-300 ${isScrolled && !isOpen ? 'bg-white group-hover:bg-[#AFFF00]' : 'bg-white mix-blend-difference group-hover:bg-[#AFFF00]'}`}></span>
+                <span className={`block w-5 sm:w-6 md:w-8 h-[2px] transition-colors duration-300 ${isScrolled && !isOpen ? 'bg-white group-hover:bg-[#AFFF00]' : 'bg-white mix-blend-difference group-hover:bg-[#AFFF00]'}`}></span>
+                <span className={`block w-3 sm:w-4 md:w-5 h-[2px] md:group-hover:w-8 group-hover:w-6 transition-all duration-300 ${isScrolled && !isOpen ? 'bg-white group-hover:bg-[#AFFF00]' : 'bg-white mix-blend-difference group-hover:bg-[#AFFF00]'}`}></span>
               </div>
-              <span className={`text-[1.8rem] md:text-5xl mona-sans-condensed-black uppercase tracking-tighter transition-colors duration-300 leading-none ${isScrolled && !isOpen ? 'group-hover:text-[#AFFF00]' : 'group-hover:text-[#AFFF00]'}`}>
+              <span className={`text-[1.3rem] sm:text-[1.6rem] md:text-4xl lg:text-5xl mona-sans-condensed-black uppercase tracking-tighter transition-colors duration-300 leading-none ${isScrolled && !isOpen ? 'group-hover:text-[#AFFF00]' : 'group-hover:text-[#AFFF00]'}`}>
                 Menu
               </span>
             </button>
@@ -249,8 +247,8 @@ const Navbar: React.FC = () => {
                   </motion.button>
                 </div>
 
-                {/* ── Nav links — right-aligned, fills remaining height ── */}
-                <div className="flex-1 flex flex-col justify-center items-end pr-0 md:pr-2 overflow-hidden">
+                {/* ── Nav links — right-aligned, transition with safety padding ── */}
+                <div className="flex-1 flex flex-col justify-center items-end pr-4 md:pr-6">
                   {menuItems.map((item, i) => {
                     const isCurrent = isActive(item.path);
                     return (
@@ -258,7 +256,6 @@ const Navbar: React.FC = () => {
                         key={item.label}
                         custom={i}
                         variants={linkVariants}
-                        className="overflow-hidden"
                       >
                         <Link
                           to={item.path}
@@ -266,7 +263,7 @@ const Navbar: React.FC = () => {
                           onMouseEnter={() => setHoveredIndex(i)}
                           onMouseLeave={() => setHoveredIndex(null)}
                           className={`block mona-sans-condensed-bold uppercase tracking-tighter leading-[0.9] transition-colors duration-300
-                            text-[8vw] sm:text-[6.5vw] md:text-[5.5vw] lg:text-[4.5vw]
+                            text-[12vw] sm:text-[6.5vw] md:text-[5.5vw] lg:text-[4.5vw]
                             ${isCurrent
                               ? 'text-[#AFFF00]'
                               : hoveredIndex !== null

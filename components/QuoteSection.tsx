@@ -86,8 +86,8 @@ const QuoteSection: React.FC = () => {
       <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:min-h-[680px]">
 
         {/* ── IMAGE ── */}
-        {/* Mobile: fixed short strip. Desktop: tall left column */}
-        <div className="relative w-full h-[220px] md:h-auto md:w-[42%] overflow-hidden bg-black shrink-0">
+        {/* Mobile: tight viewport height. Desktop: tall left column */}
+        <div className="relative w-full h-[38svh] md:h-auto md:w-[42%] overflow-hidden bg-black shrink-0">
           <AnimatePresence custom={direction} mode="sync">
             <motion.div
               key={current}
@@ -108,15 +108,21 @@ const QuoteSection: React.FC = () => {
           </AnimatePresence>
 
           {/* Counter */}
-          <div className="absolute bottom-4 left-5 z-10">
-            <span className="text-[10px] font-mono tracking-[0.3em] text-white/60">
-              {String(current + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
-            </span>
+          <div className="absolute bottom-5 left-6 z-10">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] md:text-[11px] font-mono tracking-[0.4em] text-white font-bold opacity-90 drop-shadow-sm">
+                {String(current + 1).padStart(2, '0')}
+              </span>
+              <span className="text-[10px] md:text-[11px] font-mono tracking-[0.4em] text-white/40">/</span>
+              <span className="text-[10px] md:text-[11px] font-mono tracking-[0.4em] text-white/60">
+                {String(testimonials.length).padStart(2, '0')}
+              </span>
+            </div>
           </div>
         </div>
 
         {/* ── CONTENT ── */}
-        <div className="relative flex flex-col w-full md:w-[58%] px-6 md:px-14 lg:px-20 pt-7 pb-7 md:py-14 bg-white">
+        <div className="relative flex flex-col w-full md:w-[58%] px-6 md:px-14 lg:px-20 pt-6 pb-6 md:py-14 bg-white">
 
           {/* Label */}
           <div className="flex items-center gap-3 mb-5 md:mb-10">
@@ -133,7 +139,7 @@ const QuoteSection: React.FC = () => {
           </div>
 
           {/* Quote */}
-          <div className="flex-1">
+          <div className="flex-1 flex flex-col justify-center">
             <AnimatePresence custom={direction} mode="wait">
               <motion.p
                 key={`quote-${current}`}
@@ -142,7 +148,7 @@ const QuoteSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="text-xl md:text-3xl lg:text-[2.1rem] mona-sans-condensed-medium leading-[1.3] text-black tracking-tight mb-4 md:mb-7"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-[2.1rem] mona-sans-condensed-medium leading-[1.25] text-black tracking-tight mb-4 md:mb-7"
               >
                 {t.quote}
               </motion.p>
@@ -155,7 +161,7 @@ const QuoteSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="text-xs md:text-sm text-black/50 leading-relaxed max-w-lg poppins-regular mb-5 md:mb-8"
+                className="text-[13px] md:text-sm text-black/50 leading-relaxed max-w-lg poppins-regular mb-6 md:mb-8"
               >
                 {t.sub}
               </motion.p>
@@ -169,10 +175,12 @@ const QuoteSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="flex flex-col border-t border-black/10 pt-4 md:pt-6"
+                className="flex flex-col border-t border-black/10 pt-5 md:pt-6"
               >
-                <span className="text-black font-bold text-sm md:text-base tracking-tight poppins-regular">{t.name}</span>
-                <span className="text-black/40 text-xs poppins-regular">{t.role}</span>
+                <div className="flex flex-col">
+                  <span className="text-black font-bold text-[15px] md:text-base tracking-tight poppins-regular leading-tight">{t.name}</span>
+                  <span className="text-black/40 text-[11px] md:text-xs poppins-regular mt-1">{t.role}</span>
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -199,28 +207,40 @@ const QuoteSection: React.FC = () => {
             </div>
 
             {/* Prev / Next */}
-            <div className="flex items-center gap-2">
-              {[{ fn: prev, rotate: true }, { fn: next, rotate: false }].map(({ fn, rotate }, bi) => (
-                <button
-                  key={bi}
-                  onClick={fn}
-                  className="group relative flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-black/15 hover:border-black transition-colors duration-300 overflow-hidden"
-                  style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)" }}
-                >
-                  <motion.div
-                    initial={{ y: "100%" }}
-                    whileHover={{ y: "0%" }}
-                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-0 bg-black"
-                  />
-                  <svg
-                    className={`relative z-10 w-3.5 h-3.5 md:w-4 md:h-4 text-black group-hover:text-white transition-colors duration-300 ${rotate ? 'rotate-180' : ''}`}
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+            <div className="flex items-center gap-3">
+              {[{ fn: prev, rotate: true }, { fn: next, rotate: false }].map(({ fn, rotate }, bi) => {
+                const navClipStyle = {
+                  clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)"
+                };
+                
+                return (
+                  <button
+                    key={bi}
+                    onClick={fn}
+                    className="group relative flex items-center justify-center w-11 h-11 md:w-12 md:h-12 transition-colors duration-300"
                   >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </button>
-              ))}
+                    {/* Outer Border */}
+                    <div 
+                      className="absolute inset-0 bg-black/15 transition-colors duration-300 group-hover:bg-black" 
+                      style={navClipStyle} 
+                    />
+                    
+                    {/* Inner Mask (1px Border effect) */}
+                    <div 
+                      className="absolute inset-[1px] bg-white transition-colors duration-300 group-hover:bg-black" 
+                      style={navClipStyle} 
+                    />
+
+                    {/* Content */}
+                    <svg
+                      className={`relative z-10 w-3.5 h-3.5 md:w-4 md:h-4 text-black group-hover:text-white transition-colors duration-300 ${rotate ? 'rotate-180' : ''}`}
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

@@ -22,14 +22,14 @@ const BlogHero = () => (
         buttonHref="#featured"
         titleLines={
             <>
-                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-2 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible pb-1 md:pb-2 gap-x-[4vw] md:gap-x-4">
                     <span className="flex">
                         {"The Drix".split('').map((char, index) => (
                             <motion.span key={`line1-a-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
                         ))}
                     </span>
                 </div>
-                <div className="flex flex-wrap items-center overflow-visible mt-1 md:mt-2 pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">
+                <div className="flex flex-wrap items-center overflow-visible mt-0 md:mt-2 pb-1 md:pb-4 gap-x-[4vw] md:gap-x-4">
                     <span className="flex text-[#AFFF00]">
                         {"Archive.".split('').map((char, index) => (
                             <motion.span key={`line2-${index}`} variants={letterVariants} className="inline-block whitespace-pre">{char === ' ' ? '\u00A0' : char}</motion.span>
@@ -50,7 +50,7 @@ const BlogHero = () => (
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[20vw] md:text-[17vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
+                className="text-[25vw] md:text-[17vw] font-black text-white/[0.02] uppercase tracking-[-0.05em] translate-y-[-5%] mona-sans-condensed-bold"
             >
                 JOURNAL
             </motion.span>
@@ -505,7 +505,7 @@ const Blog: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
             
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[100svh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"
