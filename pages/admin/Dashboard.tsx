@@ -10,6 +10,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4 py-8 pointer-events-auto"
+      data-lenis-prevent
     >
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.97 }}
@@ -36,7 +37,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
         </div>
 
         {/* Body */}
-        <div className="px-8 py-6 overflow-y-auto flex flex-col gap-5 custom-scrollbar min-h-0" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
+        <div data-lenis-prevent className="px-8 py-6 overflow-y-auto flex flex-col gap-5 custom-scrollbar min-h-0" style={{ overscrollBehavior: 'contain' }}>
           <p className="text-[13px] text-white/40 leading-relaxed">
             The admin UI is fully built. However, <span className="text-white/70">nothing is connected to a database yet.</span> Posts, projects, and contact forms are all reading from static local files. To make this dashboard fully functional, Supabase needs to be set up first.
           </p>
