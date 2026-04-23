@@ -141,11 +141,10 @@ const { error } = await supabase.auth.signInWithPassword({
           <Li><Code>@editorjs/quote</Code> — pull quotes with author caption</Li>
           <Li><Code>@editorjs/list</Code> — bullet and numbered lists</Li>
           <Li><Code>@editorjs/delimiter</Code> — section dividers</Li>
-          <Li><Code>@editorjs/image</Code> — image blocks (currently local blob preview)</Li>
+          <Li><Code>@editorjs/image</Code> — image blocks with file upload (local blob) + URL paste. Swap uploader for Supabase Storage when ready.</Li>
           <Li><Code>@editorjs/embed</Code> — YouTube, Vimeo, Twitter embeds</Li>
         </ul>
-        <P>The editor saves data as Editor.js JSON output. The sidebar has two tabs: Post Details (status, category, author, read time, cover image, word count) and SEO (title, meta description, keywords, live search preview).</P>
-        <P>Currently <Code>handleSave()</Code> only logs to console. Nothing is persisted.</P>
+        <P>The cover image field in the sidebar uses the shared <Code>ImageUpload</Code> component — drag-and-drop, click-to-upload, or paste a URL. Currently uses <Code>URL.createObjectURL()</Code> for local preview. Replace with Supabase Storage upload when backend is connected.</P>
         <Divider />
         <H2>Supabase Table Required</H2>
         <Block>{`-- Run in Supabase SQL Editor
@@ -233,7 +232,8 @@ const handleSave = async (status: 'draft' | 'published') => {
     collaterals: string[];
   };
 }`}</Block>
-        <P>The editor (<Code>pages/admin/ProjectEditor.tsx</Code>) is a structured form — no rich text needed. It has a project type toggle (Design vs Marketing) that shows the relevant asset fields. Live image previews update as URLs are pasted. A card preview in the sidebar shows exactly how the project will appear on the projects page.</P>
+        <P>The editor (<Code>pages/admin/ProjectEditor.tsx</Code>) is a structured form — no rich text needed. It has a project type toggle (Design vs Marketing) that shows the relevant asset fields.</P>
+        <P>All image fields use the shared <Code>ImageUpload</Code> component (<Code>pages/admin/ImageUpload.tsx</Code>) — drag-and-drop zone, click-to-upload, URL paste, and live preview with remove button. Thumbnail, hero image, sketches, mockups, and collaterals all support file upload. Currently uses <Code>URL.createObjectURL()</Code> — swap for Supabase Storage when ready.</P>
         <Divider />
         <H2>Supabase Table Required</H2>
         <Block>{`create table projects (
@@ -351,8 +351,293 @@ uploader: {
     )
   },
   {
-    id: 'env',
-    title: 'Environment Setup',
+    id: 'migration',
+    title: 'Data Migration',
+    content: (
+      <>
+        <H2>Why the Editor Opens Blank</H2>
+        <P>When you open an existing post from the Blog Posts list and click Edit, the editor is completely empty. This is because <Code>PostEditor.tsx</Code> currently has no logic to load existing post data — it only initialises a blank Editor.js instance. The same applies to the Project Editor.</P>
+        <P>This will be fully resolved once Supabase is connected. The editor will fetch the post by ID from the <Code>posts</Code> table and populate both the Editor.js content and the sidebar meta fields on mount.</P>
+        <Divider />
+        <H2>The Problem with the Current Content Format</H2>
+        <P>The existing posts in <Code>data/blogData.ts</Code> store content as a simple array of typed blocks:</P>
+        <Block>{`content: [
+  { type: 'p', text: 'Some paragraph text.' },
+  { type: 'h2', text: 'A Heading' },
+  { type: 'quote', text: 'A pull quote.' },
+]`}</Block>
+        <P>Editor.js stores content in its own JSON format called <Code>OutputData</Code>:</P>
+        <Block>{`{
+  "time": 1713000000000,
+  "blocks": [
+    { "type": "paragraph", "data": { "text": "Some paragraph text." } },
+    { "type": "header", "data": { "text": "A Heading", "level": 2 } },
+    { "type": "quote", "data": { "text": "A pull quote.", "caption": "" } }
+  ],
+  "version": "2.31.6"
+}`}</Block>
+        <P>These two formats are different. Before migrating, you must convert the existing <Code>blogData.ts</Code> content array into Editor.js <Code>OutputData</Code> format. The mapping is straightforward:</P>
+        <Block>{`// Conversion mapping
+'p'     → { type: 'paragraph', data: { text } }
+'h2'    → { type: 'header',    data: { text, level: 2 } }
+'h3'    → { type: 'header',    data: { text, level: 3 } }
+'quote' → { type: 'quote',     data: { text, caption: '' } }`}</Block>
+        <Divider />
+        <H2>Step 1 — Convert blogData.ts to Supabase Format</H2>
+        <P>Write a one-time migration script. Run it locally, it outputs SQL INSERT statements or calls the Supabase API directly.</P>
+        <Block>{`// scripts/migrateBlogPosts.ts
+// Run with: npx ts-node scripts/migrateBlogPosts.ts
+import { createClient } from '@supabase/supabase-js';
+import { blogPosts } from '../data/blogData';
+
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY! // use service role for migration
+);
+
+const convertContent = (blocks: typeof blogPosts[0]['content']) => ({
+  time: Date.now(),
+  version: '2.31.6',
+  blocks: blocks.map(b => {
+    if (b.type === 'p')     return { type: 'paragraph', data: { text: b.text } };
+    if (b.type === 'h2')    return { type: 'header',    data: { text: b.text, level: 2 } };
+    if (b.type === 'h3')    return { type: 'header',    data: { text: b.text, level: 3 } };
+    if (b.type === 'quote') return { type: 'quote',     data: { text: b.text, caption: '' } };
+    return { type: 'paragraph', data: { text: b.text } };
+  })
+});
+
+async function migrate() {
+  for (const post of blogPosts) {
+    const slug = post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const { error } = await supabase.from('posts').insert({
+      title: post.title,
+      slug,
+      excerpt: post.excerpt,
+      category: post.category,
+      author: post.author,
+      read_time: post.readTime,
+      cover_image: post.image,
+      content: convertContent(post.content),
+      status: 'published',
+      created_at: new Date(post.date).toISOString(),
+    });
+    if (error) console.error('Failed:', post.title, error.message);
+    else console.log('Migrated:', post.title);
+  }
+}
+
+migrate();`}</Block>
+        <P>Note: Use the <Code>SUPABASE_SERVICE_ROLE_KEY</Code> (not the anon key) for the migration script so it bypasses RLS. Never expose this key in the frontend.</P>
+        <Divider />
+        <H2>Step 2 — Convert projectsData.ts to Supabase Format</H2>
+        <P>Projects use a structured object format — no content conversion needed, just map the fields directly.</P>
+        <Block>{`// scripts/migrateProjects.ts
+import { createClient } from '@supabase/supabase-js';
+import { projectsData } from '../data/projectsData';
+
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
+async function migrate() {
+  for (const project of projectsData) {
+    const { error } = await supabase.from('projects').insert({
+      id: project.id,
+      title: project.title,
+      category: project.category,
+      description: project.description,
+      problem: project.problem,
+      brand_problems: project.brandProblems,
+      what_we_did: project.whatWeDid,
+      thumbnail: project.thumbnail,
+      hero_image: project.heroImage,
+      year: '2024',
+      project_type: project.designAssets ? 'design' : 'marketing',
+      design_assets: project.designAssets || null,
+      marketing_assets: project.marketingAssets || null,
+    });
+    if (error) console.error('Failed:', project.title, error.message);
+    else console.log('Migrated:', project.title);
+  }
+}
+
+migrate();`}</Block>
+        <Divider />
+        <H2>Step 3 — Load Existing Post into Editor on Edit</H2>
+        <P>After migration, when a user opens an existing post in the editor, the editor must be pre-populated. Add this to <Code>PostEditor.tsx</Code>:</P>
+        <Block>{`// PostEditor.tsx — load existing post on mount
+useEffect(() => {
+  if (!id || !editorRef.current) return;
+
+  const loadPost = async () => {
+    const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error || !data) return;
+
+    // Populate sidebar meta fields
+    setMeta({
+      title: data.title,
+      excerpt: data.excerpt || '',
+      category: data.category || categories[0],
+      author: data.author || '',
+      readTime: data.read_time || '',
+      coverImage: data.cover_image || '',
+      seoTitle: data.seo_title || '',
+      seoDescription: data.seo_description || '',
+      seoKeywords: data.seo_keywords || '',
+      status: data.status || 'draft',
+    });
+
+    // Populate Editor.js with saved content
+    if (data.content && editorRef.current) {
+      await editorRef.current.render(data.content);
+    }
+  };
+
+  loadPost();
+}, [id, editorRef.current]);`}</Block>
+        <P>The key call is <Code>editorRef.current.render(data.content)</Code> — this loads the saved Editor.js JSON back into the editor. Without this, the editor always opens blank.</P>
+        <Divider />
+        <H2>Step 4 — Load Existing Project into Editor on Edit</H2>
+        <P>Same pattern for <Code>ProjectEditor.tsx</Code>. Add a <Code>useEffect</Code> that fetches the project by ID and sets all state fields:</P>
+        <Block>{`// ProjectEditor.tsx — load existing project on mount
+useEffect(() => {
+  if (!id) return;
+
+  const loadProject = async () => {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error || !data) return;
+
+    setTitle(data.title);
+    setSlug(data.id);
+    setCategory(data.category);
+    setDescription(data.description || '');
+    setProblem(data.problem || '');
+    setYear(data.year || '2024');
+    setLink(data.live_url || '');
+    setBrandProblems(data.brand_problems || ['']);
+    setWhatWeDid(data.what_we_did || ['']);
+    setThumbnail(data.thumbnail || '');
+    setHeroImage(data.hero_image || '');
+    setProjectType(data.project_type || 'design');
+
+    if (data.design_assets) {
+      setSketches(data.design_assets.sketches || ['']);
+      setMockups(data.design_assets.mockups || ['']);
+      setColorPalette(data.design_assets.colorPalette || [{ name: '', hex: '#000000' }]);
+      setTypography(data.design_assets.typography || [{ name: '', font: '', usage: '' }]);
+    }
+    if (data.marketing_assets) {
+      setStats(data.marketing_assets.stats || [{ label: '', value: '', trend: '' }]);
+      setCollaterals(data.marketing_assets.collaterals || ['']);
+    }
+  };
+
+  loadProject();
+}, [id]);`}</Block>
+        <Divider />
+        <H2>Step 5 — Update Public Pages to Read from Supabase</H2>
+        <P>After migration, the public-facing pages must read from Supabase instead of the static files. Here is the exact replacement for each page:</P>
+        <H3>Blog.tsx — replace blogData import</H3>
+        <Block>{`// Replace: import { blogPosts } from '../data/blogData';
+// With:
+const [blogPosts, setBlogPosts] = useState([]);
+useEffect(() => {
+  supabase.from('posts')
+    .select('*')
+    .eq('status', 'published')
+    .order('created_at', { ascending: false })
+    .then(({ data }) => setBlogPosts(data || []));
+}, []);`}</Block>
+        <H3>BlogDetail.tsx — replace static find with Supabase query</H3>
+        <Block>{`// Replace: const post = blogPosts.find(p => p.id === Number(id));
+// With:
+const [post, setPost] = useState(null);
+useEffect(() => {
+  supabase.from('posts')
+    .select('*')
+    .eq('slug', id)   // id param is now the slug
+    .single()
+    .then(({ data }) => setPost(data));
+}, [id]);
+
+// Also update BlogDetail content renderer to handle Editor.js blocks:
+// block.type === 'paragraph' instead of 'p'
+// block.type === 'header' instead of 'h2'/'h3'
+// block.data.text instead of block.text
+// block.data.level for heading level`}</Block>
+        <H3>Projects.tsx — replace projectsData import</H3>
+        <Block>{`const [projects, setProjects] = useState([]);
+useEffect(() => {
+  supabase.from('projects')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .then(({ data }) => setProjects(data || []));
+}, []);`}</Block>
+        <H3>ProjectDetail.tsx — replace static find</H3>
+        <Block>{`const [project, setProject] = useState(null);
+useEffect(() => {
+  supabase.from('projects')
+    .select('*')
+    .eq('id', id)
+    .single()
+    .then(({ data }) => setProject(data));
+}, [id]);
+
+// Map snake_case DB fields back to camelCase for the existing component:
+// data.brand_problems → brandProblems
+// data.what_we_did → whatWeDid
+// data.hero_image → heroImage
+// data.design_assets → designAssets
+// data.marketing_assets → marketingAssets`}</Block>
+        <Divider />
+        <H2>Step 6 — Update BlogDetail Content Renderer</H2>
+        <P>The current <Code>BlogDetail.tsx</Code> renders content blocks using the old format (<Code>block.type === 'p'</Code>, <Code>block.text</Code>). After migration to Editor.js format, update the renderer:</P>
+        <Block>{`// BlogDetail.tsx — updated content renderer
+{post.content.blocks.map((block: any, i: number) => {
+  if (block.type === 'header') return (
+    block.data.level === 2
+      ? <h2 key={i} className="...">{block.data.text}</h2>
+      : <h3 key={i} className="...">{block.data.text}</h3>
+  );
+  if (block.type === 'quote') return (
+    <blockquote key={i} className="border-l-[3px] border-[#AFFF00] pl-5 my-4">
+      <p className="...">{block.data.text}</p>
+      {block.data.caption && <cite className="...">{block.data.caption}</cite>}
+    </blockquote>
+  );
+  if (block.type === 'list') return (
+    <ul key={i} className="...">
+      {block.data.items.map((item: string, j: number) => (
+        <li key={j} className="...">{item}</li>
+      ))}
+    </ul>
+  );
+  if (block.type === 'image') return (
+    <figure key={i} className="my-6">
+      <img src={block.data.file.url} alt={block.data.caption || ''} className="w-full" />
+      {block.data.caption && <figcaption className="text-center text-sm text-black/40 mt-2">{block.data.caption}</figcaption>}
+    </figure>
+  );
+  if (block.type === 'delimiter') return <hr key={i} className="border-black/10 my-8" />;
+  // Default: paragraph
+  return <p key={i} className="text-[16px] text-black/60 leading-[1.85] poppins-regular" dangerouslySetInnerHTML={{ __html: block.data.text }} />;
+})}`}</Block>
+        <P>Note the use of <Code>dangerouslySetInnerHTML</Code> for paragraphs — Editor.js stores inline formatting (bold, italic, links) as HTML strings inside the text field.</P>
+      </>
+    )
+  },
     content: (
       <>
         <H2>Required Environment Variables</H2>
@@ -399,8 +684,14 @@ export const supabase = createClient(
           <CheckLi done={false}>Wire ContactForms.tsx to supabase.from('contacts').select()</CheckLi>
           <CheckLi done={false}>Wire status update and delete actions in ContactForms.tsx</CheckLi>
           <CheckLi done={false}>Update image uploader in PostEditor.tsx to use Supabase Storage</CheckLi>
-          <CheckLi done={false}>Migrate existing static blogData.ts and projectsData.ts to Supabase via insert script</CheckLi>
+          <CheckLi done={false}>Run migration script: convert blogData.ts → Supabase posts table (convert content format from simple blocks to Editor.js OutputData)</CheckLi>
+          <CheckLi done={false}>Run migration script: convert projectsData.ts → Supabase projects table</CheckLi>
+          <CheckLi done={false}>Add useEffect in PostEditor.tsx to load existing post data + call editorRef.current.render(data.content) on edit</CheckLi>
+          <CheckLi done={false}>Add useEffect in ProjectEditor.tsx to load existing project data on edit</CheckLi>
+          <CheckLi done={false}>Update BlogDetail.tsx content renderer to handle Editor.js block format (paragraph/header/quote/list/image/delimiter)</CheckLi>
+          <CheckLi done={false}>Update Blog.tsx route params — use slug instead of numeric id for post lookup</CheckLi>
           <CheckLi done={false}>Test full flow: create post → publish → visible on /blog</CheckLi>
+          <CheckLi done={false}>Test edit flow: open existing post in editor → content loads → save → updates on /blog</CheckLi>
           <CheckLi done={false}>Test full flow: submit contact form → appears in admin dashboard</CheckLi>
         </ul>
       </>
@@ -421,6 +712,7 @@ export const supabase = createClient(
           <Li><Code>pages/admin/AdminProjects.tsx</Code> — Project card grid with edit/view/delete</Li>
           <Li><Code>pages/admin/ProjectEditor.tsx</Code> — Structured project form (design or marketing type)</Li>
           <Li><Code>pages/admin/ContactForms.tsx</Code> — Contact submissions list with detail drawer</Li>
+          <Li><Code>pages/admin/ImageUpload.tsx</Code> — Shared image upload component (drag-drop + URL + preview). Used in PostEditor cover image, ProjectEditor thumbnail/hero/sketches/mockups/collaterals. Replace <Code>URL.createObjectURL()</Code> with Supabase Storage upload when backend is ready.</Li>
           <Li><Code>pages/admin/Docs.tsx</Code> — This documentation page</Li>
         </ul>
         <H2>Data Files (to be replaced by Supabase)</H2>

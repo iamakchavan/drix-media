@@ -8,6 +8,7 @@ import ImageUpload from './ImageUpload';
 const categories = ['Branding', 'Web Design', 'Creative Production', 'Content Strategy', 'UI/UX', 'Motion'];
 const clipSm = { clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' };
 const inputCls = "bg-white/[0.03] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] poppins-regular placeholder:text-white/15 focus:outline-none focus:border-[#AFFF00]/30 focus:bg-white/[0.05] transition-all duration-300 w-full";
+const selectCls = "bg-[#111] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] poppins-regular focus:outline-none focus:border-[#AFFF00]/30 transition-all duration-300 w-full appearance-none cursor-pointer";
 
 const Field = ({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) => (
   <div className="flex flex-col gap-1.5">
@@ -224,8 +225,8 @@ const ProjectEditor: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <Field label="Category">
                 <select value={category} onChange={e => setCategory(e.target.value)}
-                  className={inputCls + " appearance-none cursor-pointer"} style={clipSm}>
-                  {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                  className={selectCls} style={clipSm}>
+                  {categories.map(c => <option key={c} value={c} className="bg-[#111] text-white">{c}</option>)}
                 </select>
               </Field>
               <Field label="Year">

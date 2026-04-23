@@ -55,6 +55,7 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
 );
 
 const inputCls = "bg-white/[0.03] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] poppins-regular placeholder:text-white/15 focus:outline-none focus:border-[#AFFF00]/30 focus:bg-white/[0.05] transition-all duration-300 w-full";
+const selectCls = "bg-[#111] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] poppins-regular focus:outline-none focus:border-[#AFFF00]/30 transition-all duration-300 w-full appearance-none cursor-pointer";
 const clipSm = { clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' };
 
 const PostEditor: React.FC = () => {
@@ -280,8 +281,8 @@ const PostEditor: React.FC = () => {
                 {/* Category */}
                 <Field label="Category">
                   <select value={meta.category} onChange={e => set('category', e.target.value)}
-                    className={inputCls + " appearance-none cursor-pointer"} style={clipSm}>
-                    {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                    className={selectCls} style={clipSm}>
+                    {categories.map(c => <option key={c} value={c} className="bg-[#111] text-white">{c}</option>)}
                   </select>
                 </Field>
 
@@ -414,21 +415,71 @@ const PostEditor: React.FC = () => {
         .prose-editor .ce-inline-toolbar,
         .prose-editor .ce-conversion-toolbar,
         .prose-editor .ce-settings {
-          background: #111 !important;
-          border: 1px solid rgba(255,255,255,0.08) !important;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+          background: #1a1a1a !important;
+          border: 1px solid rgba(255,255,255,0.12) !important;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
+          border-radius: 4px !important;
         }
         .prose-editor .ce-inline-tool,
         .prose-editor .ce-conversion-tool,
         .prose-editor .cdx-settings-button {
-          color: rgba(255,255,255,0.5) !important;
+          color: rgba(255,255,255,0.7) !important;
+          background: transparent !important;
         }
         .prose-editor .ce-inline-tool:hover,
         .prose-editor .ce-conversion-tool:hover,
         .prose-editor .cdx-settings-button:hover,
         .prose-editor .ce-inline-tool--active {
           color: #AFFF00 !important;
+          background: rgba(175,255,0,0.1) !important;
+        }
+        /* Conversion toolbar type selector */
+        .prose-editor .ce-conversion-tool__icon {
+          background: rgba(255,255,255,0.05) !important;
+        }
+        .prose-editor .ce-conversion-tool__label {
+          color: rgba(255,255,255,0.7) !important;
+        }
+        /* Toolbar plus button */
+        .prose-editor .ce-toolbar__plus,
+        .prose-editor .ce-toolbar__settings-btn {
+          color: rgba(255,255,255,0.5) !important;
+          background: #1a1a1a !important;
+          border: 1px solid rgba(255,255,255,0.08) !important;
+        }
+        .prose-editor .ce-toolbar__plus:hover,
+        .prose-editor .ce-toolbar__settings-btn:hover {
+          color: #AFFF00 !important;
           background: rgba(175,255,0,0.08) !important;
+          border-color: rgba(175,255,0,0.2) !important;
+        }
+        /* Popover / block tunes */
+        .prose-editor .ce-popover,
+        .prose-editor .ce-popover__container {
+          background: #1a1a1a !important;
+          border: 1px solid rgba(255,255,255,0.1) !important;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.8) !important;
+        }
+        .prose-editor .ce-popover-item__title {
+          color: rgba(255,255,255,0.7) !important;
+        }
+        .prose-editor .ce-popover-item:hover,
+        .prose-editor .ce-popover-item--active {
+          background: rgba(175,255,0,0.08) !important;
+        }
+        .prose-editor .ce-popover-item:hover .ce-popover-item__title,
+        .prose-editor .ce-popover-item--active .ce-popover-item__title {
+          color: #AFFF00 !important;
+        }
+        .prose-editor .ce-popover-item__icon {
+          background: rgba(255,255,255,0.05) !important;
+          color: rgba(255,255,255,0.5) !important;
+        }
+        /* Search input in popover */
+        .prose-editor .ce-popover__search .cdx-search-field__input {
+          background: rgba(255,255,255,0.05) !important;
+          color: white !important;
+          border-color: rgba(255,255,255,0.1) !important;
         }
         .prose-editor .cdx-block {
           padding: 0.4em 0;
