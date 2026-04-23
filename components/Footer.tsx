@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const navLinks = [
@@ -55,9 +55,63 @@ const LogoSVG = () => (
   </svg>
 );
 
+const GetInTouch = () => {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const isInView = useInView(ref, { once: false, amount: 0.8 });
+  // Only auto-trigger hover state on touch/mobile devices
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+  const animate = (isMobile && isInView) ? "hover" : "animate";
+
+  return (
+    <div className="w-full flex justify-start items-center md:justify-center py-8 md:pb-12 md:py-0 pointer-events-none z-10 overflow-visible mt-0 md:mt-24">
+      <div className="w-full flex justify-start md:justify-center relative items-center">
+        <motion.a
+          ref={ref}
+          href="mailto:hello@drixmedia.com"
+          initial="initial"
+          animate={animate}
+          whileHover="hover"
+          variants={{
+            initial: { opacity: 0, y: 60 },
+            animate: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } },
+            hover: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+          }}
+          className="mona-sans-condensed-bold tracking-[-0.02em] pointer-events-auto cursor-pointer select-none text-[#AFFF00] flex flex-col items-start md:items-center uppercase relative w-fit"
+        >
+          <motion.span
+            variants={{ initial: { fontWeight: 500 }, animate: { fontWeight: 500 }, hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+            className="text-[16.5vw] md:text-[13vw] leading-[0.85] w-full text-left md:text-center md:pl-[3vw] transition-colors duration-700 ease-out"
+          >
+            GET IN
+          </motion.span>
+          <div className="flex items-center gap-3 md:gap-5 justify-start md:justify-center">
+            <motion.span
+              variants={{ initial: { fontWeight: 500 }, animate: { fontWeight: 500 }, hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+              className="text-[16.5vw] md:text-[13vw] leading-[0.85] transition-colors duration-700 ease-out"
+            >
+              TOUCH
+            </motion.span>
+            <motion.div
+              variants={{ initial: { rotate: 0, scale: 1 }, animate: { rotate: 0, scale: 1 }, hover: { rotate: 45, scale: 1.15, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+              className="flex items-center justify-center flex-shrink-0 mt-1.5 md:mt-3"
+            >
+              <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="butt" strokeLinejoin="miter"
+                className="w-14 h-14 sm:w-20 sm:h-20 md:w-36 md:h-36 lg:w-44 lg:h-44 text-[#AFFF00]"
+                variants={{ initial: { strokeWidth: 4 }, animate: { strokeWidth: 4 }, hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+              >
+                <path d="M7 17L17 7M17 17V7H7"/>
+              </motion.svg>
+            </motion.div>
+          </div>
+        </motion.a>
+      </div>
+    </div>
+  );
+};
+
 const Footer: React.FC = () => {
   return (
-    <footer id="footer" className="w-full min-h-screen bg-[#050505] text-white pt-10 md:pt-32 poppins-regular overflow-x-hidden flex flex-col relative selection:bg-[#AFFF00] selection:text-black">
+    <footer id="footer" className="w-full min-h-screen bg-[#050505] text-white pt-20 md:pt-32 poppins-regular overflow-x-hidden flex flex-col relative selection:bg-[#AFFF00] selection:text-black">
       <div className="max-w-[1600px] mx-auto w-full px-6 md:px-12 flex-grow flex flex-col justify-between relative z-10 pb-8 md:pb-12">
 
         {/* TOP BAR */}
@@ -81,7 +135,7 @@ const Footer: React.FC = () => {
 
           {/* 2. Nav links — center */}
           <div className="w-full md:w-1/3 flex flex-col items-start md:items-center relative pt-6 md:pt-0">
-            <div className="w-full md:w-fit grid grid-cols-2 gap-x-12 md:gap-x-16 gap-y-4">
+            <div className="w-fit grid grid-cols-2 gap-x-6 md:gap-x-16 gap-y-4">
               {navLinks.map(({ label, path }) => (
                 <HoverLink key={label} label={label} path={path} />
               ))}
@@ -90,7 +144,7 @@ const Footer: React.FC = () => {
 
           {/* 3. Social — right */}
           <div className="w-full md:w-1/3 flex flex-col items-start md:items-end relative pt-6 md:pt-0">
-            <div className="w-full md:w-fit grid grid-cols-2 gap-x-12 md:gap-x-16 gap-y-4 md:mr-0">
+            <div className="w-fit grid grid-cols-2 gap-x-6 md:gap-x-16 gap-y-4 md:mr-0">
               {socialLinks.map(({ label, href }) => (
                 <HoverSocial key={label} label={label} href={href} />
               ))}
@@ -99,48 +153,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* GET IN TOUCH CTA */}
-        <div className="w-full flex justify-start items-center md:justify-center flex-1 py-12 md:pb-12 md:py-0 pointer-events-none z-10 overflow-visible mt-8 md:mt-24">
-          <div className="w-full flex justify-start md:justify-center relative items-center">
-            <motion.a
-              href="mailto:hello@drixmedia.com"
-              initial="initial"
-              whileInView="animate"
-              whileHover="hover"
-              viewport={{ once: true, margin: "0px" }}
-              variants={{
-                initial: { opacity: 0, y: 60 },
-                animate: { opacity: 1, y: 0, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              className="mona-sans-condensed-bold tracking-[-0.02em] pointer-events-auto cursor-pointer select-none text-[#AFFF00] flex flex-col items-start md:items-center uppercase relative w-fit"
-            >
-              <motion.span
-                variants={{ initial: { fontWeight: 500 }, animate: { fontWeight: 500 }, hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                className="text-[16.5vw] md:text-[13vw] leading-[0.85] w-full text-left md:text-center md:pl-[3vw] transition-colors duration-700 ease-out"
-              >
-                GET IN
-              </motion.span>
-              <div className="flex items-center gap-3 md:gap-5 justify-start md:justify-center">
-                <motion.span
-                  variants={{ initial: { fontWeight: 500 }, animate: { fontWeight: 500 }, hover: { fontWeight: 700, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                  className="text-[16.5vw] md:text-[13vw] leading-[0.85] transition-colors duration-700 ease-out"
-                >
-                  TOUCH
-                </motion.span>
-                <motion.div
-                  variants={{ initial: { rotate: 0, scale: 1 }, hover: { rotate: 45, scale: 1.15, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                  className="flex items-center justify-center flex-shrink-0 mt-1.5 md:mt-3"
-                >
-                  <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="butt" strokeLinejoin="miter"
-                    className="w-14 h-14 sm:w-20 sm:h-20 md:w-36 md:h-36 lg:w-44 lg:h-44 text-[#AFFF00]"
-                    variants={{ initial: { strokeWidth: 4 }, hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
-                  >
-                    <path d="M7 17L17 7M17 17V7H7"/>
-                  </motion.svg>
-                </motion.div>
-              </div>
-            </motion.a>
-          </div>
-        </div>
+        <GetInTouch />
 
       </div>
 
