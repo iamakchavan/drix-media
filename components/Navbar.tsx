@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
            }`}
         >
             {/* ── Logo ── */}
-            <Link to="/" className="z-[60] flex items-center transition-transform duration-500 hover:scale-105 active:scale-95">
+            <Link to="/" className="z-[60] flex items-center">
               {/* Pill state: icon only */}
               {isScrolled && !isOpen ? (
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 flex-shrink-0">

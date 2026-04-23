@@ -14,6 +14,12 @@ import CookiePolicy from './pages/CookiePolicy';
 import ScrollToTop from './components/ScrollToTop';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
+import PostEditor from './pages/admin/PostEditor';
+import BlogPosts from './pages/admin/BlogPosts';
+import ContactForms from './pages/admin/ContactForms';
+import AdminProjects from './pages/admin/AdminProjects';
+import ProjectEditor from './pages/admin/ProjectEditor';
+import AdminDocs from './pages/admin/Docs';
 
 const App: React.FC = () => {
   return (
@@ -34,6 +40,14 @@ const App: React.FC = () => {
         <Route path="/cookies" element={<CookiePolicy />} />
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/posts" element={<BlogPosts />} />
+        <Route path="/admin/posts/new" element={<PostEditor />} />
+        <Route path="/admin/posts/:id" element={<PostEditor />} />
+        <Route path="/admin/contacts" element={<ContactForms />} />
+        <Route path="/admin/projects" element={<AdminProjects />} />
+        <Route path="/admin/projects/new" element={<ProjectEditor />} />
+        <Route path="/admin/projects/:id" element={<ProjectEditor />} />
+        <Route path="/admin/docs" element={<AdminDocs />} />
       </Routes>
     </BrowserRouter>
   );
