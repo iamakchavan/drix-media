@@ -150,7 +150,7 @@ const AdminLayout: React.FC<{ children: React.ReactNode; active: ActivePage }> =
       <motion.main
         animate={{ marginLeft: collapsed ? 60 : 220 }}
         transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden md:block flex-1 overflow-y-auto min-h-screen"
+        className={`hidden md:block flex-1 overflow-y-auto min-h-screen admin-scroll`}
       >
         {children}
       </motion.main>

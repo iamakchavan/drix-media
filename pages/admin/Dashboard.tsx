@@ -9,18 +9,18 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
   <AnimatePresence>
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4 py-8"
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4 py-8 pointer-events-auto"
     >
       <motion.div
         initial={{ opacity: 0, y: 40, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 20, scale: 0.97 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-[600px] bg-[#0D0D0D] border border-white/[0.08] flex flex-col max-h-[90vh] overflow-hidden"
+        className="relative w-full max-w-[600px] bg-[#0D0D0D] border border-white/[0.08] flex flex-col max-h-[90vh]"
         style={{ clipPath: 'polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%)' }}
       >
         {/* Header */}
-        <div className="px-8 pt-8 pb-6 border-b border-white/[0.06] flex items-start justify-between gap-4">
+        <div className="px-8 pt-8 pb-6 border-b border-white/[0.06] flex items-start justify-between gap-4 shrink-0">
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span>
@@ -36,7 +36,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
         </div>
 
         {/* Body */}
-        <div className="px-8 py-6 overflow-y-auto flex flex-col gap-5">
+        <div className="px-8 py-6 overflow-y-auto flex flex-col gap-5 custom-scrollbar min-h-0" style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}>
           <p className="text-[13px] text-white/40 leading-relaxed">
             The admin UI is fully built. However, <span className="text-white/70">nothing is connected to a database yet.</span> Posts, projects, and contact forms are all reading from static local files. To make this dashboard fully functional, Supabase needs to be set up first.
           </p>
@@ -75,7 +75,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
         </div>
 
         {/* Footer */}
-        <div className="px-8 py-5 border-t border-white/[0.06] flex items-center justify-between gap-4">
+        <div className="px-8 py-5 border-t border-white/[0.06] flex items-center justify-between gap-4 shrink-0">
           <Link to="/admin/docs" onClick={onClose}
             className="flex items-center gap-2 text-[11px] text-[#AFFF00]/60 hover:text-[#AFFF00]/90 transition-colors tracking-widest uppercase">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
