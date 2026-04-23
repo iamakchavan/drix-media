@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import ImageUpload from './ImageUpload';
 import EditorJS, { OutputData } from '@editorjs/editorjs';
 // @ts-ignore
 import Header from '@editorjs/header';
@@ -219,7 +220,6 @@ const PostEditor: React.FC = () => {
                 </button>
               </div>
             )}
-
             {/* Title */}
             <textarea
               value={meta.title}
@@ -298,12 +298,13 @@ const PostEditor: React.FC = () => {
                 </Field>
 
                 {/* Cover image */}
-                <Field label="Cover Image URL">
-                  <input value={meta.coverImage} onChange={e => set('coverImage', e.target.value)}
-                    placeholder="https://…" className={inputCls} style={clipSm} />
-                  {!meta.coverImage && (
-                    <p className="text-[10px] text-white/15">Paste a URL or upload via image block in editor</p>
-                  )}
+                <Field label="Cover Image">
+                  <ImageUpload
+                    value={meta.coverImage}
+                    onChange={v => set('coverImage', v)}
+                    aspect="aspect-video"
+                    placeholder="https://… or upload"
+                  />
                 </Field>
 
                 {/* Divider */}

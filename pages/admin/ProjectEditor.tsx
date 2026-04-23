@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData } from '../../data/projectsData';
 import AdminLayout from './AdminLayout';
+import ImageUpload from './ImageUpload';
 
 const categories = ['Branding', 'Web Design', 'Creative Production', 'Content Strategy', 'UI/UX', 'Motion'];
 const clipSm = { clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' };
@@ -47,9 +48,38 @@ const ArrayField = ({ label, values, onChange, placeholder, hint }: {
   );
 };
 
+// ── Image array field with upload per item ────────────────────────────────────
+const ImageArrayField = ({ label, values, onChange, hint }: {
+  label: string; values: string[]; onChange: (v: string[]) => void; hint?: string;
+}) => {
+  const update = (i: number, val: string) => { const n = [...values]; n[i] = val; onChange(n); };
+  const remove = (i: number) => onChange(values.filter((_, idx) => idx !== i));
+  const add = () => onChange([...values, '']);
+  return (
+    <Field label={label} hint={hint}>
+      <div className="flex flex-col gap-4">
+        {values.map((v, i) => (
+          <div key={i} className="relative">
+            <ImageUpload value={v} onChange={val => update(i, val)} aspect="aspect-video" placeholder="https://… or upload" />
+            {values.length > 1 && (
+              <button onClick={() => remove(i)}
+                className="absolute -top-1 -right-1 z-10 bg-[#0D0D0D] border border-white/[0.08] text-white/20 hover:text-red-400/60 p-1 transition-colors">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            )}
+          </div>
+        ))}
+        <button onClick={add} className="flex items-center gap-2 text-[10px] text-[#AFFF00]/50 hover:text-[#AFFF00]/80 transition-colors w-fit">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add image
+        </button>
+      </div>
+    </Field>
+  );
+};
+
 // ── Image preview grid ────────────────────────────────────────────────────────
-const ImageGrid = ({ images }: { images: string[] }) => {
-  const valid = images.filter(Boolean);
+const ImageGrid = ({ images }: { images: string[] }) => {  const valid = images.filter(Boolean);
   if (!valid.length) return null;
   return (
     <div className="grid grid-cols-3 gap-2 mt-2">
@@ -243,12 +273,10 @@ const ProjectEditor: React.FC = () => {
 
             {projectType === 'design' ? (
               <>
-                <ArrayField label="Sketch / Process Images (URLs)" values={sketches}
-                  onChange={setSketches} placeholder="https://…" hint="Process shots" />
-                <ImageGrid images={sketches} />
-                <ArrayField label="Mockup Images (URLs)" values={mockups}
-                  onChange={setMockups} placeholder="https://…" hint="Final renders" />
-                <ImageGrid images={mockups} />
+                <ImageArrayField label="Sketch / Process Images" values={sketches}
+                  onChange={setSketches} hint="Process shots" />
+                <ImageArrayField label="Mockup Images" values={mockups}
+                  onChange={setMockups} hint="Final renders" />
 
                 {/* Color palette */}
                 <Field label="Color Palette">
@@ -317,9 +345,8 @@ const ProjectEditor: React.FC = () => {
                     </button>
                   </div>
                 </Field>
-                <ArrayField label="Collateral Images (URLs)" values={collaterals}
-                  onChange={setCollaterals} placeholder="https://…" hint="Campaign visuals" />
-                <ImageGrid images={collaterals} />
+                <ImageArrayField label="Collateral Images" values={collaterals}
+                  onChange={setCollaterals} hint="Campaign visuals" />
               </>
             )}
           </Section>
@@ -329,22 +356,10 @@ const ProjectEditor: React.FC = () => {
         <aside className="w-full lg:w-[280px] shrink-0 flex flex-col gap-5">
           <Section title="Cover Images">
             <Field label="Thumbnail">
-              <input value={thumbnail} onChange={e => setThumbnail(e.target.value)}
-                placeholder="https://… or /projects/…" className={inputCls} style={clipSm} />
-              {thumbnail && (
-                <div className="mt-2 aspect-video overflow-hidden border border-white/[0.05]">
-                  <img src={thumbnail} alt="" className="w-full h-full object-cover opacity-70" />
-                </div>
-              )}
+              <ImageUpload value={thumbnail} onChange={setThumbnail} aspect="aspect-video" placeholder="https://… or /projects/…" />
             </Field>
             <Field label="Hero Image">
-              <input value={heroImage} onChange={e => setHeroImage(e.target.value)}
-                placeholder="https://… or /projects/…" className={inputCls} style={clipSm} />
-              {heroImage && (
-                <div className="mt-2 aspect-video overflow-hidden border border-white/[0.05]">
-                  <img src={heroImage} alt="" className="w-full h-full object-cover opacity-70" />
-                </div>
-              )}
+              <ImageUpload value={heroImage} onChange={setHeroImage} aspect="aspect-video" placeholder="https://… or /projects/…" />
             </Field>
           </Section>
 
