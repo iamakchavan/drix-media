@@ -1,8 +1,97 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { blogPosts } from '../../data/blogData';
 import AdminLayout from './AdminLayout';
+
+// ── Welcome Modal ─────────────────────────────────────────────────────────────
+const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <AnimatePresence>
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center px-4 py-8"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.97 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full max-w-[600px] bg-[#0D0D0D] border border-white/[0.08] flex flex-col max-h-[90vh] overflow-hidden"
+        style={{ clipPath: 'polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%)' }}
+      >
+        {/* Header */}
+        <div className="px-8 pt-8 pb-6 border-b border-white/[0.06] flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span>
+              <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase">Setup Required</span>
+            </div>
+            <h2 className="text-[1.5rem] mona-sans-condensed-medium text-white tracking-tight leading-tight">
+              Before you start,<br />the backend needs setup.
+            </h2>
+          </div>
+          <button onClick={onClose} className="text-white/20 hover:text-white/60 transition-colors mt-1 shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="px-8 py-6 overflow-y-auto flex flex-col gap-5">
+          <p className="text-[13px] text-white/40 leading-relaxed">
+            The admin UI is fully built. However, <span className="text-white/70">nothing is connected to a database yet.</span> Posts, projects, and contact forms are all reading from static local files. To make this dashboard fully functional, Supabase needs to be set up first.
+          </p>
+
+          {/* Steps */}
+          <div className="flex flex-col gap-3">
+            {[
+              { num: '01', title: 'Create a Supabase project', desc: 'Go to supabase.com, create a new project, and copy your Project URL and Anon Key.' },
+              { num: '02', title: 'Add environment variables', desc: 'Create a .env file in the project root with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.' },
+              { num: '03', title: 'Create the database tables', desc: 'Run the SQL for posts, projects, and contacts tables. Full SQL is in the Docs → Blog Posts / Projects / Contact Forms sections.' },
+              { num: '04', title: 'Enable Auth & create admin user', desc: 'Enable Email Auth in Supabase Dashboard, create one admin user, then replace the hardcoded login with supabase.auth.signInWithPassword().' },
+              { num: '05', title: 'Migrate existing data', desc: 'Run the migration scripts to move blogData.ts and projectsData.ts into Supabase. Content format must be converted to Editor.js OutputData — see Docs → Data Migration.' },
+              { num: '06', title: 'Wire save & load in editors', desc: 'Connect PostEditor and ProjectEditor to Supabase. Add the useEffect to load existing content so editors don\'t open blank.' },
+              { num: '07', title: 'Update public pages', desc: 'Replace static data imports in Blog.tsx, BlogDetail.tsx, Projects.tsx, ProjectDetail.tsx, and Contact.tsx with Supabase queries.' },
+              { num: '08', title: 'Set up image storage', desc: 'Create blog-images and project-images buckets in Supabase Storage (public), then update the ImageUpload component uploader.' },
+            ].map(step => (
+              <div key={step.num} className="flex gap-4 p-4 bg-white/[0.02] border border-white/[0.04]"
+                style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
+                <span className="text-[#AFFF00]/40 text-[11px] font-mono tracking-widest shrink-0 mt-0.5">{step.num}</span>
+                <div>
+                  <p className="text-[13px] text-white/70 font-semibold mb-0.5">{step.title}</p>
+                  <p className="text-[12px] text-white/30 leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Docs note */}
+          <div className="flex items-start gap-3 bg-[#AFFF00]/5 border border-[#AFFF00]/15 p-4"
+            style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#AFFF00]/60 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p className="text-[12px] text-white/40 leading-relaxed">
+              <span className="text-[#AFFF00]/70 font-semibold">Docs are for reference only.</span> They contain all the SQL, code snippets, and migration scripts you need — but the actual setup must be done manually by a developer. Check the full Backend Checklist in Docs for the complete ordered task list.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-8 py-5 border-t border-white/[0.06] flex items-center justify-between gap-4">
+          <Link to="/admin/docs" onClick={onClose}
+            className="flex items-center gap-2 text-[11px] text-[#AFFF00]/60 hover:text-[#AFFF00]/90 transition-colors tracking-widest uppercase">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            Open Docs
+          </Link>
+          <button onClick={onClose}
+            className="flex items-center gap-2 bg-[#AFFF00] text-black px-6 py-2.5 text-[11px] tracking-[0.2em] uppercase font-bold hover:bg-white transition-colors duration-300"
+            style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
+            Got it, continue
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  </AnimatePresence>
+);
 
 const stats = [
   { label: 'Total Posts', value: blogPosts.length },
@@ -13,6 +102,13 @@ const stats = [
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  // Show modal once per session
+  const [showModal, setShowModal] = useState(() => !sessionStorage.getItem('modal_seen'));
+
+  const closeModal = () => {
+    sessionStorage.setItem('modal_seen', 'true');
+    setShowModal(false);
+  };
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
@@ -20,6 +116,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <AdminLayout active="dashboard">
+      {showModal && <WelcomeModal onClose={closeModal} />}
       <div className="px-6 md:px-10 py-10 flex flex-col gap-10">
 
         {/* Header */}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import AdminLayout from './AdminLayout';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -638,6 +639,9 @@ useEffect(() => {
       </>
     )
   },
+  {
+    id: 'env',
+    title: 'Environment Setup',
     content: (
       <>
         <H2>Required Environment Variables</H2>
@@ -748,46 +752,104 @@ export const supabase = createClient(
 const Docs: React.FC = () => {
   const navigate = useNavigate();
   const [active, setActive] = useState('overview');
+  const [prev, setPrev] = useState('overview');
+  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
   }, [navigate]);
 
+  const handleSection = (id: string) => {
+    const currentIdx = sections.findIndex(s => s.id === active);
+    const nextIdx = sections.findIndex(s => s.id === id);
+    setDirection(nextIdx > currentIdx ? 1 : -1);
+    setPrev(active);
+    setActive(id);
+  };
+
   const current = sections.find(s => s.id === active)!;
 
   return (
     <AdminLayout active="docs">
-      <div className="flex h-full min-h-screen">
+      {/* Full height flex — sidebar fixed, content scrolls */}
+      <div className="flex" style={{ minHeight: '100vh' }}>
 
-        {/* Doc nav */}
-        <aside className="hidden lg:flex flex-col w-[200px] shrink-0 border-r border-white/[0.05] py-8 px-4 sticky top-0 h-screen overflow-y-auto">
+        {/* Doc nav — sticky, never scrolls */}
+        <aside className="hidden lg:flex flex-col w-[200px] shrink-0 border-r border-white/[0.05] sticky top-0 h-screen overflow-hidden py-8 px-4">
           <p className="text-[9px] font-bold tracking-[0.4em] uppercase text-white/20 px-3 mb-4">Sections</p>
-          {sections.map(s => (
-            <button key={s.id} onClick={() => setActive(s.id)}
-              className={`text-left px-3 py-2 text-[12px] transition-all duration-200 rounded-sm mb-0.5
-                ${active === s.id ? 'bg-white/[0.06] text-white' : 'text-white/25 hover:text-white/50 hover:bg-white/[0.03]'}`}>
-              {s.title}
-            </button>
-          ))}
+          <div className="flex flex-col gap-0.5 overflow-y-auto">
+            {sections.map(s => (
+              <button key={s.id} onClick={() => handleSection(s.id)}
+                className={`text-left px-3 py-2 text-[12px] transition-all duration-200 rounded-sm relative
+                  ${active === s.id ? 'text-white' : 'text-white/25 hover:text-white/50 hover:bg-white/[0.03]'}`}>
+                {active === s.id && (
+                  <motion.div layoutId="doc-active" className="absolute inset-0 bg-white/[0.06] rounded-sm" />
+                )}
+                <span className="relative z-10">{s.title}</span>
+              </button>
+            ))}
+          </div>
         </aside>
 
         {/* Mobile section picker */}
-        <div className="lg:hidden px-6 pt-6 w-full">
-          <select value={active} onChange={e => setActive(e.target.value)}
-            className="w-full bg-white/[0.03] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] focus:outline-none appearance-none mb-6"
-            style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
-            {sections.map(s => <option key={s.id} value={s.id}>{s.title}</option>)}
-          </select>
+        <div className="lg:hidden w-full">
+          <div className="px-6 pt-6">
+            <select value={active} onChange={e => handleSection(e.target.value)}
+              className="w-full bg-[#111] border border-white/[0.07] px-4 py-2.5 text-white text-[13px] focus:outline-none appearance-none mb-6"
+              style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
+              {sections.map(s => <option key={s.id} value={s.id} className="bg-[#111]">{s.title}</option>)}
+            </select>
+          </div>
         </div>
 
-        {/* Content */}
-        <main className="flex-1 px-6 md:px-10 py-8 max-w-[760px]">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span>
-            <h1 className="text-[1.6rem] mona-sans-condensed-medium text-white tracking-tight">{current.title}</h1>
-          </div>
-          <div>{current.content}</div>
-        </main>
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.main
+              key={active}
+              initial={{ opacity: 0, x: direction * 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction * -24 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="px-6 md:px-10 py-8 max-w-[760px]"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3 mb-8"
+              >
+                <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span>
+                <h1 className="text-[1.6rem] mona-sans-condensed-medium text-white tracking-tight">{current.title}</h1>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {current.content}
+              </motion.div>
+
+              {/* Prev / Next navigation */}
+              <div className="flex items-center justify-between mt-12 pt-6 border-t border-white/[0.05]">
+                {sections.findIndex(s => s.id === active) > 0 ? (
+                  <button onClick={() => handleSection(sections[sections.findIndex(s => s.id === active) - 1].id)}
+                    className="flex items-center gap-2 text-[11px] text-white/25 hover:text-white/60 transition-colors uppercase tracking-widest">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                    {sections[sections.findIndex(s => s.id === active) - 1].title}
+                  </button>
+                ) : <div />}
+                {sections.findIndex(s => s.id === active) < sections.length - 1 ? (
+                  <button onClick={() => handleSection(sections[sections.findIndex(s => s.id === active) + 1].id)}
+                    className="flex items-center gap-2 text-[11px] text-white/25 hover:text-white/60 transition-colors uppercase tracking-widest">
+                    {sections[sections.findIndex(s => s.id === active) + 1].title}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                ) : <div />}
+              </div>
+            </motion.main>
+          </AnimatePresence>
+        </div>
       </div>
     </AdminLayout>
   );
