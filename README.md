@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/Drix Media Logo/web-logo-600.png" alt="Drix Media" width="220" />
+  <img src="public/Drix Media Logo/web-logo-white.svg" alt="Drix Media" width="260" style="background:#0a0a0a;padding:24px 32px;border-radius:4px;" />
   <br /><br />
   <p>Marketing & creative agency website with a full-featured content management dashboard.</p>
 </div>
