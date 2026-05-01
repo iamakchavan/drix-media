@@ -17,7 +17,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 20, scale: 0.97 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="relative w-full max-w-[600px] bg-[#0D0D0D] border border-white/[0.08] flex flex-col max-h-[90vh]"
+        className="relative w-full max-w-[560px] bg-[#0D0D0D] border border-white/[0.08] flex flex-col max-h-[90vh]"
         style={{ clipPath: 'polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%)' }}
       >
         {/* Header */}
@@ -25,10 +25,10 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="w-1.5 h-1.5 bg-[#AFFF00]"></span>
-              <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase">Setup Required</span>
+              <span className="text-[9px] font-bold tracking-[0.4em] text-[#AFFF00] uppercase">Welcome</span>
             </div>
             <h2 className="text-[1.5rem] mona-sans-condensed-medium text-white tracking-tight leading-tight">
-              Before you start,<br />the backend needs setup.
+              Your dashboard is ready.<br />Here's how to get started.
             </h2>
           </div>
           <button onClick={onClose} className="text-white/20 hover:text-white/60 transition-colors mt-1 shrink-0">
@@ -37,22 +37,17 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
         </div>
 
         {/* Body */}
-        <div data-lenis-prevent className="px-8 py-6 overflow-y-auto flex flex-col gap-5 custom-scrollbar min-h-0" style={{ overscrollBehavior: 'contain' }}>
+        <div data-lenis-prevent className="px-8 py-6 overflow-y-auto flex flex-col gap-4 min-h-0" style={{ overscrollBehavior: 'contain' }}>
           <p className="text-[13px] text-white/40 leading-relaxed">
-            The admin UI is fully built. However, <span className="text-white/70">nothing is connected to a database yet.</span> Posts, projects, and contact forms are all reading from static local files. To make this dashboard fully functional, Supabase needs to be set up first.
+            This is your content management hub for the Drix Media website. Everything you publish here goes live on your site automatically.
           </p>
 
-          {/* Steps */}
           <div className="flex flex-col gap-3">
             {[
-              { num: '01', title: 'Create a Supabase project', desc: 'Go to supabase.com, create a new project, and copy your Project URL and Anon Key.' },
-              { num: '02', title: 'Add environment variables', desc: 'Create a .env file in the project root with VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.' },
-              { num: '03', title: 'Create the database tables', desc: 'Run the SQL for posts, projects, and contacts tables. Full SQL is in the Docs → Blog Posts / Projects / Contact Forms sections.' },
-              { num: '04', title: 'Enable Auth & create admin user', desc: 'Enable Email Auth in Supabase Dashboard, create one admin user, then replace the hardcoded login with supabase.auth.signInWithPassword().' },
-              { num: '05', title: 'Migrate existing data', desc: 'Run the migration scripts to move blogData.ts and projectsData.ts into Supabase. Content format must be converted to Editor.js OutputData — see Docs → Data Migration.' },
-              { num: '06', title: 'Wire save & load in editors', desc: 'Connect PostEditor and ProjectEditor to Supabase. Add the useEffect to load existing content so editors don\'t open blank.' },
-              { num: '07', title: 'Update public pages', desc: 'Replace static data imports in Blog.tsx, BlogDetail.tsx, Projects.tsx, ProjectDetail.tsx, and Contact.tsx with Supabase queries.' },
-              { num: '08', title: 'Set up image storage', desc: 'Create blog-images and project-images buckets in Supabase Storage (public), then update the ImageUpload component uploader.' },
+              { num: '01', title: 'Write & publish blog posts', desc: 'Go to Blog Posts → New Post. Use the editor to write your content, fill in the sidebar details, then hit Publish.' },
+              { num: '02', title: 'Manage your portfolio', desc: 'Go to Projects to add new work or update existing projects. Upload images, add descriptions, and showcase your results.' },
+              { num: '03', title: 'View contact submissions', desc: 'Every time someone fills out the contact form on your website, it appears in Contact Forms. Mark them as read or replied to stay organised.' },
+              { num: '04', title: 'Track your stats', desc: 'The dashboard shows your total posts, projects, and new inquiries at a glance so you always know what\'s happening.' },
             ].map(step => (
               <div key={step.num} className="flex gap-4 p-4 bg-white/[0.02] border border-white/[0.04]"
                 style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
@@ -65,12 +60,11 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
             ))}
           </div>
 
-          {/* Docs note */}
           <div className="flex items-start gap-3 bg-[#AFFF00]/5 border border-[#AFFF00]/15 p-4"
             style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-[#AFFF00]/60 shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             <p className="text-[12px] text-white/40 leading-relaxed">
-              <span className="text-[#AFFF00]/70 font-semibold">Docs are for reference only.</span> They contain all the SQL, code snippets, and migration scripts you need — but the actual setup must be done manually by a developer. Check the full Backend Checklist in Docs for the complete ordered task list.
+              <span className="text-[#AFFF00]/70 font-semibold">Need help?</span> Open the Docs section in the sidebar for a full guide on using every part of this dashboard.
             </p>
           </div>
         </div>
@@ -85,7 +79,7 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
           <button onClick={onClose}
             className="flex items-center gap-2 bg-[#AFFF00] text-black px-6 py-2.5 text-[11px] tracking-[0.2em] uppercase font-bold hover:bg-white transition-colors duration-300"
             style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
-            Got it, continue
+            Let's go
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
           </button>
         </div>
@@ -96,14 +90,14 @@ const WelcomeModal: React.FC<{ onClose: () => void }> = ({ onClose }) => (
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(() => !sessionStorage.getItem('modal_seen'));
+  const [showModal, setShowModal] = useState(() => !localStorage.getItem('welcome_seen'));
   const [posts, setPosts] = useState<any[]>([]);
   const [projectCount, setProjectCount] = useState(0);
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   const closeModal = () => {
-    sessionStorage.setItem('modal_seen', 'true');
+    localStorage.setItem('welcome_seen', 'true');
     setShowModal(false);
   };
 
