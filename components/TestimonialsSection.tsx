@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const StarIcon = () => (
+const StarIcon: React.FC = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
     <path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z" />
   </svg>
 );
+
+interface Testimonial {
+  category: string;
+  quote: string;
+  stats: { value: string; label: string; }[];
+  name: string;
+  role: string;
+  avatar: string | null;
+}
 
 const Stars = ({ dark }: { dark?: boolean }) => (
   <div className={`flex gap-1 mb-6 ${dark ? 'text-[#AFFF00]' : 'text-black'}`}>
@@ -13,7 +22,7 @@ const Stars = ({ dark }: { dark?: boolean }) => (
   </div>
 );
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     category: 'Marketing',
     quote: '"We needed more than visibility, we needed results. The strategy brought clarity, direction, and real growth. Every campaign felt purposeful and performance-driven."',
@@ -41,7 +50,12 @@ const testimonials = [
 ];
 
 // Card component — alternates bg based on index (0=white,1=black,2=white,3=black)
-const TestimonialCard = ({ t, dark }: { t: typeof testimonials[0]; dark: boolean }) => (
+interface TestimonialCardProps {
+  t: Testimonial;
+  dark: boolean;
+}
+
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ t, dark }) => (
   <div className={`relative flex flex-col justify-between p-8 min-h-[500px] xl:min-h-[600px] ${dark ? 'bg-[#0C0C0C]' : 'bg-[#F5F5F5]'}`}>
     <div className="flex flex-col h-full justify-between">
       <div>

@@ -1,19 +1,52 @@
+import { supabase } from '../../lib/supabase';
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projectsData } from '../../data/projectsData';
+import { Project } from '../../types/project';
 import AdminLayout from './AdminLayout';
 
 const AdminProjects: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        sessionStorage.removeItem('admin_auth');
+        navigate('/admin');
+      }
+    });
+
+    fetchProjects();
   }, [navigate]);
 
-  const filtered = projectsData.filter(p =>
+  const fetchProjects = async () => {
+    setLoading(true);
+    const { data } = await supabase
+      .from('projects')
+      .select('*')
+      .order('order_index', { ascending: true });
+    if (data) setProjects(data);
+    setLoading(false);
+  };
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    const { error } = await supabase
+      .from('projects')
+      .delete()
+      .eq('id', deleteId);
+    
+    if (!error) {
+      setProjects(prev => prev.filter(p => p.id !== deleteId));
+      setDeleteId(null);
+    }
+  };
+
+  const filtered = projects.filter(p =>
     p.title.toLowerCase().includes(search.toLowerCase()) ||
     p.category.toLowerCase().includes(search.toLowerCase())
   );
@@ -26,7 +59,7 @@ const AdminProjects: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-[1.4rem] mona-sans-condensed-medium text-white tracking-tight">Projects</h1>
-            <p className="text-white/25 text-[12px] mt-1">{projectsData.length} projects total</p>
+            <p className="text-white/25 text-[12px] mt-1">{projects.length} projects total</p>
           </div>
           <Link to="/admin/projects/new"
             className="flex items-center gap-2 bg-[#AFFF00] text-black px-5 py-2.5 text-[11px] tracking-[0.2em] uppercase font-bold hover:bg-white transition-colors duration-300 w-fit"
@@ -49,66 +82,70 @@ const AdminProjects: React.FC = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence>
-            {filtered.map((project, i) => (
-              <motion.div key={project.id}
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="group bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-all duration-300 flex flex-col overflow-hidden"
-                style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}>
+          {loading ? (
+            <div className="col-span-full py-20 flex flex-col items-center justify-center gap-4">
+              <div className="w-10 h-10 border-2 border-white/5 border-t-[#AFFF00] rounded-full animate-spin" />
+              <p className="text-[10px] text-white/20 uppercase tracking-widest font-bold">Synchronizing Index...</p>
+            </div>
+          ) : (
+            <AnimatePresence>
+              {filtered.map((project, i) => (
+                <motion.div key={project.id}
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  className="group bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-all duration-300 flex flex-col overflow-hidden"
+                  style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}>
 
-                {/* Thumbnail */}
-                <div className="aspect-[16/9] overflow-hidden relative bg-white/[0.03]">
-                  <img src={project.thumbnail} alt={project.title}
-                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <span className="absolute top-3 left-3 text-[9px] font-bold tracking-[0.25em] uppercase text-[#AFFF00]/70 border border-[#AFFF00]/20 px-2 py-0.5 bg-black/40">
-                    {project.category}
-                  </span>
-                  <span className="absolute top-3 right-3 text-[9px] font-bold tracking-[0.2em] uppercase text-white/30 border border-white/10 px-2 py-0.5 bg-black/40">
-                    {project.designAssets ? 'Design' : 'Marketing'}
-                  </span>
-                </div>
-
-                {/* Info */}
-                <div className="p-5 flex flex-col gap-3 flex-1">
-                  <div>
-                    <p className="text-[14px] text-white/70 group-hover:text-white transition-colors font-medium">{project.title}</p>
-                    <p className="text-[11px] text-white/25 mt-1 line-clamp-2 leading-relaxed">{project.description}</p>
+                  {/* Thumbnail */}
+                  <div className="aspect-[16/9] overflow-hidden relative bg-white/[0.03]">
+                    <img src={project.thumbnail || project.hero_image} alt={project.title}
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <span className="absolute top-3 left-3 text-[9px] font-bold tracking-[0.25em] uppercase text-[#AFFF00]/70 border border-[#AFFF00]/20 px-2 py-0.5 bg-black/40">
+                      {project.category}
+                    </span>
                   </div>
-                  <div className="flex flex-wrap gap-1 mt-auto">
-                    {project.whatWeDid.slice(0, 3).map(s => (
-                      <span key={s} className="text-[9px] text-white/20 border border-white/[0.06] px-2 py-0.5">{s}</span>
-                    ))}
-                    {project.whatWeDid.length > 3 && (
-                      <span className="text-[9px] text-white/15 px-1">+{project.whatWeDid.length - 3}</span>
-                    )}
-                  </div>
-                </div>
 
-                {/* Actions */}
-                <div className="flex border-t border-white/[0.05]">
-                  <Link to={`/admin/projects/${project.id}`}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-white/70 hover:bg-white/[0.03] transition-all uppercase tracking-widest">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    Edit
-                  </Link>
-                  <div className="w-px bg-white/[0.05]" />
-                  <Link to={`/projects/${project.id}`} target="_blank"
-                    className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-white/70 hover:bg-white/[0.03] transition-all uppercase tracking-widest">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                    View
-                  </Link>
-                  <div className="w-px bg-white/[0.05]" />
-                  <button onClick={() => setDeleteId(project.id)}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-red-400/60 hover:bg-red-400/[0.04] transition-all uppercase tracking-widest">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
-                    Delete
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                  {/* Info */}
+                  <div className="p-5 flex flex-col gap-3 flex-1">
+                    <div>
+                      <p className="text-[14px] text-white/70 group-hover:text-white transition-colors font-medium">{project.title}</p>
+                      <p className="text-[11px] text-white/25 mt-1 line-clamp-2 leading-relaxed">{project.description}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-auto">
+                      {project.services?.slice(0, 3).map(s => (
+                        <span key={s} className="text-[9px] text-white/20 border border-white/[0.06] px-2 py-0.5">{s}</span>
+                      ))}
+                      {project.services && project.services.length > 3 && (
+                        <span className="text-[9px] text-white/15 px-1">+{project.services.length - 3}</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex border-t border-white/[0.05]">
+                    <Link to={`/admin/projects/${project.id}`}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-white/70 hover:bg-white/[0.03] transition-all uppercase tracking-widest">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                      Edit
+                    </Link>
+                    <div className="w-px bg-white/[0.05]" />
+                    <Link to={`/projects/${project.id}`} target="_blank"
+                      className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-white/70 hover:bg-white/[0.03] transition-all uppercase tracking-widest">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      View
+                    </Link>
+                    <div className="w-px bg-white/[0.05]" />
+                    <button onClick={() => setDeleteId(project.id)}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 text-[10px] text-white/30 hover:text-red-400/60 hover:bg-red-400/[0.04] transition-all uppercase tracking-widest">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+                      Delete
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          )}
         </div>
       </div>
 
@@ -122,14 +159,14 @@ const AdminProjects: React.FC = () => {
               style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}>
               <div>
                 <p className="text-white mona-sans-condensed-medium text-[1.2rem]">Delete this project?</p>
-                <p className="text-white/30 text-[13px] mt-2">This cannot be undone once Supabase is connected.</p>
+                <p className="text-white/30 text-[13px] mt-2">This will permanently remove the project from Supabase.</p>
               </div>
               <div className="flex gap-3">
                 <button onClick={() => setDeleteId(null)}
                   className="flex-1 py-2.5 border border-white/[0.08] text-white/40 hover:text-white/70 text-[11px] tracking-[0.2em] uppercase transition-colors">
                   Cancel
                 </button>
-                <button onClick={() => setDeleteId(null)}
+                <button onClick={handleDelete}
                   className="flex-1 py-2.5 bg-red-500/80 hover:bg-red-500 text-white text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
                   Delete
                 </button>

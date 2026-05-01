@@ -1,48 +1,96 @@
+import { supabase } from '../../lib/supabase';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import AdminLayout from './AdminLayout';
 
-// Mock data — replace with Supabase query later
-const mockContacts = [
-  { id: 1, name: 'Jordan Lee', email: 'jordan@example.com', company: 'Apex Studio', service: 'Brand Identity', message: 'We are looking to rebrand our agency and would love to discuss a full identity project.', date: 'April 20, 2026', status: 'new' },
-  { id: 2, name: 'Priya Sharma', email: 'priya@growthco.io', company: 'GrowthCo', service: 'UI/UX Design', message: 'We need a complete redesign of our SaaS dashboard. Can we schedule a call?', date: 'April 18, 2026', status: 'read' },
-  { id: 3, name: 'Marcus Webb', email: 'marcus@solaris.com', company: 'Solaris Energy', service: 'Technical Development', message: 'Interested in building a new marketing site and web app. Budget is flexible for the right team.', date: 'April 15, 2026', status: 'replied' },
-  { id: 4, name: 'Aisha Okonkwo', email: 'aisha@brandnew.co', company: 'BrandNew', service: 'Creative Strategy', message: 'We are launching a new D2C product and need full go-to-market strategy and creative direction.', date: 'April 12, 2026', status: 'new' },
-  { id: 5, name: 'Tom Eriksen', email: 'tom@nordic.design', company: 'Nordic Design Co', service: 'Brand Identity', message: 'Looking for a long-term creative partner for ongoing brand work across multiple clients.', date: 'April 10, 2026', status: 'read' },
-];
-
-type Status = 'all' | 'new' | 'read' | 'replied';
+interface Inquiry {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string;
+  company: string | null;
+  service: string;
+  message: string;
+  status: 'new' | 'read' | 'replied' | 'archived';
+}
 
 const statusColor: Record<string, string> = {
   new: 'text-[#AFFF00]/70 border-[#AFFF00]/30 bg-[#AFFF00]/5',
   read: 'text-white/30 border-white/10 bg-white/[0.02]',
   replied: 'text-blue-400/60 border-blue-400/20 bg-blue-400/5',
+  archived: 'text-white/10 border-white/5 bg-transparent',
 };
 
 const ContactForms: React.FC = () => {
   const navigate = useNavigate();
-  const [filter, setFilter] = useState<Status>('all');
-  const [selected, setSelected] = useState<typeof mockContacts[0] | null>(null);
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<'all' | 'new' | 'read' | 'replied'>('all');
+  const [selected, setSelected] = useState<Inquiry | null>(null);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
-  }, [navigate]);
+    fetchInquiries();
+  }, []);
 
-  const filtered = mockContacts.filter(c => {
+  const fetchInquiries = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('contact_submissions')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (data) setInquiries(data);
+    setLoading(false);
+  };
+
+  const updateStatus = async (id: string, status: Inquiry['status']) => {
+    const { error } = await supabase
+      .from('contact_submissions')
+      .update({ status })
+      .eq('id', id);
+
+    if (!error) {
+      setInquiries(prev => prev.map(inv => inv.id === id ? { ...inv, status } : inv));
+      if (selected?.id === id) setSelected(prev => prev ? { ...prev, status } : null);
+    }
+  };
+
+  const deleteInquiry = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this submission?')) return;
+    const { error } = await supabase
+      .from('contact_submissions')
+      .delete()
+      .eq('id', id);
+
+    if (!error) {
+      setInquiries(prev => prev.filter(inv => inv.id !== id));
+      setSelected(null);
+    }
+  };
+
+  const filtered = inquiries.filter(c => {
     const matchStatus = filter === 'all' || c.status === filter;
     const matchSearch = c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.email.toLowerCase().includes(search.toLowerCase()) ||
-      c.company.toLowerCase().includes(search.toLowerCase());
+      (c.company || '').toLowerCase().includes(search.toLowerCase());
     return matchStatus && matchSearch;
   });
 
   const counts = {
-    all: mockContacts.length,
-    new: mockContacts.filter(c => c.status === 'new').length,
-    read: mockContacts.filter(c => c.status === 'read').length,
-    replied: mockContacts.filter(c => c.status === 'replied').length,
+    all: inquiries.length,
+    new: inquiries.filter(c => c.status === 'new').length,
+    read: inquiries.filter(c => c.status === 'read').length,
+    replied: inquiries.filter(c => c.status === 'replied').length,
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
   };
 
   return (
@@ -55,21 +103,14 @@ const ContactForms: React.FC = () => {
             <h1 className="text-[1.4rem] mona-sans-condensed-medium text-white tracking-tight">Contact Submissions</h1>
             <p className="text-white/25 text-[12px] mt-1">
               {counts.new > 0 && <span className="text-[#AFFF00]/70">{counts.new} new · </span>}
-              {mockContacts.length} total submissions
+              {inquiries.length} total submissions
             </p>
-          </div>
-          <div className="flex items-center gap-2 text-[10px] text-white/20 border border-white/[0.06] px-4 py-2"
-            style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white/20">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            Live data once Supabase connected
           </div>
         </div>
 
         {/* Stats row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {(['all', 'new', 'read', 'replied'] as Status[]).map(s => (
+          {(['all', 'new', 'read', 'replied'] as const).map(s => (
             <button key={s} onClick={() => setFilter(s)}
               className={`p-4 border text-left transition-all duration-200 ${filter === s ? 'border-[#AFFF00]/30 bg-[#AFFF00]/5' : 'border-white/[0.05] bg-white/[0.02] hover:border-white/10'}`}
               style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
@@ -100,7 +141,9 @@ const ContactForms: React.FC = () => {
           </div>
 
           <AnimatePresence>
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="bg-[#050505] px-5 py-16 text-center text-white/20 text-[13px]">Fetching data...</div>
+            ) : filtered.length === 0 ? (
               <div className="bg-[#050505] px-5 py-16 text-center text-white/20 text-[13px]">No submissions found.</div>
             ) : filtered.map((contact, i) => (
               <motion.div key={contact.id}
@@ -108,20 +151,20 @@ const ContactForms: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
-                onClick={() => setSelected(contact)}
+                onClick={() => { setSelected(contact); if (contact.status === 'new') updateStatus(contact.id, 'read'); }}
                 className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr_auto] gap-4 items-center px-5 py-4 bg-[#050505] hover:bg-white/[0.02] transition-colors group cursor-pointer"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-8 h-8 shrink-0 bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-[#AFFF00]/60 text-[13px] font-bold mona-sans-condensed-medium">
+                  <div className={`w-8 h-8 shrink-0 bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-[13px] font-bold mona-sans-condensed-medium ${contact.status === 'new' ? 'text-[#AFFF00]' : 'text-white/20'}`}>
                     {contact.name[0]}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[13px] text-white/70 group-hover:text-white transition-colors">{contact.name}</p>
+                    <p className={`text-[13px] ${contact.status === 'new' ? 'text-white font-medium' : 'text-white/70'} group-hover:text-white transition-colors`}>{contact.name}</p>
                     <p className="text-[10px] text-white/20 truncate">{contact.email}</p>
                   </div>
                 </div>
                 <span className="text-[11px] text-white/30">{contact.service}</span>
-                <span className="text-[11px] text-white/20 font-mono">{contact.date}</span>
+                <span className="text-[11px] text-white/20 font-mono">{formatDate(contact.created_at)}</span>
                 <span className={`text-[9px] font-bold tracking-[0.25em] uppercase px-2 py-1 border w-fit ${statusColor[contact.status]}`}>
                   {contact.status}
                 </span>
@@ -145,17 +188,17 @@ const ContactForms: React.FC = () => {
             <motion.aside
               initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed top-0 right-0 h-full w-full max-w-[480px] bg-[#0D0D0D] border-l border-white/[0.06] z-50 flex flex-col overflow-y-auto"
+              className="fixed top-0 right-0 h-full w-full max-w-[480px] bg-[#0D0D0D] border-l border-white/[0.06] z-50 flex flex-col overflow-y-auto admin-scroll"
             >
               {/* Drawer header */}
               <div className="flex items-center justify-between px-8 py-6 border-b border-white/[0.05]">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-white/[0.04] border border-white/[0.06] flex items-center justify-center text-[#AFFF00]/60 text-[14px] font-bold mona-sans-condensed-medium">
+                  <div className="w-9 h-9 bg-[#AFFF00] text-black flex items-center justify-center text-[14px] font-bold mona-sans-condensed-medium">
                     {selected.name[0]}
                   </div>
                   <div>
                     <p className="text-white text-[14px] font-semibold">{selected.name}</p>
-                    <p className="text-white/30 text-[11px]">{selected.company}</p>
+                    <p className="text-white/30 text-[11px]">{selected.company || 'Private Individual'}</p>
                   </div>
                 </div>
                 <button onClick={() => setSelected(null)} className="text-white/20 hover:text-white/60 transition-colors">
@@ -169,25 +212,29 @@ const ContactForms: React.FC = () => {
                   <span className={`text-[9px] font-bold tracking-[0.25em] uppercase px-2.5 py-1 border ${statusColor[selected.status]}`}>
                     {selected.status}
                   </span>
-                  <span className="text-white/20 text-[11px]">{selected.date}</span>
+                  <span className="text-white/20 text-[11px]">{new Date(selected.created_at).toLocaleString()}</span>
                 </div>
 
                 {/* Details */}
                 {[
-                  { label: 'Email', value: selected.email },
-                  { label: 'Company', value: selected.company },
+                  { label: 'Email', value: selected.email, href: `mailto:${selected.email}` },
+                  { label: 'Company', value: selected.company || '—' },
                   { label: 'Service Interested In', value: selected.service },
-                ].map(({ label, value }) => (
+                ].map(({ label, value, href }) => (
                   <div key={label} className="flex flex-col gap-1">
                     <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/20">{label}</span>
-                    <span className="text-[13px] text-white/60">{value}</span>
+                    {href ? (
+                      <a href={href} className="text-[13px] text-[#AFFF00]/60 hover:text-[#AFFF00] transition-colors">{value}</a>
+                    ) : (
+                      <span className="text-[13px] text-white/60">{value}</span>
+                    )}
                   </div>
                 ))}
 
                 {/* Message */}
                 <div className="flex flex-col gap-2">
                   <span className="text-[9px] font-bold tracking-[0.3em] uppercase text-white/20">Message</span>
-                  <p className="text-[14px] text-white/50 leading-relaxed bg-white/[0.02] border border-white/[0.05] p-5"
+                  <p className="text-[14px] text-white/50 leading-relaxed bg-white/[0.02] border border-white/[0.05] p-5 whitespace-pre-wrap"
                     style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}>
                     {selected.message}
                   </p>
@@ -195,23 +242,27 @@ const ContactForms: React.FC = () => {
 
                 {/* Actions */}
                 <div className="flex flex-col gap-3 pt-2 border-t border-white/[0.05]">
-                  <a href={`mailto:${selected.email}`}
+                  <a href={`mailto:${selected.email}?subject=Re: Inquiry for ${selected.service}`}
+                    onClick={() => updateStatus(selected.id, 'replied')}
                     className="flex items-center justify-center gap-2 bg-[#AFFF00] text-black py-3 text-[11px] tracking-[0.2em] uppercase font-bold hover:bg-white transition-colors duration-300"
                     style={{ clipPath: 'polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)' }}>
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     Reply via Email
                   </a>
                   <div className="grid grid-cols-2 gap-3">
-                    <button className="py-2.5 border border-white/[0.08] text-white/30 hover:text-white/60 text-[10px] tracking-[0.2em] uppercase transition-colors"
+                    <button onClick={() => updateStatus(selected.id, 'read')}
+                      className="py-2.5 border border-white/[0.08] text-white/30 hover:text-white/60 text-[10px] tracking-[0.2em] uppercase transition-colors"
                       style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' }}>
                       Mark Read
                     </button>
-                    <button className="py-2.5 border border-white/[0.08] text-white/30 hover:text-blue-400/60 text-[10px] tracking-[0.2em] uppercase transition-colors"
+                    <button onClick={() => updateStatus(selected.id, 'replied')}
+                      className="py-2.5 border border-white/[0.08] text-white/30 hover:text-blue-400/60 text-[10px] tracking-[0.2em] uppercase transition-colors"
                       style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' }}>
                       Mark Replied
                     </button>
                   </div>
-                  <button className="py-2.5 border border-red-500/20 text-red-400/40 hover:text-red-400/70 hover:border-red-500/40 text-[10px] tracking-[0.2em] uppercase transition-colors"
+                  <button onClick={() => deleteInquiry(selected.id)}
+                    className="py-2.5 border border-red-500/20 text-red-400/40 hover:text-red-400/70 hover:border-red-500/40 text-[10px] tracking-[0.2em] uppercase transition-colors"
                     style={{ clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)' }}>
                     Delete Submission
                   </button>

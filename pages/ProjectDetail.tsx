@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { projectsData } from '../data/projectsData';
+import { supabase } from '../lib/supabase';
+import { Project } from '../types/project';
 
 // ─── Animation & Style Constants ─────────────────────────────────────────────
 
 const smoothEase = [0.16, 1, 0.3, 1];
 
-// The "Page Fold" Clip Paths from Drix Design System
-const pageFoldClip = "polygon(0% 0%, 100% 0%, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0% 100%)";
 const pageFoldClipSmall = "polygon(0% 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%)";
-const sectionFoldClip = "polygon(0% 0%, calc(100% - 60px) 0%, 100% 60px, 100% 100%, 60px 100%, 0% calc(100% - 60px))";
 
 const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
@@ -34,14 +32,47 @@ const SectionHeader = ({ label, light = false }: { label: string; light?: boolea
 const ProjectDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const project = projectsData.find(p => p.id === id);
+    const [project, setProject] = useState<Project | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [otherProjects, setOtherProjects] = useState<Project[]>([]);
 
     useEffect(() => {
-        if (!project) {
-            navigate('/projects');
-        }
+        const fetchProject = async () => {
+            if (!id) return;
+            
+            try {
+                const { data, error } = await supabase
+                    .from('projects')
+                    .select('*')
+                    .eq('id', id)
+                    .single();
+                
+                if (error || !data) {
+                    console.error("Project not found:", id, error);
+                    navigate('/projects');
+                    return;
+                }
+
+                setProject(data as Project);
+                
+                // Fetch other projects for the bottom section
+                const { data: others } = await supabase
+                    .from('projects')
+                    .select('*')
+                    .neq('id', id)
+                    .limit(4);
+                if (others) setOtherProjects(others as Project[]);
+            } catch (err) {
+                console.error("Error fetching project:", err);
+                navigate('/projects');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProject();
         window.scrollTo(0, 0);
-    }, [project, navigate]);
+    }, [id, navigate]);
 
     const { scrollY } = useScroll();
     
@@ -50,7 +81,27 @@ const ProjectDetail: React.FC = () => {
     const heroY = useTransform(scrollY, [0, 800], [0, -150]);
     const heroScale = useTransform(scrollY, [0, 800], [1, 1.05]);
 
-    if (!project) return null;
+    if (loading) {
+        return (
+            <main className="w-full h-screen bg-black flex flex-col items-center justify-center gap-4">
+                <div className="w-12 h-12 border-2 border-white/5 border-t-[#AFFF00] rounded-full animate-spin" />
+                <span className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold poppins-medium">Decrypting Case Study...</span>
+            </main>
+        );
+    }
+
+    if (!project) {
+        return (
+            <main className="w-full h-screen bg-black flex flex-col items-center justify-center gap-4">
+                <span className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold poppins-medium">Project Not Found</span>
+                <Link to="/projects" className="text-[#AFFF00] text-xs uppercase tracking-widest border-b border-[#AFFF00]/20 pb-1">Back to Gallery</Link>
+            </main>
+        );
+    }
+
+    const mockups = project.assets?.mockups || [];
+    const sketches = project.assets?.sketches || [];
+    const allImages = [...mockups, ...sketches].filter(Boolean);
 
     return (
         <main className="w-full min-h-screen bg-black selection:bg-[#AFFF00] selection:text-black poppins-regular overflow-x-hidden">
@@ -75,11 +126,13 @@ const ProjectDetail: React.FC = () => {
                     className="w-full h-full relative"
                 >
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
-                    <img 
-                        src={project.heroImage} 
-                        alt={project.title} 
-                        className="w-full h-full object-cover opacity-60 grayscale-[0.3]"
-                    />
+                    {project.hero_image && (
+                        <img 
+                            src={project.hero_image} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover opacity-60 grayscale-[0.3]"
+                        />
+                    )}
                     
                     <div className="absolute inset-0 z-20 flex flex-col justify-end pb-24 md:pb-32 px-6 md:px-12 lg:px-20 max-w-[1600px] mx-auto w-full">
                         <motion.div
@@ -109,11 +162,10 @@ const ProjectDetail: React.FC = () => {
                 <section className="w-full py-16 md:py-24 px-6 md:px-12 lg:px-20 border-b border-black/5">
                     <div className="max-w-[1600px] mx-auto">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-start">
-                            {/* Left Meta Column */}
                             <div className="md:col-span-4 flex flex-col gap-10">
                                 <div className="flex flex-col gap-1">
                                     <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block mb-2">(SERVICES)</span>
-                                    <span className="text-sm md:text-[15px] text-black poppins-regular leading-snug">{project.whatWeDid.join(', ')}</span>
+                                    <span className="text-sm md:text-[15px] text-black poppins-regular leading-snug">{project.services?.join(', ') || 'N/A'}</span>
                                 </div>
                                 <div className="flex flex-col gap-1">
                                     <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block mb-2">(INDUSTRY)</span>
@@ -123,57 +175,81 @@ const ProjectDetail: React.FC = () => {
                                     <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block mb-2">(YEAR)</span>
                                     <span className="text-sm md:text-[15px] text-black poppins-regular leading-snug">2024</span>
                                 </div>
-                                <div className="flex flex-col gap-1">
-                                    <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block mb-2">(LINK)</span>
-                                    <a href="#" className="text-sm md:text-[15px] text-black poppins-regular hover:opacity-50 transition-opacity w-fit">Website</a>
-                                </div>
                             </div>
 
-                            {/* Right Info Column */}
-                            <div className="md:col-span-8 flex flex-col gap-6 pt-1">
-                                <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block">(INFORMATION)</span>
-                                <div className="text-[15px] md:text-base poppins-regular text-black/90 leading-[1.8] max-w-3xl">
-                                    <p className="mb-6">{project.description}</p>
-                                    <p className="mb-6">{project.problem}</p>
-                                    {project.brandProblems && project.brandProblems.length > 0 && (
-                                       <p className="mb-6">
-                                          Objective included addressing fundamental challenges such as {project.brandProblems.map((p, i) => i === project.brandProblems.length - 1 ? `and ${p.toLowerCase()}` : `${p.toLowerCase()}`).join(', ')}.
-                                       </p>
-                                    )}
+                            <div className="md:col-span-8 flex flex-col gap-12 pt-1">
+                                <div className="flex flex-col gap-6">
+                                    <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block">(INFORMATION)</span>
+                                    <div className="text-[15px] md:text-base poppins-regular text-black/90 leading-[1.8] max-w-3xl">
+                                        <p>{project.description}</p>
+                                    </div>
                                 </div>
+
+                                {(project.problem || (project.brand_problems && project.brand_problems.length > 0)) && (
+                                    <div className="flex flex-col gap-6 pt-4 border-t border-black/5">
+                                        <span className="text-[10px] text-black/40 uppercase tracking-[0.1em] font-medium poppins-medium block">(THE CHALLENGE)</span>
+                                        <div className="text-[15px] md:text-base poppins-regular text-black/90 leading-[1.8] max-w-3xl">
+                                            {project.problem && <p className="mb-6 font-medium text-black">{project.problem}</p>}
+                                            
+                                            {project.brand_problems && project.brand_problems.length > 0 && (
+                                                <div className="flex flex-col gap-4">
+                                                    <p className="text-black/60 italic">
+                                                        {project.challenge_title || "Objective included addressing fundamental challenges such as"}:
+                                                    </p>
+                                                    <ul className="flex flex-col gap-3">
+                                                        {project.brand_problems.map((prob, i) => (
+                                                            <li key={i} className="flex gap-4 items-start">
+                                                                 <span className="w-1.5 h-1.5 bg-[#AFFF00] mt-2.5 shrink-0" />
+                                                                <span className="text-black/80">{prob}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* ── Extended Gallery Bento Grid (Edge to Edge) ── */}
-                {(() => {
-                    const allImages = [
-                        ...(project.designAssets?.mockups || []),
-                        ...(project.marketingAssets?.collaterals || []),
-                        ...(project.designAssets?.sketches || [])
-                    ].filter(Boolean);
-
-                    if (allImages.length === 0) return null;
-
-                    return (
-                        <section className="w-full bg-[#f9f9f9]">
-                            <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2 p-1 md:p-2 auto-rows-[30vh] md:auto-rows-[45vh]">
+                {/* ── Extended Gallery (Dynamic Layout) ── */}
+                {allImages.length > 0 && (
+                    <section className="w-full bg-[#f9f9f9] py-1 md:py-2">
+                        {project.gallery_layout === 'carousel' ? (
+                            /* ── Horizontal Carousel Mode ── */
+                            <div className="w-full py-16 md:py-24 overflow-hidden relative">
+                                <div className="flex gap-4 md:gap-8 px-6 md:px-12 lg:px-20 overflow-x-auto no-scrollbar scroll-smooth">
+                                    {allImages.map((img, i) => (
+                                        <div key={i} className="shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] aspect-[16/10] md:aspect-[16/9] bg-black/5 relative group overflow-hidden"
+                                             style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}>
+                                            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+                                            <img 
+                                                src={img} 
+                                                alt={`${project.title} Detail ${i+1}`} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2.5s] ease-[0.16,1,0.3,1]"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="mt-8 px-6 md:px-12 lg:px-20 flex items-center justify-between">
+                                    <div className="flex gap-2">
+                                        <span className="text-[10px] text-black/20 uppercase tracking-widest font-bold poppins-medium">Scroll to explore</span>
+                                        <div className="w-12 h-[1px] bg-black/10 mt-[7px]" />
+                                    </div>
+                                    <span className="text-[10px] text-black/10 poppins-bold uppercase tracking-[0.4em]">{allImages.length} Visuals</span>
+                                </div>
+                            </div>
+                        ) : (
+                            /* ── Bento Grid Mode ── */
+                            <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2 auto-rows-[30vh] md:auto-rows-[45vh] grid-flow-dense">
                                 {allImages.map((img, i) => {
-                                    // Dynamic Span Logic for a Premium Bento Look
+                                    const mod = i % 5;
                                     let spanClass = "col-span-1 row-span-1";
-                                    
-                                    if (i % 5 === 0) {
-                                        spanClass = "md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2"; // Massive feature block
-                                    } else if (i % 5 === 1) {
-                                        spanClass = "md:col-span-1 lg:col-span-2 row-span-1"; // Wide block top
-                                    } else if (i % 5 === 2) {
-                                        spanClass = "md:col-span-1 lg:col-span-1 row-span-1"; // Small square
-                                    } else if (i % 5 === 3) {
-                                        spanClass = "md:col-span-1 lg:col-span-1 row-span-1"; // Small square
-                                    } else if (i % 5 === 4) {
-                                        spanClass = "md:col-span-1 lg:col-span-2 row-span-1"; // Wide block bottom
-                                    }
+                                    if (mod === 0) spanClass = "md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2";
+                                    else if (mod === 1) spanClass = "md:col-span-1 lg:col-span-2 row-span-1";
+                                    else if (mod === 4) spanClass = "md:col-span-1 lg:col-span-2 row-span-1";
 
                                     return (
                                         <div key={i} className={`relative w-full h-full overflow-hidden bg-black/5 group ${spanClass}`}>
@@ -187,80 +263,53 @@ const ProjectDetail: React.FC = () => {
                                     )
                                 })}
                             </div>
-                        </section>
-                    );
-                })()}
+                        )}
+                        <style dangerouslySetInnerHTML={{ __html: `
+                            .no-scrollbar::-webkit-scrollbar { display: none; }
+                            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+                        ` }} />
+                    </section>
+                )}
 
-                {/* ── Next Project Reveal (The Ending) ── */}
                 {/* ── More Projects Grid ── */}
-                {(() => {
-                    const otherProjects = projectsData.filter(p => p.id !== project.id).slice(0, 4);
-                    
-                    return (
-                        <section className="w-full bg-[#050505] py-24 md:py-32 px-6 md:px-12 lg:px-20 relative z-20">
-                            <div className="max-w-[1600px] mx-auto flex flex-col gap-12 md:gap-16">
-                                <SectionHeader label="More Work" light={true} />
-                                
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                                    {otherProjects.map((p, i) => (
-                                        <Link 
-                                            key={i} 
-                                            to={`/projects/${p.id}`}
-                                            className="group relative flex flex-col w-full aspect-[3/4] overflow-hidden bg-[#111] border border-white/[0.06] hover:border-white/[0.14] transition-colors duration-500"
-                                            style={{ clipPath: pageFoldClipSmall }}
-                                        >
-                                            {/* Full-brightness image — Framer style: visible by default */}
-                                            <div className="absolute inset-0 z-0">
-                                                <img 
-                                                    src={p.thumbnail || p.heroImage} 
-                                                    alt={p.title} 
-                                                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 opacity-90 group-hover:scale-[1.04] transition-all duration-[1s] ease-[0.16,1,0.3,1]"
-                                                />
-                                            </div>
-
-                                            {/* Permanent subtle vignette — just enough for text legibility */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10" />
-
-                                            {/* Page-fold corner accent — site theme */}
-                                            <div 
-                                                className="absolute bottom-0 right-0 w-[16px] h-[16px] bg-[#AFFF00] z-30 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
-                                                style={{ clipPath: "polygon(100% 0%, 100% 100%, 0% 100%)" }}
+                {otherProjects.length > 0 && (
+                    <section className="w-full bg-[#050505] py-24 md:py-32 px-6 md:px-12 lg:px-20 relative z-20">
+                        <div className="max-w-[1600px] mx-auto flex flex-col gap-12 md:gap-16">
+                            <SectionHeader label="More Work" light={true} />
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                                {otherProjects.map((p, i) => (
+                                    <Link 
+                                        key={i} 
+                                        to={`/projects/${p.id}`}
+                                        className="group relative flex flex-col w-full aspect-[3/4] overflow-hidden bg-[#111] border border-white/[0.06] hover:border-white/[0.14] transition-colors duration-500"
+                                        style={{ clipPath: pageFoldClipSmall }}
+                                    >
+                                        <div className="absolute inset-0 z-0">
+                                            <img 
+                                                src={p.thumbnail || p.hero_image} 
+                                                alt={p.title} 
+                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 opacity-90 group-hover:scale-[1.04] transition-all duration-[1s] ease-[0.16,1,0.3,1]"
                                             />
-
-                                            {/* Index number — top left */}
-                                            <div className="absolute top-5 left-5 z-20">
-                                                <span className="text-white/30 text-[10px] poppins-medium tracking-[0.35em]">
-                                                    {String(i + 1).padStart(2, '0')}
+                                        </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10" />
+                                        <div className="relative z-20 flex flex-col justify-end h-full p-5 md:p-6">
+                                            <div className="flex flex-col gap-1.5">
+                                                <span className="text-[#AFFF00] text-[9px] font-bold tracking-[0.3em] uppercase poppins-medium">
+                                                    {p.category}
                                                 </span>
+                                                <h3 className="text-[1.35rem] md:text-[1.5rem] text-white mona-sans-condensed-bold tracking-tight uppercase leading-[0.9]">
+                                                    {p.title}
+                                                </h3>
                                             </div>
-
-                                            {/* Arrow — top right, fades in */}
-                                            <div className="absolute top-5 right-5 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <svg className="w-[14px] h-[14px] text-[#AFFF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                                    <path d="M7 17l9.2-9.2M17 17V7H7"/>
-                                                </svg>
-                                            </div>
-
-                                            {/* Bottom content — slides up on hover */}
-                                            <div className="relative z-20 flex flex-col justify-end h-full p-5 md:p-6">
-                                                <div className="flex flex-col gap-1.5">
-                                                    <span className="text-[#AFFF00] text-[9px] font-bold tracking-[0.3em] uppercase poppins-medium opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400 ease-[0.16,1,0.3,1]">
-                                                        {p.category}
-                                                    </span>
-                                                    <h3 className="text-[1.35rem] md:text-[1.5rem] text-white mona-sans-condensed-bold tracking-tight uppercase leading-[0.9]">
-                                                        {p.title}
-                                                    </h3>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
+                                        </div>
+                                    </Link>
+                                ))}
                             </div>
-                        </section>
-                    );
-                })()}
+                        </div>
+                    </section>
+                )}
 
-                {/* ── Footer ── */}
                 <div className="relative z-30 bg-[#050505] border-t border-white/5">
                     <Footer />
                 </div>

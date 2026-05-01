@@ -57,19 +57,19 @@ const ChallengeSection: React.FC = () => {
       index: '01',
       label: 'The Reality',
       body: <>Great product.<br />Strong vision.<br /><span className="text-[#AFFF00] italic">Still not getting noticed.</span></>,
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop',
+      image: '/assets/challenge/The-reality.webp',
     },
     {
       index: '02',
       label: 'The Symptoms',
       body: <>Random content.<br />Inconsistent messaging.<br /><span className="text-[#AFFF00] italic">Marketing that doesn't convert.</span></>,
-      image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1200&auto=format&fit=crop',
+      image: '/assets/challenge/The-symptoms.webp',
     },
     {
       index: '03',
       label: 'The Root Cause',
       body: <>Too many moving pieces.<br />No clear thought.<br /><span className="text-[#AFFF00] italic">Disconnected brand presence.</span></>,
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop',
+      image: '/assets/challenge/The-root-cause.webp',
     },
   ];
 
@@ -135,8 +135,8 @@ const ChallengeSection: React.FC = () => {
               style={{ clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)" }}
             >
               <div className="absolute inset-0">
-                <img src={point.image} alt={point.label} className="w-full h-full object-cover grayscale opacity-25 group-hover:opacity-45 group-hover:grayscale-0 transition-all duration-1000 ease-out" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-transparent" />
+                <img src={point.image} alt={point.label} className="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-65 group-hover:grayscale-0 transition-all duration-1000 ease-out" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/40 to-transparent" />
               </div>
               {/* Index + label */}
               <div className="relative z-10 p-7 md:p-10 flex flex-col gap-1">

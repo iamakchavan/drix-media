@@ -7,6 +7,8 @@ import Footer from '../components/Footer';
 
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 
+import { supabase } from '../lib/supabase';
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const ContactHero = () => (
@@ -72,6 +74,7 @@ const serviceOptions = [
 const ContactFormSection = () => {
     const [submitted, setSubmitted] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({
         name: '', email: '', phone: '', company: '', service: '', message: '', referral: '',
     });
@@ -80,9 +83,30 @@ const ContactFormSection = () => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
+        setIsSubmitting(true);
+
+        try {
+            const { error } = await supabase
+                .from('contact_submissions')
+                .insert([{
+                    name: form.name,
+                    email: form.email,
+                    company: form.company,
+                    service: form.service,
+                    message: form.message,
+                    status: 'new'
+                }]);
+
+            if (error) throw error;
+            setSubmitted(true);
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            alert('There was an error sending your message. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const inputClasses = "w-full bg-transparent text-[1.35rem] sm:text-[1.5rem] md:text-[2rem] lg:text-[2.5rem] mona-sans-condensed-medium outline-none placeholder-black/10 text-black group-focus-within:text-[#AFFF00] transition-colors duration-500 overflow-hidden resize-none";

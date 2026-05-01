@@ -17,6 +17,7 @@ import Delimiter from '@editorjs/delimiter';
 import ImageTool from '@editorjs/image';
 // @ts-ignore
 import Embed from '@editorjs/embed';
+import { supabase } from '../../lib/supabase';
 
 const categories = ['Strategy', 'Branding', 'Digital', 'Culture', 'Production'];
 
@@ -31,6 +32,7 @@ interface PostMeta {
   seoDescription: string;
   seoKeywords: string;
   status: 'draft' | 'published';
+  slug?: string;
 }
 
 const defaultMeta: PostMeta = {
@@ -61,7 +63,7 @@ const clipSm = { clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%
 const PostEditor: React.FC = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const isEdit = Boolean(id);
+  const isEdit = Boolean(id && id !== 'new');
 
   const editorRef = useRef<EditorJS | null>(null);
   const holderRef = useRef<HTMLDivElement>(null);
@@ -69,18 +71,82 @@ const PostEditor: React.FC = () => {
   const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState<'content' | 'seo'>('content');
   const [wordCount, setWordCount] = useState(0);
+  const [loading, setLoading] = useState(isEdit);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Auth guard
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        sessionStorage.removeItem('admin_auth');
+        navigate('/admin');
+      }
+    });
   }, [navigate]);
 
-  // Init Editor.js
   useEffect(() => {
+    const fetchPost = async () => {
+      if (!isEdit) {
+        setTimeout(() => initEditor(), 100);
+        return;
+      }
+      
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .eq('id', id)
+        .single();
+        
+      if (data) {
+        setMeta({
+          title: data.title || '',
+          excerpt: data.excerpt || '',
+          category: data.category || categories[0],
+          author: data.author || '',
+          readTime: data.read_time || '',
+          coverImage: data.cover_image || '',
+          seoTitle: data.seo_title || '',
+          seoDescription: data.seo_description || '',
+          seoKeywords: data.seo_keywords || '',
+          status: data.status,
+          slug: data.slug,
+        });
+        setTimeout(() => initEditor(data.content), 100);
+      } else {
+        console.error('Error fetching post', error);
+        setTimeout(() => initEditor(), 100);
+      }
+      setLoading(false);
+    };
+
+    fetchPost();
+
+    return () => {
+      if (editorRef.current && typeof editorRef.current.destroy === 'function') {
+        editorRef.current.destroy();
+        editorRef.current = null;
+      }
+    };
+  }, [id, isEdit]);
+
+  const calculateWordCount = (blocks: any[]) => {
+    if (!blocks) return 0;
+    const text = blocks
+      .map((b: any) => b.data?.text || b.data?.items?.join(' ') || '')
+      .join(' ');
+    return text.replace(/<[^>]*>?/gm, '').split(/\s+/).filter(Boolean).length;
+  };
+
+  const initEditor = (initialData?: any) => {
     if (!holderRef.current || editorRef.current) return;
+
+    if (initialData?.blocks) {
+      setWordCount(calculateWordCount(initialData.blocks));
+    }
 
     editorRef.current = new EditorJS({
       holder: holderRef.current,
+      data: initialData,
       autofocus: true,
       placeholder: 'Start writing your post…',
       tools: {
@@ -107,11 +173,19 @@ const PostEditor: React.FC = () => {
         image: {
           class: ImageTool,
           config: {
-            // URL upload — swap for Supabase Storage later
             uploader: {
               uploadByFile: async (file: File) => {
-                const url = URL.createObjectURL(file);
-                return { success: 1, file: { url } };
+                const ext = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${ext}`;
+                const { data, error } = await supabase.storage.from('blog-images').upload(fileName, file);
+                
+                if (error) {
+                  console.error('Upload failed:', error);
+                  return { success: 0 };
+                }
+                
+                const { data: { publicUrl } } = supabase.storage.from('blog-images').getPublicUrl(fileName);
+                return { success: 1, file: { url: publicUrl } };
               },
               uploadByUrl: async (url: string) => {
                 return { success: 1, file: { url } };
@@ -127,29 +201,63 @@ const PostEditor: React.FC = () => {
       onChange: async () => {
         if (!editorRef.current) return;
         const data = await editorRef.current.save();
-        // rough word count
-        const text = data.blocks
-          .map((b: any) => b.data?.text || b.data?.items?.join(' ') || '')
-          .join(' ');
-        setWordCount(text.split(/\s+/).filter(Boolean).length);
+        setWordCount(calculateWordCount(data.blocks));
       },
     });
+  };
 
-    return () => {
-      if (editorRef.current && typeof editorRef.current.destroy === 'function') {
-        editorRef.current.destroy();
-        editorRef.current = null;
-      }
-    };
-  }, []);
+  const generateSlug = (title: string) => {
+    return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+  };
 
   const handleSave = async (status: 'draft' | 'published') => {
     if (!editorRef.current) return;
     const content: OutputData = await editorRef.current.save();
-    const post = { ...meta, status, content, date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) };
-    console.log('Post saved (Supabase pending):', post);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    
+    const slugToUse = meta.slug || generateSlug(meta.title) || `post-${Date.now()}`;
+    
+    const postData = {
+      title: meta.title,
+      slug: slugToUse,
+      excerpt: meta.excerpt,
+      category: meta.category,
+      author: meta.author,
+      read_time: meta.readTime,
+      cover_image: meta.coverImage,
+      seo_title: meta.seoTitle,
+      seo_description: meta.seoDescription,
+      seo_keywords: meta.seoKeywords,
+      status: status,
+      content: content
+    };
+
+    if (isEdit) {
+      const { error } = await supabase.from('posts').update(postData).eq('id', id);
+      if (!error) {
+        set('status', status);
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      } else console.error(error);
+    } else {
+      const { data, error } = await supabase.from('posts').insert(postData).select().single();
+      if (!error && data) {
+        setSaved(true);
+        setTimeout(() => {
+          setSaved(false);
+          navigate(`/admin/posts/${data.id}`, { replace: true });
+        }, 1500);
+      } else console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!id || !isEdit) return;
+    const { error } = await supabase.from('posts').delete().eq('id', id);
+    if (!error) {
+      navigate('/admin/posts', { replace: true });
+    } else {
+      console.error('Error deleting post:', error);
+    }
   };
 
   const set = (key: keyof PostMeta, val: string) => setMeta(p => ({ ...p, [key]: val }));
@@ -168,6 +276,14 @@ const PostEditor: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Delete Button */}
+          {isEdit && (
+            <button onClick={() => setShowDeleteModal(true)}
+              className="p-2 text-red-500/60 hover:text-red-400 hover:bg-red-500/10 transition-all mr-2">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+            </button>
+          )}
+
           {/* Word count */}
           <span className="hidden sm:block text-[10px] text-white/15 tracking-widest">{wordCount} words</span>
 
@@ -249,7 +365,7 @@ const PostEditor: React.FC = () => {
         </main>
 
         {/* ── Right sidebar ────────────────────────────────────────────── */}
-        <aside className="w-[300px] shrink-0 border-l border-white/[0.05] bg-[#080808] overflow-y-auto hidden lg:flex flex-col">
+        <aside className="w-[300px] shrink-0 border-l border-white/[0.05] bg-[#080808] hidden lg:flex flex-col overflow-y-auto">
 
           {/* Tabs */}
           <div className="flex border-b border-white/[0.05]">
@@ -294,8 +410,23 @@ const PostEditor: React.FC = () => {
 
                 {/* Read time */}
                 <Field label="Read Time">
-                  <input value={meta.readTime} onChange={e => set('readTime', e.target.value)}
-                    placeholder="e.g. 5 min read" className={inputCls} style={clipSm} />
+                  <div className="relative">
+                    <input 
+                      type="text"
+                      inputMode="numeric"
+                      value={meta.readTime.replace(/\D/g, '')} 
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        set('readTime', val ? `${val} min read` : '');
+                      }}
+                      placeholder="5" 
+                      className={inputCls.replace('px-4', 'pl-4 pr-24')} 
+                      style={clipSm} 
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 text-[10px] font-bold tracking-[0.2em] uppercase pointer-events-none">
+                      Min Read
+                    </span>
+                  </div>
                 </Field>
 
                 {/* Cover image */}
@@ -363,6 +494,33 @@ const PostEditor: React.FC = () => {
           </div>
         </aside>
       </div>
+
+      {/* Delete confirm modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center px-6">
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95 }}
+              className="bg-[#0D0D0D] border border-white/[0.08] p-8 max-w-sm w-full flex flex-col gap-6"
+              style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}>
+              <div>
+                <p className="text-white mona-sans-condensed-medium text-[1.2rem]">Delete this post?</p>
+                <p className="text-white/30 text-[13px] mt-2">This action cannot be undone. It will be permanently removed.</p>
+              </div>
+              <div className="flex gap-3">
+                <button onClick={() => setShowDeleteModal(false)}
+                  className="flex-1 py-2.5 border border-white/[0.08] text-white/40 hover:text-white/70 text-[11px] tracking-[0.2em] uppercase transition-colors">
+                  Cancel
+                </button>
+                <button onClick={handleDelete}
+                  className="flex-1 py-2.5 bg-red-500/80 hover:bg-red-500 text-white text-[11px] tracking-[0.2em] uppercase font-bold transition-colors">
+                  Delete
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Editor.js custom styles */}
       <style>{`

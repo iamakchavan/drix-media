@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import NoiseOverlay from '../components/NoiseOverlay';
 import Footer from '../components/Footer';
-
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
-import { blogPosts } from '../data/blogData';
+import { supabase } from '../lib/supabase';
+import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 
 const categories = ['All', 'Branding', 'Digital', 'Strategy', 'Culture', 'Production'];
 
-import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
+// ─── Interfaces ───────────────────────────────────────────────────────────────
+
+interface Post {
+    id: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    category: string;
+    author: string;
+    read_time: string;
+    cover_image: string;
+    created_at: string;
+}
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -61,99 +71,107 @@ const BlogHero = () => (
 
 // ─── Featured Post ────────────────────────────────────────────────────────────
 
-const FeaturedPost = () => (
-    <section className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
-        <div className="max-w-[1400px] mx-auto">
+const FeaturedPost = ({ post }: { post: Post | undefined }) => {
+    if (!post) return null;
 
-            {/* Header */}
-            <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Featured</span>
-                    <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                        Lead Story
-                    </h2>
-                </div>
-                <span className="hidden md:block text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">Latest</span>
-            </div>
+    const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-                {/* Image Section — chamfered */}
-                <div className="lg:col-span-7">
-                    <motion.div
-                        initial="rest" whileHover="hover"
-                        variants={{
-                            rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0% 100%, 0% 0%)" },
-                            hover: { clipPath: "polygon(40px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 40px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
-                        }}
-                        className="relative group cursor-pointer overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
-                    >
-                        <motion.div
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                            className="aspect-[16/10] w-full"
-                        >
-                            <img
-                                src={blogPosts[0].image}
-                                alt={blogPosts[0].title}
-                                className="w-full h-full object-cover"
-                            />
-                        </motion.div>
-                        <div className="absolute top-8 left-8">
-                            <div className="px-4 py-2 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
-                                style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
-                                Feature
-                            </div>
-                        </div>
-                    </motion.div>
+    return (
+        <section id="featured" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
+            <div className="max-w-[1400px] mx-auto">
+
+                {/* Header */}
+                <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Featured</span>
+                        <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
+                            Lead Story
+                        </h2>
+                    </div>
+                    <span className="hidden md:block text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">Latest</span>
                 </div>
 
-                {/* Content Section */}
-                <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4 lg:pt-6">
-                    <span className="text-[9px] text-[#476D07] font-bold uppercase tracking-[0.4em] poppins-regular mb-8">
-                        {blogPosts[0].category}
-                    </span>
-                    <h2 className="text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] mona-sans-condensed-medium tracking-tight text-black mb-8 leading-[0.95]">
-                        {blogPosts[0].title}
-                    </h2>
-                    <p className="text-black/45 text-[15px] poppins-regular mb-10 leading-relaxed max-w-lg">
-                        {blogPosts[0].excerpt}
-                    </p>
-
-                    <div className="flex items-center gap-6 mb-12 border-t border-black/[0.06] pt-6">
-                        <span
-                            className="text-[2rem] font-black leading-none select-none shrink-0
-                                       text-transparent [-webkit-text-stroke:1.5px_rgba(71,109,7,0.3)]"
-                        >
-                            {blogPosts[0].author[0]}
-                        </span>
-                        <div className="flex flex-col">
-                            <span className="text-black text-[14px] poppins-regular font-bold tracking-tight">{blogPosts[0].author}</span>
-                            <span className="text-black/25 text-[10px] font-mono uppercase tracking-[0.2em] mt-1">{blogPosts[0].date} · {blogPosts[0].readTime}</span>
-                        </div>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+                    {/* Image Section — chamfered */}
+                    <div className="lg:col-span-7">
+                        <Link to={`/blog/${post.slug}`}>
+                            <motion.div
+                                initial="rest" whileHover="hover"
+                                variants={{
+                                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0% 100%, 0% 0%)" },
+                                    hover: { clipPath: "polygon(40px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 40px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
+                                }}
+                                className="relative group cursor-pointer overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
+                            >
+                                <motion.div
+                                    whileHover={{ scale: 1.05 }}
+                                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                    className="aspect-[16/10] w-full"
+                                >
+                                    <img
+                                        src={post.cover_image}
+                                        alt={post.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </motion.div>
+                                <div className="absolute top-8 left-8">
+                                    <div className="px-4 py-2 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
+                                        style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
+                                        Feature
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </Link>
                     </div>
 
-                    <Link to={`/blog/${blogPosts[0].id}`} className="group flex items-center gap-4 self-start">
-                        <span className="text-[1.1rem] mona-sans-condensed-medium text-black group-hover:text-[#476D07] transition-colors duration-300 tracking-tight">
-                            Read the article
+                    {/* Content Section */}
+                    <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4 lg:pt-6">
+                        <span className="text-[9px] text-[#476D07] font-bold uppercase tracking-[0.4em] poppins-regular mb-8">
+                            {post.category}
                         </span>
-                        <div className="shrink-0 w-10 h-10 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
-                            <svg className="w-4 h-4 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                        <h2 className="text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] mona-sans-condensed-medium tracking-tight text-black mb-8 leading-[0.95]">
+                            {post.title}
+                        </h2>
+                        <p className="text-black/45 text-[15px] poppins-regular mb-10 leading-relaxed max-w-lg">
+                            {post.excerpt}
+                        </p>
+
+                        <div className="flex items-center gap-6 mb-12 border-t border-black/[0.06] pt-6">
+                            <span
+                                className="text-[2rem] font-black leading-none select-none shrink-0
+                                           text-transparent [-webkit-text-stroke:1.5px_rgba(71,109,7,0.3)]"
+                            >
+                                {post.author ? post.author[0] : 'D'}
+                            </span>
+                            <div className="flex flex-col">
+                                <span className="text-black text-[14px] poppins-regular font-bold tracking-tight">{post.author}</span>
+                                <span className="text-black/25 text-[10px] font-mono uppercase tracking-[0.2em] mt-1">{formattedDate} · {post.read_time}</span>
+                            </div>
                         </div>
-                    </Link>
+
+                        <Link to={`/blog/${post.slug}`} className="group flex items-center gap-4 self-start">
+                            <span className="text-[1.1rem] mona-sans-condensed-medium text-black group-hover:text-[#476D07] transition-colors duration-300 tracking-tight">
+                                Read the article
+                            </span>
+                            <div className="shrink-0 w-10 h-10 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
+                                <svg className="w-4 h-4 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-);
+        </section>
+    );
+};
 
 // ─── Blog Grid ────────────────────────────────────────────────────────────────
 
-const ArticlesGrid = () => {
+const ArticlesGrid = ({ posts }: { posts: Post[] }) => {
     const [activeCategory, setActiveCategory] = useState('All');
 
     const filteredPosts = activeCategory === 'All'
-        ? blogPosts.slice(1)
-        : blogPosts.slice(1).filter(post => post.category === activeCategory);
+        ? posts
+        : posts.filter(post => post.category === activeCategory);
 
     return (
         <section className="w-full bg-[#FAFAFA] pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
@@ -191,7 +209,9 @@ const ArticlesGrid = () => {
                 {/* Articles grid — chamfered cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
                     <AnimatePresence mode="popLayout">
-                        {filteredPosts.map((post, index) => (
+                        {filteredPosts.map((post, index) => {
+                            const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                            return (
                             <motion.div
                                 layout
                                 key={post.id}
@@ -201,6 +221,7 @@ const ArticlesGrid = () => {
                                 transition={{ duration: 0.6, delay: index * 0.05 }}
                                 className="group"
                             >
+                                <Link to={`/blog/${post.slug}`}>
                                 <motion.div
                                     initial="rest" whileHover="hover"
                                     variants={{
@@ -212,7 +233,7 @@ const ArticlesGrid = () => {
                                     {/* Image */}
                                     <div className="aspect-[4/3] overflow-hidden relative">
                                         <img
-                                            src={post.image}
+                                            src={post.cover_image}
                                             alt={post.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
                                         />
@@ -235,8 +256,8 @@ const ArticlesGrid = () => {
 
                                         <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
                                             <div className="flex flex-col">
-                                                <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{post.date}</span>
-                                                <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.readTime}</span>
+                                                <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{formattedDate}</span>
+                                                <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.read_time}</span>
                                             </div>
                                             <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
                                                 <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
@@ -244,8 +265,9 @@ const ArticlesGrid = () => {
                                         </div>
                                     </div>
                                 </motion.div>
+                                </Link>
                             </motion.div>
-                        ))}
+                        )})}
                     </AnimatePresence>
                 </div>
             </div>
@@ -501,6 +523,26 @@ const Blog: React.FC = () => {
     const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.4]);
     const heroY = useTransform(scrollY, [0, 800], [0, -150]);
 
+    const [posts, setPosts] = useState<Post[]>([]);
+    
+    useEffect(() => {
+        const fetchPosts = async () => {
+            const { data, error } = await supabase
+                .from('posts')
+                .select('*')
+                .eq('status', 'published')
+                .order('created_at', { ascending: false });
+            
+            if (data) {
+                setPosts(data);
+            }
+        };
+        fetchPosts();
+    }, []);
+
+    const featuredPost = posts.length > 0 ? posts[0] : undefined;
+    const gridPosts = posts.length > 1 ? posts.slice(1) : [];
+
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
@@ -516,8 +558,8 @@ const Blog: React.FC = () => {
 
             <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]" 
                  style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
-                <FeaturedPost />
-                <ArticlesGrid />
+                <FeaturedPost post={featuredPost} />
+                <ArticlesGrid posts={gridPosts} />
                 <Newsletter />
                 <Footer />
             </div>

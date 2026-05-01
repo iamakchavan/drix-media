@@ -1,3 +1,4 @@
+import { supabase } from '../../lib/supabase';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -756,7 +757,12 @@ const Docs: React.FC = () => {
   const [direction, setDirection] = useState(1);
 
   useEffect(() => {
-    if (sessionStorage.getItem('admin_auth') !== 'true') navigate('/admin');
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        sessionStorage.removeItem('admin_auth');
+        navigate('/admin');
+      }
+    });
   }, [navigate]);
 
   const handleSection = (id: string) => {

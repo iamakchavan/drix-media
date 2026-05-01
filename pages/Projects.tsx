@@ -4,61 +4,9 @@ import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
+import { supabase } from '../lib/supabase';
+import { Project } from '../types/project';
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-interface Project {
-    id: string;
-    title: string;
-    category: string;
-    image: string;
-    aspect?: 'portrait' | 'landscape' | 'square';
-}
-
-const projects: Project[] = [
-    {
-        id: 'radiant-skincare',
-        title: 'Radiant Skincare',
-        category: 'Branding',
-        image: '/projects/brand-campaign.png',
-        aspect: 'landscape',
-    },
-    {
-        id: 'nexus-platform',
-        title: 'Nexus Platform',
-        category: 'Web Design',
-        image: '/projects/web-design.png',
-        aspect: 'portrait',
-    },
-    {
-        id: 'vero-campaign',
-        title: 'Vero Campaign',
-        category: 'Creative Production',
-        image: '/projects/film-production.png',
-        aspect: 'landscape',
-    },
-    {
-        id: 'bloom-social',
-        title: 'Bloom Social',
-        category: 'Content Strategy',
-        image: '/projects/social-media.png',
-        aspect: 'square',
-    },
-    {
-        id: 'noir-collection',
-        title: 'Noir Collection',
-        category: 'Branding',
-        image: '/projects/packaging-design.png',
-        aspect: 'portrait',
-    },
-    {
-        id: 'pulse-motion',
-        title: 'Pulse Motion',
-        category: 'Creative Production',
-        image: '/projects/motion-graphics.png',
-        aspect: 'landscape',
-    },
-];
 
 const categories = ['All', 'Branding', 'Web Design', 'Creative Production', 'Content Strategy'];
 
@@ -152,11 +100,7 @@ const CategoryTabs = ({ active, onChange }: { active: string; onChange: (cat: st
 const ProjectImageCard = ({ project, index }: { key?: string; project: Project; index: number }) => {
     const [isHovered, setIsHovered] = useState(false);
 
-    const aspectClass = project.aspect === 'portrait' 
-        ? 'aspect-[3/4.2]' 
-        : project.aspect === 'square' 
-            ? 'aspect-square' 
-            : 'aspect-[4/3]';
+    const aspectClass = 'aspect-video';
 
     return (
         <motion.div
@@ -174,7 +118,7 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
                     style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
                 >
                     <motion.img
-                        src={project.image}
+                        src={project.thumbnail || project.hero_image}
                         alt={project.title}
                         className="w-full h-full object-cover"
                         animate={{ scale: isHovered ? 1.05 : 1 }}
@@ -223,14 +167,25 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
 
 const ProjectsGallery = () => {
     const [activeCategory, setActiveCategory] = useState('All');
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    React.useEffect(() => {
+        const fetchProjects = async () => {
+            const { data, error } = await supabase
+                .from('projects')
+                .select('*')
+                .order('order_index', { ascending: true });
+            
+            if (data) setProjects(data);
+            setLoading(false);
+        };
+        fetchProjects();
+    }, []);
     
     const filteredProjects = activeCategory === 'All' 
         ? projects 
         : projects.filter(p => p.category === activeCategory);
-
-    // Filter Logic for 2-column masonry on desktop, 1 column on mobile
-    const col1 = filteredProjects.filter((_, i) => i % 2 === 0);
-    const col2 = filteredProjects.filter((_, i) => i % 2 === 1);
 
     return (
         <section id="projects-gallery" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
@@ -249,23 +204,12 @@ const ProjectsGallery = () => {
                     </div>
                 </div>
 
-                {/* Adaptive Masonry Grid */}
-                <div className="flex flex-col md:flex-row gap-8 md:gap-10">
-                    <div className="flex-1 flex flex-col gap-8 md:gap-12">
-                        {col1.map((project, i) => (
-                            <ProjectImageCard key={project.id} project={project} index={i * 2} />
-                        ))}
+                {loading ? (
+                    <div className="flex flex-col items-center justify-center py-24 gap-4">
+                        <div className="w-12 h-12 border-2 border-black/5 border-t-black rounded-full animate-spin" />
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-black/20 uppercase">Indexing...</span>
                     </div>
-                    
-                    {/* Hide empty column behavior on mobile but keep state for desktop */}
-                    <div className={`${filteredProjects.length < 2 ? 'hidden md:flex' : 'flex'} flex-1 flex flex-col gap-8 md:gap-12 pt-0 md:pt-32`}>
-                        {col2.map((project, i) => (
-                            <ProjectImageCard key={project.id} project={project} index={i * 2 + 1} />
-                        ))}
-                    </div>
-                </div>
-
-                {filteredProjects.length === 0 && (
+                ) : filteredProjects.length === 0 ? (
                     <motion.div 
                         initial={{ opacity: 0 }} 
                         animate={{ opacity: 1 }}
@@ -274,6 +218,12 @@ const ProjectsGallery = () => {
                         <span className="text-black/[0.04] text-[6rem] mona-sans-condensed-bold leading-none mb-4 tracking-tighter">NULL</span>
                         <p className="text-black/30 text-[12px] md:text-[14px] poppins-regular uppercase tracking-widest">No entries found in index</p>
                     </motion.div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
+                        {filteredProjects.map((project, i) => (
+                            <ProjectImageCard key={project.id} project={project} index={i} />
+                        ))}
+                    </div>
                 )}
             </div>
         </section>
@@ -282,9 +232,11 @@ const ProjectsGallery = () => {
 
 // ─── Scrolling Image Strips ──────────────────────────────────────────────────
 
-const ScrollingShowcase = () => {
-    const row1 = [...projects, ...projects, ...projects];
-    const row2 = [...projects.slice().reverse(), ...projects.slice().reverse(), ...projects.slice().reverse()];
+const ScrollingShowcase = ({ projects }: { projects: Project[] }) => {
+    const row1 = projects.length > 0 ? [...projects, ...projects, ...projects] : [];
+    const row2 = projects.length > 0 ? [...projects.slice().reverse(), ...projects.slice().reverse(), ...projects.slice().reverse()] : [];
+
+    if (projects.length === 0) return null;
 
     return (
         <section className="w-full bg-[#FAFAFA] selection:bg-[#AFFF00] selection:text-black overflow-hidden pt-16 pb-10 md:pt-28 md:pb-16">
@@ -315,7 +267,7 @@ const ScrollingShowcase = () => {
                             className="shrink-0 w-[260px] md:w-[360px] lg:w-[420px] aspect-[16/10] rounded-lg md:rounded-xl overflow-hidden bg-[#E8E8E8] group cursor-pointer relative"
                         >
                             <img 
-                                src={project.image} 
+                                src={project.thumbnail || project.hero_image} 
                                 alt={project.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                 loading="lazy"
@@ -343,7 +295,7 @@ const ScrollingShowcase = () => {
                             className="shrink-0 w-[260px] md:w-[360px] lg:w-[420px] aspect-[16/10] rounded-lg md:rounded-xl overflow-hidden bg-[#E8E8E8] group cursor-pointer relative"
                         >
                             <img 
-                                src={project.image} 
+                                src={project.thumbnail || project.hero_image} 
                                 alt={project.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                 loading="lazy"
@@ -424,8 +376,20 @@ const ProjectsCTA = () => (
 
 const Projects: React.FC = () => {
     const { scrollY } = useScroll();
+    const [projects, setProjects] = useState<Project[]>([]);
     const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.4]);
     const heroY = useTransform(scrollY, [0, 800], [0, -150]);
+
+    React.useEffect(() => {
+        const fetchProjects = async () => {
+            const { data } = await supabase
+                .from('projects')
+                .select('*')
+                .order('order_index', { ascending: true });
+            if (data) setProjects(data);
+        };
+        fetchProjects();
+    }, []);
 
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
@@ -443,7 +407,7 @@ const Projects: React.FC = () => {
             <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.1)] mt-[-60px] md:mt-[-100px]" 
                  style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <ProjectsGallery />
-                <ScrollingShowcase />
+                <ScrollingShowcase projects={projects} />
                 <ProjectsCTA />
                 <Footer />
             </div>

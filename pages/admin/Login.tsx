@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ADMIN_PASSWORD = 'DrixMedia';
+import { supabase } from '../../lib/supabase';
+
+const ADMIN_EMAIL = 'drixbackoffice@gmail.com';
 
 const Login: React.FC = () => {
   const [password, setPassword] = useState('');
@@ -11,21 +13,24 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
 
-    setTimeout(() => {
-      if (password === ADMIN_PASSWORD) {
-        sessionStorage.setItem('admin_auth', 'true');
-        navigate('/admin/dashboard');
-      } else {
-        setError(true);
-        setLoading(false);
-        setPassword('');
-      }
-    }, 600);
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email: ADMIN_EMAIL,
+      password: password,
+    });
+
+    if (!authError) {
+      sessionStorage.setItem('admin_auth', 'true');
+      navigate('/admin/dashboard');
+    } else {
+      setError(true);
+      setLoading(false);
+      setPassword('');
+    }
   };
 
   return (

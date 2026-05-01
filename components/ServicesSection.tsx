@@ -4,25 +4,25 @@ const services = [
     {
         id: '01',
         title: 'Creative Production',
-        image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Creative-production.webp',
         description: "Films, photography, content creation that captures attention and tells your story."
     },
     {
         id: '02',
         title: 'Branding & Identity',
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Branding-and-identity.webp',
         description: "Positioning, visual identity, messaging, and brand systems that differentiate you."
     },
     {
         id: '03',
         title: 'Content Strategy & Marketing',
-        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Content-strategy.webp',
         description: "Content that connects with your audience and drives them to action."
     },
     {
         id: '04',
         title: 'Digital & Web Design',
-        image: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Digital-and-website-2.webp',
         description: "Websites and digital experiences built for performance and usability."
     },
     {

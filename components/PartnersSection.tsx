@@ -1,14 +1,16 @@
 import React from 'react';
 
 const logos = [
-  "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/7/7b/Adobe_Systems_logo_and_wordmark.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/b/b9/Slack_Technologies_Logo.svg",
+  "/assets/logos/Logo-1.webp",
+  "/assets/logos/Logo-2.webp",
+  "/assets/logos/Logo-3.webp",
+  "/assets/logos/Logo-4.webp",
+  "/assets/logos/Logo-5.webp",
+  "/assets/logos/Logo-6.webp",
+  "/assets/logos/Logo-7.webp",
+  "/assets/logos/Logo-8.webp",
+  "/assets/logos/Logo-9.webp",
+  "/assets/logos/Logo-10.webp",
 ];
 
 const PartnersSection: React.FC = () => {

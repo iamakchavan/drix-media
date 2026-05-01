@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { supabase } from '../../lib/supabase';
 
 interface ImageUploadProps {
   value: string;
@@ -6,6 +7,7 @@ interface ImageUploadProps {
   placeholder?: string;
   aspect?: string; // e.g. 'aspect-video' or 'aspect-[3/4]'
   label?: string;
+  bucket?: string;
 }
 
 /**
@@ -14,16 +16,31 @@ interface ImageUploadProps {
  * to upload to the bucket and return the public URL.
  */
 const ImageUpload: React.FC<ImageUploadProps> = ({
-  value, onChange, placeholder = 'https://…', aspect = 'aspect-video', label
+  value, onChange, placeholder = 'https://…', aspect = 'aspect-video', label, bucket = 'blog-images'
 }) => {
   const fileRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
-  const handleFile = (file: File) => {
+  const handleFile = async (file: File) => {
     if (!file.type.startsWith('image/')) return;
-    // TODO: replace with Supabase Storage upload when backend is connected
-    const url = URL.createObjectURL(file);
-    onChange(url);
+    
+    const ext = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${ext}`;
+    
+    // Optimistic local preview
+    const localUrl = URL.createObjectURL(file);
+    onChange(localUrl);
+
+    const { data, error } = await supabase.storage.from(bucket).upload(fileName, file);
+    
+    if (error) {
+      console.error('Upload failed:', error);
+      // fallback to clear or keep local
+      return;
+    }
+    
+    const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(fileName);
+    onChange(publicUrl);
   };
 
   const handleDrop = (e: React.DragEvent) => {

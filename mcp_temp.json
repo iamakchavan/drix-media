@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "env": {},
+      "disabled": true,
+      "autoApprove": []
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase@latest", "--supabase-url", "https://bwgsbcklmqmhtblxkcnt.supabase.co", "--supabase-key", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3Z3NiY2tsbXFtaHRibHhrY250Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjA5NjYsImV4cCI6MjA5MzEzNjk2Nn0.5J1EJ9w-dAgtyVnXfpv35GYm3QniuYhDcF_F5GLQMPQ"],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

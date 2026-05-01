@@ -185,7 +185,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Creative Production',
         description: 'Films, photography, and visual content that captures attention and drives action.',
         deliverables: ['Brand films & commercials', 'Product photography', 'Motion graphics', 'Visual storytelling'],
-        image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Creative-production.webp',
         dark: false,
     },
     {
@@ -193,7 +193,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Branding & Identity',
         description: 'Defining how your brand is perceived — strategy, visuals, and messaging systems.',
         deliverables: ['Brand strategy & positioning', 'Visual identity systems', 'Brand messaging & tone', 'Guidelines & systems'],
-        image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Branding-and-identity.webp',
         dark: true,
     },
     {
@@ -201,7 +201,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Content Strategy',
         description: 'Content that connects with your audience and drives them to act.',
         deliverables: ['Content strategy & planning', 'Social media content', 'Copywriting (web, social, ads)', 'SEO-optimized content'],
-        image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Content-strategy.webp',
         dark: false,
     },
     {
@@ -209,7 +209,7 @@ const stackServices: StackServiceCard[] = [
         title: 'Digital & Web Design',
         description: 'We design and develop websites, apps, and digital experiences that are fast, functional, and built to convert.',
         deliverables: ['Website & app designing', 'UI/UX design', 'Website development', 'E-commerce platforms'],
-        image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=2000&auto=format&fit=crop',
+        image: '/assets/services/Digital-and-website-2.webp',
         accent: true,
     },
     {
