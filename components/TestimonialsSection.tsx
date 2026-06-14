@@ -98,8 +98,8 @@ const TestimonialsSection: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     return (
-        <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 font-sans border-t border-[#E5E5E5] overflow-hidden">
-            <div className="max-w-[1600px] mx-auto">
+        <section className="w-full min-h-screen bg-white py-24 md:py-40 px-6 md:px-12 font-sans border-t border-[#E5E5E5] overflow-hidden flex flex-col justify-center">
+            <div className="max-w-[1600px] mx-auto w-full">
                 <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
 
                     {/* Card 1: Intro — Preserving Desktop 'Split' while keeping Mobile 'Tight' */}
