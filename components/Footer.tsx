@@ -97,7 +97,7 @@ const GetInTouch = () => {
             >
               <motion.svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="butt" strokeLinejoin="miter"
                 className="w-14 h-14 sm:w-20 sm:h-20 md:w-36 md:h-36 lg:w-44 lg:h-44 text-[#AFFF00]"
-                variants={{ initial: { strokeWidth: 4 }, animate: { strokeWidth: 4 }, hover: { strokeWidth: 5.5, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
+                variants={{ initial: { strokeWidth: 2.2 }, animate: { strokeWidth: 2.2 }, hover: { strokeWidth: 3.2, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}
               >
                 <path d="M7 17L17 7M17 17V7H7"/>
               </motion.svg>
