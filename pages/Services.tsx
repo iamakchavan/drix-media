@@ -116,56 +116,67 @@ const PhilosophyCard = () => {
     );
 };
 
-const ServicesOverview = () => (
-    <section id="approach" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
-        <div className="max-w-[1400px] mx-auto">
-            {/* Header */}
-            <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Integrated Strategy</span>
-                    <h2 className="text-[1.8rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                        One Team. One Vision.
-                    </h2>
+interface WordProps { word: string; progress: any; range: [number, number]; }
+const Word: React.FC<WordProps> = ({ word, progress, range }) => {
+    const opacity = useTransform(progress, range, [0.08, 1]);
+    return (
+        <motion.span style={{ opacity }} className="text-[2.5rem] md:text-[4rem] lg:text-[5rem] mona-sans-condensed-medium tracking-tight text-black mr-[0.25em] leading-[1.1]">
+            {word}
+        </motion.span>
+    );
+};
+
+const ServicesOverview = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start 85%", "center 65%"] });
+    const words = "Everything works together under one strategic roof.".split(" ");
+
+    return (
+        <section ref={containerRef} id="approach" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
+            <div className="w-full max-w-[1400px] mx-auto">
+                <div className="flex flex-wrap mb-16 md:mb-20">
+                    {words.map((word, i) => {
+                        const start = i / words.length;
+                        const end = start + (1 / words.length);
+                        return <Word key={i} word={word} progress={scrollYProgress} range={[start, end]} />;
+                    })}
                 </div>
-                <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                    Everything works together under one strategic roof.
-                </p>
-            </div>
 
-            {/* Two-col body copy */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-                    className="flex flex-col gap-8"
-                >
-                    <div className="flex flex-col gap-6">
-                        <p className="text-[1.15rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
-                            Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
+                {/* Two-col body copy */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                        className="flex flex-col gap-8"
+                    >
+                        <div className="flex flex-col gap-6">
+                            <p className="text-[1.15rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
+                                Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
+                            </p>
+                            <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-md">
+                                The problem? Your brand ends up feeling fragmented.
+                            </p>
+                        </div>
+                        
+                        <div className="w-20 h-[1px] bg-black/10" />
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+                        className="flex flex-col gap-10"
+                    >
+                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
+                            At Drix Media, everything connects. Your brand strategy shapes your content. Your campaigns are fueled by content and optimised for real results.
                         </p>
-                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-md">
-                            The problem? Your brand ends up feeling fragmented.
-                        </p>
-                    </div>
-                    
-                    <div className="w-20 h-[1px] bg-black/10" />
-                </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
-                    className="flex flex-col gap-10"
-                >
-                    <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
-                        At Drix Media, everything connects. Your brand strategy shapes your content. Your campaigns are fueled by content and optimised for real results.
-                    </p>
-
-                    <PhilosophyCard />
-                </motion.div>
+                        <PhilosophyCard />
+                    </motion.div>
+                </div>
             </div>
-        </div>
-    </section>
-);
+        </section>
+    );
+};
 
 // ─── Stacking Service Cards ───────────────────────────────────────────────────
 

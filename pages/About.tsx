@@ -1,4 +1,4 @@
-﻿import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Navbar from '../components/Navbar';
@@ -78,11 +78,32 @@ const OurStory = () => {
                     })}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
-                    <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19,1,0.22,1] }} className="flex flex-col gap-6">
-                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">One team. Every discipline. Strategy, design, content, development, and campaigns — all under one roof, working toward one goal.</p>
-                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">No handoffs. No silos. Just a unified team that covers all verticals and delivers work that's consistent, intentional, and built to perform.</p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                        className="flex flex-col gap-8"
+                    >
+                        <div className="flex flex-col gap-6">
+                            <p className="text-[1.15rem] md:text-[1.5rem] text-black leading-snug tracking-tight mona-sans-condensed-medium">
+                                One team. Every discipline. Strategy, design, content, development, and campaigns — all under one roof, working toward one goal.
+                            </p>
+                            <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-md">
+                                We align creativity with your business growth, ensuring every asset we produce serves a distinct strategic purpose.
+                            </p>
+                        </div>
+                        
+                        <div className="w-20 h-[1px] bg-black/10" />
                     </motion.div>
-                    <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19,1,0.22,1] }}>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+                        className="flex flex-col gap-10"
+                    >
+                        <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
+                            No handoffs. No silos. Just a unified team that covers all verticals and delivers work that's consistent, intentional, and built to perform.
+                        </p>
+
                         <motion.div
                             initial="rest" whileHover="hover"
                             variants={{
