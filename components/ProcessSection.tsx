@@ -147,8 +147,8 @@ const ProcessSection: React.FC = () => {
 
           {/* Dynamic Odometer Number — Responsive Stroke */}
           <style>{`
-               .process-number { -webkit-text-stroke: 1.2px rgba(175, 255, 0, 0.9); }
-               @media (min-width: 768px) { .process-number { -webkit-text-stroke: 3px rgba(175, 255, 0, 0.9); } }
+               .process-number { -webkit-text-stroke: 1px rgba(175, 255, 0, 0.85); }
+               @media (min-width: 768px) { .process-number { -webkit-text-stroke: 1.5px rgba(175, 255, 0, 0.85); } }
              `}</style>
           <div className="relative h-[120px] md:h-[300px] w-full flex items-center justify-center">
             <AnimatePresence>
