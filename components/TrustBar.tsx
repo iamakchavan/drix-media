@@ -67,7 +67,7 @@ const TrustBar: React.FC = () => {
                   <img 
                     src={src} 
                     alt="Partner Logo" 
-                    className="h-10 sm:h-12 md:h-16 w-auto object-contain brightness-0 opacity-40 hover:opacity-65 transition-opacity duration-500" 
+                    className="h-14 sm:h-18 md:h-24 w-auto object-contain brightness-0 opacity-40 hover:opacity-65 transition-opacity duration-500" 
                   />
                 </div>
               ))}
@@ -78,7 +78,7 @@ const TrustBar: React.FC = () => {
                   <img 
                     src={src} 
                     alt="Partner Logo" 
-                    className="h-10 sm:h-12 md:h-16 w-auto object-contain brightness-0 opacity-40 hover:opacity-65 transition-opacity duration-500" 
+                    className="h-14 sm:h-18 md:h-24 w-auto object-contain brightness-0 opacity-40 hover:opacity-65 transition-opacity duration-500" 
                   />
                 </div>
               ))}

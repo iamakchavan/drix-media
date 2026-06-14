@@ -78,12 +78,12 @@ const QuoteSection: React.FC = () => {
 
   return (
     <section
-      className="w-full bg-white overflow-hidden selection:bg-black selection:text-[#AFFF00]"
+      className="w-full min-h-screen bg-white overflow-hidden selection:bg-black selection:text-[#AFFF00] flex flex-col justify-center py-20 md:py-32"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* Mobile: side-by-side compact row. Desktop: full split */}
-      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:min-h-[680px]">
+      <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row md:min-h-[680px]">
 
         {/* ── IMAGE ── */}
         {/* Mobile: tight viewport height. Desktop: tall left column */}
