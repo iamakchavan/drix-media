@@ -27,6 +27,71 @@ const SectionHeader = ({ label, light = false }: { label: string; light?: boolea
     </motion.div>
 );
 
+// ─── More Work Sub-component ────────────────────────────────────────────────
+const MoreWorkCard = ({ project, index }: { project: Project; index: number }) => {
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ duration: 0.8, delay: index * 0.05, ease: [0.19, 1, 0.22, 1] }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="group cursor-pointer w-full"
+        >
+            <Link to={`/projects/${project.id}`}>
+                <div 
+                    className="relative w-full aspect-video overflow-hidden bg-[#111] transition-all duration-700"
+                    style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
+                >
+                    <motion.img
+                        src={project.thumbnail || project.hero_image}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                        animate={{ scale: isHovered ? 1.05 : 1 }}
+                        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                        loading="lazy"
+                    />
+                    
+                    {/* Corner Detail (Industrial Zen Signature) */}
+                    <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 backdrop-blur-md flex items-center justify-center"
+                         style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}>
+                        <div className="w-1.5 h-1.5 bg-white/40 rounded-full translate-x-2 translate-y-[-8px]" />
+                    </div>
+
+                    <motion.div 
+                        className="absolute bottom-4 right-4 z-20"
+                        animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+                        transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+                    >
+                        <div className="w-10 h-10 md:w-12 md:h-12 border border-white/20 bg-black/10 backdrop-blur-md flex items-center justify-center">
+                            <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                            </svg>
+                        </div>
+                    </motion.div>
+                </div>
+
+                <div className="flex items-start justify-between gap-3 mt-4 md:mt-6 px-1">
+                    <div className="flex flex-col gap-1">
+                        <h3 className="text-[0.95rem] md:text-[1.25rem] mona-sans-condensed-medium text-white leading-none tracking-tight group-hover:text-[#AFFF00] transition-colors duration-400">
+                            {project.title}
+                        </h3>
+                        <div className="flex items-center gap-2">
+                             <div className="w-4 h-[1px] bg-white/10" />
+                             <span className="text-[9px] md:text-[10px] poppins-regular text-white/40 tracking-[0.1em] uppercase">
+                                {project.category}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        </motion.div>
+    );
+};
+
 // ─── Page Component ──────────────────────────────────────────────────────────
 
 const ProjectDetail: React.FC = () => {
@@ -214,62 +279,96 @@ const ProjectDetail: React.FC = () => {
                     </div>
                 </section>
 
-                {/* ── Extended Gallery (Dynamic Layout) ── */}
-                {allImages.length > 0 && (
-                    <section className="w-full bg-[#f9f9f9] py-1 md:py-2">
-                        {project.gallery_layout === 'carousel' ? (
-                            /* ── Horizontal Carousel Mode ── */
-                            <div className="w-full py-16 md:py-24 overflow-hidden relative">
-                                <div className="flex gap-4 md:gap-8 px-6 md:px-12 lg:px-20 overflow-x-auto no-scrollbar scroll-smooth">
-                                    {allImages.map((img, i) => (
-                                        <div key={i} className="shrink-0 w-[85vw] md:w-[70vw] lg:w-[60vw] aspect-[16/10] md:aspect-[16/9] bg-black/5 relative group overflow-hidden"
-                                             style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}>
-                                            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
-                                            <img 
-                                                src={img} 
-                                                alt={`${project.title} Detail ${i+1}`} 
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2.5s] ease-[0.16,1,0.3,1]"
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className="mt-8 px-6 md:px-12 lg:px-20 flex items-center justify-between">
-                                    <div className="flex gap-2">
-                                        <span className="text-[10px] text-black/20 uppercase tracking-widest font-bold poppins-medium">Scroll to explore</span>
-                                        <div className="w-12 h-[1px] bg-black/10 mt-[7px]" />
-                                    </div>
-                                    <span className="text-[10px] text-black/10 poppins-bold uppercase tracking-[0.4em]">{allImages.length} Visuals</span>
-                                </div>
-                            </div>
-                        ) : (
-                            /* ── Bento Grid Mode ── */
-                            <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-2 auto-rows-[30vh] md:auto-rows-[45vh] grid-flow-dense">
-                                {allImages.map((img, i) => {
-                                    const mod = i % 5;
-                                    let spanClass = "col-span-1 row-span-1";
-                                    if (mod === 0) spanClass = "md:col-span-2 lg:col-span-2 row-span-1 md:row-span-2";
-                                    else if (mod === 1) spanClass = "md:col-span-1 lg:col-span-2 row-span-1";
-                                    else if (mod === 4) spanClass = "md:col-span-1 lg:col-span-2 row-span-1";
+                {/* ── Extended Gallery (Dynamic Alternating Layout) ── */}
+                {allImages.length > 0 && (() => {
+                    const blocks = [];
+                    let imgIdx = 0;
+                    let isLarge = true;
+                    
+                    while (imgIdx < allImages.length) {
+                        if (isLarge) {
+                            blocks.push({
+                                type: 'large',
+                                images: [allImages[imgIdx]]
+                            });
+                            imgIdx += 1;
+                            isLarge = false;
+                        } else {
+                            const imgs = [];
+                            if (imgIdx < allImages.length) imgs.push(allImages[imgIdx]);
+                            if (imgIdx + 1 < allImages.length) imgs.push(allImages[imgIdx + 1]);
+                            blocks.push({
+                                type: 'split',
+                                images: imgs
+                            });
+                            imgIdx += imgs.length;
+                            isLarge = true;
+                        }
+                    }
 
+                    return (
+                        <section className="w-full bg-[#050505] flex flex-col gap-0">
+                            {blocks.map((block, index) => {
+                                if (block.type === 'large') {
+                                    const img = block.images[0];
                                     return (
-                                        <div key={i} className={`relative w-full h-full overflow-hidden bg-black/5 group ${spanClass}`}>
-                                            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
-                                            <img 
+                                        <div key={index} className="w-full h-screen bg-black overflow-hidden relative group">
+                                            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+                                            <motion.img 
+                                                whileHover={{ scale: 1.03 }}
+                                                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                                                 src={img} 
-                                                alt={`${project.title} Execution ${i+1}`} 
-                                                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s] ease-[0.16,1,0.3,1]"
+                                                alt={`${project.title} Large visual`} 
+                                                className="w-full h-full object-cover"
+                                                loading="lazy"
                                             />
                                         </div>
-                                    )
-                                })}
-                            </div>
-                        )}
-                        <style dangerouslySetInnerHTML={{ __html: `
-                            .no-scrollbar::-webkit-scrollbar { display: none; }
-                            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-                        ` }} />
-                    </section>
-                )}
+                                    );
+                                } else {
+                                    // Split Layout
+                                    if (block.images.length === 2) {
+                                        return (
+                                            <div key={index} className="w-full h-screen grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-black">
+                                                {block.images.map((img, subIdx) => (
+                                                    <div 
+                                                        key={subIdx} 
+                                                        className="w-full h-[50vh] md:h-full bg-black overflow-hidden relative group border-t md:border-t-0 md:first:border-r border-white/5"
+                                                    >
+                                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+                                                        <motion.img 
+                                                            whileHover={{ scale: 1.04 }}
+                                                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                                            src={img} 
+                                                            alt={`${project.title} Detail ${subIdx + 1}`} 
+                                                            className="w-full h-full object-cover"
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        );
+                                    } else {
+                                        // Fallback if odd count and only 1 image left in a split block
+                                        const img = block.images[0];
+                                        return (
+                                            <div key={index} className="w-full h-screen bg-black overflow-hidden relative group">
+                                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+                                                <motion.img 
+                                                    whileHover={{ scale: 1.03 }}
+                                                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                                    src={img} 
+                                                    alt={`${project.title} Large visual`} 
+                                                    className="w-full h-full object-cover"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        );
+                                    }
+                                }
+                            })}
+                        </section>
+                    );
+                })()}
 
                 {/* ── More Projects Grid ── */}
                 {otherProjects.length > 0 && (
@@ -277,33 +376,9 @@ const ProjectDetail: React.FC = () => {
                         <div className="max-w-[1600px] mx-auto flex flex-col gap-12 md:gap-16">
                             <SectionHeader label="More Work" light={true} />
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
                                 {otherProjects.map((p, i) => (
-                                    <Link 
-                                        key={i} 
-                                        to={`/projects/${p.id}`}
-                                        className="group relative flex flex-col w-full aspect-[3/4] overflow-hidden bg-[#111] border border-white/[0.06] hover:border-white/[0.14] transition-colors duration-500"
-                                        style={{ clipPath: pageFoldClipSmall }}
-                                    >
-                                        <div className="absolute inset-0 z-0">
-                                            <img 
-                                                src={p.thumbnail || p.hero_image} 
-                                                alt={p.title} 
-                                                className="w-full h-full object-cover grayscale group-hover:grayscale-0 opacity-90 group-hover:scale-[1.04] transition-all duration-[1s] ease-[0.16,1,0.3,1]"
-                                            />
-                                        </div>
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 z-10" />
-                                        <div className="relative z-20 flex flex-col justify-end h-full p-5 md:p-6">
-                                            <div className="flex flex-col gap-1.5">
-                                                <span className="text-[#AFFF00] text-[9px] font-bold tracking-[0.3em] uppercase poppins-medium">
-                                                    {p.category}
-                                                </span>
-                                                <h3 className="text-[1.35rem] md:text-[1.5rem] text-white mona-sans-condensed-bold tracking-tight uppercase leading-[0.9]">
-                                                    {p.title}
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </Link>
+                                    <MoreWorkCard key={p.id} project={p} index={i} />
                                 ))}
                             </div>
                         </div>
