@@ -16,7 +16,10 @@ export const staggerVariants = {
     show: { opacity: 1, transition: { staggerChildren: 0.04, delayChildren: 0.1 } }
 };
 
-export const ScrambleButton = ({ text, href }: { text: string; href: string }) => {
+export const ScrambleButton = ({ text, href, hoverTheme = 'light' }: { text: string; href: string; hoverTheme?: 'light' | 'dark' }) => {
+  const hoverBg = hoverTheme === 'dark' ? 'bg-[#050505]' : 'bg-white';
+  const hoverTextColor = hoverTheme === 'dark' ? 'text-white' : 'text-black';
+
   return (
     <motion.a
       href={href}
@@ -31,7 +34,7 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
       <motion.div 
         variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 bg-white w-full h-full"
+        className={`absolute inset-0 ${hoverBg} w-full h-full`}
       />
       
       <div className="relative z-10 flex h-full items-center justify-center overflow-hidden">
@@ -55,7 +58,7 @@ export const ScrambleButton = ({ text, href }: { text: string; href: string }) =
             initial: { y: "100%" },
             hover: { y: "0%", transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } }
           }}
-          className="absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-bold text-black whitespace-nowrap"
+          className={`absolute inset-0 flex items-center justify-center gap-2 w-full h-full text-[13px] tracking-[0.25em] uppercase font-bold ${hoverTextColor} whitespace-nowrap`}
         >
           <span>{text}</span>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mb-[2px] -rotate-45 group-hover:rotate-45 transition-transform duration-500 delay-75 ease-[0.16, 1, 0.3, 1]"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>

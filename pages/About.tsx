@@ -115,7 +115,7 @@ const OurStory = () => {
                             <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">We don't just solve problems.<br />We align creativity with business growth.</p>
                             <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
                                 <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Philosophy</cite>
-                                <ScrambleButton href="/contact" text="WORK WITH US" />
+                                <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
                             </div>
                         </motion.div>
                     </motion.div>

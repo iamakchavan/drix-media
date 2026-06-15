@@ -6,7 +6,7 @@ import NoiseOverlay from '../components/NoiseOverlay';
 import Footer from '../components/Footer';
 import FAQSection from '../components/FAQSection';
 
-import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
+import { SharedHeroLayout, letterVariants, ScrambleButton } from '../components/SharedHero';
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
@@ -98,18 +98,7 @@ const PhilosophyCard = () => {
                         <div className="w-10 h-[1px] bg-black/[0.08]" />
                     </div>
 
-                    {/* Premium Arrow Button */}
-                    <div className="group/arrow relative w-11 h-11 md:w-12 md:h-12 transition-transform duration-500 hover:scale-110 shrink-0 cursor-pointer">
-                        <div className="absolute inset-0 bg-black/10 transition-colors duration-300 group-hover/arrow:bg-black" 
-                            style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)" }}></div>
-                        <div className="absolute inset-[1px] bg-white transition-all duration-300 group-hover/arrow:inset-[3.5px] group-hover/arrow:bg-transparent" 
-                            style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%)" }}></div>
-                        <div className="relative z-10 flex items-center justify-center w-full h-full">
-                            <svg className="w-4 h-4 text-black transition-colors duration-300 group-hover/arrow:text-[#AFFF00]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path d="M7 17l9.2-9.2M17 17V7H7" />
-                            </svg>
-                        </div>
-                    </div>
+                    <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
                 </div>
             </motion.div>
         </motion.div>
