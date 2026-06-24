@@ -64,34 +64,30 @@ const ProjectsHero = () => (
 // ─── Category Filter Tabs ────────────────────────────────────────────────────
 
 const CategoryTabs = ({ active, onChange }: { active: string; onChange: (cat: string) => void }) => (
-    <div className="w-full relative overflow-hidden">
-        {/* Horizontal Slider for Mobile, Centered for Desktop */}
-        <div className="flex overflow-x-auto no-scrollbar pb-4 md:pb-0 md:justify-center gap-3 md:gap-4 px-6 md:px-0 flex-nowrap scroll-smooth">
-            {categories.map((cat) => (
-                <button
-                    key={cat}
-                    onClick={() => onChange(cat)}
-                    className={`relative shrink-0 px-6 md:px-7 py-2.5 md:py-3 text-[11px] poppins-semibold tracking-[0.1em] md:tracking-[0.12em] uppercase transition-all duration-500 rounded-full border whitespace-nowrap
+    <div className="flex overflow-x-auto hide-scrollbar gap-2 flex-nowrap scroll-smooth w-full md:w-auto">
+        {categories.map((cat) => (
+            <button
+                key={cat}
+                onClick={() => onChange(cat)}
+                className={`relative shrink-0 p-[1px] transition-all duration-300 whitespace-nowrap
+                    ${active === cat 
+                        ? 'bg-[#050505]' 
+                        : 'bg-black/[0.08] hover:bg-black/20'
+                    }`}
+                style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+            >
+                <div
+                    className={`px-5 py-3 text-[10px] md:text-[11px] poppins-semibold tracking-[0.12em] md:tracking-[0.15em] uppercase transition-all duration-300
                         ${active === cat 
-                            ? 'bg-[#050505] text-white border-[#050505]' 
-                            : 'bg-transparent text-black/40 border-black/[0.08] hover:text-black hover:border-black/20'
+                            ? 'bg-[#050505] text-[#AFFF00]' 
+                            : 'bg-white text-black/40 hover:text-black hover:bg-white'
                         }`}
+                    style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
                 >
                     {cat}
-                </button>
-            ))}
-        </div>
-
-        {/* Global style for hiding scrollbar if not already present */}
-        <style dangerouslySetInnerHTML={{ __html: `
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-        ` }} />
+                </div>
+            </button>
+        ))}
     </div>
 );
 
@@ -169,6 +165,7 @@ const ProjectsGallery = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [projects, setProjects] = useState<Project[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
 
     React.useEffect(() => {
         const fetchProjects = async () => {
@@ -183,24 +180,64 @@ const ProjectsGallery = () => {
         fetchProjects();
     }, []);
     
-    const filteredProjects = activeCategory === 'All' 
-        ? projects 
-        : projects.filter(p => p.category === activeCategory);
+    const filteredProjects = projects.filter(project => {
+        const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
+        const matchesSearch = searchQuery === '' ||
+            project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            project.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (project.services && project.services.some(s => s.toLowerCase().includes(searchQuery.toLowerCase())));
+        return matchesCategory && matchesSearch;
+    });
 
     return (
         <section id="projects-gallery" className="w-full bg-white pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
             <div className="w-full max-w-[1400px] mx-auto">
 
-                <div className="w-full flex flex-col md:flex-row md:items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-10 md:mb-16">
-                    <div className="flex flex-col gap-2 mb-6 md:mb-0">
+                <div className="w-full flex flex-col gap-6 border-b border-black/[0.07] pb-8 mb-10 md:mb-16">
+                    <div className="flex flex-col gap-2">
                         <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Portfolio Index</span>
                         <h2 className="text-[2.2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
                             Our Projects
                         </h2>
                     </div>
-                    
-                    <div className="w-full md:w-auto">
-                         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
+
+                    <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pt-2">
+                        {/* Categories */}
+                        <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
+
+                        {/* Search Input */}
+                        <div 
+                            className={`p-[1px] w-full lg:max-w-xs xl:max-w-md transition-all duration-300
+                                ${searchQuery ? 'bg-[#476D07]' : 'bg-black/[0.08] hover:bg-black/20 focus-within:bg-[#476D07]'}`}
+                            style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                        >
+                            <div className="relative w-full group">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-black/30 group-focus-within:text-[#476D07] transition-colors duration-300">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="SEARCH PROJECTS..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-11 pr-10 py-3 bg-white focus:bg-white outline-none text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] md:tracking-[0.15em] poppins-semibold text-black placeholder:text-black/35 transition-all duration-300"
+                                    style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                                />
+                                {searchQuery && (
+                                    <button
+                                        onClick={() => setSearchQuery('')}
+                                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-black/30 hover:text-black transition-colors"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -216,7 +253,9 @@ const ProjectsGallery = () => {
                         className="flex flex-col items-center justify-center py-24 text-center"
                     >
                         <span className="text-black/[0.04] text-[6rem] mona-sans-condensed-bold leading-none mb-4 tracking-tighter">NULL</span>
-                        <p className="text-black/30 text-[12px] md:text-[14px] poppins-regular uppercase tracking-widest">No entries found in index</p>
+                        <p className="text-black/30 text-[12px] md:text-[14px] poppins-regular uppercase tracking-widest">
+                            {searchQuery ? "No entries found matching your search" : "No entries found in index"}
+                        </p>
                     </motion.div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16">

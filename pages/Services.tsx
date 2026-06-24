@@ -89,7 +89,8 @@ const PhilosophyCard = () => {
             >
                 {/* Text Content: This will now push the card height dynamically if needed */}
                 <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
-                    Fewer delays. Faster output. Stronger brand.
+                    Fewer delays. Faster output. Stronger brand.<br />
+                    When strategy and execution align.
                 </p>
 
                 <div className="flex flex-row items-center justify-between border-t border-black/[0.06] pt-8 md:pt-10 gap-4 md:gap-0 mt-8">
@@ -143,7 +144,7 @@ const ServicesOverview = () => {
                                 Most agencies sell services in fragments. Branding here. Content there. Campaigns somewhere else.
                             </p>
                             <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular max-w-md">
-                                The problem? Your brand ends up feeling fragmented.
+                                One team builds the website, another creates content, a third runs ads. Everyone is busy, but without alignment, growth slows down.
                             </p>
                         </div>
                         
@@ -156,7 +157,7 @@ const ServicesOverview = () => {
                         className="flex flex-col gap-10"
                     >
                         <p className="text-black/55 text-[15px] md:text-[16px] leading-relaxed poppins-regular">
-                            At Drix Media, everything connects. Your brand strategy shapes your content. Your campaigns are fueled by content and optimised for real results.
+                            At Drix Media, everything connects. Your brand strategy shapes your content, your content informs your campaigns, and every touchpoint works toward the same business objective.
                         </p>
 
                         <PhilosophyCard />

@@ -166,19 +166,31 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
 
 // ─── Blog Grid ────────────────────────────────────────────────────────────────
 
-const ArticlesGrid = ({ posts }: { posts: Post[] }) => {
+interface ArticlesGridProps {
+    posts: Post[];
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+}
+
+const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps) => {
     const [activeCategory, setActiveCategory] = useState('All');
 
-    const filteredPosts = activeCategory === 'All'
-        ? posts
-        : posts.filter(post => post.category === activeCategory);
+    const filteredPosts = posts.filter(post => {
+        const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
+        const matchesSearch = searchQuery === '' || 
+            post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            post.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (post.author && post.author.toLowerCase().includes(searchQuery.toLowerCase()));
+        return matchesCategory && matchesSearch;
+    });
 
     return (
         <section className="w-full bg-[#FAFAFA] pt-16 pb-20 md:py-40 px-6 md:px-12 selection:bg-[#AFFF00] selection:text-black">
             <div className="max-w-[1400px] mx-auto">
 
-                {/* Header with category filter */}
-                <div className="w-full flex flex-col lg:flex-row lg:items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20 gap-8">
+                {/* Header with category filter and search */}
+                <div className="w-full flex flex-col gap-6 border-b border-black/[0.07] pb-8 mb-12 md:mb-20">
                     <div className="flex flex-col gap-2">
                         <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Archive</span>
                         <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
@@ -186,90 +198,144 @@ const ArticlesGrid = ({ posts }: { posts: Post[] }) => {
                         </h2>
                     </div>
 
-                    <div className="flex flex-wrap gap-x-8 gap-y-3 border-b border-black/[0.05] pb-2 w-full lg:w-auto overflow-x-auto whitespace-nowrap hide-scrollbar">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`text-[11px] font-bold uppercase tracking-[0.25em] pb-4 transition-all relative poppins-regular ${activeCategory === cat ? 'text-black' : 'text-black/25 hover:text-black/50'
-                                    }`}
-                            >
-                                {cat}
-                                {activeCategory === cat && (
-                                    <motion.div
-                                        layoutId="journalCatLine"
-                                        className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#476D07]"
-                                    />
+                    <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pt-2">
+                        {/* Categories */}
+                        <div className="flex overflow-x-auto hide-scrollbar gap-2 pb-2 lg:pb-0 flex-nowrap w-full lg:w-auto">
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setActiveCategory(cat)}
+                                    className={`relative shrink-0 p-[1px] transition-all duration-300 whitespace-nowrap
+                                        ${activeCategory === cat 
+                                            ? 'bg-[#050505]' 
+                                            : 'bg-black/[0.08] hover:bg-black/20'
+                                        }`}
+                                    style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                                >
+                                    <div
+                                        className={`px-5 py-3 text-[10px] md:text-[11px] poppins-semibold tracking-[0.12em] md:tracking-[0.15em] uppercase transition-all duration-300
+                                            ${activeCategory === cat 
+                                                ? 'bg-[#050505] text-[#AFFF00]' 
+                                                : 'bg-[#FAFAFA] text-black/40 hover:text-black hover:bg-[#FAFAFA]'
+                                            }`}
+                                        style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                                    >
+                                        {cat}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Search Input */}
+                        <div 
+                            className={`p-[1px] w-full lg:max-w-xs xl:max-w-md transition-all duration-300
+                                ${searchQuery ? 'bg-[#476D07]' : 'bg-black/[0.08] hover:bg-black/20 focus-within:bg-[#476D07]'}`}
+                            style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                        >
+                            <div className="relative w-full group">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-black/30 group-focus-within:text-[#476D07] transition-colors duration-300">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="SEARCH ARCHIVE..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full pl-11 pr-10 py-3 bg-[#FAFAFA] focus:bg-white outline-none text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] md:tracking-[0.15em] poppins-semibold text-black placeholder:text-black/35 transition-all duration-300"
+                                    style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+                                />
+                                {searchQuery && (
+                                    <button
+                                        onClick={() => setSearchQuery('')}
+                                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-black/30 hover:text-black transition-colors"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
                                 )}
-                            </button>
-                        ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Articles grid — chamfered cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
-                    <AnimatePresence mode="popLayout">
-                        {filteredPosts.map((post, index) => {
-                            const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-                            return (
-                            <motion.div
-                                layout
-                                key={post.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, scale: 0.98 }}
-                                transition={{ duration: 0.6, delay: index * 0.05 }}
-                                className="group"
-                            >
-                                <Link to={`/blog/${post.slug}`}>
+                {filteredPosts.length === 0 ? (
+                    <motion.div 
+                        initial={{ opacity: 0 }} 
+                        animate={{ opacity: 1 }}
+                        className="flex flex-col items-center justify-center py-24 text-center"
+                    >
+                        <span className="text-black/[0.04] text-[6rem] mona-sans-condensed-bold leading-none mb-4 tracking-tighter">NULL</span>
+                        <p className="text-black/30 text-[12px] md:text-[14px] poppins-regular uppercase tracking-widest">No entries found matching your search</p>
+                    </motion.div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/[0.04]">
+                        <AnimatePresence mode="popLayout">
+                            {filteredPosts.map((post, index) => {
+                                const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                                return (
                                 <motion.div
-                                    initial="rest" whileHover="hover"
-                                    variants={{
-                                        rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                                        hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
-                                    }}
-                                    className="bg-white h-full flex flex-col cursor-pointer shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                                    layout
+                                    key={post.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.98 }}
+                                    transition={{ duration: 0.6, delay: index * 0.05 }}
+                                    className="group"
                                 >
-                                    {/* Image */}
-                                    <div className="aspect-[4/3] overflow-hidden relative">
-                                        <img
-                                            src={post.cover_image}
-                                            alt={post.title}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
-                                        />
-                                        <div className="absolute top-6 left-6">
-                                            <span className="px-3 py-1.5 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
-                                                style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
-                                                {post.category}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="flex flex-col flex-grow p-6 md:p-8">
-                                        <h3 className="text-[1.15rem] md:text-[1.25rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-snug group-hover:text-[#476D07] transition-colors duration-400">
-                                            {post.title}
-                                        </h3>
-                                        <p className="text-black/40 text-[13px] poppins-regular mb-8 line-clamp-2 leading-relaxed">
-                                            {post.excerpt}
-                                        </p>
-
-                                        <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
-                                            <div className="flex flex-col">
-                                                <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{formattedDate}</span>
-                                                <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.read_time}</span>
-                                            </div>
-                                            <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
-                                                <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                    <Link to={`/blog/${post.slug}`}>
+                                    <motion.div
+                                        initial="rest" whileHover="hover"
+                                        variants={{
+                                            rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
+                                            hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
+                                        }}
+                                        className="bg-white h-full flex flex-col cursor-pointer shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                                    >
+                                        {/* Image */}
+                                        <div className="aspect-[4/3] overflow-hidden relative">
+                                            <img
+                                                src={post.cover_image}
+                                                alt={post.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
+                                            />
+                                            <div className="absolute top-6 left-6">
+                                                <span className="px-3 py-1.5 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
+                                                    style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
+                                                    {post.category}
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
+
+                                        {/* Content */}
+                                        <div className="flex flex-col flex-grow p-6 md:p-8">
+                                            <h3 className="text-[1.15rem] md:text-[1.25rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-snug group-hover:text-[#476D07] transition-colors duration-400">
+                                                {post.title}
+                                            </h3>
+                                            <p className="text-black/40 text-[13px] poppins-regular mb-8 line-clamp-2 leading-relaxed">
+                                                {post.excerpt}
+                                            </p>
+
+                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
+                                                <div className="flex flex-col">
+                                                    <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{formattedDate}</span>
+                                                    <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.read_time}</span>
+                                                </div>
+                                                <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
+                                                    <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                    </Link>
                                 </motion.div>
-                                </Link>
-                            </motion.div>
-                        )})}
-                    </AnimatePresence>
-                </div>
+                            )})}
+                        </AnimatePresence>
+                    </div>
+                )}
             </div>
         </section>
     );
@@ -524,6 +590,7 @@ const Blog: React.FC = () => {
     const heroY = useTransform(scrollY, [0, 800], [0, -150]);
 
     const [posts, setPosts] = useState<Post[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
     
     useEffect(() => {
         const fetchPosts = async () => {
@@ -541,7 +608,7 @@ const Blog: React.FC = () => {
     }, []);
 
     const featuredPost = posts.length > 0 ? posts[0] : undefined;
-    const gridPosts = posts.length > 1 ? posts.slice(1) : [];
+    const gridPosts = searchQuery ? posts : (posts.length > 1 ? posts.slice(1) : []);
 
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
@@ -558,8 +625,8 @@ const Blog: React.FC = () => {
 
             <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]" 
                  style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
-                <FeaturedPost post={featuredPost} />
-                <ArticlesGrid posts={gridPosts} />
+                {!searchQuery && <FeaturedPost post={featuredPost} />}
+                <ArticlesGrid posts={gridPosts} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <Newsletter />
                 <Footer />
             </div>
