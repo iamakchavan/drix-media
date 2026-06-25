@@ -66,42 +66,22 @@ const PhilosophyCard = () => {
     return (
         <motion.div
             initial="rest" whileHover="hover"
-            className="relative group/box w-full"
+            variants={{
+                rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
+                hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
+            }}
+            className="bg-[#FAFAFA] border border-black/[0.05] p-8 md:p-10 flex flex-col gap-6 w-full"
         >
-            {/* The Stroke Layer: Absolute to wrap the content-driven parent */}
-            <motion.div 
-                variants={{
-                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
-                    hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px, 0% 24px)" }
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 bg-black/15 group-hover/box:bg-black/25 transition-colors duration-500 z-0"
-            />
+            {/* Text Content */}
+            <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
+                Fewer delays. Faster output. Stronger brand.<br />
+                When strategy and execution align.
+            </p>
 
-            {/* The Inner Body Layer: Now RELATIVE to drive parent height based on text content */}
-            <motion.div 
-                variants={{
-                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 23.4px), calc(100% - 23.4px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
-                    hover: { clipPath: "polygon(23.4px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 23.4px, 0% 23.4px)" }
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-10 bg-[#FAFAFA] m-[1px] p-8 md:p-10 flex flex-col justify-between min-h-[280px]"
-            >
-                {/* Text Content: This will now push the card height dynamically if needed */}
-                <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">
-                    Fewer delays. Faster output. Stronger brand.<br />
-                    When strategy and execution align.
-                </p>
-
-                <div className="flex flex-row items-center justify-between border-t border-black/[0.06] pt-8 md:pt-10 gap-4 md:gap-0 mt-8">
-                    <div className="flex flex-col gap-2">
-                        <cite className="text-[9px] font-bold tracking-[0.4em] uppercase text-black/50 not-italic poppins-regular">The Drix Engine</cite>
-                        <div className="w-10 h-[1px] bg-black/[0.08]" />
-                    </div>
-
-                    <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
-                </div>
-            </motion.div>
+            <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
+                <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Engine</cite>
+                <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
+            </div>
         </motion.div>
     );
 };
