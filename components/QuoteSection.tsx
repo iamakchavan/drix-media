@@ -3,25 +3,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const testimonials = [
   {
-    image: "https://framerusercontent.com/images/RuuVHScXn21DshuJ5CzY9yFPrU.jpg?width=645&height=908",
-    quote: "DRIX MEDIA helps companies create visually stunning and strategically sound digital experiences that captivate audiences.",
-    sub: "From concept to launch, we craft digital solutions that not only look exceptional but also drive results, building connections that last.",
-    name: "Annie Bassett",
-    role: "Project Manager & Founder",
+    image: "/assets/Testimonials/Aman singh chauhan.png",
+    quote: "DRIX Media has been a strategic growth partner for Central Square.",
+    sub: "From brand positioning and content creation to performance marketing and lead generation, their team managed every aspect of our marketing with precision. Their data-driven approach, creative thinking, and consistent execution helped us strengthen our brand presence and generate quality business opportunities. It's rare to find a team that balances strategy and execution this seamlessly.",
+    name: "Aman Singh Chauhan",
+    role: "Director, Central Square",
   },
   {
-    image: "https://framerusercontent.com/images/aWcD3Iz6LWFQERknQy3rwYGQBI.jpg?width=645&height=908",
-    quote: "They helped us shape our brand identity from scratch, giving us a website that perfectly reflects our values and vision.",
-    sub: "The team's attention to detail and strategic thinking elevated our brand beyond what we thought was possible.",
-    name: "Anna Karenina",
-    role: "Owner, Clothing E-commerce",
+    image: "/assets/Testimonials/Charu Srivastava.png",
+    quote: "Partnering with DRIX MEDIA transformed the way we approached marketing.",
+    sub: "Their team seamlessly handled our digital presence from brand storytelling and social media to paid campaigns. Every campaign was backed by strategy, creativity, and measurable outcomes, helping us reach the right audience while strengthening our brand identity.",
+    name: "Charu Srivastava",
+    role: "Director, Lets Marry",
   },
   {
-    image: "https://framerusercontent.com/images/LXqiw60wOK1vHnGm0uYyST90q5A.jpg?width=645&height=908",
-    quote: "Working with Drix was a game-changer. Our sales increased by 30% in the first month after the rebrand launched.",
-    sub: "Every creative decision was tied to a business goal. That's rare, and it's exactly what we needed.",
-    name: "Sarah Morgan",
-    role: "Founder, Tech Startup",
+    image: "/assets/Testimonials/Ankita Ghosh.png",
+    quote: "Working with DRIX MEDIA was a seamless experience.",
+    sub: "They transformed our ideas into a visual identity that perfectly reflects our brand. From logo design to UI and digital assets, every detail was thoughtfully crafted, resulting in a clean, modern, and user-centric experience.",
+    name: "Ankita Ghosh",
+    role: "Director, AlphaQuark",
   },
 ];
 
@@ -148,7 +148,8 @@ const QuoteSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="text-xl sm:text-2xl md:text-3xl lg:text-[2.1rem] mona-sans-condensed-medium leading-[1.25] text-black tracking-tight mb-4 md:mb-7"
+                className="text-xl sm:text-2xl md:text-3xl lg:text-[2.1rem] mona-sans-condensed-medium leading-[1.25] text-black tracking-tight mb-4 md:mb-7 text-balance"
+                style={{ textWrap: 'balance' }}
               >
                 {t.quote}
               </motion.p>
@@ -161,7 +162,8 @@ const QuoteSection: React.FC = () => {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="text-[13px] md:text-sm text-black/50 leading-relaxed max-w-lg poppins-regular mb-6 md:mb-8"
+                className="text-[13px] md:text-sm text-black/50 leading-relaxed max-w-lg poppins-regular mb-6 md:mb-8 text-balance"
+                style={{ textWrap: 'balance' }}
               >
                 {t.sub}
               </motion.p>
