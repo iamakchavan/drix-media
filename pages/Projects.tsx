@@ -400,10 +400,10 @@ const ProjectsCTA = () => (
                             <svg className="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                         </Link>
                         <a
-                            href="mailto:hello@drixmedia.com"
+                            href="mailto:connect@drixmedia.in"
                             className="text-black/50 hover:text-black transition-colors text-[11px] md:text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left md:pl-2"
                         >
-                            hello@drixmedia.com
+                            connect@drixmedia.in
                         </a>
                     </div>
                 </div>

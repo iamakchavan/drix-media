@@ -336,7 +336,7 @@ const CTASection = () => (
                             Start a Conversation
                             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                         </Link>
-                        <a href="mailto:hello@drixmedia.com" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center">hello@drixmedia.com</a>
+                        <a href="mailto:connect@drixmedia.in" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center">connect@drixmedia.in</a>
                     </div>
                 </div>
             </div>

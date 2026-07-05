@@ -65,7 +65,7 @@ const GetInTouch = () => {
       <div className="w-full flex justify-start md:justify-center relative items-center">
         <motion.a
           ref={ref}
-          href="mailto:hello@drixmedia.com"
+          href="mailto:connect@drixmedia.in"
           initial="initial"
           animate={animate}
           whileHover="hover"

@@ -593,7 +593,7 @@ const CTASection = () => (
                                 </div>
                             </motion.a>
                         </div>
-                        <a href="mailto:hello@drixmedia.com" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left">hello@drixmedia.com</a>
+                        <a href="mailto:connect@drixmedia.in" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center md:text-left">connect@drixmedia.in</a>
                     </div>
                 </div>
             </div>

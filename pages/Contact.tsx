@@ -75,6 +75,20 @@ const ContactFormSection = () => {
     const [submitted, setSubmitted] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const dropdownRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     const [form, setForm] = useState({
         name: '', email: '', phone: '', company: '', service: [] as string[], message: '', referral: '',
     });
@@ -126,7 +140,7 @@ const ContactFormSection = () => {
                 <div className="w-full md:w-[40%] flex flex-col sm:flex-row gap-8 sm:gap-10 lg:gap-16 mt-10 md:mt-0 items-start md:items-end justify-start md:justify-end pb-2">
                     <div className="flex flex-col gap-1">
                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Inquiries</span>
-                        <a href="mailto:hello@drixmedia.com" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">hello@drixmedia.com</a>
+                        <a href="mailto:connect@drixmedia.in" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">connect@drixmedia.in</a>
                     </div>
                     <div className="flex flex-col gap-1">
                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Call us</span>
@@ -208,7 +222,7 @@ const ContactFormSection = () => {
                                 <div className={labelRowClasses}>
                                     <label className={labelClasses}>04 / Service *</label>
                                 </div>
-                                <div className={`${inputRowClasses} outline-none relative`} tabIndex={0}>
+                                <div className={`${inputRowClasses} outline-none relative`} tabIndex={0} ref={dropdownRef}>
                                     {/* Clickable Area for toggling */}
                                     <div 
                                         className="absolute inset-0 cursor-pointer z-10" 

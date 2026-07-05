@@ -286,8 +286,8 @@ const Navbar: React.FC = () => {
                 >
                   <div className="flex flex-col gap-1">
                     <span className="text-[9px] poppins-bold tracking-[0.3em] uppercase text-white/20">Get in touch</span>
-                    <a href="mailto:hello@drixmedia.com" className="text-sm poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors duration-300">
-                      hello@drixmedia.com
+                    <a href="mailto:connect@drixmedia.in" className="text-sm poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors duration-300">
+                      connect@drixmedia.in
                     </a>
                     <a href="tel:+918354002977" className="text-xs poppins-regular text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
                       +91-8354002977
