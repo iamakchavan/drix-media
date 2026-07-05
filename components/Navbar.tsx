@@ -289,8 +289,8 @@ const Navbar: React.FC = () => {
                     <a href="mailto:hello@drixmedia.com" className="text-sm poppins-medium text-white/50 hover:text-[#AFFF00] transition-colors duration-300">
                       hello@drixmedia.com
                     </a>
-                    <a href="tel:5108956500" className="text-xs poppins-regular text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
-                      (510) 895-6500
+                    <a href="tel:+918354002977" className="text-xs poppins-regular text-white/25 hover:text-[#AFFF00] transition-colors duration-300">
+                      +91-8354002977
                     </a>
                   </div>
                   <span className="text-[9px] poppins-medium tracking-[0.15em] uppercase text-white/15">

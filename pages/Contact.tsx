@@ -13,7 +13,7 @@ import { supabase } from '../lib/supabase';
 
 const ContactHero = () => (
     <SharedHeroLayout
-        bottomLabel="The Contact"
+        bottomLabel="Contact"
         buttonText="GET IN TOUCH"
         buttonHref="#form"
         titleLines={
@@ -47,7 +47,7 @@ const ContactHero = () => (
         }
     >
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
-            <motion.span 
+            <motion.span
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
@@ -76,7 +76,7 @@ const ContactFormSection = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [form, setForm] = useState({
-        name: '', email: '', phone: '', company: '', service: '', message: '', referral: '',
+        name: '', email: '', phone: '', company: '', service: [] as string[], message: '', referral: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -94,7 +94,7 @@ const ContactFormSection = () => {
                     name: form.name,
                     email: form.email,
                     company: form.company,
-                    service: form.service,
+                    service: form.service.join(', '),
                     message: form.message,
                     status: 'new'
                 }]);
@@ -120,17 +120,17 @@ const ContactFormSection = () => {
             <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row px-6 md:px-12 py-10 md:py-16 mb-4 lg:mb-8">
                 <div className="w-full md:w-[60%] flex flex-col justify-end">
                     <h2 className="text-[2.8rem] sm:text-[3.5rem] md:text-[5rem] lg:text-[6rem] leading-[0.9] md:leading-[0.85] mona-sans-condensed-bold tracking-tight text-[#050505] uppercase">
-                        Start a<br/>New Project
+                        Start a<br />New Project
                     </h2>
                 </div>
                 <div className="w-full md:w-[40%] flex flex-col sm:flex-row gap-8 sm:gap-10 lg:gap-16 mt-10 md:mt-0 items-start md:items-end justify-start md:justify-end pb-2">
                     <div className="flex flex-col gap-1">
-                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Inquiries</span>
-                         <a href="mailto:hello@drixmedia.com" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">hello@drixmedia.com</a>
+                        <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Inquiries</span>
+                        <a href="mailto:hello@drixmedia.com" className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium hover:text-[#476D07] transition-colors text-black">hello@drixmedia.com</a>
                     </div>
-                     <div className="flex flex-col gap-1">
-                         <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Call us</span>
-                         <span className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium text-black">(+91) 98765 43210</span>
+                    <div className="flex flex-col gap-1">
+                        <span className="text-[9px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-black/40 mb-1 md:mb-2 poppins-regular">Call us</span>
+                        <span className="text-[1.1rem] md:text-[1.3rem] mona-sans-condensed-medium text-black">+91-8354002977</span>
                     </div>
                 </div>
             </div>
@@ -208,16 +208,22 @@ const ContactFormSection = () => {
                                 <div className={labelRowClasses}>
                                     <label className={labelClasses}>04 / Service *</label>
                                 </div>
-                                <div className={`${inputRowClasses} cursor-pointer outline-none`} tabIndex={0} onClick={() => setDropdownOpen(!dropdownOpen)}>
-                                    <div className={`${inputClasses} flex items-center justify-between`}>
-                                        <span className={form.service ? 'text-black group-focus-within:text-[#AFFF00]' : 'text-black/10 group-focus-within:text-white/20'}>
-                                            {form.service || 'Select discipline'}
+                                <div className={`${inputRowClasses} outline-none relative`} tabIndex={0}>
+                                    {/* Clickable Area for toggling */}
+                                    <div 
+                                        className="absolute inset-0 cursor-pointer z-10" 
+                                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    />
+                                    
+                                    <div className={`${inputClasses} flex items-center justify-between relative z-0 pointer-events-none`}>
+                                        <span className={`truncate mr-4 ${form.service.length > 0 ? 'text-black group-focus-within:text-[#AFFF00]' : 'text-black/10 group-focus-within:text-white/20'}`}>
+                                            {form.service.length > 0 ? form.service.join(', ') : 'Select discipline(s)'}
                                         </span>
                                         <motion.svg animate={{ rotate: dropdownOpen ? 180 : 0 }} transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }} width="32" height="32" viewBox="0 0 256 256" fill="currentColor" className="text-black/20 group-focus-within:text-white shrink-0">
                                             <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z" />
                                         </motion.svg>
                                     </div>
-                                    <input type="text" name="service" required className="absolute opacity-0 pointer-events-none w-0 h-0" value={form.service} onChange={() => { }} />
+                                    <input type="text" name="service" required className="absolute opacity-0 pointer-events-none w-0 h-0" value={form.service.join(', ')} onChange={() => { }} />
 
                                     <AnimatePresence>
                                         {dropdownOpen && (
@@ -229,19 +235,34 @@ const ContactFormSection = () => {
                                                 className="absolute top-full left-0 w-full bg-[#050505] border-t border-black/10 md:border-white/10 z-50 flex flex-col shadow-2xl"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
-                                                {serviceOptions.map((opt) => (
-                                                    <div
-                                                        key={opt}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setForm({ ...form, service: opt });
-                                                            setDropdownOpen(false);
-                                                        }}
-                                                        className="w-full px-6 md:px-10 py-5 md:py-6 text-[1.2rem] md:text-[1.8rem] mona-sans-condensed-medium uppercase text-white/50 cursor-pointer hover:bg-[#AFFF00]/10 hover:text-[#AFFF00] hover:pl-12 transition-all duration-400 ease-[0.19,1,0.22,1] border-b border-white/5 last:border-0"
-                                                    >
-                                                        {opt}
-                                                    </div>
-                                                ))}
+                                                {serviceOptions.map((opt) => {
+                                                    const isSelected = form.service.includes(opt);
+                                                    return (
+                                                        <div
+                                                            key={opt}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                const newServices = isSelected
+                                                                    ? form.service.filter(s => s !== opt)
+                                                                    : [...form.service, opt];
+                                                                setForm({ ...form, service: newServices });
+                                                            }}
+                                                            className={`w-full px-6 md:px-10 py-5 md:py-6 text-[1.2rem] md:text-[1.8rem] mona-sans-condensed-medium uppercase cursor-pointer flex items-center justify-between transition-all duration-400 ease-[0.19,1,0.22,1] border-b border-white/5 last:border-0 ${isSelected ? 'bg-[#AFFF00]/10 text-[#AFFF00] pl-8 md:pl-12' : 'text-white/50 hover:bg-[#AFFF00]/5 hover:text-[#AFFF00] hover:pl-8 md:hover:pl-12'}`}
+                                                        >
+                                                            <span className="truncate pr-4">{opt}</span>
+                                                            {isSelected && (
+                                                                <motion.svg
+                                                                    initial={{ scale: 0, opacity: 0 }}
+                                                                    animate={{ scale: 1, opacity: 1 }}
+                                                                    className="w-5 h-5 md:w-6 md:h-6 text-[#AFFF00] shrink-0"
+                                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                                                                >
+                                                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                                                </motion.svg>
+                                                            )}
+                                                        </div>
+                                                    );
+                                                })}
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
@@ -392,7 +413,7 @@ const WhatHappensNext = () => {
                         </h2>
                     </div>
                     <p className="hidden md:block text-sm text-black/35 max-w-[220px] leading-relaxed poppins-regular text-right">
-                        We move fast.<br/>We keep you in the loop.<br/>No fluff, just results.
+                        We move fast.<br />We keep you in the loop.<br />No fluff, just results.
                     </p>
                 </div>
 
@@ -451,13 +472,13 @@ const WhatHappensNext = () => {
 
                 {/* ── MOBILE: Horizontal Scroll Area ── */}
                 <div className="relative -mx-6 px-6 md:hidden">
-                    <div 
+                    <div
                         ref={scrollContainerRef}
                         onScroll={handleScroll}
                         className="flex gap-4 overflow-x-auto hide-scrollbar snap-x snap-mandatory"
                     >
                         {nextSteps.map((step, i) => (
-                            <motion.div 
+                            <motion.div
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -466,12 +487,12 @@ const WhatHappensNext = () => {
                                 className="shrink-0 p-1 flex flex-col min-w-[80vw] sm:min-w-[50vw] snap-center pt-2"
                             >
                                 {/* THE STROKE LAYER: Defines the perimeter including the chamfer */}
-                                <div 
+                                <div
                                     className="w-full h-full p-[1px] relative group bg-black/[0.12] transition-colors duration-500 hover:bg-black/20"
                                     style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%)" }}
                                 >
                                     {/* THE CONTENT LAYER: Nests inside to reveal the 1px 'stroke' */}
-                                    <div 
+                                    <div
                                         className="bg-white w-full h-full p-8 flex flex-col min-h-[360px] relative"
                                         style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0 100%)" }}
                                     >
@@ -482,7 +503,7 @@ const WhatHappensNext = () => {
                                             </div>
                                             <span className="text-[12px] text-black/40 font-mono tracking-[0.3em] font-bold">0{i + 1}</span>
                                         </div>
-                                        
+
                                         {/* Content Area: Centered vertically */}
                                         <div className="flex flex-col gap-4 mt-auto mb-10 relative z-10">
                                             <h3 className="text-[1.5rem] text-black tracking-tight mona-sans-condensed-bold leading-[1.05] uppercase max-w-[220px]">
@@ -508,11 +529,10 @@ const WhatHappensNext = () => {
                         <div className="text-[9px] font-bold tracking-[0.4em] text-black/30 uppercase">Process Phase 0{activeIndex + 1}</div>
                         <div className="flex gap-2">
                             {nextSteps.map((_, i) => (
-                                <div 
-                                    key={i} 
-                                    className={`h-1 rounded-full transition-all duration-500 ${
-                                        i === activeIndex ? 'bg-[#476D07] w-6' : 'bg-black/10 w-3'
-                                    }`} 
+                                <div
+                                    key={i}
+                                    className={`h-1 rounded-full transition-all duration-500 ${i === activeIndex ? 'bg-[#476D07] w-6' : 'bg-black/10 w-3'
+                                        }`}
                                 />
                             ))}
                         </div>

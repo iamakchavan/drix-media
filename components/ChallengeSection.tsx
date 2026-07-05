@@ -212,7 +212,7 @@ const ChallengeSection: React.FC = () => {
                 One Integrated Team.<br />
                 One Unified Brand.
               </p>
-              <ScrambleButton href="#contact" text="GET STARTED" />
+              <ScrambleButton href="/contact" text="GET STARTED" />
             </div>
           </div>
 

@@ -13,8 +13,8 @@ const categories = ['All', 'Branding', 'Web Design', 'Creative Production', 'Con
 // ─── Hero ────────────────────────────────────────────────────────────────────
 
 const ProjectsHero = () => (
-    <SharedHeroLayout 
-        bottomLabel="The Work"
+    <SharedHeroLayout
+        bottomLabel="Projects"
         buttonText="VIEW ALL PROJECTS"
         buttonHref="#projects-gallery"
         titleLines={
@@ -48,7 +48,7 @@ const ProjectsHero = () => (
         }
     >
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
-            <motion.span 
+            <motion.span
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
@@ -70,16 +70,16 @@ const CategoryTabs = ({ active, onChange }: { active: string; onChange: (cat: st
                 key={cat}
                 onClick={() => onChange(cat)}
                 className={`relative shrink-0 p-[1px] transition-all duration-300 whitespace-nowrap
-                    ${active === cat 
-                        ? 'bg-[#050505]' 
+                    ${active === cat
+                        ? 'bg-[#050505]'
                         : 'bg-black/[0.08] hover:bg-black/20'
                     }`}
                 style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
             >
                 <div
                     className={`px-5 py-3 text-[10px] md:text-[11px] poppins-semibold tracking-[0.12em] md:tracking-[0.15em] uppercase transition-all duration-300
-                        ${active === cat 
-                            ? 'bg-[#050505] text-[#AFFF00]' 
+                        ${active === cat
+                            ? 'bg-[#050505] text-[#AFFF00]'
                             : 'bg-white text-black/40 hover:text-black hover:bg-white'
                         }`}
                     style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
@@ -109,7 +109,7 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
             className="group cursor-pointer w-full"
         >
             <Link to={`/projects/${project.id}`}>
-                <div 
+                <div
                     className={`relative w-full ${aspectClass} overflow-hidden bg-[#F2F2F2] transition-all duration-700`}
                     style={{ clipPath: "polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%)" }}
                 >
@@ -121,21 +121,21 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
                         transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
                         loading="lazy"
                     />
-                    
+
                     {/* Corner Detail (Industrial Zen Signature) */}
                     <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 backdrop-blur-md flex items-center justify-center"
-                         style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}>
+                        style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}>
                         <div className="w-1.5 h-1.5 bg-white/40 rounded-full translate-x-2 translate-y-[-8px]" />
                     </div>
 
-                    <motion.div 
+                    <motion.div
                         className="absolute bottom-4 right-4 z-20"
                         animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
                         transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
                     >
                         <div className="w-10 h-10 md:w-12 md:h-12 border border-white/20 bg-black/10 backdrop-blur-md flex items-center justify-center">
                             <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path d="M7 17l9.2-9.2M17 17V7H7"/>
+                                <path d="M7 17l9.2-9.2M17 17V7H7" />
                             </svg>
                         </div>
                     </motion.div>
@@ -147,8 +147,8 @@ const ProjectImageCard = ({ project, index }: { key?: string; project: Project; 
                             {project.title}
                         </h3>
                         <div className="flex items-center gap-2">
-                             <div className="w-4 h-[1px] bg-black/10" />
-                             <span className="text-[9px] md:text-[10px] poppins-regular text-black/40 tracking-[0.1em] uppercase">
+                            <div className="w-4 h-[1px] bg-black/10" />
+                            <span className="text-[9px] md:text-[10px] poppins-regular text-black/40 tracking-[0.1em] uppercase">
                                 {project.category}
                             </span>
                         </div>
@@ -173,13 +173,13 @@ const ProjectsGallery = () => {
                 .from('projects')
                 .select('*')
                 .order('order_index', { ascending: true });
-            
+
             if (data) setProjects(data);
             setLoading(false);
         };
         fetchProjects();
     }, []);
-    
+
     const filteredProjects = projects.filter(project => {
         const matchesCategory = activeCategory === 'All' || project.category === activeCategory;
         const matchesSearch = searchQuery === '' ||
@@ -207,7 +207,7 @@ const ProjectsGallery = () => {
                         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
 
                         {/* Search Input */}
-                        <div 
+                        <div
                             className={`p-[1px] w-full lg:max-w-xs xl:max-w-md transition-all duration-300
                                 ${searchQuery ? 'bg-[#476D07]' : 'bg-black/[0.08] hover:bg-black/20 focus-within:bg-[#476D07]'}`}
                             style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
@@ -247,8 +247,8 @@ const ProjectsGallery = () => {
                         <span className="text-[10px] font-bold tracking-[0.4em] text-black/20 uppercase">Indexing...</span>
                     </div>
                 ) : filteredProjects.length === 0 ? (
-                    <motion.div 
-                        initial={{ opacity: 0 }} 
+                    <motion.div
+                        initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         className="flex flex-col items-center justify-center py-24 text-center"
                     >
@@ -279,7 +279,7 @@ const ScrollingShowcase = ({ projects }: { projects: Project[] }) => {
 
     return (
         <section className="w-full bg-[#FAFAFA] selection:bg-[#AFFF00] selection:text-black overflow-hidden pt-16 pb-10 md:pt-28 md:pb-16">
-            
+
             <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 mb-10 md:mb-14">
                 <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10">
                     <div className="flex flex-col gap-2">
@@ -295,18 +295,18 @@ const ScrollingShowcase = ({ projects }: { projects: Project[] }) => {
             </div>
 
             <div className="relative w-full overflow-hidden mb-4 md:mb-5">
-                <motion.div 
+                <motion.div
                     className="flex gap-4 md:gap-5"
                     animate={{ x: ['0%', '-33.33%'] }}
                     transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
                 >
                     {row1.map((project, i) => (
-                        <div 
-                            key={`row1-${i}`} 
+                        <div
+                            key={`row1-${i}`}
                             className="shrink-0 w-[260px] md:w-[360px] lg:w-[420px] aspect-[16/10] rounded-lg md:rounded-xl overflow-hidden bg-[#E8E8E8] group cursor-pointer relative"
                         >
-                            <img 
-                                src={project.thumbnail || project.hero_image} 
+                            <img
+                                src={project.thumbnail || project.hero_image}
                                 alt={project.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                 loading="lazy"
@@ -323,18 +323,18 @@ const ScrollingShowcase = ({ projects }: { projects: Project[] }) => {
             </div>
 
             <div className="relative w-full overflow-hidden">
-                <motion.div 
+                <motion.div
                     className="flex gap-4 md:gap-5"
                     animate={{ x: ['-33.33%', '0%'] }}
                     transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
                 >
                     {row2.map((project, i) => (
-                        <div 
-                            key={`row2-${i}`} 
+                        <div
+                            key={`row2-${i}`}
                             className="shrink-0 w-[260px] md:w-[360px] lg:w-[420px] aspect-[16/10] rounded-lg md:rounded-xl overflow-hidden bg-[#E8E8E8] group cursor-pointer relative"
                         >
-                            <img 
-                                src={project.thumbnail || project.hero_image} 
+                            <img
+                                src={project.thumbnail || project.hero_image}
                                 alt={project.title}
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                                 loading="lazy"
@@ -360,20 +360,21 @@ const ProjectsCTA = () => (
         <motion.div
             initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: [0.19,1,0.22,1] }}
+            transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
             className="w-full bg-[#AFFF00] relative overflow-hidden flex flex-col items-start px-7 md:px-20 py-12 md:py-20"
-            style={{ 
+            style={{
                 clipPath: "polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%)",
                 // Responsive clip-path would be better handled by a CSS variable, but for now we'll use a fixed value that works well for both
             }}
         >
             {/* Desktop variant for larger chamfer */}
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @media (min-width: 768px) {
                     .projects-cta-card { clip-path: polygon(0 0, calc(100% - 48px) 0, 100% 48px, 100% 100%, 0 100%) !important; }
                 }
             ` }} />
-            
+
             <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
             <div className="relative z-10 w-full max-w-[1400px] mx-auto">
@@ -396,7 +397,7 @@ const ProjectsCTA = () => (
                             style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}
                         >
                             <span className="shrink-0">Start a Conversation</span>
-                            <svg className="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            <svg className="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                         </Link>
                         <a
                             href="mailto:hello@drixmedia.com"
@@ -433,7 +434,7 @@ const Projects: React.FC = () => {
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            
+
             <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
@@ -443,8 +444,8 @@ const Projects: React.FC = () => {
                 </motion.div>
             </div>
 
-            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.1)] mt-[-60px] md:mt-[-100px]" 
-                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
+            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.1)] mt-[-60px] md:mt-[-100px]"
+                style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 <ProjectsGallery />
                 <ScrollingShowcase projects={projects} />
                 <ProjectsCTA />

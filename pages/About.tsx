@@ -7,9 +7,9 @@ import { SharedHeroLayout, letterVariants, ScrambleButton } from '../components/
 
 const AboutHero = () => (
     <SharedHeroLayout
-        bottomLabel="The Agency"
+        bottomLabel="About"
         buttonText="WORK WITH US"
-        buttonHref="#contact"
+        buttonHref="/contact"
         titleLines={
             <>
                 <div className="flex flex-wrap items-center overflow-visible pb-2 md:pb-4 gap-x-[1vw] md:gap-x-4">

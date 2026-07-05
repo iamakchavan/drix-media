@@ -214,7 +214,7 @@ const Hero: React.FC = () => {
                 </div>
 
                 <motion.div className="flex items-center ml-0 md:ml-8 mt-2 md:mt-2">
-                  <ScrambleButton href="#contact" text="BOOK STRATEGY" />
+                  <ScrambleButton href="/contact" text="BOOK STRATEGY" />
                 </motion.div>
               </div>
 
@@ -236,15 +236,7 @@ const Hero: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Copyright Floating */}
-          <motion.div
-            initial={{ opacity: 0, filter: "blur(4px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.6, delay: 0.9, ease: premiumEasing }}
-            className="absolute bottom-4 left-0 text-white/20 text-[10px] uppercase tracking-widest font-bold hidden md:block"
-          >
-            Drix® Studio © {new Date().getFullYear()}
-          </motion.div>
+
         </div>
 
       </motion.div>

@@ -134,7 +134,7 @@ const ProcessSection: React.FC = () => {
             Five steps to bridge the gap between strategy and execution.
           </p>
           <div className="w-full sm:w-max">
-            <ScrambleButtonDark text="Book Strategy Call" href="#contact" />
+            <ScrambleButtonDark text="Book Strategy Call" href="/contact" />
           </div>
         </div>
       </div>

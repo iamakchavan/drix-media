@@ -12,12 +12,10 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { label: 'Instagram', href: '#' },
-  { label: 'Facebook', href: '#' },
-  { label: 'LinkedIn', href: '#' },
-  { label: 'Pinterest', href: '#' },
-  { label: 'Contra', href: '#' },
-  { label: 'Behance', href: '#' },
+  { label: 'Instagram', href: 'https://www.instagram.com/drixmedia_/' },
+  { label: 'Facebook', href: 'https://www.facebook.com/drixmediaofficial' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/showcase/drixmedia/?viewAsMember=true' },
+  { label: 'Pinterest', href: 'https://in.pinterest.com/drixmedia_/?actingBusinessId=1031254152082392992' },
 ];
 
 const HoverLink = ({ label, path }: { label: string; path: string; [key: string]: any }) => (
@@ -124,7 +122,7 @@ const Footer: React.FC = () => {
             </div>
             <div className="flex flex-col items-start gap-1">
               <span className="text-[10px] md:text-sm font-bold text-white/20 tracking-[0.2em] uppercase">Get in touch</span>
-              <a href="tel:5108956500" className="text-xl md:text-lg font-semibold hover:text-[#AFFF00] transition-colors text-white/70 tracking-tight">(510) 895-6500</a>
+              <a href="tel:+918354002977" className="text-xl md:text-lg font-semibold hover:text-[#AFFF00] transition-colors text-white/70 tracking-tight">+91-8354002977</a>
             </div>
             <div className="flex items-center gap-5 mt-2">
               <Link to="/privacy" className="text-[10px] md:text-[11px] poppins-medium tracking-[0.12em] uppercase text-white/30 hover:text-white/70 transition-colors duration-300">Privacy</Link>

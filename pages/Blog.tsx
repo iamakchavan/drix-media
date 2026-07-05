@@ -26,8 +26,8 @@ interface Post {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 const BlogHero = () => (
-    <SharedHeroLayout 
-        bottomLabel="The Journal"
+    <SharedHeroLayout
+        bottomLabel="Blogs"
         buttonText="READ JOURNAL"
         buttonHref="#featured"
         titleLines={
@@ -56,7 +56,7 @@ const BlogHero = () => (
         }
     >
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
-            <motion.span 
+            <motion.span
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
@@ -99,7 +99,7 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
                                 initial="rest" whileHover="hover"
                                 variants={{
                                     rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0% 100%, 0% 0%)" },
-                                    hover: { clipPath: "polygon(40px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 40px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
+                                    hover: { clipPath: "polygon(40px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 40px)", transition: { duration: 0.5, ease: [0.19, 1, 0.22, 1] } }
                                 }}
                                 className="relative group cursor-pointer overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.1)]"
                             >
@@ -154,7 +154,7 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
                                 Read the article
                             </span>
                             <div className="shrink-0 w-10 h-10 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
-                                <svg className="w-4 h-4 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                <svg className="w-4 h-4 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                             </div>
                         </Link>
                     </div>
@@ -177,7 +177,7 @@ const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps)
 
     const filteredPosts = posts.filter(post => {
         const matchesCategory = activeCategory === 'All' || post.category === activeCategory;
-        const matchesSearch = searchQuery === '' || 
+        const matchesSearch = searchQuery === '' ||
             post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
             post.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -206,16 +206,16 @@ const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps)
                                     key={cat}
                                     onClick={() => setActiveCategory(cat)}
                                     className={`relative shrink-0 p-[1px] transition-all duration-300 whitespace-nowrap
-                                        ${activeCategory === cat 
-                                            ? 'bg-[#050505]' 
+                                        ${activeCategory === cat
+                                            ? 'bg-[#050505]'
                                             : 'bg-black/[0.08] hover:bg-black/20'
                                         }`}
                                     style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
                                 >
                                     <div
                                         className={`px-5 py-3 text-[10px] md:text-[11px] poppins-semibold tracking-[0.12em] md:tracking-[0.15em] uppercase transition-all duration-300
-                                            ${activeCategory === cat 
-                                                ? 'bg-[#050505] text-[#AFFF00]' 
+                                            ${activeCategory === cat
+                                                ? 'bg-[#050505] text-[#AFFF00]'
                                                 : 'bg-[#FAFAFA] text-black/40 hover:text-black hover:bg-[#FAFAFA]'
                                             }`}
                                         style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
@@ -227,7 +227,7 @@ const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps)
                         </div>
 
                         {/* Search Input */}
-                        <div 
+                        <div
                             className={`p-[1px] w-full lg:max-w-xs xl:max-w-md transition-all duration-300
                                 ${searchQuery ? 'bg-[#476D07]' : 'bg-black/[0.08] hover:bg-black/20 focus-within:bg-[#476D07]'}`}
                             style={{ clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
@@ -263,8 +263,8 @@ const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps)
 
                 {/* Articles grid — chamfered cards */}
                 {filteredPosts.length === 0 ? (
-                    <motion.div 
-                        initial={{ opacity: 0 }} 
+                    <motion.div
+                        initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         className="flex flex-col items-center justify-center py-24 text-center"
                     >
@@ -277,62 +277,63 @@ const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps)
                             {filteredPosts.map((post, index) => {
                                 const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
                                 return (
-                                <motion.div
-                                    layout
-                                    key={post.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 0.98 }}
-                                    transition={{ duration: 0.6, delay: index * 0.05 }}
-                                    className="group"
-                                >
-                                    <Link to={`/blog/${post.slug}`}>
                                     <motion.div
-                                        initial="rest" whileHover="hover"
-                                        variants={{
-                                            rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
-                                            hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19,1,0.22,1] } }
-                                        }}
-                                        className="bg-white h-full flex flex-col cursor-pointer shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                                        layout
+                                        key={post.id}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.98 }}
+                                        transition={{ duration: 0.6, delay: index * 0.05 }}
+                                        className="group"
                                     >
-                                        {/* Image */}
-                                        <div className="aspect-[4/3] overflow-hidden relative">
-                                            <img
-                                                src={post.cover_image}
-                                                alt={post.title}
-                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
-                                            />
-                                            <div className="absolute top-6 left-6">
-                                                <span className="px-3 py-1.5 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
-                                                    style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
-                                                    {post.category}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Content */}
-                                        <div className="flex flex-col flex-grow p-6 md:p-8">
-                                            <h3 className="text-[1.15rem] md:text-[1.25rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-snug group-hover:text-[#476D07] transition-colors duration-400">
-                                                {post.title}
-                                            </h3>
-                                            <p className="text-black/40 text-[13px] poppins-regular mb-8 line-clamp-2 leading-relaxed">
-                                                {post.excerpt}
-                                            </p>
-
-                                            <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
-                                                <div className="flex flex-col">
-                                                    <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{formattedDate}</span>
-                                                    <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.read_time}</span>
+                                        <Link to={`/blog/${post.slug}`}>
+                                            <motion.div
+                                                initial="rest" whileHover="hover"
+                                                variants={{
+                                                    rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 0%)" },
+                                                    hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px)", transition: { duration: 0.35, ease: [0.19, 1, 0.22, 1] } }
+                                                }}
+                                                className="bg-white h-full flex flex-col cursor-pointer shadow-[0_2px_16px_rgba(0,0,0,0.03)] group-hover:shadow-[0_12px_40px_rgba(0,0,0,0.07)] transition-shadow duration-500"
+                                            >
+                                                {/* Image */}
+                                                <div className="aspect-[4/3] overflow-hidden relative">
+                                                    <img
+                                                        src={post.cover_image}
+                                                        alt={post.title}
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-[0.16, 1, 0.3, 1]"
+                                                    />
+                                                    <div className="absolute top-6 left-6">
+                                                        <span className="px-3 py-1.5 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
+                                                            style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
+                                                            {post.category}
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
-                                                    <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+
+                                                {/* Content */}
+                                                <div className="flex flex-col flex-grow p-6 md:p-8">
+                                                    <h3 className="text-[1.15rem] md:text-[1.25rem] mona-sans-condensed-medium text-black mb-4 tracking-tight leading-snug group-hover:text-[#476D07] transition-colors duration-400">
+                                                        {post.title}
+                                                    </h3>
+                                                    <p className="text-black/40 text-[13px] poppins-regular mb-8 line-clamp-2 leading-relaxed">
+                                                        {post.excerpt}
+                                                    </p>
+
+                                                    <div className="mt-auto flex items-center justify-between pt-6 border-t border-black/[0.05]">
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[9px] font-mono text-black/25 uppercase tracking-[0.2em]">{formattedDate}</span>
+                                                            <span className="text-[9px] text-black/20 mt-1 poppins-regular">{post.read_time}</span>
+                                                        </div>
+                                                        <div className="shrink-0 w-7 h-7 border border-black/10 flex items-center justify-center group-hover:bg-[#476D07] group-hover:border-[#476D07] transition-all duration-400">
+                                                            <svg className="w-3 h-3 text-black/30 group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </motion.div>
+                                        </Link>
                                     </motion.div>
-                                    </Link>
-                                </motion.div>
-                            )})}
+                                )
+                            })}
                         </AnimatePresence>
                     </div>
                 )}
@@ -395,7 +396,7 @@ const Newsletter = () => {
                             initial="rest" whileHover="hover"
                             variants={{
                                 rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 32px), calc(100% - 32px) 100%, 0% 100%, 0% 0%)" },
-                                hover: { clipPath: "polygon(32px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 32px)", transition: { duration: 0.5, ease: [0.19,1,0.22,1] } }
+                                hover: { clipPath: "polygon(32px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 32px)", transition: { duration: 0.5, ease: [0.19, 1, 0.22, 1] } }
                             }}
                             className="bg-[#0D0D0D] border border-white/[0.04] p-8 md:p-12 lg:p-14 h-full flex flex-col justify-between min-h-[380px] relative overflow-hidden"
                         >
@@ -438,7 +439,7 @@ const Newsletter = () => {
                                         style={{ clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%)" }}
                                     >
                                         Subscribe
-                                        <svg className="w-3.5 h-3.5 group-hover/btn:rotate-45 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                                        <svg className="w-3.5 h-3.5 group-hover/btn:rotate-45 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg>
                                     </button>
                                 </form>
 
@@ -464,7 +465,7 @@ const Newsletter = () => {
                                 initial="rest" whileHover="hover"
                                 variants={{
                                     rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 0%)" },
-                                    hover: { clipPath: "polygon(20px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 20px)", transition: { duration: 0.4, ease: [0.19,1,0.22,1] } }
+                                    hover: { clipPath: "polygon(20px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 20px)", transition: { duration: 0.4, ease: [0.19, 1, 0.22, 1] } }
                                 }}
                                 className="bg-[#0D0D0D] border border-white/[0.04] p-8 md:p-10 relative overflow-hidden group cursor-default"
                             >
@@ -534,7 +535,7 @@ const Newsletter = () => {
                                 >
                                     {/* Subtle dot pattern */}
                                     <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, black 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-                                    
+
                                     <span className="text-[9px] font-bold tracking-[0.3em] text-black/30 uppercase poppins-regular relative z-10">Issues</span>
                                     <div className="relative z-10">
                                         <motion.span
@@ -591,7 +592,7 @@ const Blog: React.FC = () => {
 
     const [posts, setPosts] = useState<Post[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
-    
+
     useEffect(() => {
         const fetchPosts = async () => {
             const { data, error } = await supabase
@@ -599,7 +600,7 @@ const Blog: React.FC = () => {
                 .select('*')
                 .eq('status', 'published')
                 .order('created_at', { ascending: false });
-            
+
             if (data) {
                 setPosts(data);
             }
@@ -613,7 +614,7 @@ const Blog: React.FC = () => {
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            
+
             <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
@@ -623,8 +624,8 @@ const Blog: React.FC = () => {
                 </motion.div>
             </div>
 
-            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]" 
-                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
+            <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]"
+                style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 {!searchQuery && <FeaturedPost post={featuredPost} />}
                 <ArticlesGrid posts={gridPosts} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <Newsletter />

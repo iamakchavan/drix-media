@@ -12,7 +12,7 @@ import { SharedHeroLayout, letterVariants, ScrambleButton } from '../components/
 
 const ServicesHero = () => (
     <SharedHeroLayout
-        bottomLabel="The Services"
+        bottomLabel="Services"
         buttonText="OUR EXPERTISE"
         buttonHref="#approach"
         titleLines={
@@ -69,7 +69,7 @@ const PhilosophyCard = () => {
             className="relative group/box w-full"
         >
             {/* The Stroke Layer: Absolute to wrap the content-driven parent */}
-            <motion.div 
+            <motion.div
                 variants={{
                     rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
                     hover: { clipPath: "polygon(24px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 24px, 0% 24px)" }
@@ -79,7 +79,7 @@ const PhilosophyCard = () => {
             />
 
             {/* The Inner Body Layer: Now RELATIVE to drive parent height based on text content */}
-            <motion.div 
+            <motion.div
                 variants={{
                     rest: { clipPath: "polygon(0% 0%, 100% 0%, 100% calc(100% - 23.4px), calc(100% - 23.4px) 100%, 0% 100%, 0% 100%, 0% 0%)" },
                     hover: { clipPath: "polygon(23.4px 0%, 100% 0%, 100% 100%, 100% 100%, 0% 100%, 0% 23.4px, 0% 23.4px)" }
@@ -143,7 +143,7 @@ const ServicesOverview = () => {
                                 One team builds the website, another creates content, a third runs ads. Everyone is busy, but without alignment, growth slows down.
                             </p>
                         </div>
-                        
+
                         <div className="w-20 h-[1px] bg-black/10" />
                     </motion.div>
 
@@ -238,7 +238,7 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
     const numberStroke = service.accent ? '2px rgba(0,0,0,0.12)' : service.dark ? '2px rgba(255,255,255,0.06)' : '2px rgba(0,0,0,0.05)';
     const dotColor = service.accent ? 'bg-black/30' : service.dark ? 'bg-[#AFFF00]' : 'bg-[#476D07]';
     const labelColor = service.accent ? 'text-black/40' : service.dark ? 'text-[#AFFF00]' : 'text-[#476D07]';
-    
+
     // Shadow for depth effect as cards stack
     const shadowStyle = service.dark || service.accent
         ? 'shadow-[0_-8px_40px_rgba(0,0,0,0.3)]'
@@ -262,13 +262,13 @@ const AnimatedServiceCard = ({ service, i, total, progress }: any) => {
                 className="relative w-full max-w-[1240px] transform-gpu"
             >
                 {/* 1. The High-Fidelity Stroke Layer */}
-                <div 
+                <div
                     className={`absolute inset-0 ${strokeColor} z-0 ${shadowStyle}`}
                     style={{ clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%)" }}
                 />
 
                 {/* 2. The Content Layer: Offset by 1px to reveal the stroke */}
-                <div 
+                <div
                     className={`relative z-10 ${bgColor} m-[1px] overflow-hidden`}
                     style={{ clipPath: "polygon(0 0, calc(100% - 39px) 0, 100% 39px, 100% 100%, 0 100%)" }}
                 >
@@ -566,7 +566,7 @@ const CTASection = () => (
                                 }}
                                 className="group relative flex items-center justify-center bg-black h-[60px] px-8 md:px-10 transition-colors duration-500 overflow-hidden"
                             >
-                                <motion.div 
+                                <motion.div
                                     variants={{ initial: { y: "100%" }, hover: { y: "0%" } }}
                                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                                     className="absolute inset-0 bg-white w-full h-full"
