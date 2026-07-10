@@ -435,7 +435,7 @@ const Projects: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
 
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[85svh] md:h-[90vh] lg:h-[95vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"

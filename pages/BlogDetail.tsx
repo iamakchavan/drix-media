@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { supabase } from '../lib/supabase';
@@ -16,6 +17,9 @@ interface Post {
   read_time: string;
   cover_image: string;
   created_at: string;
+  seo_title?: string;
+  seo_description?: string;
+  seo_keywords?: string;
 }
 
 const BlogDetail: React.FC = () => {
@@ -29,23 +33,31 @@ const BlogDetail: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('posts')
-        .select('*')
+        .select('*, categories(name)')
         .eq('slug', slug)
         .single();
       
       if (data) {
-        setPost(data);
+        setPost({
+          ...data,
+          category: data.categories?.name || 'Uncategorized'
+        });
         
         // Fetch 3 other posts
         const { data: otherData } = await supabase
           .from('posts')
-          .select('*')
+          .select('*, categories(name)')
           .eq('status', 'published')
           .neq('id', data.id)
           .order('created_at', { ascending: false })
           .limit(3);
           
-        if (otherData) setOthers(otherData);
+        if (otherData) {
+          setOthers(otherData.map((p: any) => ({
+            ...p,
+            category: p.categories?.name || 'Uncategorized'
+          })));
+        }
       }
       setLoading(false);
     };
@@ -140,6 +152,22 @@ const BlogDetail: React.FC = () => {
 
   return (
     <main className="w-full min-h-screen bg-white poppins-regular selection:bg-[#AFFF00] selection:text-black">
+      <Helmet>
+        <title>{post.seo_title || post.title} | Drix Media</title>
+        <meta name="description" content={post.seo_description || post.excerpt} />
+        {post.seo_keywords && <meta name="keywords" content={post.seo_keywords} />}
+        
+        <meta property="og:title" content={post.seo_title || post.title} />
+        <meta property="og:description" content={post.seo_description || post.excerpt} />
+        <meta property="og:image" content={post.cover_image} />
+        <meta property="og:type" content="article" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={post.seo_title || post.title} />
+        <meta name="twitter:description" content={post.seo_description || post.excerpt} />
+        <meta name="twitter:image" content={post.cover_image} />
+      </Helmet>
+
       <Navbar />
 
       {/* Full-bleed hero */}

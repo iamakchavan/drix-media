@@ -93,9 +93,11 @@ const PhilosophyCard = () => {
                     When strategy and execution align.
                 </p>
 
-                <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-black/[0.06] pt-6 gap-6 sm:gap-0 w-full">
                     <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Engine</cite>
-                    <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
+                    <div className="w-full sm:w-auto flex justify-start">
+                        <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
+                    </div>
                 </div>
             </motion.div>
         </motion.div>
@@ -612,7 +614,7 @@ const Services: React.FC = () => {
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
 
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[85svh] md:h-[90vh] lg:h-[95vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"

@@ -124,7 +124,7 @@ export const SharedHeroLayout = ({
     const yOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[180px] md:pt-[22vh] pb-[60px] md:pb-[140px] z-0 overflow-hidden">
+        <div ref={containerRef} className="relative w-full h-full bg-[#050505] flex flex-col pt-[160px] md:pt-[22vh] pb-[120px] md:pb-[180px] z-0 overflow-hidden">
             <PremiumAurora />
             {children}
 

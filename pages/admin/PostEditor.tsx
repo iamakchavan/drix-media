@@ -19,12 +19,15 @@ import ImageTool from '@editorjs/image';
 import Embed from '@editorjs/embed';
 import { supabase } from '../../lib/supabase';
 
-const categories = ['Strategy', 'Branding', 'Digital', 'Culture', 'Production'];
+interface Category {
+  id: string;
+  name: string;
+}
 
 interface PostMeta {
   title: string;
   excerpt: string;
-  category: string;
+  categoryId: string;
   author: string;
   readTime: string;
   coverImage: string;
@@ -38,7 +41,7 @@ interface PostMeta {
 const defaultMeta: PostMeta = {
   title: '',
   excerpt: '',
-  category: categories[0],
+  categoryId: '',
   author: '',
   readTime: '',
   coverImage: '',
@@ -73,6 +76,10 @@ const PostEditor: React.FC = () => {
   const [wordCount, setWordCount] = useState(0);
   const [loading, setLoading] = useState(isEdit);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [categoriesList, setCategoriesList] = useState<Category[]>([]);
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [isEditingCategories, setIsEditingCategories] = useState(false);
 
   // Auth guard
   useEffect(() => {
@@ -85,6 +92,17 @@ const PostEditor: React.FC = () => {
   }, [navigate]);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      const { data } = await supabase.from('categories').select('*').order('name');
+      if (data) {
+        setCategoriesList(data);
+        if (!isEdit && data.length > 0) {
+          setMeta(m => m.categoryId ? m : { ...m, categoryId: data[0].id });
+        }
+      }
+    };
+    fetchCategories();
+
     const fetchPost = async () => {
       if (!isEdit) {
         setTimeout(() => initEditor(), 100);
@@ -101,7 +119,7 @@ const PostEditor: React.FC = () => {
         setMeta({
           title: data.title || '',
           excerpt: data.excerpt || '',
-          category: data.category || categories[0],
+          categoryId: data.category_id || '',
           author: data.author || '',
           readTime: data.read_time || '',
           coverImage: data.cover_image || '',
@@ -220,7 +238,7 @@ const PostEditor: React.FC = () => {
       title: meta.title,
       slug: slugToUse,
       excerpt: meta.excerpt,
-      category: meta.category,
+      category_id: meta.categoryId,
       author: meta.author,
       read_time: meta.readTime,
       cover_image: meta.coverImage,
@@ -395,12 +413,57 @@ const PostEditor: React.FC = () => {
                 </Field>
 
                 {/* Category */}
-                <Field label="Category">
-                  <select value={meta.category} onChange={e => set('category', e.target.value)}
-                    className={selectCls} style={clipSm}>
-                    {categories.map(c => <option key={c} value={c} className="bg-[#111] text-white">{c}</option>)}
-                  </select>
-                </Field>
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">Category</label>
+                    <button onClick={() => setIsEditingCategories(true)} className="text-[10px] text-white/30 hover:text-white transition-colors flex items-center gap-1">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                      Edit
+                    </button>
+                  </div>
+                  {!isAddingCategory ? (
+                    <select value={meta.categoryId} onChange={e => {
+                      if (e.target.value === 'ADD_NEW') {
+                        setIsAddingCategory(true);
+                      } else {
+                        set('categoryId', e.target.value);
+                      }
+                    }}
+                      className={selectCls} style={clipSm}>
+                      {categoriesList.map(c => <option key={c.id} value={c.id} className="bg-[#111] text-white">{c.name}</option>)}
+                      <option value="ADD_NEW" className="bg-[#111] text-[#AFFF00]">+ Add New Category</option>
+                    </select>
+                  ) : (
+                    <div className="flex gap-2">
+                      <input 
+                        value={newCategoryName} 
+                        onChange={e => setNewCategoryName(e.target.value)}
+                        placeholder="New category..."
+                        className={inputCls}
+                        style={clipSm}
+                        autoFocus
+                        onKeyDown={async (e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (newCategoryName.trim()) {
+                              const { data } = await supabase.from('categories').insert({ name: newCategoryName.trim() }).select().single();
+                              if (data) {
+                                setCategoriesList(prev => [...prev, data]);
+                                set('categoryId', data.id);
+                              }
+                            }
+                            setIsAddingCategory(false);
+                            setNewCategoryName('');
+                          } else if (e.key === 'Escape') {
+                            setIsAddingCategory(false);
+                            setNewCategoryName('');
+                          }
+                        }}
+                      />
+                      <button onClick={() => { setIsAddingCategory(false); setNewCategoryName(''); }} className="px-3 text-white/40 hover:text-white">✕</button>
+                    </div>
+                  )}
+                </div>
 
                 {/* Author */}
                 <Field label="Author">
@@ -494,6 +557,64 @@ const PostEditor: React.FC = () => {
           </div>
         </aside>
       </div>
+
+      {/* Edit Categories Modal */}
+      <AnimatePresence>
+        {isEditingCategories && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[110] flex items-center justify-center px-6">
+            <motion.div initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95 }}
+              className="bg-[#0D0D0D] border border-white/[0.08] p-6 max-w-sm w-full flex flex-col gap-4 max-h-[80vh]"
+              style={{ clipPath: 'polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)' }}>
+              <div className="flex items-center justify-between border-b border-white/[0.05] pb-4">
+                <h3 className="text-white mona-sans-condensed-medium text-[1.2rem]">Edit Categories</h3>
+                <button onClick={() => setIsEditingCategories(false)} className="text-white/40 hover:text-white">✕</button>
+              </div>
+              <div className="flex flex-col gap-2 overflow-y-auto pr-2 admin-scroll py-2">
+                {categoriesList.map(c => {
+                  const isExisting = ['Strategy', 'Branding', 'Digital', 'Culture', 'Production'].includes(c.name);
+                  return (
+                    <div key={c.id} className="flex gap-2">
+                      <input 
+                        defaultValue={c.name}
+                        className="flex-1 bg-white/[0.03] border border-white/[0.07] px-3 py-2 text-white text-[13px] focus:outline-none focus:border-[#AFFF00]/30 transition-colors"
+                        onBlur={async (e) => {
+                          const newName = e.target.value.trim();
+                          if (newName && newName !== c.name) {
+                            await supabase.from('categories').update({ name: newName }).eq('id', c.id);
+                            setCategoriesList(prev => prev.map(cat => cat.id === c.id ? { ...cat, name: newName } : cat));
+                          }
+                        }}
+                      />
+                      {!isExisting && (
+                        <button 
+                          onClick={async () => {
+                            if (meta.categoryId === c.id) {
+                              alert("Cannot delete the category that is currently selected for this post.");
+                              return;
+                            }
+                            const { error } = await supabase.from('categories').delete().eq('id', c.id);
+                            if (error) {
+                              alert("Cannot delete this category. It might be in use by existing posts.");
+                            } else {
+                              setCategoriesList(prev => prev.filter(cat => cat.id !== c.id));
+                            }
+                          }}
+                          className="shrink-0 w-9 border border-red-500/20 text-red-500/50 hover:bg-red-500/10 hover:text-red-500 transition-colors flex items-center justify-center"
+                          title="Delete category"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+                {categoriesList.length === 0 && <p className="text-white/30 text-[12px]">No categories found.</p>}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Delete confirm modal */}
       <AnimatePresence>

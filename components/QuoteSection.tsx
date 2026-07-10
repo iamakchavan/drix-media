@@ -31,7 +31,6 @@ const QuoteSection: React.FC = () => {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
   const [progress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   const go = useCallback((idx: number, dir: number) => {
     setDirection(dir);
@@ -44,7 +43,6 @@ const QuoteSection: React.FC = () => {
 
   // Auto-advance + progress bar
   useEffect(() => {
-    if (paused) return;
     const interval = 50;
     const step = (interval / DURATION) * 100;
     const timer = setInterval(() => {
@@ -54,7 +52,7 @@ const QuoteSection: React.FC = () => {
       });
     }, interval);
     return () => clearInterval(timer);
-  }, [paused, next]);
+  }, [next]);
 
   const t = testimonials[current];
 
@@ -79,8 +77,6 @@ const QuoteSection: React.FC = () => {
   return (
     <section
       className="w-full min-h-screen bg-white overflow-hidden selection:bg-black selection:text-[#AFFF00] flex flex-col justify-center py-20 md:py-32"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
     >
       {/* Mobile: side-by-side compact row. Desktop: full split */}
       <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row md:min-h-[680px]">

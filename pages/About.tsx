@@ -128,9 +128,11 @@ const OurStory = () => {
                                 className="relative z-10 bg-[#FAFAFA] m-[1px] p-8 md:p-10 flex flex-col gap-6"
                             >
                                 <p className="text-[1.1rem] md:text-[1.25rem] text-black leading-[1.5] tracking-tight mona-sans-condensed-medium">We don't just solve problems.<br />We align creativity with business growth.</p>
-                                <div className="flex items-center justify-between border-t border-black/[0.06] pt-6">
+                                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-t border-black/[0.06] pt-6 gap-6 sm:gap-0 w-full">
                                     <cite className="text-[9px] font-bold tracking-[0.2em] uppercase text-black/30 not-italic poppins-regular">The Drix Media Philosophy</cite>
-                                    <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
+                                    <div className="w-full sm:w-auto flex justify-start">
+                                        <ScrambleButton href="/contact" text="WORK WITH US" hoverTheme="dark" />
+                                    </div>
                                 </div>
                             </motion.div>
                         </motion.div>
@@ -252,8 +254,8 @@ const WhatMakesUsDifferent = () => {
                         >
                             <div className="absolute top-0 left-0 w-full h-[80px] flex items-center justify-between px-6 z-20 pointer-events-none">
                                 <span className={`text-[2rem] mona-sans-condensed-bold tracking-tight transition-colors duration-500 ${isActive ? 'text-black/30' : 'text-white/30'}`}>0{i+1}</span>
-                                <motion.div animate={{ opacity: isActive ? 0 : 1 }} transition={{ duration: 0.3 }} className="pl-4 flex-grow text-right truncate">
-                                    <span className="text-[1.2rem] mona-sans-condensed-medium text-white/80 uppercase">{diff.title.replace('\n', ' ')}</span>
+                                <motion.div animate={{ opacity: isActive ? 0 : 1 }} transition={{ duration: 0.3 }} className="pl-4 flex-grow text-right">
+                                    <span className="text-[1.1rem] sm:text-[1.2rem] leading-tight mona-sans-condensed-medium text-white/80 uppercase block">{diff.title.replace('\n', ' ')}</span>
                                 </motion.div>
                             </div>
                             <motion.div animate={{ opacity: isActive ? 1 : 0 }} transition={{ duration: 0.4, delay: isActive ? 0.2 : 0 }} className="absolute inset-0 pt-[80px] px-6 pb-8 flex flex-col justify-between pointer-events-none">
@@ -330,11 +332,11 @@ const CTASection = () => (
                         <h2 className="text-[3rem] md:text-[5rem] lg:text-[6rem] tracking-tight text-black leading-none mona-sans-condensed-medium font-normal">Ready to Build<br /><span className="text-black/30">Something Real?</span></h2>
                         <p className="text-black/60 text-[15px] md:text-[16px] max-w-lg leading-relaxed poppins-regular">Let's talk about your brand and where you want to take it.</p>
                     </div>
-                    <div className="flex flex-col gap-4 shrink-0">
-                        <Link to="/contact" className="group flex items-center gap-4 bg-black text-white px-8 py-5 text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:gap-6"
+                    <div className="flex flex-col gap-4 shrink-0 w-full md:w-auto mt-4 md:mt-0">
+                        <Link to="/contact" className="group flex items-center justify-center gap-4 bg-black text-white px-8 py-5 text-[11px] sm:text-[13px] tracking-[0.18em] uppercase poppins-regular font-bold transition-all duration-400 hover:gap-6 w-full md:w-auto whitespace-nowrap"
                             style={{ clipPath: "polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%)" }}>
-                            Start a Conversation
-                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            <span>Start a Conversation</span>
+                            <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                         </Link>
                         <a href="mailto:connect@drixmedia.in" className="text-black/50 hover:text-black transition-colors text-[12px] tracking-[0.12em] poppins-regular text-center">connect@drixmedia.in</a>
                     </div>
@@ -352,7 +354,7 @@ const About: React.FC = () => {
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
             <Navbar />
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[85svh] md:h-[90vh] lg:h-[95vh] w-full overflow-hidden z-0">
                 <motion.div style={{ opacity: heroOpacity, y: heroY }} className="w-full h-full">
                     <AboutHero />
                 </motion.div>

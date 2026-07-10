@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Navbar from '../components/Navbar';
 import NoiseOverlay from '../components/NoiseOverlay';
 import Footer from '../components/Footer';
 import { supabase } from '../lib/supabase';
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 
-const categories = ['All', 'Branding', 'Digital', 'Strategy', 'Culture', 'Production'];
+
 
 // ─── Interfaces ───────────────────────────────────────────────────────────────
 
@@ -83,9 +84,9 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
                 {/* Header */}
                 <div className="w-full flex items-end justify-between border-b border-black/[0.07] pb-8 md:pb-10 mb-12 md:mb-20">
                     <div className="flex flex-col gap-2">
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Featured</span>
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#476D07] uppercase poppins-regular">Latest Blog</span>
                         <h2 className="text-[2rem] md:text-[3.5rem] lg:text-[4rem] tracking-tight text-[#050505] leading-none mona-sans-condensed-medium font-normal">
-                            Lead Story
+                            Recent Post
                         </h2>
                     </div>
                     <span className="hidden md:block text-[9px] text-black/25 font-mono tracking-[0.2em] uppercase">Latest</span>
@@ -117,7 +118,7 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
                                 <div className="absolute top-8 left-8">
                                     <div className="px-4 py-2 bg-white/90 backdrop-blur text-black text-[9px] font-black uppercase tracking-[0.3em] border border-black/5"
                                         style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
-                                        Feature
+                                        New
                                     </div>
                                 </div>
                             </motion.div>
@@ -168,11 +169,12 @@ const FeaturedPost = ({ post }: { post: Post | undefined }) => {
 
 interface ArticlesGridProps {
     posts: Post[];
+    categories: string[];
     searchQuery: string;
     setSearchQuery: (query: string) => void;
 }
 
-const ArticlesGrid = ({ posts, searchQuery, setSearchQuery }: ArticlesGridProps) => {
+const ArticlesGrid = ({ posts, categories, searchQuery, setSearchQuery }: ArticlesGridProps) => {
     const [activeCategory, setActiveCategory] = useState('All');
 
     const filteredPosts = posts.filter(post => {
@@ -591,31 +593,46 @@ const Blog: React.FC = () => {
     const heroY = useTransform(scrollY, [0, 800], [0, -150]);
 
     const [posts, setPosts] = useState<Post[]>([]);
+    const [categories, setCategories] = useState<string[]>(['All']);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            const { data, error } = await supabase
-                .from('posts')
-                .select('*')
-                .eq('status', 'published')
-                .order('created_at', { ascending: false });
+        const fetchData = async () => {
+            const [postsRes, catRes] = await Promise.all([
+                supabase
+                    .from('posts')
+                    .select('*, categories(name)')
+                    .eq('status', 'published')
+                    .order('created_at', { ascending: false }),
+                supabase.from('categories').select('name').order('name')
+            ]);
 
-            if (data) {
-                setPosts(data);
+            if (postsRes.data) {
+                const mappedPosts = postsRes.data.map((p: any) => ({
+                    ...p,
+                    category: p.categories?.name || 'Uncategorized'
+                }));
+                setPosts(mappedPosts);
+            }
+            if (catRes.data) {
+                setCategories(['All', ...catRes.data.map(c => c.name)]);
             }
         };
-        fetchPosts();
+        fetchData();
     }, []);
 
     const featuredPost = posts.length > 0 ? posts[0] : undefined;
-    const gridPosts = searchQuery ? posts : (posts.length > 1 ? posts.slice(1) : []);
+    const gridPosts = posts;
 
     return (
         <main className="w-full min-h-screen bg-[#050505] overflow-x-hidden">
+            <Helmet>
+                <title>Journal | Drix Media</title>
+                <meta name="description" content="Exploring the intersection of branding, technology, and culture. Real talk on branding, marketing, and what actually works." />
+            </Helmet>
             <Navbar />
 
-            <div className="sticky top-0 h-[75vh] md:h-[80vh] lg:h-[85vh] w-full overflow-hidden z-0">
+            <div className="sticky top-0 h-[85svh] md:h-[90vh] lg:h-[95vh] w-full overflow-hidden z-0">
                 <motion.div
                     style={{ opacity: heroOpacity, y: heroY }}
                     className="w-full h-full"
@@ -627,7 +644,7 @@ const Blog: React.FC = () => {
             <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]"
                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 {!searchQuery && <FeaturedPost post={featuredPost} />}
-                <ArticlesGrid posts={gridPosts} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <ArticlesGrid posts={gridPosts} categories={categories} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 <Newsletter />
                 <Footer />
             </div>
