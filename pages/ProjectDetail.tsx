@@ -28,7 +28,7 @@ const SectionHeader = ({ label, light = false }: { label: string; light?: boolea
 );
 
 // ─── More Work Sub-component ────────────────────────────────────────────────
-const MoreWorkCard = ({ project, index }: { project: Project; index: number }) => {
+const MoreWorkCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
