@@ -172,9 +172,10 @@ interface ArticlesGridProps {
     categories: string[];
     searchQuery: string;
     setSearchQuery: (query: string) => void;
+    isLoading?: boolean;
 }
 
-const ArticlesGrid = ({ posts, categories, searchQuery, setSearchQuery }: ArticlesGridProps) => {
+const ArticlesGrid = ({ posts, categories, searchQuery, setSearchQuery, isLoading }: ArticlesGridProps) => {
     const [activeCategory, setActiveCategory] = useState('All');
 
     const filteredPosts = posts.filter(post => {
@@ -264,7 +265,15 @@ const ArticlesGrid = ({ posts, categories, searchQuery, setSearchQuery }: Articl
                 </div>
 
                 {/* Articles grid — chamfered cards */}
-                {filteredPosts.length === 0 ? (
+                {isLoading ? (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex flex-col items-center justify-center py-32"
+                    >
+                        <div className="w-10 h-10 rounded-full border-[3px] border-black/10 border-t-[#AFFF00] animate-spin"></div>
+                    </motion.div>
+                ) : filteredPosts.length === 0 ? (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -595,9 +604,11 @@ const Blog: React.FC = () => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [categories, setCategories] = useState<string[]>(['All']);
     const [searchQuery, setSearchQuery] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
             const [postsRes, catRes] = await Promise.all([
                 supabase
                     .from('posts')
@@ -617,6 +628,7 @@ const Blog: React.FC = () => {
             if (catRes.data) {
                 setCategories(['All', ...catRes.data.map(c => c.name)]);
             }
+            setIsLoading(false);
         };
         fetchData();
     }, []);
@@ -644,7 +656,7 @@ const Blog: React.FC = () => {
             <div className="relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,-0,-0,0.1)] mt-[-60px] md:mt-[-100px]"
                 style={{ clipPath: "polygon(0 0, calc(100% - 60px) 0, 100% 60px, 100% 100%, 0 100%)" }}>
                 {!searchQuery && <FeaturedPost post={featuredPost} />}
-                <ArticlesGrid posts={gridPosts} categories={categories} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <ArticlesGrid posts={gridPosts} categories={categories} searchQuery={searchQuery} setSearchQuery={setSearchQuery} isLoading={isLoading} />
                 <Newsletter />
                 <Footer />
             </div>
