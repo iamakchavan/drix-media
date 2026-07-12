@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import { SharedHeroLayout, letterVariants } from '../components/SharedHero';
 
 import { supabase } from '../lib/supabase';
+import emailjs from '@emailjs/browser';
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -114,6 +115,22 @@ const ContactFormSection = () => {
                 }]);
 
             if (error) throw error;
+
+            const templateParams = {
+                name: form.name,
+                email: form.email,
+                company: form.company,
+                service: form.service.join(', '),
+                message: form.message,
+            };
+
+            await emailjs.send(
+                'service_waximdg',
+                'template_z47nnqo',
+                templateParams,
+                'Zr9FjiJF5WKZEWhRX'
+            );
+
             setSubmitted(true);
         } catch (error) {
             console.error('Error submitting form:', error);
