@@ -279,96 +279,24 @@ const ProjectDetail: React.FC = () => {
                     </div>
                 </section>
 
-                {/* ── Extended Gallery (Dynamic Alternating Layout) ── */}
-                {allImages.length > 0 && (() => {
-                    const blocks = [];
-                    let imgIdx = 0;
-                    let isLarge = true;
-                    
-                    while (imgIdx < allImages.length) {
-                        if (isLarge) {
-                            blocks.push({
-                                type: 'large',
-                                images: [allImages[imgIdx]]
-                            });
-                            imgIdx += 1;
-                            isLarge = false;
-                        } else {
-                            const imgs = [];
-                            if (imgIdx < allImages.length) imgs.push(allImages[imgIdx]);
-                            if (imgIdx + 1 < allImages.length) imgs.push(allImages[imgIdx + 1]);
-                            blocks.push({
-                                type: 'split',
-                                images: imgs
-                            });
-                            imgIdx += imgs.length;
-                            isLarge = true;
-                        }
-                    }
-
-                    return (
-                        <section className="w-full bg-[#050505] flex flex-col gap-0">
-                            {blocks.map((block, index) => {
-                                if (block.type === 'large') {
-                                    const img = block.images[0];
-                                    return (
-                                        <div key={index} className="w-full h-screen bg-black overflow-hidden relative group">
-                                            <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
-                                            <motion.img 
-                                                whileHover={{ scale: 1.03 }}
-                                                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                                                src={img} 
-                                                alt={`${project.title} Large visual`} 
-                                                className="w-full h-full object-cover"
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                    );
-                                } else {
-                                    // Split Layout
-                                    if (block.images.length === 2) {
-                                        return (
-                                            <div key={index} className="w-full h-screen grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden bg-black">
-                                                {block.images.map((img, subIdx) => (
-                                                    <div 
-                                                        key={subIdx} 
-                                                        className="w-full h-[50vh] md:h-full bg-black overflow-hidden relative group border-t md:border-t-0 md:first:border-r border-white/5"
-                                                    >
-                                                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
-                                                        <motion.img 
-                                                            whileHover={{ scale: 1.04 }}
-                                                            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                                                            src={img} 
-                                                            alt={`${project.title} Detail ${subIdx + 1}`} 
-                                                            className="w-full h-full object-cover"
-                                                            loading="lazy"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        );
-                                    } else {
-                                        // Fallback if odd count and only 1 image left in a split block
-                                        const img = block.images[0];
-                                        return (
-                                            <div key={index} className="w-full h-screen bg-black overflow-hidden relative group">
-                                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
-                                                <motion.img 
-                                                    whileHover={{ scale: 1.03 }}
-                                                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                                                    src={img} 
-                                                    alt={`${project.title} Large visual`} 
-                                                    className="w-full h-full object-cover"
-                                                    loading="lazy"
-                                                />
-                                            </div>
-                                        );
-                                    }
-                                }
-                            })}
-                        </section>
-                    );
-                })()}
+                {/* ── Extended Gallery (Vertical 16:9 Stack) ── */}
+                {allImages.length > 0 && (
+                    <section className="w-full bg-[#050505] flex flex-col gap-0 md:gap-4 md:py-4 max-w-[1920px] mx-auto">
+                        {allImages.map((img, index) => (
+                            <div key={index} className="w-full aspect-video bg-black overflow-hidden relative group">
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
+                                <motion.img 
+                                    whileHover={{ scale: 1.03 }}
+                                    transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                                    src={img} 
+                                    alt={`${project.title} visual ${index + 1}`} 
+                                    className="w-full h-full object-cover"
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))}
+                    </section>
+                )}
 
                 {/* ── More Projects Grid ── */}
                 {otherProjects.length > 0 && (

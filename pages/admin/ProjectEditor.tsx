@@ -181,14 +181,7 @@ const ProjectEditor: React.FC = () => {
     }
   };
 
-  const getBentoSpan = (i: number) => {
-    const mod = i % 5;
-    if (mod === 0) return "col-span-2 row-span-2";
-    if (mod === 1) return "col-span-2 row-span-1";
-    if (mod === 2 || mod === 3) return "col-span-1 row-span-1";
-    if (mod === 4) return "col-span-2 row-span-1";
-    return "col-span-1 row-span-1";
-  };
+
 
   if (loading) return (
     <AdminLayout active="projects">
@@ -334,13 +327,13 @@ const ProjectEditor: React.FC = () => {
                 {/* Live Preview Viewport */}
                 <div className="sticky top-2">
                   <span className="text-[10px] text-white/20 uppercase tracking-widest font-bold mb-4 block">Visual Preview ({galleryLayout})</span>
-                  <div className="p-8 bg-black/40 border border-white/5" style={clipSm}>
+                  <div className="p-8 bg-black/40 border border-white/5 max-h-[800px] overflow-y-auto no-scrollbar" style={clipSm}>
                     {galleryLayout === 'bento' ? (
-                      <div className="grid grid-cols-4 gap-1.5 auto-rows-[70px] grid-flow-dense">
+                      <div className="flex flex-col gap-4">
                         {gallery.map((url, i) => (
-                          <div key={i} className={`relative overflow-hidden bg-white/5 ${getBentoSpan(i)}`}>
-                            <img src={url} alt="" className="w-full h-full object-cover opacity-50" />
-                            <div className="absolute inset-0 flex items-center justify-center text-[10px] text-white/20 font-bold">{i + 1}</div>
+                          <div key={i} className="relative overflow-hidden bg-white/5 w-full aspect-video">
+                            <img src={url} alt="" className="w-full h-full object-cover opacity-60" />
+                            <div className="absolute inset-0 flex items-center justify-center text-[18px] text-white/30 font-bold drop-shadow-md">#{i + 1}</div>
                           </div>
                         ))}
                       </div>
