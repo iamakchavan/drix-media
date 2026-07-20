@@ -281,7 +281,7 @@ const ProjectDetail: React.FC = () => {
 
                 {/* ── Extended Gallery (Vertical 16:9 Stack) ── */}
                 {allImages.length > 0 && (
-                    <section className="w-full bg-[#050505] flex flex-col gap-0 md:gap-4 md:py-4 max-w-[1920px] mx-auto">
+                    <section className="w-full bg-[#050505] flex flex-col gap-0 md:gap-4 md:py-4">
                         {allImages.map((img, index) => (
                             <div key={index} className="w-full aspect-video bg-black overflow-hidden relative group">
                                 <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 pointer-events-none z-10" />
